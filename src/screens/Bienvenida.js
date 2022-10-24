@@ -16,7 +16,7 @@ const Bienvenida = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../../resources/logoVertical.png')}
+                source={require('../../resources/logoVertical.png')}
                 style={{
                     width: '85%',
                     height: (height / 3) * 1.4,
@@ -26,7 +26,7 @@ const Bienvenida = ({ navigation }) => {
                 <Text style={styles.title}>Bienvenido a</Text>
                 <Text style={styles.title}>Offside!</Text>
                 <Text style={styles.body}>
-                    Organiza, Colecciona, Compite en una liga llena de amigos con tu equipo
+                    Organiza, Colecciona y Compite en una liga llena de amigos con tu equipo
                     de ensueño favorito
                 </Text>
                 <View style={styles.buttonContainer}>
