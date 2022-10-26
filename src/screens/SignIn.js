@@ -15,6 +15,7 @@ const SignIn = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConf, setPasswordConf] = useState('');
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -32,7 +33,7 @@ const SignIn = ({ navigation }) => {
                         placeholder='Correo Electrónico'
                         autoCorrect={false}
                         onChangeText={email => setEmail(email)}
-                        value = {username}
+                        value = {email}
                     />
                     <TextInput
                         style={styles.input}
@@ -47,10 +48,12 @@ const SignIn = ({ navigation }) => {
                         placeholder='Verificar Contraseña'
                         autoCorrect={false}
                         secureTextEntry={true}
+                        onChangeText={passwordConf => setPasswordConf(passwordConf)}
+                        value = {passwordConf}
                     />
                     {/* Botón Registrarte */}
                     <TouchableOpacity
-                        onPress={() => sendUserData(username,email,password)}
+                        onPress={() => sendUserData(username,email,password,passwordConf,navigation)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
                     </TouchableOpacity>
@@ -111,17 +114,19 @@ const SignIn = ({ navigation }) => {
     );
 };
 
-function sendUserData(username, email, password){
-    
-    const user={
-        "name": username,
-        "role": "user",
-        "email": email,
-        "password": password
-    };
-    createUser(user);
-
-    navigation.navigate('Bienvenida')
+function sendUserData(username, email, password, passwordConf, navigation){
+    if (((username!="")&&(email!="")&&(password!="")) && (password===passwordConf)){
+        const user={
+            "name": username,
+            "role": "user",
+            "email": email,
+            "password": password
+        };
+        createUser(user);
+        navigation.navigate('Bienvenida')
+    } else {
+        console.log("Error - contrasena no es igual")
+    }
 }
 
 export default SignIn;
