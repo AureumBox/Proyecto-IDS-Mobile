@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Navigation from './src/Navigation';
-import axios from 'axios';
 import { getAll } from './src/services/axiosBD';
 
 const App = () => {
