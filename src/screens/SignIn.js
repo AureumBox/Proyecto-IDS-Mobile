@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     TouchableOpacity,
     ScrollView,
@@ -9,8 +9,12 @@ import {
     Image,
     View
 } from "react-native";
+import { createUser } from "../services/axiosBD";
 
 const SignIn = ({ navigation }) => {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -20,17 +24,23 @@ const SignIn = ({ navigation }) => {
                         style={styles.input}
                         placeholder='Nombre de Usuario'
                         autoCorrect={false}
+                        onChangeText={username => setUsername(username)}
+                        value = {username}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder='Correo Electrónico'
                         autoCorrect={false}
+                        onChangeText={email => setEmail(email)}
+                        value = {username}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder='Contraseña'
                         autoCorrect={false}
                         secureTextEntry={true}
+                        onChangeText={password => setPassword(password)}
+                        value = {password}
                     />
                     <TextInput
                         style={styles.input}
@@ -40,7 +50,7 @@ const SignIn = ({ navigation }) => {
                     />
                     {/* Botón Registrarte */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Bienvenida')}
+                        onPress={() => sendUserData(username,email,password)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
                     </TouchableOpacity>
@@ -100,6 +110,19 @@ const SignIn = ({ navigation }) => {
         </View>
     );
 };
+
+function sendUserData(username, email, password){
+    
+    const user={
+        "name": username,
+        "role": "user",
+        "email": email,
+        "password": password
+    };
+    createUser(user);
+
+    navigation.navigate('Bienvenida')
+}
 
 export default SignIn;
 
