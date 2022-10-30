@@ -9,13 +9,33 @@ import {
     Image,
     View
 } from "react-native";
-import { createUser } from "../services/axiosBD";
+import { signup } from "../services/axiosBD";
+
 
 const SignIn = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
+
+    function sendUserData(username, email, password, passwordConf, navigation){
+        if (((username!="")&&(email!="")&&(password!="")) && (password===passwordConf)){
+            signupUser(username, email, password);
+            navigation.navigate('Bienvenida')
+        } else {
+            console.log("Error - contrasena no es igual")
+        }
+    }
+    
+    function signupUser(username, email, password){
+        const user={
+            "name": username,
+            "email": email,
+            "password": password
+        };  
+        signup(user);
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -114,7 +134,9 @@ const SignIn = ({ navigation }) => {
     );
 };
 
-function sendUserData(username, email, password, passwordConf, navigation){
+
+
+/*function loginUser(username, email, password, passwordConf, navigation){
     if (((username!="")&&(email!="")&&(password!="")) && (password===passwordConf)){
         const user={
             "name": username,
@@ -127,7 +149,7 @@ function sendUserData(username, email, password, passwordConf, navigation){
     } else {
         console.log("Error - contrasena no es igual")
     }
-}
+}*/
 
 export default SignIn;
 

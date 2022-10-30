@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     TouchableOpacity,
     ScrollView,
@@ -9,8 +9,29 @@ import {
     Image,
     View
 } from "react-native";
+import { login } from "../services/axiosBD";
 
 const LogIn = ({ navigation }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function sendUserData(email, password, navigation){
+        if ((email!="")&&(password!="")){
+            loginUser(email, password);
+            navigation.navigate('Bienvenida') //quitar luego
+        } else {
+            console.log("Error - contrasena no es igual")
+        }
+    }
+    
+    function loginUser(email, password){
+        const user={
+            "email": email,
+            "password": password
+        };  
+        login(user);
+    }
+    
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -20,12 +41,14 @@ const LogIn = ({ navigation }) => {
                         style={styles.input}
                         placeholder='Correo Electrónico'
                         autoCorrect={false}
+                        onChangeText={email => setEmail(email)}
                     />
                     <TextInput
                         style={styles.input}
                         placeholder='Contraseña'
                         autoCorrect={false}
                         secureTextEntry={true}
+                        onChangeText={password => setPassword(password)}
                     />
                     {/* Olvido su Contraseña */}
                     <TouchableOpacity
@@ -40,7 +63,7 @@ const LogIn = ({ navigation }) => {
                     </TouchableOpacity>
                     {/* Iniciar Sesión */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Bienvenida')}
+                        onPress={() => sendUserData(email,password,navigation)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Iniciar Sesión</Text>
                     </TouchableOpacity>
@@ -100,6 +123,8 @@ const LogIn = ({ navigation }) => {
         </View>
     );
 };
+
+
 
 export default LogIn;
 
