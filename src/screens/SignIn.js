@@ -80,14 +80,14 @@ const SignIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    {/* Cambiar a pantalla de iniciar sesion */}
+                    {/* Boton Cambiar a pantalla de iniciar sesion */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate('LogIn')}
                     >
-                        <Text style={styles.forgotPW}>Ya tienes una cuenta?, Inicia Sesión!</Text>
+                        <Text style={styles.forgotPW}>¿Ya tienes una cuenta?, ¡Inicia Sesión!</Text>
                     </TouchableOpacity>
-
-                    <View style={{alignItems: 'center'}}>
+                    {/* Boton HomePage */}
+                    <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('Bienvenida')}
                             style={styles.homePageButton}>

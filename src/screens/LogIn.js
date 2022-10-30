@@ -27,9 +27,9 @@ const LogIn = ({ navigation }) => {
                         autoCorrect={false}
                         secureTextEntry={true}
                     />
-                    {/* Olvido su Contraseña */}
+                    {/* Boton Olvido su Contraseña */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Bienvenida')}
+                        onPress={() => navigation.navigate('PWRecovery')}
                     >
                         <Text
                             style={[
@@ -38,7 +38,7 @@ const LogIn = ({ navigation }) => {
                             Recuperar Contraseña
                         </Text>
                     </TouchableOpacity>
-                    {/* Iniciar Sesión */}
+                    {/* Boton Iniciar Sesión */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Bienvenida')}
                         style={styles.logInButton}>
@@ -80,14 +80,14 @@ const LogIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    {/* Registrarse */}
+                    {/* Boton Cambiar a pantalla de registro */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignIn')}
                     >
-                        <Text style={styles.forgotPW}>No tienes una cuenta?, Registrate Ahora!</Text>
+                        <Text style={styles.forgotPW}>¿No tienes una cuenta?, ¡Registrate Ahora!</Text>
                     </TouchableOpacity>
-
-                    <View style={{alignItems: 'center'}}>
+                    {/* Boton HomePage */}
+                    <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('Bienvenida')}
                             style={styles.homePageButton}>

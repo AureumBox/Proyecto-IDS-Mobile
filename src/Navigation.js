@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Bienvenida from './screens/Bienvenida';
 import LogIn from './screens/LogIn';
 import SignIn from './screens/SignIn';
+import PWRecovery from './screens/PWRecovery'
+import PWReset from './PWReset';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,16 @@ export default function Navigation() {
                 <Stack.Screen
                     name='SignIn'
                     component={SignIn}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='PWRecovery'
+                    component={PWRecovery}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='PWReset'
+                    component={PWReset}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>
