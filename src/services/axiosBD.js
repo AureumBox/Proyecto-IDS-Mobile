@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/api/users";
-const URL_LOGIN = "http://localhost:3000/api/login";
-const URL_SIGNUP = "http://localhost:3000/api/register";
+const BASE_URL = "http://localhost:3000/users";
+const URL_LOGIN = "http://localhost:3000/login";
+const URL_SIGNUP = "http://localhost:3000/register";
 
 //Deprecated
 export const getAll = async () => {
