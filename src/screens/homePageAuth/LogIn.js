@@ -10,17 +10,12 @@ import {
     View
 } from "react-native";
 
-const SignIn = ({ navigation }) => {
+export default function LogIn({ navigation }) {
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.contentContainer}>
-                    <Text style={styles.body}>Crea una Cuenta</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Nombre de Usuario'
-                        autoCorrect={false}
-                    />
+                    <Text style={styles.body}>Inicia sesión en tu Cuenta</Text>
                     <TextInput
                         style={styles.input}
                         placeholder='Correo Electrónico'
@@ -32,25 +27,30 @@ const SignIn = ({ navigation }) => {
                         autoCorrect={false}
                         secureTextEntry={true}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Verificar Contraseña'
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                    />
-                    {/* Botón Registrarte */}
+                    {/* Boton Olvido su Contraseña */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Bienvenida')}
+                        onPress={() => navigation.navigate('PWRecovery')}
+                    >
+                        <Text
+                            style={[
+                                { color: 'gray', fontWeight: 'bold', lineHeight: 30, textAlign: 'right' },
+                            ]}>
+                            Recuperar Contraseña
+                        </Text>
+                    </TouchableOpacity>
+                    {/* Boton Iniciar Sesión */}
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('HomeScreen')}
                         style={styles.logInButton}>
-                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Iniciar Sesión</Text>
                     </TouchableOpacity>
 
-                    <Text style={{ textAlign: 'center' }}>o Regístrate con:</Text>
+                    <Text style={{ textAlign: 'center' }}>o Inicia Sesión con:</Text>
 
                     {/* Botones de Aplicaciones */}
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate('HomeScreen')}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -60,7 +60,7 @@ const SignIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate('HomeScreen')}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -70,7 +70,7 @@ const SignIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate('HomeScreen')}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -80,16 +80,16 @@ const SignIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    {/* Boton Cambiar a pantalla de iniciar sesion */}
+                    {/* Boton Cambiar a pantalla de registro */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('LogIn')}
+                        onPress={() => navigation.navigate('SignIn')}
                     >
-                        <Text style={styles.forgotPW}>¿Ya tienes una cuenta?, ¡Inicia Sesión!</Text>
+                        <Text style={styles.forgotPW}>¿No tienes una cuenta?, ¡Registrate Ahora!</Text>
                     </TouchableOpacity>
                     {/* Boton HomePage */}
                     <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate('HomeScreen')}
                             style={styles.homePageButton}>
                             <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
                         </TouchableOpacity>
@@ -101,8 +101,6 @@ const SignIn = ({ navigation }) => {
     );
 };
 
-export default SignIn;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -113,7 +111,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         paddingHorizontal: 30,
-        marginTop: 5,
+        marginTop: 50,
     },
     body: {
         padding: 20,
@@ -146,11 +144,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 20,
         borderRadius: 16,
-        marginBottom: 10,
+        marginBottom: 15,
         borderWidth: 2,
         borderColor: 'white',
         borderRadius: 16,
-        marginHorizontal: 10,
+        marginHorizontal: 5,
     },
     logInButton: {
         backgroundColor: '#70ABAF',
@@ -168,12 +166,12 @@ const styles = StyleSheet.create({
         // shadowRadius: 10.32,
     },
     forgotPW: {
-        fontSize: 18,
+        fontSize: 17,
         lineHeight: 30,
         color: 'gray',
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 20,
+        marginTop: 60,
     },
     homePageButton: {
         backgroundColor: '#C10001',

@@ -9,14 +9,13 @@ import {
     Dimensions
 } from "react-native";
 
-const Bienvenida = ({ navigation }) => {
-
+export default function HomeScreen({ navigation }) {
     const { height } = Dimensions.get('window')
 
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../resources/logoVertical.png')}
+                source={require('../../../resources/logoVertical.png')}
                 style={{
                     width: '85%',
                     height: (height / 3) * 1.4,
@@ -42,14 +41,18 @@ const Bienvenida = ({ navigation }) => {
                     >
                         <Text style={styles.buttonText}>Iniciar Sesión</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('BottomNavBar')}
+                        style={styles.button1}
+                    >
+                        <Text style={styles.buttonText}>MainScreen</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <StatusBar style="auto" />
         </View>
     );
 };
-
-export default Bienvenida;
 
 const styles = StyleSheet.create({
     container: {

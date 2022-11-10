@@ -1,11 +1,17 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Bienvenida from './screens/Bienvenida';
-import LogIn from './screens/LogIn';
-import SignIn from './screens/SignIn';
-import PWRecovery from './screens/PWRecovery'
-import PWReset from './PWReset';
+
+// Screen Imports
+//HomePageAuth Screens
+import HomeScreen from './homePageAuth/HomeScreen';
+import LogIn from './homePageAuth/LogIn';
+import SignIn from './homePageAuth/SignIn';
+import PWRecovery from './homePageAuth/PWRecovery'
+import PWReset from './homePageAuth/PWReset';
+/*******************************************************/
+import BottomNavBar from './BottomNavBar';
+/*******************************************************/
 
 const Stack = createNativeStackNavigator();
 
@@ -14,8 +20,8 @@ export default function Navigation() {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
-                    name='Bienvenida'
-                    component={Bienvenida}
+                    name='HomeScreen'
+                    component={HomeScreen}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
@@ -37,6 +43,14 @@ export default function Navigation() {
                     name='PWReset'
                     component={PWReset}
                     options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='BottomNavBar'
+                    component={BottomNavBar}
+                    options={{
+                        headerShown: true,
+                        title: 'Offside'
+                    }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

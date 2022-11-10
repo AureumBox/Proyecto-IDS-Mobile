@@ -10,37 +10,32 @@ import {
     View
 } from "react-native";
 
-const PWReset = ({ navigation }) => {
+export default function PWRecovery({ navigation }) {
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.contentContainer}>
-                    <Text style={styles.body}>Reiniciar Contraseña</Text>
+                    <Text style={styles.body}>¿Olvidaste tu contraseña?</Text>
                     <Text style={styles.text}>
-                        Tip: Las contraseñas fuertes incluyen una combinación de números, letras y signos de puntuación 
+                        No te preocupes, puede suceder. Por favor ingresa tu Correo Electrónico. Estaremos enviandote un correo para reiniciar tu contraseña
                     </Text>
                     <TextInput
                         style={styles.input}
-                        placeholder='Nueva Contraseña'
+                        placeholder='Correo Electrónico'
                         autoCorrect={false}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Verificar Contraseña'
-                        autoCorrect={false}
-                    />
-                    {/* Boton Iniciar Sesión */}
+                    {/* Boton Reiniciar Contraseña */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Bienvenida')}
+                        onPress={() => navigation.navigate('PWReset')}
                         style={styles.logInButton}>
-                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Reiniciar Contraseña</Text>
+                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Enviar correo para reiniciar contraseña</Text>
                     </TouchableOpacity>
                     {/* Boton HomePage */}
                     <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('Bienvenida')}
                             style={styles.homePageButton}>
-                            <Text style={{color: 'white', fontWeight: 'bold' }}>HomePage</Text>
+                            <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -49,8 +44,6 @@ const PWReset = ({ navigation }) => {
         </View>
     );
 };
-
-export default PWReset;
 
 const styles = StyleSheet.create({
     container: {
@@ -108,13 +101,14 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderRadius: 16,
         marginHorizontal: 5,
+        marginVertical: 30,
     },
     logInButton: {
         backgroundColor: '#70ABAF',
         padding: 20,
         borderRadius: 16,
         alignItems: 'center',
-        marginVertical: 60,
+        marginVertical: 30,
         // Sombras
         // shadowColor: '#FD6D6A',
         // shadowOffset: {
@@ -124,19 +118,11 @@ const styles = StyleSheet.create({
         // shadowOpacity: .44,
         // shadowRadius: 10.32,
     },
-    forgotPW: {
-        fontSize: 17,
-        lineHeight: 30,
-        color: 'gray',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 60,
-    },
     homePageButton: {
         backgroundColor: '#C10001',
         padding: 15,
         borderRadius: 16,
         alignItems: 'center',
-        marginTop: 165,
+        marginTop: 235,
     },
 })
