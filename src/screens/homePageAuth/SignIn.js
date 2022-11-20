@@ -16,6 +16,7 @@ export default function SignIn({ navigation }) {
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.contentContainer}>
+                    <Text/>
                     <Text style={styles.body}>Crea una Cuenta</Text>
                     <TextInput
                         style={styles.input}
