@@ -9,27 +9,22 @@ import {
     Image,
     View
 } from "react-native";
+import {useForm, Controller} from "react-hook-form";
 import { login } from "../services/axiosBD";
 
 const LogIn = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const {control, handleSubmit, formState: {errors}} = useForm();
+    const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
-    function sendUserData(email, password, navigation){
-        if ((email!="")&&(password!="")){
-            loginUser(email, password);
-            navigation.navigate('Bienvenida') //quitar luego
-        } else {
-            console.log("Error - contrasena no es igual")
+    const sendLoginData = data =>{
+        navigation.navigate('Bienvenida');
+
+        console.log(data);
+        let res = login(data);
+        console.log(res.data)
+        if(res.data.token){
+            navigation.navigate('Bienvenida');
         }
-    }
-    
-    function loginUser(email, password){
-        const user={
-            "email": email,
-            "password": password
-        };  
-        login(user);
     }
     
     return (
@@ -37,19 +32,51 @@ const LogIn = ({ navigation }) => {
             <ScrollView>
                 <View style={styles.contentContainer}>
                     <Text style={styles.body}>Inicia sesión en tu Cuenta</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Correo Electrónico'
-                        autoCorrect={false}
-                        onChangeText={email => setEmail(email)}
+                    
+                    <Controller 
+                        control={control}
+                        name="email"
+                        rules={{
+                            required: "Ingrese su correo electrónico",
+                            pattern: {value: EMAIL_REGEX, message: "Ingrese un correo válido"}
+                        }}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Correo Electrónico'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                />
+                                
+                            </>
+                        )}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Contraseña'
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onChangeText={password => setPassword(password)}
+                    <Controller 
+                        control={control}
+                        name="password"
+                        rules={{required: "Ingrese su contraseña"}}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Contraseña'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                    secureTextEntry={true}
+                                />
+                            </>
+                        )}
                     />
+
                     {/* Olvido su Contraseña */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Bienvenida')}
@@ -61,9 +88,10 @@ const LogIn = ({ navigation }) => {
                             Recuperar Contraseña
                         </Text>
                     </TouchableOpacity>
+
                     {/* Iniciar Sesión */}
                     <TouchableOpacity
-                        onPress={() => sendUserData(email,password,navigation)}
+                        onPress={handleSubmit(sendLoginData)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Iniciar Sesión</Text>
                     </TouchableOpacity>
@@ -174,6 +202,16 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderWidth: 2,
         borderColor: 'white',
+        borderRadius: 16,
+        marginHorizontal: 5,
+    },
+    inputError: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 16,
+        marginBottom: 15,
+        borderWidth: 2,
+        borderColor: 'red',
         borderRadius: 16,
         marginHorizontal: 5,
     },

@@ -10,30 +10,26 @@ import {
     View
 } from "react-native";
 import { signup } from "../services/axiosBD";
+import {useForm, Controller} from "react-hook-form";
 
 
 const SignIn = ({ navigation }) => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordConf, setPasswordConf] = useState('');
+    const {control, handleSubmit, formState: {errors}, watch} = useForm();
+    const pwd = watch("password");
+    const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
 
-    function sendUserData(username, email, password, passwordConf, navigation){
-        if (((username!="")&&(email!="")&&(password!="")) && (password===passwordConf)){
-            signupUser(username, email, password);
-            navigation.navigate('Bienvenida')
-        } else {
-            console.log("Error - contrasena no es igual")
+    const sendLoginData = data =>{
+        navigation.navigate('Bienvenida');
+        
+        try {
+            let res = login(data);
+            console.log(res.data)
+            if(res.data.token){
+                navigation.navigate('Bienvenida');
+            } 
+        } catch (error) {  
+             
         }
-    }
-    
-    function signupUser(username, email, password){
-        const user={
-            "name": username,
-            "email": email,
-            "password": password
-        };  
-        signup(user);
     }
 
     return (
@@ -41,39 +37,96 @@ const SignIn = ({ navigation }) => {
             <ScrollView>
                 <View style={styles.contentContainer}>
                     <Text style={styles.body}>Crea una Cuenta</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Nombre de Usuario'
-                        autoCorrect={false}
-                        onChangeText={username => setUsername(username)}
-                        value = {username}
+                    <Controller 
+                        control={control}
+                        name="username"
+                        rules={{required: "Ingrese su nombre de usuario"}}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Nombre de usuario'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                />
+                                
+                            </>
+                        )}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Correo Electrónico'
-                        autoCorrect={false}
-                        onChangeText={email => setEmail(email)}
-                        value = {email}
+                    <Controller 
+                        control={control}
+                        name="email"
+                        rules={{
+                            required: "Ingrese su correo electrónico",
+                            pattern: {value: EMAIL_REGEX, message: "Ingrese un correo válido"}
+                        }}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Correo Electrónico'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                />
+                                
+                            </>
+                        )}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Contraseña'
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onChangeText={password => setPassword(password)}
-                        value = {password}
+                    <Controller 
+                        control={control}
+                        name="password"
+                        rules={{required: "Ingrese su contraseña"}}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Contraseña'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                    secureTextEntry={true}
+                                />
+                            </>
+                        )}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Verificar Contraseña'
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onChangeText={passwordConf => setPasswordConf(passwordConf)}
-                        value = {passwordConf}
+                    <Controller 
+                        control={control}
+                        name="passwordConf"
+                        rules={{
+                            required: "Verifique su contraseña",
+                            validate: value => value === pwd ? true: "Las contraseñas no coinciden"
+                        }}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Verificar Contraseña'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                    secureTextEntry={true}
+                                />
+                            </>
+                        )}
                     />
+
                     {/* Botón Registrarte */}
                     <TouchableOpacity
-                        onPress={() => sendUserData(username,email,password,passwordConf,navigation)}
+                        onPress={handleSubmit(sendLoginData)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
                     </TouchableOpacity>
@@ -135,22 +188,6 @@ const SignIn = ({ navigation }) => {
 };
 
 
-
-/*function loginUser(username, email, password, passwordConf, navigation){
-    if (((username!="")&&(email!="")&&(password!="")) && (password===passwordConf)){
-        const user={
-            "name": username,
-            "role": "user",
-            "email": email,
-            "password": password
-        };
-        createUser(user);
-        navigation.navigate('Bienvenida')
-    } else {
-        console.log("Error - contrasena no es igual")
-    }
-}*/
-
 export default SignIn;
 
 const styles = StyleSheet.create({
@@ -201,6 +238,16 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderRadius: 16,
         marginHorizontal: 10,
+    },
+    inputError: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 16,
+        marginBottom: 15,
+        borderWidth: 2,
+        borderColor: 'red',
+        borderRadius: 16,
+        marginHorizontal: 5,
     },
     logInButton: {
         backgroundColor: '#70ABAF',
