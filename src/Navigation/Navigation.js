@@ -1,52 +1,52 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
-// Screen Imports
-//HomePageAuth Screens
-import HomeScreen from './homePageAuth/HomeScreen';
-import LogIn from './homePageAuth/LogIn';
-import SignIn from './homePageAuth/SignIn';
-import PWRecovery from './homePageAuth/PWRecovery'
-import PWReset from './homePageAuth/PWReset';
-/*******************************************************/
-import BottomNavBar from './BottomNavBar';
-/*******************************************************/
+import HPANavigation from '../constants/HPANavigation';
+import {
+    HPAHomeScreen,
+    HPALogIn,
+    HPASignIn,
+    HPAPWRecovery,
+    HPAPWReset,
+    BNBMainScreen
+} from '../screens'
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName={HPANavigation.HOME}
+                screenOptions={{presentation: 'transparentModal'}}
+            >
                 <Stack.Screen
-                    name='HomeScreen'
-                    component={HomeScreen}
+                    name={HPANavigation.HOME}
+                    component={HPAHomeScreen}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name='LogIn'
-                    component={LogIn}
+                    name={HPANavigation.LOGIN}
+                    component={HPALogIn}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name='SignIn'
-                    component={SignIn}
+                    name={HPANavigation.SIGNIN}
+                    component={HPASignIn}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name='PWRecovery'
-                    component={PWRecovery}
+                    name={HPANavigation.PWRECOVERY}
+                    component={HPAPWRecovery}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name='PWReset'
-                    component={PWReset}
+                    name={HPANavigation.PWRESET}
+                    component={HPAPWReset}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name='BottomNavBar'
-                    component={BottomNavBar}
+                    name={HPANavigation.BNB}
+                    component={BNBMainScreen}
                     options={{
                         headerShown: true,
                         title: 'Offside'

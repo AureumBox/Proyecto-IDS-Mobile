@@ -9,6 +9,7 @@ import {
     Image,
     View
 } from "react-native";
+import HPANavigation from "../../constants/HPANavigation";
 
 export default function LogIn({ navigation }) {
     return (
@@ -29,7 +30,7 @@ export default function LogIn({ navigation }) {
                     />
                     {/* Boton Olvido su Contraseña */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('PWRecovery')}
+                        onPress={() => navigation.navigate(HPANavigation.PWRECOVERY)}
                     >
                         <Text
                             style={[
@@ -40,7 +41,7 @@ export default function LogIn({ navigation }) {
                     </TouchableOpacity>
                     {/* Boton Iniciar Sesión */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('HomeScreen')}
+                        onPress={() => navigation.navigate(HPANavigation.HOME)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Iniciar Sesión</Text>
                     </TouchableOpacity>
@@ -50,7 +51,7 @@ export default function LogIn({ navigation }) {
                     {/* Botones de Aplicaciones */}
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -60,7 +61,7 @@ export default function LogIn({ navigation }) {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -70,7 +71,7 @@ export default function LogIn({ navigation }) {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -82,14 +83,14 @@ export default function LogIn({ navigation }) {
                     </View>
                     {/* Boton Cambiar a pantalla de registro */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('SignIn')}
+                        onPress={() => navigation.navigate(HPANavigation.SIGNIN)}
                     >
                         <Text style={styles.forgotPW}>¿No tienes una cuenta?, ¡Registrate Ahora!</Text>
                     </TouchableOpacity>
                     {/* Boton HomePage */}
                     <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.homePageButton}>
                             <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
                         </TouchableOpacity>
@@ -156,14 +157,6 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         alignItems: 'center',
         marginVertical: 30,
-        // Sombras
-        // shadowColor: '#FD6D6A',
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 8,
-        // },
-        // shadowOpacity: .44,
-        // shadowRadius: 10.32,
     },
     forgotPW: {
         fontSize: 17,

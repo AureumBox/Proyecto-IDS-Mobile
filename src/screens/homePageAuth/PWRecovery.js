@@ -9,6 +9,7 @@ import {
     Image,
     View
 } from "react-native";
+import HPANavigation from "../../constants/HPANavigation";
 
 export default function PWRecovery({ navigation }) {
     return (
@@ -26,14 +27,14 @@ export default function PWRecovery({ navigation }) {
                     />
                     {/* Boton Reiniciar Contraseña */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('PWReset')}
+                        onPress={() => navigation.navigate(HPANavigation.PWRESET)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Enviar correo para reiniciar contraseña</Text>
                     </TouchableOpacity>
                     {/* Boton HomePage */}
                     <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.homePageButton}>
                             <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
                         </TouchableOpacity>

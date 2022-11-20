@@ -6,7 +6,6 @@ import {
     View,
     Dimensions
 } from "react-native";
-// import SuperiorBar from "../../components/SuperiorBar";
 
 export default function Album({ navigation }) {
     const [fontsLoaded, setFontsLoaded] = useState(false)

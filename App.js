@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from './src/screens/Navigation';
+import Navigation from './src/Navigation/Navigation';
 
 const App = () => {
   return <Navigation/>;

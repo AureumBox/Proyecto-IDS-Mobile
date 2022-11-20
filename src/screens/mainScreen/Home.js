@@ -3,17 +3,13 @@ import {
     StyleSheet,
     Text,
     View,
-    Dimensions
 } from "react-native";
 import Test from "../../components/Test";
-// import SuperiorBar from "../../components/SuperiorBar";
 
-export default function MissionsTab({ navigation }) {
-    const { height } = Dimensions.get('window')
-
+export default function Home({ navigation }) {
     return (
         <View style={styles.container}>
-            <Test/>
+            <Test />
         </View>
     )
 }

@@ -5,7 +5,6 @@ import {
     View,
     Dimensions
 } from "react-native";
-// import SuperiorBar from "../../components/SuperiorBar";
 
 export default function Fantasy({ navigation }) {
     const { height } = Dimensions.get('window')

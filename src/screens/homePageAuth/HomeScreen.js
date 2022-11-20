@@ -8,6 +8,7 @@ import {
     View,
     Dimensions
 } from "react-native";
+import HPANavigation from "../../constants/HPANavigation";
 
 export default function HomeScreen({ navigation }) {
     const { height } = Dimensions.get('window')
@@ -30,23 +31,25 @@ export default function HomeScreen({ navigation }) {
                 </Text>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('SignIn')}
+                        onPress={() => navigation.navigate(HPANavigation.SIGNIN)}
                         style={styles.button1}
                     >
                         <Text style={styles.buttonText}>Registrarse</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('LogIn')}
+                        onPress={() => navigation.navigate(HPANavigation.LOGIN)}
                         style={styles.button2}
                     >
                         <Text style={styles.buttonText}>Iniciar Sesión</Text>
                     </TouchableOpacity>
+                    {/* TEMPORAL */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('BottomNavBar')}
+                        onPress={() => navigation.navigate(HPANavigation.BNB)}
                         style={styles.button1}
                     >
                         <Text style={styles.buttonText}>MainScreen</Text>
                     </TouchableOpacity>
+                    {/* TEMPORAL */}
                 </View>
             </View>
             <StatusBar style="auto" />

@@ -9,6 +9,7 @@ import {
     Image,
     View
 } from "react-native";
+import HPANavigation from "../../constants/HPANavigation";
 
 export default function SignIn({ navigation }) {
     return (
@@ -40,7 +41,7 @@ export default function SignIn({ navigation }) {
                     />
                     {/* Botón Registrarte */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('HomeScreen')}
+                        onPress={() => navigation.navigate(HPANavigation.HOME)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
                     </TouchableOpacity>
@@ -50,7 +51,7 @@ export default function SignIn({ navigation }) {
                     {/* Botones de Aplicaciones */}
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -60,7 +61,7 @@ export default function SignIn({ navigation }) {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -70,7 +71,7 @@ export default function SignIn({ navigation }) {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -82,14 +83,14 @@ export default function SignIn({ navigation }) {
                     </View>
                     {/* Boton Cambiar a pantalla de iniciar sesion */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('LogIn')}
+                        onPress={() => navigation.navigate(HPANavigation.LOGIN)}
                     >
                         <Text style={styles.forgotPW}>¿Ya tienes una cuenta?, ¡Inicia Sesión!</Text>
                     </TouchableOpacity>
                     {/* Boton HomePage */}
                     <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.homePageButton}>
                             <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
                         </TouchableOpacity>

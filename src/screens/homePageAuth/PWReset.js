@@ -8,6 +8,7 @@ import {
     TextInput,
     View
 } from "react-native";
+import HPANavigation from "../../constants/HPANavigation";
 
 export default function PWReset({ navigation }) {
     return (
@@ -30,14 +31,14 @@ export default function PWReset({ navigation }) {
                     />
                     {/* Boton Iniciar Sesión */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('HomeScreen')}
+                        onPress={() => navigation.navigate(HPANavigation.PWRESET)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Reiniciar Contraseña</Text>
                     </TouchableOpacity>
                     {/* Boton HomePage */}
                     <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('HomeScreen')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.homePageButton}>
                             <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
                         </TouchableOpacity>
