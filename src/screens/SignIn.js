@@ -12,7 +12,6 @@ import {
 import { signup } from "../services/axiosBD";
 import {useForm, Controller} from "react-hook-form";
 
-
 const SignIn = ({ navigation }) => {
     const {control, handleSubmit, formState: {errors}, watch} = useForm();
     const pwd = watch("password");
