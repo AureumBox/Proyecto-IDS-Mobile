@@ -22,7 +22,7 @@ export default function Navigation() {
                 <Stack.Screen
                     name={HPANavigation.HOME}
                     component={HPAHomeScreen}
-                    options={{ headerShown: false }}
+                    options={{ headerShown:false }}
                 />
                 <Stack.Screen
                     name={HPANavigation.LOGIN}
@@ -48,8 +48,7 @@ export default function Navigation() {
                     name={HPANavigation.BNB}
                     component={BNBMainScreen}
                     options={{
-                        headerShown: true,
-                        title: 'Offside'
+                        headerShown: false,
                     }}
                 />
             </Stack.Navigator>
