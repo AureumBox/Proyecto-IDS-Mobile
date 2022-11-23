@@ -42,7 +42,7 @@ export default function HeaderComponent(){
 const styles = StyleSheet.create({
   header: {
     width: width,
-    height: height / 12,
+    height: height / 10,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',

@@ -9,6 +9,7 @@ import {
     Dimensions
 } from "react-native";
 import HPANavigation from "../../constants/HPANavigation";
+import logoVertical from '../../../assets/logoVertical.png'
 
 export default function HomeScreen({ navigation }) {
     const { height } = Dimensions.get('window')
@@ -16,7 +17,7 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../../resources/logoVertical.png')}
+                source={logoVertical}
                 style={{
                     width: '85%',
                     height: (height / 3) * 1.4,
