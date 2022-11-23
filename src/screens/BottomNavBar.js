@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
 
 // Screen Imports
 import Fantasy from './mainScreen/Fantasy'
@@ -11,6 +12,7 @@ import Shop from './mainScreen/Shop'
 import Home from './mainScreen/Home'
 import Profile from './mainScreen/Profile'
 
+const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();
 
 export default function BottomNavBar({ navigation }) {
@@ -48,7 +50,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 75 },
+                        tabBarStyle: { padding: 0, height: height/12 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -60,7 +62,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 75 },
+                        tabBarStyle: { padding: 0, height: height/12 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -72,7 +74,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 75 },
+                        tabBarStyle: { padding: 0, height: height/12 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -84,7 +86,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 75 },
+                        tabBarStyle: { padding: 0, height: height/12 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -96,7 +98,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 75 },
+                        tabBarStyle: { padding: 0, height: height/12 },
                         tabBarShowLabel: false
                     }}
                 />

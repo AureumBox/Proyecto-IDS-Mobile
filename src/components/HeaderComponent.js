@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
 import logo from '../../assets/logo.png';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 
 
-const {width}= Dimensions.get('window')
+const {width} = Dimensions.get('window')
+const {height} = Dimensions.get('window')
 
 export default function HeaderComponent(){
   return (
@@ -41,7 +42,7 @@ export default function HeaderComponent(){
 const styles = StyleSheet.create({
   header: {
     width: width,
-    height: 90,
+    height: height / 12,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
