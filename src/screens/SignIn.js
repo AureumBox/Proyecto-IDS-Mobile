@@ -12,23 +12,34 @@ import {
 import { signup } from "../services/axiosBD";
 import {useForm, Controller} from "react-hook-form";
 import Constants from 'expo-constants';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { useDispatch } from 'react-redux'
+import { logIn } from '../state/authSlice.js';
 
 const SignIn = ({ navigation }) => {
+    const [loading, setLoading] = useState(false);
     const {control, handleSubmit, formState: {errors}, watch} = useForm();
     const pwd = watch("password");
     const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const dispatch = useDispatch();
 
-    const sendLoginData = data =>{
-        navigation.navigate('Bienvenida');
-        
+    const sendRegisterData = async (data) =>{
+        setLoading(true);
         try {
-            let res = login(data);
-            console.log(res.data)
-            if(res.data.token){
+            const result = await signup(data);
+            setLoading(false);
+            if (result.data.token){
+                dispatch(logIn(result.data.token));
                 navigation.navigate('Bienvenida');
             } 
-        } catch (error) {  
-             
+        } catch (error) {
+             if (error?.response?.data) {
+                alert(error?.response?.data.message);
+             }else{
+                alert("Error del servidor al registrarse");
+            }
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -39,10 +50,14 @@ const SignIn = ({ navigation }) => {
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.contentContainer}>
+                    <Spinner
+                        visible={loading}
+                        textContent={'Cargando...'}
+                    />
                     <Text style={styles.body}>Crea una Cuenta</Text>
                     <Controller 
                         control={control}
-                        name="username"
+                        name="name"
                         rules={{required: "Ingrese su nombre de usuario"}}
                         render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
                             <>
@@ -129,7 +144,7 @@ const SignIn = ({ navigation }) => {
 
                     {/* Botón Registrarte */}
                     <TouchableOpacity
-                        onPress={handleSubmit(sendLoginData)}
+                        onPress={handleSubmit(sendRegisterData)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
                     </TouchableOpacity>

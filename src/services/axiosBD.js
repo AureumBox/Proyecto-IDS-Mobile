@@ -2,24 +2,30 @@ import axios from "axios";
 import Constants from 'expo-constants';
 
 const BASE_URL = Constants.expoConfig.extra.apiUrl;
-const URL_LOGIN = `${BASE_URL}/login`;
-const URL_SIGNUP = `${BASE_URL}/register`;
+const URL_LOGIN = `${BASE_URL}/auth/login`;
+const URL_SIGNUP = `${BASE_URL}/auth/register`;
 
 export const login = async (user) => {
   try {
+    console.log('==== login', URL_LOGIN, user);
     const result = await axios.post(URL_LOGIN, user);
     return result;
   } catch (error) {
-    console.log("Error login", error);
+    throw error;
   }
 }
 
 export const signup = async (user) => {
   try {
-    const result = await axios.post(URL_SIGNUP, user);
+    console.log('====', URL_SIGNUP);
+    const result = await axios.post(URL_SIGNUP, {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+    });
     return result;
   } catch (error) {
-    console.log("Error signup", error);
+    throw error;
   }
 }
 

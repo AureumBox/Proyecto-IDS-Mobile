@@ -11,28 +11,45 @@ import {
 } from "react-native";
 import {useForm, Controller} from "react-hook-form";
 import { login } from "../services/axiosBD";
+import Spinner from 'react-native-loading-spinner-overlay';
+import { useDispatch } from 'react-redux'
+import { logIn } from '../state/authSlice.js';
 
 const LogIn = ({ navigation }) => {
+    const [loading, setLoading] = useState(false);
     const {control, handleSubmit, formState: {errors}} = useForm();
     const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const dispatch = useDispatch();
 
-    const sendLoginData = data =>{
-        navigation.navigate('Bienvenida');
-
-        console.log(data);
-        let res = login(data);
-        console.log(res.data)
-        if(res.data.token){
-            navigation.navigate('Bienvenida');
-        }
+    const sendLoginData = async (data) =>{
+        setLoading(true);
+        try {
+            const result = await login(data);
+            setLoading(false);
+            if(result.data.token){
+                dispatch(logIn(result.data.token));
+                navigation.navigate('Bienvenida');
+            }
+        } catch (error) {  
+            if (error?.response?.data) {
+                alert(error?.response?.data.message);
+             }else{
+                alert("Error del servidor al autenticarse");
+            }
+       } finally {
+           setLoading(false);
+       }
     }
-    
+
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.contentContainer}>
+                    <Spinner
+                        visible={loading}
+                        textContent={'Cargando...'}
+                    />
                     <Text style={styles.body}>Inicia sesión en tu Cuenta</Text>
-                    
                     <Controller 
                         control={control}
                         name="email"
