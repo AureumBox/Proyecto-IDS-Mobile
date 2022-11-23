@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { signup } from "../services/axiosBD";
 import {useForm, Controller} from "react-hook-form";
+import Constants from 'expo-constants';
 
 const SignIn = ({ navigation }) => {
     const {control, handleSubmit, formState: {errors}, watch} = useForm();
@@ -30,6 +31,9 @@ const SignIn = ({ navigation }) => {
              
         }
     }
+
+    // TODO: Delete it later, is for test propurses
+    console.log("EXTRA CONFIG:", Constants.expoConfig.extra);
 
     return (
         <View style={styles.container}>
@@ -129,7 +133,6 @@ const SignIn = ({ navigation }) => {
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
                     </TouchableOpacity>
-
                     <Text style={{ textAlign: 'center' }}>o Regístrate con:</Text>
 
                     {/* Botones de Aplicaciones */}
