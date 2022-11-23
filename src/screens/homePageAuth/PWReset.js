@@ -113,14 +113,6 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         alignItems: 'center',
         marginVertical: 60,
-        // Sombras
-        // shadowColor: '#FD6D6A',
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 8,
-        // },
-        // shadowOpacity: .44,
-        // shadowRadius: 10.32,
     },
     forgotPW: {
         fontSize: 17,
