@@ -25,7 +25,7 @@ export default function BottomNavBar({ navigation }) {
                         let rn = route.name
                         if (rn === 'Home') {
                             iconName = focused ? 'shield-home' : 'shield-home-outline'
-                            return <MaterialCommunityIcons name={iconName} size={50} color={color} />
+                            return <MaterialCommunityIcons name={iconName} size={45} color={color} />
                         } else if (rn === 'Album') {
                             iconName = focused ? 'book' : 'book-outline'
                         } else if (rn === 'Fantasy') {
@@ -48,7 +48,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 60 },
+                        tabBarStyle: { padding: 0, height: 75 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -60,7 +60,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 60 },
+                        tabBarStyle: { padding: 0, height: 75 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -72,7 +72,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 60 },
+                        tabBarStyle: { padding: 0, height: 75 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -84,7 +84,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 60 },
+                        tabBarStyle: { padding: 0, height: 75 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -96,7 +96,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: 60 },
+                        tabBarStyle: { padding: 0, height: 75 },
                         tabBarShowLabel: false
                     }}
                 />

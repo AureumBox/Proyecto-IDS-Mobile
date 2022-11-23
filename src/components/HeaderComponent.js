@@ -31,7 +31,7 @@ export default function HeaderComponent(){
 
         <TouchableOpacity>
         <View style={[styles.iconos]}>
-            <Octicons name="three-bars" size={40} color="#63130B" />
+            <Octicons name="three-bars" size={35} color="#63130B" />
         </View>
         </TouchableOpacity>
       </SafeAreaView>
@@ -41,7 +41,7 @@ export default function HeaderComponent(){
 const styles = StyleSheet.create({
   header: {
     width: width,
-    height: 82,
+    height: 90,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
