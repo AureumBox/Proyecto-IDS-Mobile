@@ -10,21 +10,30 @@ const {width}= Dimensions.get('window')
 export default function HeaderComponent(){
   return (
       <SafeAreaView style= {styles.header}>
-        <TouchableOpacity>   
+        <TouchableOpacity>
          <Image 
             source={logo}
-            style={styles.logo} 
+            style={styles.logo}
          />  
-        </TouchableOpacity>   
+        </TouchableOpacity>
+
+        <TouchableOpacity>
         <View style={[styles.coins]}>
             <MaterialIcons name="attach-money" size={25} color="#63130B"/>
         </View>  
-        <View style={[styles.iconos]}>
-            <MaterialCommunityIcons name="treasure-chest" size={25} color="#63130B" />
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+        <View style={[styles.cofre]}>
+            <MaterialCommunityIcons name="treasure-chest" size={35} color="#63130B" />
         </View> 
+        </TouchableOpacity>
+
+        <TouchableOpacity>
         <View style={[styles.iconos]}>
-            <Octicons name="three-bars" size={25} color="#63130B" />
-        </View>  
+            <Octicons name="three-bars" size={40} color="#63130B" />
+        </View>
+        </TouchableOpacity>
       </SafeAreaView>
   );
 }
@@ -40,16 +49,25 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: 40,
-    width: 130,
-    marginLeft: 6,
-    marginTop: 8,
-    marginBottom: 22
+    width: 120,
+    marginLeft: 15,
+    marginTop: 15,
+    marginBottom: 22,
+    marginRight: 10,
+    resizeMode: 'contain'
+  },
+  cofre: {
+    alignItems: 'flex-start',
+    marginLeft: 12,
+    marginTop: 3,
+    marginRight: -40,
+    marginBottom: 6
   },
   iconos: {
     alignItems: 'flex-start',
-    marginLeft: 2,
+    marginLeft: 12,
     marginTop: 3,
-    marginRight: 12,
+    marginRight: 15,
     marginBottom: 6
   },
   coins: {
@@ -58,9 +76,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#D9D9D9",
     borderRadius: 18,
     alignItems: 'flex-start',
-    marginLeft: 2,
+    marginLeft: 12,
+    marginRight: -40,
     marginTop: 3,
     marginBottom: 8
 },
 });
-
