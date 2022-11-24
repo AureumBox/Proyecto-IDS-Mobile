@@ -8,6 +8,7 @@ import {
     Modal,
     Animated
 } from 'react-native'
+import sobre from '../../assets/sobre.png'
 
 const ModalPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible)
@@ -53,7 +54,7 @@ export default function Test() {
                     <View style={styles.header}>
                         <TouchableOpacity onPress={() => setVisible(false)}>
                             <Image
-                                source={require('../../resources/x.png')}
+                                source={require('../../assets/x.png')}
                                 style={{ height: 30, width: 30 }}
                             />
                         </TouchableOpacity>
@@ -61,7 +62,7 @@ export default function Test() {
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Image
-                        source={require('../../resources/Ads/yummy.jpg')}
+                        source={require('../../assets/Ads/yummy.jpg')}
                         style={{ height: 175, width: 320, resizeMode: 'contain', marginVertical: 10 }}
                     />
                 </View>
@@ -75,7 +76,7 @@ export default function Test() {
                 </Text>
             </ModalPopup>
             <Image
-                source={require('../../resources/sobre.png')}
+                source={sobre}
                 style={{
                     width: 250,
                     height: 250,

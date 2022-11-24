@@ -50,7 +50,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height/12 },
+                        tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -62,7 +62,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height/12 },
+                        tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -74,7 +74,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height/12 },
+                        tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -86,7 +86,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height/12 },
+                        tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
                 />
@@ -98,7 +98,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height/12 },
+                        tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
                 />

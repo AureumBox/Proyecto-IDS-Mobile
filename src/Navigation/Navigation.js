@@ -17,12 +17,12 @@ export default function Navigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={HPANavigation.HOME}
-                screenOptions={{presentation: 'transparentModal'}}
+                screenOptions={{ presentation: 'transparentModal' }}
             >
                 <Stack.Screen
                     name={HPANavigation.HOME}
                     component={HPAHomeScreen}
-                    options={{ headerShown:false }}
+                    options={{ headerShown: false }}
                 />
                 <Stack.Screen
                     name={HPANavigation.LOGIN}
@@ -47,9 +47,7 @@ export default function Navigation() {
                 <Stack.Screen
                     name={HPANavigation.BNB}
                     component={BNBMainScreen}
-                    options={{
-                        headerShown: false,
-                    }}
+                    options={{ headerShown: false }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
