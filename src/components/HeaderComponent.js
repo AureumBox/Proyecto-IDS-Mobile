@@ -2,7 +2,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Dimensions, SafeAreaView } f
 import logo from '../../assets/logo.png';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Octicons } from '@expo/vector-icons';
+
 
 
 const {width} = Dimensions.get('window')
@@ -31,9 +31,6 @@ export default function HeaderComponent(){
         </TouchableOpacity>
 
         <TouchableOpacity>
-        <View style={[styles.iconos]}>
-            <Octicons name="three-bars" size={35} color="#63130B" />
-        </View>
         </TouchableOpacity>
       </SafeAreaView>
   );
@@ -42,7 +39,7 @@ export default function HeaderComponent(){
 const styles = StyleSheet.create({
   header: {
     width: width,
-    height: height / 10,
+    height: height / 11,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
@@ -60,15 +57,8 @@ const styles = StyleSheet.create({
   cofre: {
     alignItems: 'flex-start',
     marginLeft: 12,
-    marginTop: 3,
+    marginTop: -1,
     marginRight: -40,
-    marginBottom: 6
-  },
-  iconos: {
-    alignItems: 'flex-start',
-    marginLeft: 12,
-    marginTop: 3,
-    marginRight: 15,
     marginBottom: 6
   },
   coins: {

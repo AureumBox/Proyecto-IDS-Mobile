@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
+
 
 // Screen Imports
 import Fantasy from './mainScreen/Fantasy'
@@ -26,8 +26,8 @@ export default function BottomNavBar({ navigation }) {
                         let iconSize // Para luego tamaños personalizados
                         let rn = route.name
                         if (rn === 'Home') {
-                            iconName = focused ? 'shield-home' : 'shield-home-outline'
-                            return <MaterialCommunityIcons name={iconName} size={45} color={color} />
+                            iconName = focused ? 'ios-home' : 'ios-home-outline'
+                            return <Ionicons name={iconName} size={45} color={color} />
                         } else if (rn === 'Album') {
                             iconName = focused ? 'book' : 'book-outline'
                         } else if (rn === 'Fantasy') {
