@@ -1,19 +1,20 @@
 import React from "react";
 import {
     StyleSheet,
-    Text,
     View,
+    Text
 } from "react-native";
-import Test from "../../components/Test";
 import Header from '../../components/HeaderComponent';
 
 export default function Home({ navigation }) {
     return (
         <View style={styles.fondo}>
-        <Header/>
-        <View style={styles.container}>
-            <Test />
-        </View>
+            <Header />
+            <View style={styles.container}>
+                <Text style={styles.textSt}>
+                    Home
+                </Text>
+            </View>
         </View>
     )
 }
