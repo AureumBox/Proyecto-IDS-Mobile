@@ -12,12 +12,12 @@ export default function Fantasy({ navigation }) {
 
     return (
         <View style={styles.fondo}>
-        <Header/>
-        <View style={styles.container}>
-            <Text style={styles.textSt}>
-                Fantasy
-            </Text>
-        </View>
+            <Header />
+            <View style={styles.container}>
+                <Text style={styles.textSt}>
+                    Fantasy
+                </Text>
+            </View>
         </View>
     )
 }

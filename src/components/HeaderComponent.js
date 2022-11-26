@@ -5,34 +5,32 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 
-const {width} = Dimensions.get('window')
-const {height} = Dimensions.get('window')
+const { width } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
-export default function HeaderComponent(){
+export default function HeaderComponent() {
   return (
-      <SafeAreaView style= {styles.header}>
-        <TouchableOpacity>
-         <Image 
-            source={logo}
-            style={styles.logo}
-         />  
-        </TouchableOpacity>
+    <SafeAreaView style={styles.header}>
+        <Image
+          source={logo}
+          style={styles.logo}
+        />
 
-        <TouchableOpacity>
+      <TouchableOpacity>
         <View style={[styles.coins]}>
-            <MaterialIcons name="attach-money" size={25} color="#63130B"/>
-        </View>  
-        </TouchableOpacity>
+          <MaterialIcons name="attach-money" size={25} color="#63130B" />
+        </View>
+      </TouchableOpacity>
 
-        <TouchableOpacity>
+      <TouchableOpacity>
         <View style={[styles.cofre]}>
-            <MaterialCommunityIcons name="treasure-chest" size={35} color="#63130B" />
-        </View> 
-        </TouchableOpacity>
+          <MaterialCommunityIcons name="treasure-chest" size={35} color="#63130B" />
+        </View>
+      </TouchableOpacity>
 
-        <TouchableOpacity>
-        </TouchableOpacity>
-      </SafeAreaView>
+      <TouchableOpacity>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 }
 
@@ -62,8 +60,8 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
   coins: {
-    width:80,
-    height:25,
+    width: 80,
+    height: 25,
     backgroundColor: "#D9D9D9",
     borderRadius: 18,
     alignItems: 'flex-start',
@@ -71,5 +69,5 @@ const styles = StyleSheet.create({
     marginRight: -40,
     marginTop: 3,
     marginBottom: 8
-},
+  },
 });
