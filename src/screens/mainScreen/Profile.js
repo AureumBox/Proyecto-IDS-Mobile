@@ -12,12 +12,12 @@ export default function Profile({ navigation }) {
 
     return (
         <View style={styles.fondo}>
-        <Header/>
-        <View style={styles.container}>
-            <Text style={styles.textSt}>
-                Perfil
-            </Text>
-        </View>
+            <Header />
+            <View style={styles.container}>
+                <Text style={styles.textSt}>
+                    Perfil
+                </Text>
+            </View>
         </View>
     )
 }

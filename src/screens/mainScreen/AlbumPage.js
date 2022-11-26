@@ -4,15 +4,17 @@ import {
     Text,
     View,
 } from "react-native";
-import Test from "../../components/Test";
 import Header from '../../components/HeaderComponent';
 
-export default function Home({ navigation }) {
+export default function AlbumPage({ navigation }) {
+
     return (
         <View style={styles.fondo}>
             <Header />
             <View style={styles.container}>
-                <Test />
+                <Text style={styles.textSt}>
+                    Tienda
+                </Text>
             </View>
         </View>
     )

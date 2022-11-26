@@ -1,53 +1,37 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import * as Font from 'expo-font';
 import {
     StyleSheet,
     Text,
     View,
-    Dimensions,
-    Image
+    Image,
+    TouchableOpacity
 } from "react-native";
-
 import Header from '../../components/HeaderComponent';
 import AlbumDigital from '../../../assets/albumd.png';
+import AlbumPage from "./AlbumPage";
 
 export default function Album({ navigation }) {
-    const [fontsLoaded, setFontsLoaded] = useState(false)
-    useEffect(() => {
-        if ( !fontsLoaded ) {
-            loadFonts()
-        }   
-    })
-
-    const loadFonts = async () => {
-        await Font.loadAsync({
-            'averta-demo-pe': require('../../../assets/fonts/Anton-Regular.ttf')
-        })
-
-        setFontsLoaded(true)
-    }
-
-
-
-    const { height } = Dimensions.get('window')
-
     return (
         <View style={styles.fondo}>
-        <Header/>
-        <View style={styles.container}>
-        <View style={styles.barraPorcentaje}>
-        <Text style={styles.texto}>30%</Text>
-        <View style={styles.Porcentaje}></View>    
-        </View>
-            <View style={styles.rectangulo}>
-                <Image
-                source={AlbumDigital}
-                style={styles.albumdig}></Image>
+            <Header />
+            <View style={styles.container}>
+                <View style={styles.barraPorcentaje}>
+                    <Text style={styles.texto}>30%</Text>
+                    <View style={styles.Porcentaje}></View>
+                </View>
+                <View style={styles.rectangulo}>
+                    <Image
+                        source={AlbumDigital}
+                        style={styles.albumdig}></Image>
+                </View>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate(AlbumPage)}
+                    style={styles.carrusel}
+                >
+                    <Text style={styles.textSt}>¡Pega tus cromos!</Text>
+                </TouchableOpacity>
             </View>
-            <View style={styles.carrusel}>
-            <Text style={styles.textSt}>¡Pega tus cromos!</Text>    
-            </View> 
-        </View>
         </View>
     )
 
@@ -60,7 +44,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#70ABAF',
     },
-    albumdig:{
+    albumdig: {
         resizeMode: 'contain',
         width: 420,
         marginLeft: 10
@@ -74,13 +58,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    texto:{
+    texto: {
         fontWeight: 'bold',
         color: 'black',
         fontSize: 26,
-        marginLeft: -63, 
+        marginLeft: -63,
     },
-    barraPorcentaje:{
+    barraPorcentaje: {
         width: 250,
         height: 40,
         backgroundColor: 'white',
@@ -91,7 +75,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginLeft: 55
     },
-    Porcentaje:{
+    Porcentaje: {
         width: 80,
         height: 40,
         backgroundColor: '#63130B',
@@ -117,6 +101,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#34545D',
         fontSize: 26,
-        // fontFamily: 'averta-demo-pe',
     },
 })

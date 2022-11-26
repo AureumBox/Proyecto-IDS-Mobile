@@ -7,10 +7,10 @@ import { Dimensions } from 'react-native';
 
 // Screen Imports
 import Fantasy from './mainScreen/Fantasy'
-import Album from './mainScreen/Album'
 import Shop from './mainScreen/Shop'
 import Home from './mainScreen/Home'
 import Profile from './mainScreen/Profile'
+import AlbumNavigator from './mainScreen/Album/AlbumNavigator';
 
 const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();
@@ -28,7 +28,7 @@ export default function BottomNavBar({ navigation }) {
                         if (rn === 'Home') {
                             iconName = focused ? 'ios-home' : 'ios-home-outline'
                             return <Ionicons name={iconName} size={45} color={color} />
-                        } else if (rn === 'Album') {
+                        } else if ((rn === 'AlbumNavigator')) {
                             iconName = focused ? 'book' : 'book-outline'
                         } else if (rn === 'Fantasy') {
                             iconName = focused ? 'football' : 'football-outline'
@@ -41,7 +41,6 @@ export default function BottomNavBar({ navigation }) {
                         return <Ionicons name={iconName} color={color} size={45} />
                     },
                 })}>
-
                 <Tab.Screen
                     name='Home'
                     component={Home}
@@ -49,19 +48,17 @@ export default function BottomNavBar({ navigation }) {
                         headerShown: false,
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
                         tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
                 />
                 <Tab.Screen
-                    name='Album'
-                    component={Album}
+                    name='AlbumNavigator'
+                    component={AlbumNavigator}
                     options={{
                         headerShown: false,
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
                         tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
@@ -73,7 +70,6 @@ export default function BottomNavBar({ navigation }) {
                         headerShown: false,
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
                         tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
@@ -85,7 +81,6 @@ export default function BottomNavBar({ navigation }) {
                         headerShown: false,
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
                         tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
@@ -97,7 +92,6 @@ export default function BottomNavBar({ navigation }) {
                         headerShown: false,
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
                         tabBarStyle: { padding: 0, height: height / 10 },
                         tabBarShowLabel: false
                     }}
