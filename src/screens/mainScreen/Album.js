@@ -21,22 +21,22 @@ export default function Album({ navigation }) {
             <Header />
             <View style={styles.container}>
                     <View style={styles.containerPor}>
-                <Text style={styles.texto}>30%</Text>
-                <View style={styles.barraPorcentaje}>
-                                            <View style={styles.Porcentaje}></View>
+                         <Text style={styles.texto}>30%</Text>
+                        <View style={styles.barraPorcentaje}>
+                             <View style={styles.Porcentaje}></View>
                         </View>
-                </View>
-            <View style={styles.rectangulo}>
-                    <Image
-                        source={AlbumDigital}
-                        style={styles.albumdig}></Image>
-                </View>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate(AlbumPage)}
-                    style={styles.carrusel}
-                >
-                    <Text style={styles.textSt}>¡Pega tus cromos!</Text>
-                </TouchableOpacity>
+                    </View>
+                    <View style={styles.rectangulo}>
+                        <Image
+                            source={AlbumDigital}
+                            style={styles.albumdig}></Image>
+                    </View>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate(AlbumPage)}
+                        style={styles.carrusel}
+                     >
+                        <Text style={styles.textSt}>¡Pega tus cromos!</Text>
+                    </TouchableOpacity>
             </View>
         </View>
     )

@@ -5,10 +5,14 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
+    Dimensions,
     Modal,
     Animated
 } from 'react-native'
 import sobre from '../../assets/sobre.png'
+
+const { width } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
 const ModalPopup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible)
