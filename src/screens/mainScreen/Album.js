@@ -27,25 +27,23 @@ export default function Album({ navigation }) {
         setFontsLoaded(true)
     }
 
-
-
-    const { height } = Dimensions.get('window')
-
     return (
         <View style={styles.fondo}>
         <Header/>
         <View style={styles.container}>
-        <View style={styles.barraPorcentaje}>
-        <Text style={styles.texto}>30%</Text>
-        <View style={styles.Porcentaje}></View>    
-        </View>
+            <View style={styles.containerPor}>
+                <Text style={styles.texto}>30%</Text>
+                <View style={styles.barraPorcentaje}>
+                    <View style={styles.Porcentaje}></View>    
+                </View>
+            </View>
             <View style={styles.rectangulo}>
                 <Image
                 source={AlbumDigital}
                 style={styles.albumdig}></Image>
             </View>
             <View style={styles.carrusel}>
-            <Text style={styles.textSt}>¡Pega tus cromos!</Text>    
+                <Text style={styles.textSt}>¡Pega tus cromos!</Text>    
             </View> 
         </View>
         </View>
@@ -74,32 +72,34 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    containerPor:{
+        height: 40,
+        width: 360,
+        marginBottom: 25,
+        flexDirection: 'row',
+        alignItems:'center'
+    },
     texto:{
         fontWeight: 'bold',
         color: 'black',
-        fontSize: 26,
-        marginLeft: -63, 
+        fontSize: 26, 
+        marginLeft: 25,
     },
     barraPorcentaje:{
         width: 250,
         height: 40,
         backgroundColor: 'white',
-        borderRadius: 30,
+        borderRadius: 10,
         alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 25,
         flexDirection: 'row',
-        marginLeft: 55
+        marginLeft: 5
     },
     Porcentaje:{
-        width: 80,
+        width: 250*30/100, //Para calcular el porcentaje de llenado de la barra
         height: 40,
         backgroundColor: '#63130B',
-        borderRadius: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 170,
-        marginLeft: 5,
+        borderRadius: 10,
+        flexDirection: 'row',
     },
     carrusel: {
         width: 350,
