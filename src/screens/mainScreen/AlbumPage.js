@@ -13,7 +13,7 @@ export default function AlbumPage({ navigation }) {
             <Header />
             <View style={styles.container}>
                 <Text style={styles.textSt}>
-                    Tienda
+                    Album
                 </Text>
             </View>
         </View>

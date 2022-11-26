@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Font from 'expo-font';
 import {
     StyleSheet,
+    Dimensions,
     Text,
     View,
     Image,
@@ -10,6 +11,9 @@ import {
 import Header from '../../components/HeaderComponent';
 import AlbumDigital from '../../../assets/albumd.png';
 import AlbumPage from "./AlbumPage";
+
+const { width } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
 export default function Album({ navigation }) {
     return (
@@ -48,12 +52,12 @@ const styles = StyleSheet.create({
     },
     albumdig: {
         resizeMode: 'contain',
-        width: 420,
+        width: width-60,
         marginLeft: 10
     },
     rectangulo: {
-        width: 350,
-        height: 460,
+        width: width-60,
+        height: width-30,
         backgroundColor: 'white',
         marginBottom: 30,
         borderRadius: 20,
@@ -61,8 +65,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     containerPor:{
-        height: 40,
-        width: 360,
+        height: 30,
+        width: width-20,
         marginBottom: 25,
         flexDirection: 'row',
         alignItems:'center'
@@ -74,8 +78,8 @@ const styles = StyleSheet.create({
         marginLeft: 25,
     },
     barraPorcentaje: {
-        width: 250,
-        height: 40,
+        width: width-140,
+        height: 30,
         backgroundColor: 'white',
         borderRadius: 10,
         alignItems: 'center',
@@ -83,15 +87,15 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     Porcentaje:{
-        width: 250*30/100, //Para calcular el porcentaje de llenado de la barra
-        height: 40,
+        width: (width-140)*30/100, //Para calcular el porcentaje de llenado de la barra
+        height: 30,
         backgroundColor: '#63130B',
         borderRadius: 10,
         flexDirection: 'row',
     },
     carrusel: {
-        width: 350,
-        height: 65,
+        width: width-40,
+        height: 50,
         backgroundColor: 'white',
         borderRadius: 20,
         alignItems: 'center',
