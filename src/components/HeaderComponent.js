@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   StyleSheet,
   View,
@@ -13,17 +13,38 @@ import { ModalPopup } from './ModalPopup'
 import logo from '../../assets/appAssets/logo.png'
 import botonX from '../../assets/appAssets/x.png'
 import sobre from '../../assets/appAssets/sobre.png'
+import { watchAd } from '../services/ads';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
 
+
 export default function HeaderComponent() {
-  const [visibleObtener, setVisibleObtener] = React.useState(true)
-  const [visibleAnuncio, setVisibleAnuncio] = React.useState(false)
-  const [visibleStickers, setVisibleStickers] = React.useState(false)
+  const [loading, setLoading] = useState(false);
+  const [visibleObtener, setVisibleObtener] = useState(true)
+  const [visibleAnuncio, setVisibleAnuncio] = useState(false)
+  const [visibleStickers, setVisibleStickers] = useState(false)
+  const [ad, setAd] = useState(null);
+
+  const onClaimClick = async () => {
+    setLoading(true);
+    try {
+      const ad = await watchAd();
+      setAd(ad);
+    } catch (error) {  
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.header}>
-
+      <Spinner
+          visible={loading}
+          textContent={'Cargando...'}
+      />
       {/* Ventana Emergente de Obtener Cromos */}
       <ModalPopup visible={visibleObtener}>
         <View style={{ alignItems: 'center' }}>
@@ -49,6 +70,7 @@ export default function HeaderComponent() {
         <TouchableOpacity
           style={styles.logInButton}
           onPress={() => {
+            onClaimClick();
             setVisibleAnuncio(true)
             setVisibleStickers(true)
           }}
@@ -115,7 +137,7 @@ export default function HeaderComponent() {
         </View>
         <View style={{ alignItems: 'center' }}>
           <Image
-            source={require('../../assets/Ads/yummy.jpg')}
+            source={(ad?.img) ? ({ uri: ad?.img }) : require('../../assets/Ads/yummy.jpg')}
             style={{ height: 175, width: 320, resizeMode: 'contain', marginVertical: 10 }}
           />
         </View>
