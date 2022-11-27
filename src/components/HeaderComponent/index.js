@@ -21,7 +21,7 @@ const { height } = Dimensions.get('window')
 
 export default function HeaderComponent() {
   const [loading, setLoading] = useState(false);
-  const [visibleObtener, setVisibleObtener] = useState(true)
+  const [visibleObtener, setVisibleObtener] = useState(false)
   const [visibleAnuncio, setVisibleAnuncio] = useState(false)
   const [visibleStickers, setVisibleStickers] = useState(false)
   const [ad, setAd] = useState(null);
@@ -29,14 +29,19 @@ export default function HeaderComponent() {
   const onClaimClick = async () => {
     setLoading(true);
     try {
-      const ad = await watchAd();
-      setAd(ad);
+      const ad = await watchAd()
+      setAd(ad)
+      setVisibleAnuncio(true)
     } catch (error) {  
       alert(error.message);
     } finally {
       setLoading(false);
     }
   };
+
+  const onCloseAd = () => {
+    setVisibleStickers(true)
+  }
 
   return (
     <SafeAreaView style={styles.header}>
@@ -70,8 +75,6 @@ export default function HeaderComponent() {
           style={styles.logInButton}
           onPress={() => {
             onClaimClick();
-            setVisibleAnuncio(true)
-            setVisibleStickers(true)
           }}
         >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>Reclamar</Text>
@@ -126,7 +129,10 @@ export default function HeaderComponent() {
       <ModalPopup visible={visibleAnuncio}>
         <View style={{ alignItems: 'center' }}>
           <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={() => setVisibleAnuncio(false)}>
+            <TouchableOpacity onPress={() => {
+              onCloseAd()
+              setVisibleAnuncio(false)
+              }}>
               <Image
                 source={botonX}
                 style={{ height: 30, width: 30 }}
