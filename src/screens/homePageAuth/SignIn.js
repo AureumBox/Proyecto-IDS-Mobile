@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     TouchableOpacity,
     ScrollView,
@@ -9,44 +9,147 @@ import {
     Image,
     View
 } from "react-native";
+import { signup } from "../services/axiosBD";
+import {useForm, Controller} from "react-hook-form";
+import Constants from 'expo-constants';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { useDispatch } from 'react-redux'
+import { logIn } from '../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
 
 export default function SignIn({ navigation }) {
+    const [loading, setLoading] = useState(false);
+    const {control, handleSubmit, formState: {errors}, watch} = useForm();
+    const pwd = watch("password");
+    const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const dispatch = useDispatch();
+
+    const sendRegisterData = async (data) =>{
+        setLoading(true);
+        try {
+            const result = await signup(data);
+            setLoading(false);
+            if (result.data.token){
+                dispatch(logIn(result.data.token));
+                navigation.navigate(HPANavigation.HOME);
+            } 
+        } catch (error) {
+             if (error?.response?.data) {
+                alert(error?.response?.data.message);
+             }else{
+                alert("Error del servidor al registrarse");
+            }
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // TODO: Delete it later, is for test propurses
+    console.log("EXTRA CONFIG:", Constants.expoConfig.extra);
+
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.contentContainer}>
+                    <Spinner
+                        visible={loading}
+                        textContent={'Cargando...'}
+                    />
                     <Text/>
                     <Text style={styles.body}>Crea una Cuenta</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Nombre de Usuario'
-                        autoCorrect={false}
+                    <Controller 
+                        control={control}
+                        name="name"
+                        rules={{required: "Ingrese su nombre de usuario"}}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Nombre de usuario'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                />
+                                
+                            </>
+                        )}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Correo Electrónico'
-                        autoCorrect={false}
+                    <Controller 
+                        control={control}
+                        name="email"
+                        rules={{
+                            required: "Ingrese su correo electrónico",
+                            pattern: {value: EMAIL_REGEX, message: "Ingrese un correo válido"}
+                        }}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Correo Electrónico'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                />
+                                
+                            </>
+                        )}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Contraseña'
-                        autoCorrect={false}
-                        secureTextEntry={true}
+                    <Controller 
+                        control={control}
+                        name="password"
+                        rules={{required: "Ingrese su contraseña"}}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Contraseña'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                    secureTextEntry={true}
+                                />
+                            </>
+                        )}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Verificar Contraseña'
-                        autoCorrect={false}
-                        secureTextEntry={true}
+                    <Controller 
+                        control={control}
+                        name="passwordConf"
+                        rules={{
+                            required: "Verifique su contraseña",
+                            validate: value => value === pwd ? true: "Las contraseñas no coinciden"
+                        }}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Verificar Contraseña'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                    secureTextEntry={true}
+                                />
+                            </>
+                        )}
                     />
+
                     {/* Botón Registrarte */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(HPANavigation.HOME)}
+                        onPress={handleSubmit(sendRegisterData)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
                     </TouchableOpacity>
-
                     <Text style={{ textAlign: 'center' }}>o Regístrate con:</Text>
 
                     {/* Botones de Aplicaciones */}
@@ -151,6 +254,16 @@ const styles = StyleSheet.create({
         borderColor: 'white',
         borderRadius: 16,
         marginHorizontal: 10,
+    },
+    inputError: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 16,
+        marginBottom: 15,
+        borderWidth: 2,
+        borderColor: 'red',
+        borderRadius: 16,
+        marginHorizontal: 5,
     },
     logInButton: {
         backgroundColor: '#70ABAF',

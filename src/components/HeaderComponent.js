@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   header: {
     width: width,
-    height: height / 10,
+    height: height / 11,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
@@ -183,15 +183,8 @@ const styles = StyleSheet.create({
   cofre: {
     alignItems: 'flex-start',
     marginLeft: 12,
-    marginTop: 3,
+    marginTop: -1,
     marginRight: -40,
-    marginBottom: 6
-  },
-  iconos: {
-    alignItems: 'flex-start',
-    marginLeft: 12,
-    marginTop: 3,
-    marginRight: 15,
     marginBottom: 6
   },
   coins: {
