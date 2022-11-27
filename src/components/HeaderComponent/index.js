@@ -13,8 +13,9 @@ import { ModalPopup } from '../ModalPopup'
 import logo from '../../../assets/appAssets/logo.png'
 import botonX from '../../../assets/appAssets/x.png'
 import sobre from '../../../assets/appAssets/sobre.png'
-import { watchAd } from '../../services/ads';
+import { watchAd, getAdRedirectUrl } from '../../services/ads';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { Linking } from 'react-native';
 
 const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
@@ -42,6 +43,12 @@ export default function HeaderComponent() {
   const onCloseAd = () => {
     setVisibleStickers(true)
   }
+
+  const onAdClick = () => {
+    const redirectUrl = getAdRedirectUrl(ad?.id);
+    console.log('LE HAZ DADO CLICK A UN ANUNCIO :D ', redirectUrl);
+    Linking.openURL(redirectUrl);
+  };
 
   return (
     <SafeAreaView style={styles.header}>
@@ -140,12 +147,14 @@ export default function HeaderComponent() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ alignItems: 'center' }}>
-          <Image
-            source={(ad?.img) ? ({ uri: ad?.img }) : require('../../../assets/Ads/yummy.jpg')}
-            style={{ height: 175, width: 320, resizeMode: 'contain', marginVertical: 10 }}
-          />
-        </View>
+        <TouchableOpacity onPress={onAdClick}>
+          <View style={{ alignItems: 'center' }} >
+            <Image
+              source={(ad?.img) ? ({ uri: ad?.img }) : require('../../../assets/Ads/yummy.jpg')}
+              style={{ height: 175, width: 320, resizeMode: 'contain', marginVertical: 10 }}
+            />
+          </View>
+        </TouchableOpacity>
         <Text
           style={{
             marginVertical: 30,

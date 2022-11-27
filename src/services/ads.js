@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 
 const BASE_URL = Constants.expoConfig.extra.apiUrl;
 const URL_WATCH_AD = `${BASE_URL}/ads/watch`;
+const URL_WATCH_DETAILED_AD = `${BASE_URL}/ads/watch-detailed/{adId}`;
 
 export const watchAd = async () => {
   try {
@@ -22,3 +23,8 @@ export const watchAd = async () => {
     throw error;
   }
 }
+
+export const getAdRedirectUrl = (adId) => {
+  return URL_WATCH_DETAILED_AD.replace('{adId}', adId);
+}
+
