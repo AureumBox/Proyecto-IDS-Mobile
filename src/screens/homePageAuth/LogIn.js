@@ -10,10 +10,10 @@ import {
     View
 } from "react-native";
 import {useForm, Controller} from "react-hook-form";
-import { login } from "../services/axiosBD";
+import { login } from "../../services/axiosBD";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
-import { logIn } from '../state/authSlice.js';
+import { logIn } from '../../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
 
 export default function LogIn({ navigation }) {

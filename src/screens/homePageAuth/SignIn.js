@@ -9,12 +9,12 @@ import {
     Image,
     View
 } from "react-native";
-import { signup } from "../services/axiosBD";
+import { signup } from "../../services/axiosBD";
 import {useForm, Controller} from "react-hook-form";
 import Constants from 'expo-constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
-import { logIn } from '../state/authSlice.js';
+import { logIn } from '../../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
 
 export default function SignIn({ navigation }) {

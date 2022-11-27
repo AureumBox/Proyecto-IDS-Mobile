@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 
-
 // Screen Imports
 import Fantasy from './mainScreen/Fantasy'
 import Album from './mainScreen/Album'
