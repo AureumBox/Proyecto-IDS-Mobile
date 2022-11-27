@@ -18,7 +18,7 @@ const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
 
 export default function HeaderComponent() {
-  const [visibleObtener, setVisibleObtener] = React.useState(false)
+  const [visibleObtener, setVisibleObtener] = React.useState(true)
   const [visibleAnuncio, setVisibleAnuncio] = React.useState(false)
   const [visibleStickers, setVisibleStickers] = React.useState(false)
   return (
