@@ -15,8 +15,9 @@ import Constants from 'expo-constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
 import { logIn } from '../state/authSlice.js';
+import HPANavigation from "../../constants/HPANavigation";
 
-const SignIn = ({ navigation }) => {
+export default function SignIn({ navigation }) {
     const [loading, setLoading] = useState(false);
     const {control, handleSubmit, formState: {errors}, watch} = useForm();
     const pwd = watch("password");
@@ -30,7 +31,7 @@ const SignIn = ({ navigation }) => {
             setLoading(false);
             if (result.data.token){
                 dispatch(logIn(result.data.token));
-                navigation.navigate('Bienvenida');
+                navigation.navigate(HPANavigation.HOME);
             } 
         } catch (error) {
              if (error?.response?.data) {
@@ -54,6 +55,7 @@ const SignIn = ({ navigation }) => {
                         visible={loading}
                         textContent={'Cargando...'}
                     />
+                    <Text/>
                     <Text style={styles.body}>Crea una Cuenta</Text>
                     <Controller 
                         control={control}
@@ -153,7 +155,7 @@ const SignIn = ({ navigation }) => {
                     {/* Botones de Aplicaciones */}
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -163,7 +165,7 @@ const SignIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -173,7 +175,7 @@ const SignIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -183,16 +185,16 @@ const SignIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    {/* Cambiar a pantalla de iniciar sesion */}
+                    {/* Boton Cambiar a pantalla de iniciar sesion */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('LogIn')}
+                        onPress={() => navigation.navigate(HPANavigation.LOGIN)}
                     >
-                        <Text style={styles.forgotPW}>Ya tienes una cuenta?, Inicia Sesión!</Text>
+                        <Text style={styles.forgotPW}>¿Ya tienes una cuenta?, ¡Inicia Sesión!</Text>
                     </TouchableOpacity>
-
-                    <View style={{alignItems: 'center'}}>
+                    {/* Boton HomePage */}
+                    <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.homePageButton}>
                             <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
                         </TouchableOpacity>
@@ -203,9 +205,6 @@ const SignIn = ({ navigation }) => {
         </View>
     );
 };
-
-
-export default SignIn;
 
 const styles = StyleSheet.create({
     container: {
@@ -272,14 +271,6 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         alignItems: 'center',
         marginVertical: 30,
-        // Sombras
-        // shadowColor: '#FD6D6A',
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 8,
-        // },
-        // shadowOpacity: .44,
-        // shadowRadius: 10.32,
     },
     forgotPW: {
         fontSize: 18,

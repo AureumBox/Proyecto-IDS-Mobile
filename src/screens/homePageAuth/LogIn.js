@@ -14,8 +14,9 @@ import { login } from "../services/axiosBD";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
 import { logIn } from '../state/authSlice.js';
+import HPANavigation from "../../constants/HPANavigation";
 
-const LogIn = ({ navigation }) => {
+export default function LogIn({ navigation }) {
     const [loading, setLoading] = useState(false);
     const {control, handleSubmit, formState: {errors}} = useForm();
     const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
@@ -28,7 +29,7 @@ const LogIn = ({ navigation }) => {
             setLoading(false);
             if(result.data.token){
                 dispatch(logIn(result.data.token));
-                navigation.navigate('Bienvenida');
+                navigation.navigate(HPANavigation.HOME);
             }
         } catch (error) {  
             if (error?.response?.data) {
@@ -93,10 +94,9 @@ const LogIn = ({ navigation }) => {
                             </>
                         )}
                     />
-
-                    {/* Olvido su Contraseña */}
+                    {/* Boton Olvido su Contraseña */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Bienvenida')}
+                        onPress={() => navigation.navigate(HPANavigation.PWRECOVERY)}
                     >
                         <Text
                             style={[
@@ -105,8 +105,7 @@ const LogIn = ({ navigation }) => {
                             Recuperar Contraseña
                         </Text>
                     </TouchableOpacity>
-
-                    {/* Iniciar Sesión */}
+                    {/* Boton Iniciar Sesión */}
                     <TouchableOpacity
                         onPress={handleSubmit(sendLoginData)}
                         style={styles.logInButton}>
@@ -118,7 +117,7 @@ const LogIn = ({ navigation }) => {
                     {/* Botones de Aplicaciones */}
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -128,7 +127,7 @@ const LogIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -138,7 +137,7 @@ const LogIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -148,16 +147,16 @@ const LogIn = ({ navigation }) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    {/* Registrarse */}
+                    {/* Boton Cambiar a pantalla de registro */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('SignIn')}
+                        onPress={() => navigation.navigate(HPANavigation.SIGNIN)}
                     >
-                        <Text style={styles.forgotPW}>No tienes una cuenta?, Registrate Ahora!</Text>
+                        <Text style={styles.forgotPW}>¿No tienes una cuenta?, ¡Registrate Ahora!</Text>
                     </TouchableOpacity>
-
-                    <View style={{alignItems: 'center'}}>
+                    {/* Boton HomePage */}
+                    <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Bienvenida')}
+                            onPress={() => navigation.navigate(HPANavigation.HOME)}
                             style={styles.homePageButton}>
                             <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
                         </TouchableOpacity>
@@ -168,10 +167,6 @@ const LogIn = ({ navigation }) => {
         </View>
     );
 };
-
-
-
-export default LogIn;
 
 const styles = StyleSheet.create({
     container: {
@@ -238,14 +233,6 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         alignItems: 'center',
         marginVertical: 30,
-        // Sombras
-        // shadowColor: '#FD6D6A',
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 8,
-        // },
-        // shadowOpacity: .44,
-        // shadowRadius: 10.32,
     },
     forgotPW: {
         fontSize: 17,

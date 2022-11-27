@@ -8,15 +8,16 @@ import {
     View,
     Dimensions
 } from "react-native";
+import HPANavigation from "../../constants/HPANavigation";
+import logoVertical from '../../../assets/logoVertical.png'
 
-const Bienvenida = ({ navigation }) => {
-
+export default function HomeScreen({ navigation }) {
     const { height } = Dimensions.get('window')
 
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../resources/logoVertical.png')}
+                source={logoVertical}
                 style={{
                     width: '85%',
                     height: (height / 3) * 1.4,
@@ -31,25 +32,31 @@ const Bienvenida = ({ navigation }) => {
                 </Text>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('SignIn')}
+                        onPress={() => navigation.navigate(HPANavigation.SIGNIN)}
                         style={styles.button1}
                     >
                         <Text style={styles.buttonText}>Registrarse</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('LogIn')}
+                        onPress={() => navigation.navigate(HPANavigation.LOGIN)}
                         style={styles.button2}
                     >
                         <Text style={styles.buttonText}>Iniciar Sesión</Text>
                     </TouchableOpacity>
+                    {/* TEMPORAL */}
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate(HPANavigation.BNB)}
+                        style={styles.button1}
+                    >
+                        <Text style={styles.buttonText}>MainScreen</Text>
+                    </TouchableOpacity>
+                    {/* TEMPORAL */}
                 </View>
             </View>
             <StatusBar style="auto" />
         </View>
     );
 };
-
-export default Bienvenida;
 
 const styles = StyleSheet.create({
     container: {
