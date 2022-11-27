@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     TouchableOpacity,
     ScrollView,
@@ -9,24 +9,90 @@ import {
     Image,
     View
 } from "react-native";
+import {useForm, Controller} from "react-hook-form";
+import { login } from "../services/axiosBD";
+import Spinner from 'react-native-loading-spinner-overlay';
+import { useDispatch } from 'react-redux'
+import { logIn } from '../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
 
 export default function LogIn({ navigation }) {
+    const [loading, setLoading] = useState(false);
+    const {control, handleSubmit, formState: {errors}} = useForm();
+    const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const dispatch = useDispatch();
+
+    const sendLoginData = async (data) =>{
+        setLoading(true);
+        try {
+            const result = await login(data);
+            setLoading(false);
+            if(result.data.token){
+                dispatch(logIn(result.data.token));
+                navigation.navigate(HPANavigation.HOME);
+            }
+        } catch (error) {  
+            if (error?.response?.data) {
+                alert(error?.response?.data.message);
+             }else{
+                alert("Error del servidor al autenticarse");
+            }
+       } finally {
+           setLoading(false);
+       }
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.contentContainer}>
-                    <Text style={styles.body}>Inicia sesión en tu Cuenta</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Correo Electrónico'
-                        autoCorrect={false}
+                    <Spinner
+                        visible={loading}
+                        textContent={'Cargando...'}
                     />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Contraseña'
-                        autoCorrect={false}
-                        secureTextEntry={true}
+                    <Text style={styles.body}>Inicia sesión en tu Cuenta</Text>
+                    <Controller 
+                        control={control}
+                        name="email"
+                        rules={{
+                            required: "Ingrese su correo electrónico",
+                            pattern: {value: EMAIL_REGEX, message: "Ingrese un correo válido"}
+                        }}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Correo Electrónico'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                />
+                                
+                            </>
+                        )}
+                    />
+                    <Controller 
+                        control={control}
+                        name="password"
+                        rules={{required: "Ingrese su contraseña"}}
+                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
+                            <>
+                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                    {error.message}</Text>
+                                )}
+                                <TextInput
+                                    value={value}
+                                    style={error ? styles.inputError : styles.input}
+                                    placeholder='Contraseña'
+                                    autoCorrect={false}
+                                    onChangeText={onChange}
+                                    secureTextEntry={true}
+                                />
+                            </>
+                        )}
                     />
                     {/* Boton Olvido su Contraseña */}
                     <TouchableOpacity
@@ -41,7 +107,7 @@ export default function LogIn({ navigation }) {
                     </TouchableOpacity>
                     {/* Boton Iniciar Sesión */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(HPANavigation.HOME)}
+                        onPress={handleSubmit(sendLoginData)}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Iniciar Sesión</Text>
                     </TouchableOpacity>
@@ -148,6 +214,16 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderWidth: 2,
         borderColor: 'white',
+        borderRadius: 16,
+        marginHorizontal: 5,
+    },
+    inputError: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 16,
+        marginBottom: 15,
+        borderWidth: 2,
+        borderColor: 'red',
         borderRadius: 16,
         marginHorizontal: 5,
     },
