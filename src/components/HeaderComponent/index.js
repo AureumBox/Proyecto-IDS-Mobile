@@ -9,16 +9,15 @@ import {
   Text
 } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons, Octicons } from '@expo/vector-icons'
-import { ModalPopup } from './ModalPopup'
-import logo from '../../assets/appAssets/logo.png'
-import botonX from '../../assets/appAssets/x.png'
-import sobre from '../../assets/appAssets/sobre.png'
-import { watchAd } from '../services/ads';
+import { ModalPopup } from '../ModalPopup'
+import logo from '../../../assets/appAssets/logo.png'
+import botonX from '../../../assets/appAssets/x.png'
+import sobre from '../../../assets/appAssets/sobre.png'
+import { watchAd } from '../../services/ads';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
-
 
 export default function HeaderComponent() {
   const [loading, setLoading] = useState(false);
@@ -137,7 +136,7 @@ export default function HeaderComponent() {
         </View>
         <View style={{ alignItems: 'center' }}>
           <Image
-            source={(ad?.img) ? ({ uri: ad?.img }) : require('../../assets/Ads/yummy.jpg')}
+            source={(ad?.img) ? ({ uri: ad?.img }) : require('../../../assets/Ads/yummy.jpg')}
             style={{ height: 175, width: 320, resizeMode: 'contain', marginVertical: 10 }}
           />
         </View>

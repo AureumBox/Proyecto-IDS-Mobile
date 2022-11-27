@@ -7,8 +7,9 @@ const URL_WATCH_AD = `${BASE_URL}/ads/watch`;
 export const watchAd = async () => {
   try {
     const { data } = await axios.get(URL_WATCH_AD);
+    console.log('DATA ad', data, '---', data.ad);
 
-    if (!data.ad || !data.ad.success) {
+    if (!data.ad || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
 
