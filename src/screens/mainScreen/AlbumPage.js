@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Header from '../../components/HeaderComponent';
 import { Ionicons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
@@ -29,7 +30,15 @@ export default function AlbumPage({ navigation }) {
                     </View>
                     <View style={styles.albumfondo}>
                         <View style={styles.barra}>
-                            <Text style={styles.pais}>País</Text>
+                        <TouchableOpacity style={styles.flecha} >   
+                            <Entypo name="arrow-with-circle-left" size={24} color="white"/>
+                        </TouchableOpacity> 
+                        <View style={styles.nomPais}>                   
+                            <Text style={styles.pais}>NombrePaís</Text> 
+                        </View> 
+                        <TouchableOpacity style={styles.flecha}>
+                        <Entypo name="arrow-with-circle-right" size={24} color="white" /> 
+                        </TouchableOpacity> 
                         </View>
                     </View>
                     <View
@@ -56,14 +65,25 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: 'flex-start',
     },
+    flecha:{
+       flex: 3,
+       justifyContent: 'center',
+       alignItems: 'center'
+    },
+    nomPais:{
+        flex: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     barra: {
         backgroundColor:'#2A555E',
         width: width-60,
         height: height-890,
         resizeMode: 'contain',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 2
+        //alignItems: 'center',
+        //justifyContent: 'center',
+        borderRadius: 2,
+        flexDirection: 'row',
     },
     containerPor:{
         height: 30,
