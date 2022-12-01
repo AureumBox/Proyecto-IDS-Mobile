@@ -16,6 +16,7 @@ import sobre from '../../../assets/appAssets/sobre.png'
 import { watchAd, getAdRedirectUrl } from '../../services/ads';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Linking } from 'react-native';
+import { obtainStickers } from '../../services/stickers';
 
 const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
@@ -31,18 +32,27 @@ export default function HeaderComponent() {
     setLoading(true);
     try {
       const ad = await watchAd()
-      setAd(ad)
-      setVisibleAnuncio(true)
-    } catch (error) {  
+      setAd(ad);
+      setVisibleAnuncio(true);
+    } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
+      setVisibleAnuncio(true)
     }
   };
 
-  const onCloseAd = () => {
-    setVisibleStickers(true)
-  }
+  const onCloseAd = async () => {
+    setLoading(true);
+    try {
+      const stickers = await obtainStickers()
+      setVisibleStickers(true);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    };
+  };
 
   const onAdClick = () => {
     const redirectUrl = getAdRedirectUrl(ad?.id);
@@ -53,8 +63,8 @@ export default function HeaderComponent() {
   return (
     <SafeAreaView style={styles.header}>
       <Spinner
-          visible={loading}
-          textContent={'Cargando...'}
+        visible={loading}
+        textContent={'Cargando...'}
       />
       {/* Ventana Emergente de Obtener Cromos */}
       <ModalPopup visible={visibleObtener}>
@@ -139,7 +149,7 @@ export default function HeaderComponent() {
             <TouchableOpacity onPress={() => {
               onCloseAd()
               setVisibleAnuncio(false)
-              }}>
+            }}>
               <Image
                 source={botonX}
                 style={{ height: 30, width: 30 }}
