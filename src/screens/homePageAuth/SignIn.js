@@ -9,7 +9,7 @@ import {
     Image,
     View
 } from "react-native";
-import { signup } from "../../services/axiosBD";
+import { signup } from "../../services/auth.services";
 import {useForm, Controller} from "react-hook-form";
 import Constants from 'expo-constants';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -27,7 +27,9 @@ export default function SignIn({ navigation }) {
     const sendRegisterData = async (data) =>{
         setLoading(true);
         try {
+            console.log(JSON.stringify(data))
             const result = await signup(data);
+            console.log(JSON.stringify(result))
             setLoading(false);
             if (result.data.token){
                 dispatch(logIn(result.data.token));

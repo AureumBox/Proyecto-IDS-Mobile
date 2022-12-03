@@ -23,6 +23,7 @@ export const signup = async (user) => {
       email: user.email,
       password: user.password,
     });
+    console.log(JSON.stringify(result))
     return result;
   } catch (error) {
     throw error;

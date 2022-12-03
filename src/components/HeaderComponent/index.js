@@ -13,10 +13,11 @@ import { ModalPopup } from '../ModalPopup'
 import logo from '../../../assets/appAssets/logo.png'
 import botonX from '../../../assets/appAssets/x.png'
 import sobre from '../../../assets/appAssets/sobre.png'
-import { watchAd, getAdRedirectUrl } from '../../services/ads';
+import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Linking } from 'react-native';
-import { obtainStickers } from '../../services/stickers';
+import { obtainStickers } from '../../services/sticker.services';
+import StickerTemplate from '../StickerTemplate';
 
 const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
@@ -27,6 +28,7 @@ export default function HeaderComponent() {
   const [visibleAnuncio, setVisibleAnuncio] = useState(false)
   const [visibleStickers, setVisibleStickers] = useState(false)
   const [ad, setAd] = useState(null);
+  const [obtainedStickers, setObtainedStickers] = useState([])
 
   const onClaimClick = async () => {
     setLoading(true);
@@ -45,7 +47,7 @@ export default function HeaderComponent() {
   const onCloseAd = async () => {
     setLoading(true);
     try {
-      const stickers = await obtainStickers()
+      setObtainedStickers (await obtainStickers())
       setVisibleStickers(true);
     } catch (error) {
       alert(error.message);
@@ -111,7 +113,19 @@ export default function HeaderComponent() {
           </View>
         </View>
         <View style={{ alignItems: 'center', flexDirection: 'row', flexWrap: 'wrap' }}>
-          <Image
+          {obtainedStickers ? (obtainedStickers.map((sticker, i) => 
+            (<StickerTemplate sticker={sticker} key={i} />))) : 
+            (<Text
+              style={{
+                marginVertical: 30,
+                fontSize: 17,
+                textAlign: 'center'
+              }}>
+              Ha ocurrido un error
+            </Text>)
+          }
+          {/* <StickerTemplate sticker={obtainedStickers[0]} key='1'/> */}
+          {/* <Image
             source={sobre}
             style={{ height: 140, width: 140, resizeMode: 'contain', marginVertical: -15 }}
           />
@@ -130,7 +144,7 @@ export default function HeaderComponent() {
           <Image
             source={sobre}
             style={{ height: 140, width: 140, resizeMode: 'contain', marginVertical: -15, marginLeft: 75 }}
-          />
+          /> */}
         </View>
         <Text
           style={{

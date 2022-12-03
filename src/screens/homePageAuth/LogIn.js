@@ -10,7 +10,7 @@ import {
     View
 } from "react-native";
 import {useForm, Controller} from "react-hook-form";
-import { login } from "../../services/axiosBD";
+import { login } from "../../services/auth.services";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
 import { logIn } from '../../state/authSlice.js';
@@ -23,6 +23,7 @@ export default function LogIn({ navigation }) {
     const dispatch = useDispatch();
 
     const sendLoginData = async (data) =>{
+        console.log(data)
         setLoading(true);
         try {
             const result = await login(data);
