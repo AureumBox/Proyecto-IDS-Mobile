@@ -89,9 +89,9 @@ export default function AlbumPage({ navigation }) {
                      >
                       <Text style={styles.textSt}>¡Pega tus cromos!</Text>  
                       <View style={styles.carrusel}>
-                      <View style={styles.barajita}></View>
-                      <View style={styles.barajita}></View>
-                      <View style={styles.barajita}></View>
+                      <View style={styles.barajita}><Text style={styles.idbarajita}>Cromo</Text></View>
+                      <View style={styles.barajita}><Text style={styles.idbarajita}>Cromo</Text></View>
+                      <View style={styles.barajita}><Text style={styles.idbarajita}>Cromo</Text></View>
                       </View>  
                     </View>
             </View>
