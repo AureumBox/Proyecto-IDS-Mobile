@@ -40,10 +40,59 @@ export default function AlbumPage({ navigation }) {
                         <Entypo name="arrow-with-circle-right" size={24} color="white" /> 
                         </TouchableOpacity> 
                         </View>
+                       <View style={styles.containerBarajitas}>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_1</Text>
+                                <Text style={styles.idbarajita}>nameid_1</Text>
+                            </View>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_2</Text>
+                                <Text style={styles.idbarajita}>nameid_2</Text>
+                            </View>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_3</Text>
+                                <Text style={styles.idbarajita}>nameid_3</Text>
+                            </View>
+                        </View> 
+                       <View style={styles.containerBarajitas}>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_4</Text>
+                                <Text style={styles.idbarajita}>nameid_4</Text>
+                            </View>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_5</Text>
+                                <Text style={styles.idbarajita}>nameid_5</Text>
+                            </View>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_6</Text>
+                                <Text style={styles.idbarajita}>nameid_6</Text>
+                            </View>
+                        </View> 
+                       <View style={styles.containerBarajitas}>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_7</Text>
+                                <Text style={styles.idbarajita}>nameid_7</Text>
+                            </View>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_8</Text>
+                                <Text style={styles.idbarajita}>nameid_8</Text>
+                            </View>
+                            <View style={styles.barajita}>
+                                <Text style={styles.idbarajita}>id_9</Text>
+                                <Text style={styles.idbarajita}>nameid_9</Text>
+                            </View>
+                       </View>
+
                     </View>
                     <View
-                        style={styles.carrusel}
+                        style={styles.carruselcontainer}
                      >
+                      <Text style={styles.textSt}>¡Pega tus cromos!</Text>  
+                      <View style={styles.carrusel}>
+                      <View style={styles.barajita}></View>
+                      <View style={styles.barajita}></View>
+                      <View style={styles.barajita}></View>
+                      </View>  
                     </View>
             </View>
         </View>
@@ -78,12 +127,29 @@ const styles = StyleSheet.create({
     barra: {
         backgroundColor:'#2A555E',
         width: width-60,
-        height: height-890,
+        height: height/20,
         resizeMode: 'contain',
-        //alignItems: 'center',
-        //justifyContent: 'center',
         borderRadius: 2,
         flexDirection: 'row',
+    },
+    barajita:{
+        backgroundColor: '#BBB9B9',
+        width: (width-60)/4,
+        height: (((height-(height-width)-30)-(height/20))/3)-6,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    idbarajita:{
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize: 16, 
+    },
+    containerBarajitas:{
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems:'center',
+        height: ((height-(height-width)-30)-(height/20))/3,
+        width: width-60,
     },
     containerPor:{
         height: 30,
@@ -102,7 +168,7 @@ const styles = StyleSheet.create({
     pais: {
         fontWeight: 'bold',
         color: 'white',
-        fontSize: 26, 
+        fontSize: 25, 
     },
     barraPorcentaje: {
         width: width-200,
@@ -124,21 +190,28 @@ const styles = StyleSheet.create({
         marginTop: -6,
         marginLeft: 10
     },
-    carrusel: {
+    carruselcontainer: {
         width: width-40,
         height: width-230,
         backgroundColor: 'white',
         borderRadius: 20,
         alignItems: 'center',
-        justifyContent: 'center',
+    },
+    carrusel: {
+        flexDirection: 'row',
+        width: width-40,
+        height: (((height-(height-width)-30)-(height/20))/3)-6,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
     },
     fondo: {
         flex: 1,
         backgroundColor: '#70ABAF',
     },
     textSt: {
-        color: '#C10001',
+        color: '#2A555E',
         fontWeight: 'bold',
         fontSize: 26,
+        marginBottom: 3,
     },
 })
