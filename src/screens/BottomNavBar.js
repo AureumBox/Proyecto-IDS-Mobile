@@ -11,6 +11,7 @@ import Shop from './mainScreen/Shop'
 import Home from './mainScreen/Home'
 import Profile from './mainScreen/Profile'
 import AlbumNavigator from './mainScreen/Album/AlbumNavigator';
+import Album from './mainScreen/Album';
 
 const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();
@@ -96,7 +97,6 @@ export default function BottomNavBar({ navigation }) {
                         tabBarShowLabel: false
                     }}
                 />
-
             </Tab.Navigator>
         </NavigationContainer>
     )

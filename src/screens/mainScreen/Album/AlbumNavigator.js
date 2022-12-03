@@ -9,7 +9,6 @@ export default function AlbumNavigator() {
     return (
         <Stack.Navigator
             initialRouteName={'Album'}
-            screenOptions={{ presentation: 'transparentModal' }}
         >
             <Stack.Screen
                 name='Album'
