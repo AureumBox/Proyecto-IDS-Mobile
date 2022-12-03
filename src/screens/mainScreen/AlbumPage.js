@@ -25,7 +25,7 @@ export default function AlbumPage({ navigation }) {
                              <View style={styles.Porcentaje}></View>
                         </View>
                         <TouchableOpacity>
-                            <Ionicons name="search-circle" size={40} color="#63130B" style={styles.lupa}/>
+                            <Ionicons name="search-circle" size={40} color="#63130B"/>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.albumfondo}>
@@ -107,10 +107,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#70ABAF',
     },
     albumfondo: {
-        width: width-60,
-        height: height-(height-width)-30,
+        width: '85%',
+        height: '60%',
         backgroundColor: 'white',
-        marginBottom: 15,
+        marginBottom: '3%',
         borderRadius: 5,
         justifyContent: 'flex-start',
     },
@@ -126,44 +126,43 @@ const styles = StyleSheet.create({
     },
     barra: {
         backgroundColor:'#2A555E',
-        width: width-60,
-        height: height/20,
+        width: '100%',
+        height: '12%',
         resizeMode: 'contain',
         borderRadius: 2,
         flexDirection: 'row',
     },
     barajita:{
         backgroundColor: '#BBB9B9',
-        width: (width-60)/4,
-        height: (((height-(height-width)-30)-(height/20))/3)-6,
+        width: '25%',
+        height: '90%',
         justifyContent: 'center',
         alignItems: 'center',
     },
     idbarajita:{
         fontWeight: 'bold',
         color: 'white',
-        fontSize: 16, 
+        fontSize: 14, 
     },
     containerBarajitas:{
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems:'center',
-        height: ((height-(height-width)-30)-(height/20))/3,
-        width: width-60,
+        height: '29%',
+        width: '100%',
     },
     containerPor:{
-        height: 30,
-        width: width-20,
-        marginBottom: 10,
+        height: '9%',
+        width: '90%',
+        marginBottom: '2%',
         flexDirection: 'row',
         alignItems:'center',
-        marginTop: -65
+        justifyContent: 'space-evenly',
     },
     texto: {
         fontWeight: 'bold',
         color: 'black',
         fontSize: 26, 
-        marginLeft: 35,
     },
     pais: {
         fontWeight: 'bold',
@@ -171,36 +170,31 @@ const styles = StyleSheet.create({
         fontSize: 25, 
     },
     barraPorcentaje: {
-        width: width-200,
-        height: 30,
+        width: '60%',
+        height: '50%',
         backgroundColor: 'white',
         borderRadius: 10,
         alignItems: 'center',
         flexDirection: 'row',
-        marginLeft: 5
     },
     Porcentaje:{
-        width: (width-200)*30/100, //Para calcular el porcentaje de llenado de la barra
-        height: 30,
+        width: '30%', //Para calcular el porcentaje de llenado de la barra
+        height: '100%',
         backgroundColor: '#63130B',
         borderRadius: 10,
         flexDirection: 'row',
     },
-    lupa: {
-        marginTop: -6,
-        marginLeft: 10
-    },
     carruselcontainer: {
-        width: width-40,
-        height: width-230,
+        width: '90%',
+        height: '25%',
         backgroundColor: 'white',
         borderRadius: 20,
         alignItems: 'center',
     },
     carrusel: {
         flexDirection: 'row',
-        width: width-40,
-        height: (((height-(height-width)-30)-(height/20))/3)-6,
+        width: '90%',
+        height: '70%',
         alignItems: 'center',
         justifyContent: 'space-evenly',
     },

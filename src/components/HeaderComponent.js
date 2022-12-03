@@ -37,14 +37,14 @@ export default function HeaderComponent() {
 const styles = StyleSheet.create({
   header: {
     width: width,
-    height: height / 11,
+    height: '10%',
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   logo: {
-    height: 40,
+    height: '97%',
     width: 120,
     marginLeft: 15,
     marginTop: 15,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginLeft: 12,
     marginTop: -1,
-    marginRight: -40,
+    marginRight: -30,
     marginBottom: 6
   },
   coins: {

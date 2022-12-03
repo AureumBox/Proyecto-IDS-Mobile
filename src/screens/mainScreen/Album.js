@@ -33,7 +33,7 @@ export default function Album({ navigation }) {
                     </View>
                     <TouchableOpacity
                         onPress={() => navigation.navigate(AlbumPage)}
-                        style={styles.carrusel}
+                        style={styles.boton}
                      >
                         <Text style={styles.textSt}>¡Pega tus cromos!</Text>
                     </TouchableOpacity>
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     },
     albumdig: {
         resizeMode: 'contain',
-        width: width-60,
+        width: '100%',
         marginLeft: 10
     },
     rectangulo: {
-        width: width-60,
-        height: width-30,
+        width: '80%',
+        height: '55%',
         backgroundColor: 'white',
         marginBottom: 30,
         borderRadius: 20,
@@ -65,37 +65,36 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     containerPor:{
-        height: 30,
-        width: width-20,
-        marginBottom: 25,
+        height: '8%',
+        width: '100%',
+        marginBottom: '4%',
         flexDirection: 'row',
+        justifyContent:'space-evenly',
         alignItems:'center'
     },
     texto: {
         fontWeight: 'bold',
         color: 'black',
         fontSize: 26, 
-        marginLeft: 25,
     },
     barraPorcentaje: {
-        width: width-140,
-        height: 30,
+        width: '70%',
+        height: '60%',
         backgroundColor: 'white',
         borderRadius: 10,
         alignItems: 'center',
         flexDirection: 'row',
-        marginLeft: 5
     },
     Porcentaje:{
-        width: (width-140)*30/100, //Para calcular el porcentaje de llenado de la barra
-        height: 30,
+        width: '30%', //Para calcular el porcentaje de llenado de la barra
+        height: '100%',
         backgroundColor: '#63130B',
         borderRadius: 10,
         flexDirection: 'row',
     },
-    carrusel: {
-        width: width-40,
-        height: 50,
+    boton: {
+        width: '80%',
+        height: '7%',
         backgroundColor: 'white',
         borderRadius: 20,
         alignItems: 'center',
