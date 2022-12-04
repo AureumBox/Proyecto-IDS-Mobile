@@ -11,7 +11,7 @@ import Shop from './mainScreen/Shop'
 import Home from './mainScreen/Home'
 import Profile from './mainScreen/Profile'
 import AlbumNavigator from './mainScreen/Album/AlbumNavigator';
-import Album from './mainScreen/Album';
+import Album from './mainScreen/Album/Album';
 
 const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();

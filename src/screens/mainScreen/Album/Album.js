@@ -8,9 +8,10 @@ import {
     Image,
     TouchableOpacity
 } from "react-native";
-import Header from '../../components/HeaderComponent';
-import AlbumDigital from '../../../assets/albumd.png';
+import Header from '../../../components/HeaderComponent';
+import AlbumDigital from '../../../../assets/albumd.png'
 import AlbumPage from "./AlbumPage";
+import ProgressBar from "./ProgressBar";
 
 const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
@@ -20,17 +21,20 @@ export default function Album({ navigation }) {
         <View style={styles.fondo}>
             <Header />
             <View style={styles.container}>
-                    <View style={styles.containerPor}>
-                         <Text style={styles.texto}>30%</Text>
-                        <View style={styles.barraPorcentaje}>
-                             <View style={styles.Porcentaje}></View>
-                        </View>
-                    </View>
+                    <ProgressBar/>
+                    {/* <View style={styles.containerPor}>
+                        <Text style={styles.texto}>30%</Text>
+                        <View style={styles.barraPorcentaje}/>
+                        <View style={styles.Porcentaje}/>
+                    </View> */}
+
                     <View style={styles.rectangulo}>
                         <Image
                             source={AlbumDigital}
-                            style={styles.albumdig}></Image>
+                            style={styles.albumdig}>
+                        </Image>
                     </View>
+
                     <TouchableOpacity
                         onPress={() => navigation.navigate(AlbumPage)}
                         style={styles.boton}
