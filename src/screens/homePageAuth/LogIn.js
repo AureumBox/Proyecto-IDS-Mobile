@@ -13,8 +13,9 @@ import {useForm, Controller} from "react-hook-form";
 import { login } from "../../services/auth.services";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
-import { logIn } from '../../state/authSlice.js';
+import { logIn as logInRedux } from '../../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
+import { store } from "../../state/store";
 
 export default function LogIn({ navigation }) {
     const [loading, setLoading] = useState(false);
@@ -29,7 +30,9 @@ export default function LogIn({ navigation }) {
             const result = await login(data);
             setLoading(false);
             if(result.data.token){
-                dispatch(logIn(result.data.token));
+                console.log(result.data.token)
+                dispatch(logInRedux(result.data.token));
+                console.log(store.getState())
                 navigation.navigate(HPANavigation.HOME);
             }
         } catch (error) {  
