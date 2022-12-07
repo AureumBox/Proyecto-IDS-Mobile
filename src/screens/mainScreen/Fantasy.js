@@ -14,7 +14,7 @@ export default function Fantasy({ navigation }) {
     return (
         <View style={styles.fondo}>
             <Header />
-            <StickerTemplate />
+            {/* <StickerTemplate /> */}
             <View style={styles.container}>
                 <Text style={styles.textSt}>
                     Fantasy

@@ -11,7 +11,7 @@ import {
 import {
   MaterialIcons,
   MaterialCommunityIcons,
-  Octicons,
+  Octicons
 } from "@expo/vector-icons";
 import { ModalPopup } from "../ModalPopup";
 import logo from "../../../assets/appAssets/logo.png";
@@ -227,11 +227,11 @@ export default function HeaderComponent() {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity>
+      {/* <TouchableOpacity>
         <View style={[styles.iconos]}>
           <Octicons name="three-bars" size={35} color="#63130B" />
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </SafeAreaView>
   );
 }
@@ -245,38 +245,38 @@ const styles = StyleSheet.create({
   },
   header: {
     width: width,
-    height: height / 11,
-    backgroundColor: "white",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    height: '10%',
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   logo: {
-    height: 40,
+    height: '97%',
     width: 120,
     marginLeft: 15,
     marginTop: 15,
     marginBottom: 22,
     marginRight: 10,
-    resizeMode: "contain",
+    resizeMode: 'contain'
   },
   cofre: {
-    alignItems: "flex-start",
-    marginLeft: 12,
+    alignItems: 'flex-start',
+    marginLeft: -60,
     marginTop: -1,
-    marginRight: -40,
-    marginBottom: 6,
+    marginRight: -30,
+    marginBottom: 6
   },
   coins: {
     width: 80,
     height: 25,
     backgroundColor: "#D9D9D9",
     borderRadius: 18,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
     marginLeft: 12,
     marginRight: -40,
     marginTop: 3,
-    marginBottom: 8,
+    marginBottom: 8
   },
   logInButton: {
     backgroundColor: "#70ABAF",
