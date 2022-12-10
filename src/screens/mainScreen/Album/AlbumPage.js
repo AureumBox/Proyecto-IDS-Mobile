@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -11,11 +11,21 @@ import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import ProgressBar from "./ProgressBar";
 import Carousel from "./Carousel";
+import NoStickerSlot from "./NoStickerSlot";
+
+
 
 const { width } = Dimensions.get('window')
 const { height } = Dimensions.get('window')
 
+import { useDispatch, useSelector } from "react-redux";
+
 export default function AlbumPage({ navigation }) {
+    const [loading, setLoading] = useState(false);
+    const [info, setInfo] = useState(false);
+    const { token } = useSelector(state => state.auth);
+
+
 
     return (
         <View style={styles.fondo}>
@@ -39,7 +49,10 @@ export default function AlbumPage({ navigation }) {
 
                     {/* Pagina */}
                     <View style={styles.containerBarajitas}>
-                        <View style={styles.barajita}>
+                        <NoStickerSlot/>
+                        <NoStickerSlot/>
+                        <NoStickerSlot/>
+                        {/* <View style={styles.barajita}>
                             <Text style={styles.idbarajita}>id_1</Text>
                             <Text style={styles.idbarajita}>nameid_1</Text>
                         </View>
@@ -50,7 +63,7 @@ export default function AlbumPage({ navigation }) {
                         <View style={styles.barajita}>
                             <Text style={styles.idbarajita}>id_3</Text>
                             <Text style={styles.idbarajita}>nameid_3</Text>
-                        </View>
+                        </View> */}
                     </View>
                     <View style={styles.containerBarajitas}>
                         <View style={styles.barajita}>
