@@ -47,7 +47,10 @@ export default function Navigation() {
                 <Stack.Screen
                     name={HPANavigation.BNB}
                     component={BNBMainScreen}
-                    options={{ headerShown: false }}
+                    options={{
+                        headerShown: false,
+                        gestureEnabled: false
+                    }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

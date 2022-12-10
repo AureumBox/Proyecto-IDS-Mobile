@@ -20,14 +20,13 @@ import defensa from "../../assets/appAssets/test/defensa.png";
 import medioCentro from "../../assets/appAssets/test/medioCentro.png";
 import arquero from "../../assets/appAssets/test/arquero.png";
 
+// se borra luego esto es para tamaños
+import jugador from "../../assets/appAssets/test/ksa/ksa_5.png"
+
 const pos = '../assets/appAssets/test/'
 const { width } = Dimensions.get('window')
 
 export default function StickerTemplate({ sticker }) {
-    // const [id, playerName, country, position, img, height, weight] = sticker
-    // console.log(jugador, bandera, nombre, height, weight, position)
-    console.log(sticker.img)
-    // let ruta = pos + position + '.png'
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -36,7 +35,8 @@ export default function StickerTemplate({ sticker }) {
             >
                 <View style={{ alignItems: 'center' }}>
                     <Image
-                        source={{uri:sticker.img}}
+                        source={jugador}
+                        // source={{uri:sticker.img}} //cambiar a activo cuando ya este la BD
                         style={[styles.jugador, {top: 8}]}
                     />
                 </View>

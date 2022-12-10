@@ -33,7 +33,7 @@ export default function LogIn({ navigation }) {
                 console.log(result.data.token)
                 dispatch(logInRedux(result.data.token));
                 console.log(store.getState())
-                navigation.navigate(HPANavigation.HOME);
+                navigation.navigate(HPANavigation.BNB);
             }
         } catch (error) {  
             if (error?.response?.data) {
