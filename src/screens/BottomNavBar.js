@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 
-
 // Screen Imports
 import Fantasy from './mainScreen/Fantasy'
 import Album from './mainScreen/Album'
@@ -26,8 +25,7 @@ export default function BottomNavBar({ navigation }) {
                         let iconSize // Para luego tamaños personalizados
                         let rn = route.name
                         if (rn === 'Home') {
-                            iconName = focused ? 'ios-home' : 'ios-home-outline'
-                            return <Ionicons name={iconName} size={45} color={color} />
+                            iconName = focused ? 'home' : 'home-outline'
                         } else if (rn === 'Album') {
                             iconName = focused ? 'book' : 'book-outline'
                         } else if (rn === 'Fantasy') {

@@ -25,8 +25,6 @@ export default function Album({ navigation }) {
         setFontsLoaded(true)
     }
 
-
-
     const { height } = Dimensions.get('window')
 
     return (

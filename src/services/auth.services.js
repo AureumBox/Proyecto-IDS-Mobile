@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import Constants from 'expo-constants';
 
 const BASE_URL = Constants.expoConfig.extra.apiUrl;
@@ -28,6 +28,3 @@ export const signup = async (user) => {
     throw error;
   }
 }
-
-/*Hello ily :>*/
-/*Hi >-<*/

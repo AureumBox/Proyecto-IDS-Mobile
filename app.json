@@ -30,7 +30,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "apiUrl": "backend-dummy-url.com"
+      "apiUrl": "192.168.1.106"
     }
   }
 }

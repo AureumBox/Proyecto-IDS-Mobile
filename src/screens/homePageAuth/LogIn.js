@@ -9,11 +9,11 @@ import {
     Image,
     View
 } from "react-native";
+import { useDispatch } from 'react-redux';
+import { logIn as logInRedux } from '../../state/authSlice.js';
 import {useForm, Controller} from "react-hook-form";
-import { login } from "../services/axiosBD";
+import { login } from "../../services/auth.services";
 import Spinner from 'react-native-loading-spinner-overlay';
-import { useDispatch } from 'react-redux'
-import { logIn } from '../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
 
 export default function LogIn({ navigation }) {
@@ -28,8 +28,8 @@ export default function LogIn({ navigation }) {
             const result = await login(data);
             setLoading(false);
             if(result.data.token){
-                dispatch(logIn(result.data.token));
-                navigation.navigate(HPANavigation.HOME);
+                dispatch(logInRedux(result.data.token));
+                navigation.navigate(HPANavigation.BNB);
             }
         } catch (error) {  
             if (error?.response?.data) {
