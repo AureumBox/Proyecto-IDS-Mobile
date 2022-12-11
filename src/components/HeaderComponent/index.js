@@ -42,12 +42,11 @@ export default function HeaderComponent() {
     setLoading(true);
     try {
       setAd(await watchAd());
-      setVisibleAnuncio(true);
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
-      // setVisibleAnuncio(true); // Por si no se tienen anuncios en la BD para probar los stickers
+      setVisibleAnuncio(true);
     }
   };
 
@@ -55,11 +54,11 @@ export default function HeaderComponent() {
     setLoading(true);
     try {
       setObtainedStickers(await obtainStickers(token));
-      setVisibleStickers(true);
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
+      setVisibleStickers(true);
     }
   };
 
