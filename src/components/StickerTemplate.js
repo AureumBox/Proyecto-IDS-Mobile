@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     View,
     Text,
@@ -6,28 +6,22 @@ import {
     StyleSheet,
     ImageBackground,
     Dimensions,
-} from 'react-native'
+} from 'react-native';
+// Imagenes de Plantilla
+import fondo from '../../assets/appAssets/template/fondo.jpg';
+import marco from '../../assets/appAssets/template/marco.png';
+import delantero from '../../assets/appAssets/test/delantero.png';
+import defensa from '../../assets/appAssets/test/defensa.png';
+import medioCentro from '../../assets/appAssets/test/medioCentro.png';
+import arquero from '../../assets/appAssets/test/arquero.png';
 
-// Plantilla
-import fondo from '../../assets/appAssets/template/fondo.jpg'
-import marco from '../../assets/appAssets/template/marco.png'
+const { width } = Dimensions.get('window');
 
 // Mientras no se tenga banderas
-import bandera from "../../assets/appAssets/test/bandera.png";
+import bandera from '../../assets/appAssets/test/bandera.png';
 
-import delantero from "../../assets/appAssets/test/delantero.png";
-import defensa from "../../assets/appAssets/test/defensa.png";
-import medioCentro from "../../assets/appAssets/test/medioCentro.png";
-import arquero from "../../assets/appAssets/test/arquero.png";
-
-const pos = '../assets/appAssets/test/'
-const { width } = Dimensions.get('window')
 
 export default function StickerTemplate({ sticker }) {
-    // const [id, playerName, country, position, img, height, weight] = sticker
-    // console.log(jugador, bandera, nombre, height, weight, position)
-    console.log(sticker.img)
-    // let ruta = pos + position + '.png'
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -47,10 +41,10 @@ export default function StickerTemplate({ sticker }) {
                     />
                     <Image
                         source={
-                            (sticker.position=='arquero')?(arquero):
-                            ((sticker.position=='defensa')?(defensa):
-                            ((sticker.position=='medioCentro')?(medioCentro):
-                            ((sticker.position=='delantero')?(delantero):(delantero))
+                            (sticker.position=='Arquero')?(arquero):
+                            ((sticker.position=='Defensa')?(defensa):
+                            ((sticker.position=='MedioCentro')?(medioCentro):
+                            ((sticker.position=='Delantero')?(delantero):(delantero))
                             ))
                         }
                         style={[styles.bandera, { left: width / 4.75 }]}

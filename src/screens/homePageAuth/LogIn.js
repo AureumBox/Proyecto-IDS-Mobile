@@ -9,13 +9,13 @@ import {
     Image,
     View
 } from "react-native";
+import { useDispatch } from 'react-redux';
+import { store } from "../../state/store";
+import { logIn as logInRedux } from '../../state/authSlice.js';
 import {useForm, Controller} from "react-hook-form";
 import { login } from "../../services/auth.services";
 import Spinner from 'react-native-loading-spinner-overlay';
-import { useDispatch } from 'react-redux'
-import { logIn as logInRedux } from '../../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
-import { store } from "../../state/store";
 
 export default function LogIn({ navigation }) {
     const [loading, setLoading] = useState(false);
@@ -33,7 +33,7 @@ export default function LogIn({ navigation }) {
                 console.log(result.data.token)
                 dispatch(logInRedux(result.data.token));
                 console.log(store.getState())
-                navigation.navigate(HPANavigation.HOME);
+                navigation.navigate(HPANavigation.BNB);
             }
         } catch (error) {  
             if (error?.response?.data) {
