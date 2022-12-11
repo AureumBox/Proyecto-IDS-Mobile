@@ -36,7 +36,7 @@ export default function StickerTemplate({ sticker }) {
                 </View>
                 <View style={{ position: 'absolute' }}>
                     <Image
-                        source={bandera}
+                        source={{uri:sticker.team.badge}}
                         style={[styles.bandera, { left: width / 4.5 }]}
                     />
                     <Image
