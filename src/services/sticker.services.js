@@ -9,7 +9,6 @@ export const obtainStickers = async (token) => {
     const { data } = await axios.get(URL_STICKERS_OBTAIN, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log('DATA stickers', data, '---', data.stickers);
 
     if (!data.stickers || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");

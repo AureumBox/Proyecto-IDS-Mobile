@@ -7,51 +7,52 @@ import {
     ImageBackground,
     Dimensions,
 } from 'react-native';
-// Imagenes de Plantilla
-import fondo from '../../assets/appAssets/template/fondo.jpg';
-import marco from '../../assets/appAssets/template/marco.png';
-import delantero from '../../assets/appAssets/test/delantero.png';
-import defensa from '../../assets/appAssets/test/defensa.png';
-import medioCentro from '../../assets/appAssets/test/medioCentro.png';
-import arquero from '../../assets/appAssets/test/arquero.png';
+import fondoImg from '../../assets/app/template/fondo.jpg';
+import marcoImg from '../../assets/app/template/marco.png';
+import arqueroImg from '../../assets/app/template/arquero.png';
+import defensaImg from '../../assets/app/template/defensa.png';
+import medioCentroImg from '../../assets/app/template/medioCentro.png';
+import delanteroImg from '../../assets/app/template/delantero.png';
 
 const { width } = Dimensions.get('window');
 
-// Mientras no se tenga banderas
-import bandera from '../../assets/appAssets/test/bandera.png';
-
+function getPlayerRoleImg(position) {
+    switch (position) {
+        case 'Arquero': 
+            return arqueroImg;
+        case 'Defensa':
+            return defensaImg;
+        case 'MedioCentro':
+            return medioCentroImg;
+    }
+    return delanteroImg;
+}
 
 export default function StickerTemplate({ sticker }) {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={fondo}
+                source={fondoImg}
                 style={styles.marco}
             >
                 <View style={{ alignItems: 'center' }}>
                     <Image
-                        source={{uri:sticker.img}}
-                        style={[styles.jugador, {top: 8}]}
+                        source={{ uri: sticker.img }}
+                        style={[styles.jugador, { top: 8 }]}
                     />
                 </View>
                 <View style={{ position: 'absolute' }}>
                     <Image
-                        source={{uri:sticker.team.badge}}
+                        source={{ uri: sticker.team.badge }}
                         style={[styles.bandera, { left: width / 4.5 }]}
                     />
                     <Image
-                        source={
-                            (sticker.position=='Arquero')?(arquero):
-                            ((sticker.position=='Defensa')?(defensa):
-                            ((sticker.position=='MedioCentro')?(medioCentro):
-                            ((sticker.position=='Delantero')?(delantero):(delantero))
-                            ))
-                        }
+                        source={getPlayerRoleImg(sticker.position)}
                         style={[styles.bandera, { left: width / 4.75 }]}
                     />
                 </View>
                 <ImageBackground
-                    source={marco}
+                    source={marcoImg}
                     style={[styles.marco, { position: 'absolute', alignItems: 'center', justifyContent: 'flex-end' }]}
                 >
                     <View style={{ bottom: 90, right: 35 }}>

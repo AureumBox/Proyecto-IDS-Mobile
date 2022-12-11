@@ -9,7 +9,7 @@ import {
     Dimensions
 } from "react-native";
 import HPANavigation from "../../constants/HPANavigation";
-import logoVertical from '../../../assets/appAssets/logoVertical.png'
+import logoVerticalImg from '../../../assets/app/logoVertical.png'
 
 export default function HomeScreen({ navigation }) {
     const { height } = Dimensions.get('window')
@@ -17,7 +17,7 @@ export default function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <Image
-                source={logoVertical}
+                source={logoVerticalImg}
                 style={{
                     width: '85%',
                     height: (height / 3) * 1.4,
@@ -43,14 +43,6 @@ export default function HomeScreen({ navigation }) {
                     >
                         <Text style={styles.buttonText}>Iniciar Sesión</Text>
                     </TouchableOpacity>
-                    {/* TEMPORAL */}
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate(HPANavigation.BNB)}
-                        style={styles.button1}
-                    >
-                        <Text style={styles.buttonText}>MainScreen</Text>
-                    </TouchableOpacity>
-                    {/* TEMPORAL */}
                 </View>
             </View>
             <StatusBar style="auto" />

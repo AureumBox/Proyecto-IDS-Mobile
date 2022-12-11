@@ -8,7 +8,6 @@ export const authSlice = createSlice({
     },
     reducers: {
         'logIn': (state, { payload }) => {
-            console.log("entro");
             state.token = payload;
             state.logged = true;
         },

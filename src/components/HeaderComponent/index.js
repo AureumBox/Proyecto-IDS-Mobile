@@ -10,10 +10,7 @@ import {
   Linking
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  MaterialIcons,
-  Ionicons
-} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-remix-icon';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
@@ -21,10 +18,9 @@ import { obtainStickers } from '../../services/sticker.services';
 import { ModalPopup } from '../ModalPopup';
 import StickerTemplate from '../StickerTemplate';
 
-// Imagenes del Modal
-import logo from '../../../assets/appAssets/logo.png';
-import botonX from '../../../assets/appAssets/x.png';
-import sobre from '../../../assets/appAssets/sobre.png';
+import logoImg from '../../../assets/app/logo.png';
+import botonXImg from '../../../assets/app/x.png';
+import sobreImg from '../../../assets/app/sobre.png';
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,7 +31,6 @@ export default function HeaderComponent() {
   const [visibleStickers, setVisibleStickers] = useState(false);
   const [ad, setAd] = useState(null);
   const [obtainedStickers, setObtainedStickers] = useState([]);
-
   const { token } = useSelector(state => state.auth);
 
   const onClaimClick = async () => {
@@ -64,7 +59,6 @@ export default function HeaderComponent() {
 
   const onAdClick = () => {
     const redirectUrl = getAdRedirectUrl(ad?.id);
-    console.log('LE HAZ DADO CLICK A UN ANUNCIO :D ', redirectUrl);
     Linking.openURL(redirectUrl);
   };
 
@@ -76,13 +70,13 @@ export default function HeaderComponent() {
         <View style={{ alignItems: 'center' }}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setVisibleObtener(false)}>
-              <Image source={botonX} style={{ height: 30, width: 30 }} />
+              <Image source={botonXImg} style={{ height: 30, width: 30 }} />
             </TouchableOpacity>
           </View>
         </View>
         <View style={{ alignItems: 'center' }}>
           <Image
-            source={sobre}
+            source={sobreImg}
             style={{
               width: 250,
               height: 250,
@@ -105,7 +99,7 @@ export default function HeaderComponent() {
         <View style={{ alignItems: 'center' }}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setVisibleStickers(false)}>
-              <Image source={botonX} style={{ height: 30, width: 30 }} />
+              <Image source={botonXImg} style={{ height: 30, width: 30 }} />
             </TouchableOpacity>
           </View>
         </View>
@@ -119,8 +113,8 @@ export default function HeaderComponent() {
 
           {obtainedStickers ? (
             obtainedStickers.map((sticker, i) => (
-              <View style={{marginVertical: 78}}>
-                <StickerTemplate sticker={sticker} key={i} />
+              <View key={i} style={{marginVertical: 78}}>
+                <StickerTemplate sticker={sticker} />
               </View>
             ))
           ) : (
@@ -156,7 +150,7 @@ export default function HeaderComponent() {
                 setVisibleAnuncio(false);
               }}
             >
-              <Image source={botonX} style={{ height: 30, width: 30 }} />
+              <Image source={botonXImg} style={{ height: 30, width: 30 }} />
             </TouchableOpacity>
           </View>
         </View>
@@ -166,7 +160,7 @@ export default function HeaderComponent() {
               source={
                 ad?.img
                   ? { uri: ad?.img }
-                  : require('../../../assets/Ads/yummy.jpg')
+                  : require('../../../assets/ads/yummy.jpg')
               }
               style={{
                 height: 175,
@@ -189,12 +183,11 @@ export default function HeaderComponent() {
       </ModalPopup>
 
       {/* Header Layout */}
-      <Image source={logo} style={styles.logo} />
+      <Image source={logoImg} style={styles.logo} />
 
       <TouchableOpacity>
         <View style={[styles.coins]}>
           <Icon name="money-dollar-circle-fill" size="26" color="#63130B"/>
-          {/* <MaterialIcons name='attach-money' size={25} color='#63130B' /> */}
         </View>
       </TouchableOpacity>
 

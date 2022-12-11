@@ -10,7 +10,6 @@ import {
     View
 } from "react-native";
 import { useDispatch } from 'react-redux';
-import { store } from "../../state/store";
 import { logIn as logInRedux } from '../../state/authSlice.js';
 import {useForm, Controller} from "react-hook-form";
 import { login } from "../../services/auth.services";
@@ -24,15 +23,12 @@ export default function LogIn({ navigation }) {
     const dispatch = useDispatch();
 
     const sendLoginData = async (data) =>{
-        console.log(data)
         setLoading(true);
         try {
             const result = await login(data);
             setLoading(false);
             if(result.data.token){
-                console.log(result.data.token)
                 dispatch(logInRedux(result.data.token));
-                console.log(store.getState())
                 navigation.navigate(HPANavigation.BNB);
             }
         } catch (error) {  
