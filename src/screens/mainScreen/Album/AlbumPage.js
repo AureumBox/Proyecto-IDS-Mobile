@@ -115,7 +115,17 @@ export default function AlbumPage({ navigation }) {
     <View style={styles.fondo}>
       <Header />
       <View style={styles.container}>
-        <ProgressBar />
+        <View style={styles.containerPor}>
+          <ProgressBar />
+          <TouchableOpacity>
+            <Ionicons
+              name="search-circle"
+              size={40}
+              color="#63130B"
+              style={styles.lupa}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.albumfondo}>
           {/* Header del album */}
           <View style={styles.barra}>
@@ -134,8 +144,8 @@ export default function AlbumPage({ navigation }) {
             {console.log(pageInfo)}
             {showAlbum ? (
               pageInfo?.item.stickers.map((sticker) => {
-                sticker.isInAlbum ? ((
-                  <StickerTemplate /> )
+                sticker.isInAlbum ? (
+                  <StickerTemplate />
                 ) : (
                   console.log("no esta") /*<NoStickerSlot /> */
                 );

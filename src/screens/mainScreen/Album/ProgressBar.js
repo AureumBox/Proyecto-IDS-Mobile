@@ -33,7 +33,7 @@ export default function ProgressBar({completedPercent = 70}) {
 
 const styles = StyleSheet.create({
     containerPor: {
-        height: '9%',
+        height: '100%',
         width: '90%',
         marginBottom: '2%',
         flexDirection: 'row',
