@@ -9,10 +9,9 @@ import {
 } from "react-native";
 
 
-export default function ProgressBar({completedPercent}) {
-    const [percent, setPercent] = useState(completedPercent)
+export default function ProgressBar({completedPercent = 70}) {
 
-    console.log(completedPercent)
+    const [percent, setPercent] = useState(completedPercent)
 
     const completedBar = {
         width: `${percent}%`, //Para calcular el porcentaje de llenado de la barra

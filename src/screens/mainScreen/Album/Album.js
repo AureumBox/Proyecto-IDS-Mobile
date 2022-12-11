@@ -19,43 +19,54 @@ const { height } = Dimensions.get("window");
 
 import * as services from "../../../services/inventory.services";
 import { useDispatch, useSelector } from "react-redux";
-import {fetchAlbumInfo} from '../../../services/inventory.services'
+import { fetchAlbumInfo, fetchTeamsInfo } from "../../../services/inventory.services";
 
 export default function Album({ navigation }) {
-  const [loading, setLoading] = useState(false);
-  const [info, setInfo] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [albumInfo, setAlbumInfo] = useState({});
+  const [teamsInfo, setTeamsInfo] = useState({});
+
   const eventId = 1;
   const { token } = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    (async () => {
+      await loadAlbumInfo();
+      await loadTeamsInfo();
+    })();
+  }, [token]);
+
   const loadAlbumInfo = async () => {
-    console.log(token)
     setLoading(true);
     try {
       const data = await fetchAlbumInfo(token, eventId);
-      console.log(data);
-      setInfo(data);
-      console.log(data.actualProgressPercertage)
+      setAlbumInfo(data);
     } catch (error) {
-      alert('mamita'+error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
-  };
+  }; 
+  
+  const loadTeamsInfo = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchTeamsInfo();
+      setTeamsInfo(data);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }; 
 
-  useEffect(() => {
-    loadAlbumInfo();
-  }, [info]);
+  if (loading) return <Text>Loading...</Text>;
 
   return (
     <View style={styles.fondo}>
       <Header />
       <View style={styles.container}>
-        <ProgressBar completedPercent={info?.actualProgressPercertage} />
-        {/* <View style={styles.containerPor}>
-                        <Text style={styles.texto}>30%</Text>
-                        <View style={styles.barraPorcentaje}/>
-                        <View style={styles.Porcentaje}/>
-                    </View> */}
+        <ProgressBar completedPercent={albumInfo?.actualProgressPercertage} />
 
         <View style={styles.rectangulo}>
           <Image source={AlbumDigital} style={styles.albumdig}></Image>

@@ -23,20 +23,25 @@ import arquero from "../../assets/appAssets/test/arquero.png";
 const pos = '../assets/appAssets/test/'
 const { width } = Dimensions.get('window')
 
+/* cambiar luego de subir a online SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS */
+import Constants from 'expo-constants';
+/* SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS */
+
 export default function StickerTemplate({ sticker }) {
-    // const [id, playerName, country, position, img, height, weight] = sticker
-    // console.log(jugador, bandera, nombre, height, weight, position)
-    console.log(sticker.img)
-    // let ruta = pos + position + '.png'
+    //cambiar luego de subir a online//////////////////////////////////////////////////////////
+    const BASE_URL = Constants.expoConfig.extra.apiUrl;
+    const img2 = sticker?.img.replace('http://localhost:3000', BASE_URL)
+    ///////////////////////////////////////////////////////////////////////////////////////////
+
     return (
         <View style={styles.container}>
             <ImageBackground
                 source={fondo}
                 style={styles.marco}
             >
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: 'center', overflow: 'hidden' }}>
                     <Image
-                        source={{uri:sticker.img}}
+                        source={{uri:img2 /* sticker.img */}}
                         style={[styles.jugador, {top: 8}]}
                     />
                 </View>
@@ -47,10 +52,10 @@ export default function StickerTemplate({ sticker }) {
                     />
                     <Image
                         source={
-                            (sticker.position=='arquero')?(arquero):
-                            ((sticker.position=='defensa')?(defensa):
-                            ((sticker.position=='medioCentro')?(medioCentro):
-                            ((sticker.position=='delantero')?(delantero):(delantero))
+                            (sticker?.position=='arquero')?(arquero):
+                            ((sticker?.position=='defensa')?(defensa):
+                            ((sticker?.position=='medioCentro')?(medioCentro):
+                            ((sticker?.position=='delantero')?(delantero):(delantero))
                             ))
                         }
                         style={[styles.bandera, { left: width / 4.75 }]}
@@ -61,10 +66,10 @@ export default function StickerTemplate({ sticker }) {
                     style={[styles.marco, { position: 'absolute', alignItems: 'center', justifyContent: 'flex-end' }]}
                 >
                     <View style={{ bottom: 90, right: 35 }}>
-                        <Text style={styles.texto}>{sticker.height}</Text>
-                        <Text style={styles.texto}>{sticker.weight}</Text>
+                        <Text style={styles.texto}>{sticker?.height}</Text>
+                        <Text style={styles.texto}>{sticker?.weight}</Text>
                     </View>
-                    <Text style={styles.nombreJugador}>{sticker.playerName}</Text>
+                    <Text style={styles.nombreJugador}>{sticker?.playerName}</Text>
                 </ImageBackground>
             </ImageBackground>
         </View>

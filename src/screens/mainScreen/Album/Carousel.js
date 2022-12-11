@@ -11,28 +11,40 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 
+import { fetchInventory } from "../../../services/inventory.services";
+import { useDispatch, useSelector } from "react-redux";
+
+import StickerTemplate from "../../../components/StickerTemplate";
+
 const { width, height } = Dimensions.get("screen");
-const data = [
-  {
-    id: 1,
-    img: "https://img.freepik.com/foto-gratis/gato-rojo-o-blanco-i-estudioblanco_155003-13189.jpg?w=2000",
-  },
-  {
-    id: 2,
-    img: "https://img.freepik.com/foto-gratis/gato-rojo-o-blanco-i-estudioblanco_155003-13189.jpg?w=2000",
-  },
-  {
-    id: 3,
-    img: "https://img.freepik.com/foto-gratis/gato-rojo-o-blanco-i-estudioblanco_155003-13189.jpg?w=2000",
-  },
-  {
-    id: 4,
-    img: "https://okdiario.com/img/2022/05/12/gato-655x368.jpg",
-  },
-];
 
 export default function Carousel() {
   const [selectedId, setSelectedId] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+  const [stickers, setStickers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const { token } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    (async () => {
+      await loadInventoryInfo();
+    })();
+  }, [token, currentPage]);
+
+
+  const loadInventoryInfo = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchInventory(token, 1, currentPage);
+      setStickers(data.items);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const Item = ({ item, selectedId }) => (
     <TouchableOpacity onPress={() => setSelectedId(item.id)}>
@@ -42,13 +54,8 @@ export default function Carousel() {
           height: "95%",
         }}
       >
-        <Image
-          source={{ uri: item.img }}
-          style={{
-            flex: 1,
-            resizeMode: "contain",
-          }}
-        />
+        <StickerTemplate sticker={item} />
+        
         {/* Overlay rojo cuando item es seleccionado */}
         {item.id === selectedId && <View style={styles.selectedItem} />}
       </View>
@@ -67,7 +74,7 @@ export default function Carousel() {
     <View style={styles.carousel}>
       <View>
         <FlatList
-          data={data}
+          data={stickers}
           keyExtractor={(_, index) => index.toString()}
           horizontal
           pagingEnabled
@@ -79,7 +86,7 @@ export default function Carousel() {
           renderItem={({ item }) => {
             return (
               <View style={{ justifyContent: "center" }}>
-                <Item item={item} selectedId={selectedId} />
+                <Item item={item.sticker} selectedId={selectedId} />
               </View>
             );
           }}
