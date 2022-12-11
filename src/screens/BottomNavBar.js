@@ -49,7 +49,7 @@ export default function BottomNavBar({ navigation }) {
                         tabBarActiveTintColor: '#C10001',
                         tabBarInactiveTintColor: 'grey',
                         tabBarStyle: { padding: 0, height: height / 10 },
-                        tabBarShowLabel: false
+                        tabBarShowLabel: false,
                     }}
                 />
                 <Tab.Screen

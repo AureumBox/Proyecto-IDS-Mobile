@@ -20,6 +20,9 @@ import defensa from "../../assets/appAssets/test/defensa.png";
 import medioCentro from "../../assets/appAssets/test/medioCentro.png";
 import arquero from "../../assets/appAssets/test/arquero.png";
 
+// se borra luego esto es para tamaños
+import jugador from "../../assets/appAssets/test/ksa/ksa_5.png"
+
 const pos = '../assets/appAssets/test/'
 const { width } = Dimensions.get('window')
 
@@ -28,11 +31,6 @@ import Constants from 'expo-constants';
 /* SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS */
 
 export default function StickerTemplate({ sticker }) {
-    //cambiar luego de subir a online//////////////////////////////////////////////////////////
-    const BASE_URL = Constants.expoConfig.extra.apiUrl;
-    const img2 = sticker?.img.replace('http://localhost:3000', BASE_URL)
-    ///////////////////////////////////////////////////////////////////////////////////////////
-
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -41,7 +39,8 @@ export default function StickerTemplate({ sticker }) {
             >
                 <View style={{ alignItems: 'center', overflow: 'hidden' }}>
                     <Image
-                        source={{uri:img2 /* sticker.img */}}
+                        source={jugador}
+                        // source={{uri:sticker.img}} //cambiar a activo cuando ya este la BD
                         style={[styles.jugador, {top: 8}]}
                     />
                 </View>
