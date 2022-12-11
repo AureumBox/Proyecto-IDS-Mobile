@@ -41,14 +41,13 @@ export default function HeaderComponent() {
   const onClaimClick = async () => {
     setLoading(true);
     try {
-      const ad = await watchAd();
-      setAd(ad);
+      setAd(await watchAd());
       setVisibleAnuncio(true);
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
-      setVisibleAnuncio(true);
+      // setVisibleAnuncio(true); // Por si no se tienen anuncios en la BD para probar los stickers
     }
   };
 
