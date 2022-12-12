@@ -6,7 +6,6 @@ import {
     Dimensions
 } from "react-native";
 import Header from '../../components/HeaderComponent';
-import StickerTemplate from "../../components/StickerTemplate";
 
 export default function Fantasy({ navigation }) {
     const { height } = Dimensions.get('window')
@@ -14,7 +13,6 @@ export default function Fantasy({ navigation }) {
     return (
         <View style={styles.fondo}>
             <Header />
-            <StickerTemplate />
             <View style={styles.container}>
                 <Text style={styles.textSt}>
                     Fantasy
