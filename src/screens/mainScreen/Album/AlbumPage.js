@@ -18,69 +18,15 @@ const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
 import { useDispatch, useSelector } from "react-redux";
+import * as albumSlice from "../../../state/albumSlice.js";
+import { setPercentage, setCurrentTeam } from '../../../state/albumSlice.js';
+import { store } from "../../../state/store";
 
 import {
   fetchAlbumInfo,
   fetchPageInfo,
+  fetchTeamsInfo
 } from "../../../services/inventory.services";
-
-res = {
-  success: true,
-  item: {
-    album: {
-      currentTeam: {
-        id: 1,
-        name: "Venezuela",
-      },
-    },
-    stickers: [
-      {
-        id: 1,
-        isInAlbum: true,
-        eventId: 1,
-        sticker: {
-          id: 2,
-          playerName: "Nora",
-          country: "pijama",
-          position: "MedioCentro",
-          img: "http://localhost:3000/uploads\\1669958773649-7b96914e57aac1e1803f1a7f87e55648.jpg",
-          height: 175,
-          weight: 70,
-          teamId: 4,
-          team: {
-            id: 1,
-            name: "Venezuela",
-            badge:
-              "uploads/banderaVzla-24718cd3-f132-4350-9c6d-5ce1d45730af.png",
-            idEvents: 1,
-          },
-        },
-      },
-      {
-        id: 2,
-        isInAlbum: false,
-        eventId: 1,
-        sticker: {
-          id: 2,
-          playerName: "Messi",
-          country: "Venezuela",
-          position: "MedioCentro",
-          img: "http://localhost:3000/uploads\\1669958773649-7b96914e57aac1e1803f1a7f87e55648.jpg",
-          height: 175,
-          weight: 70,
-          teamId: 1,
-          team: {
-            id: 1,
-            name: "Venezuela",
-            badge:
-              "uploads/banderaVzla-24718cd3-f132-4350-9c6d-5ce1d45730af.png",
-            idEvents: 1,
-          },
-        },
-      },
-    ],
-  },
-};
 
 export default function AlbumPage({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -90,9 +36,12 @@ export default function AlbumPage({ navigation }) {
   const [teamId, setTeamId] = useState(1);
 
   const { token } = useSelector((state) => state.auth);
+  const teamName = useSelector((state) => state.album.currentTeam.name);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
+      console.log(teamName)
       await loadPageInfo();
     })();
   }, [token]);
@@ -103,6 +52,8 @@ export default function AlbumPage({ navigation }) {
       const data = await fetchPageInfo(token, eventId, teamId);
       console.log(JSON.stringify(data));
       setPageInfo(res);
+      // dispatch(albumSlice.saveTeamStickers(0));
+      // console.log('qwertybb'+store.getState());
       setShowAlbum(true);
     } catch (error) {
       alert("asd" + error.message);
@@ -133,7 +84,7 @@ export default function AlbumPage({ navigation }) {
               <Entypo name="arrow-with-circle-left" size={24} color="white" />
             </TouchableOpacity>
             <View style={styles.nomPais}>
-              <Text style={styles.pais}>NombrePaís</Text>
+              <Text style={styles.pais}>{teamName}</Text>
             </View>
             <TouchableOpacity style={styles.flecha}>
               <Entypo name="arrow-with-circle-right" size={24} color="white" />
