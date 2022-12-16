@@ -160,7 +160,7 @@ export default function HeaderComponent() {
               source={
                 ad?.img
                   ? { uri: ad?.img }
-                  : require('../../../assets/ads/yummy.jpg')
+                  : require('../../../assets/Ads/yummy.jpg')
               }
               style={{
                 height: 175,

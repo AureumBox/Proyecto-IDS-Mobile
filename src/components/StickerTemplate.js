@@ -15,7 +15,6 @@ import arqueroImg from '../../assets/app/template/arquero.png';
 import defensaImg from '../../assets/app/template/defensa.png';
 import medioCentroImg from '../../assets/app/template/medioCentro.png';
 import delanteroImg from '../../assets/app/template/delantero.png';
-import jug from '../../assets/app/template/ksa_1.png';
 
 const { width } = Dimensions.get('window');
 
@@ -40,8 +39,7 @@ export default function StickerTemplate({ sticker }) {
             >
                 <View style={{ alignItems: 'center' }}>
                     <Image
-                        source={jug}
-                        // source={{ uri: sticker.img }}
+                        source={{ uri: sticker.img }}
                         style={[styles.jugador, { top: 8 }]}
                     />
                 </View>
