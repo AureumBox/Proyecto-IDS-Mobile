@@ -21,6 +21,7 @@
     "react": "18.0.0",
     "react-hook-form": "^7.39.4",
     "react-native": "0.69.6",
+    "react-native-dotenv": "^3.4.6",
     "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-reanimated": "~2.9.1",
     "react-native-remix-icon": "^0.4.0",
