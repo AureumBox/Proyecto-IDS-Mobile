@@ -17,15 +17,17 @@ import ProgressBar from "./ProgressBar";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
-
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAlbumInfo,
   fetchTeamsInfo,
 } from "../../../services/inventory.services";
 import * as albumSlice from "../../../state/albumSlice.js";
-import { setPercentage, setTeamList, setCurrentTeam } from '../../../state/albumSlice.js';
+import {
+  setPercentage,
+  setTeamList,
+  setCurrentTeam,
+} from "../../../state/albumSlice.js";
 import { store } from "../../../state/store";
 
 export default function Album({ navigation }) {
@@ -48,7 +50,7 @@ export default function Album({ navigation }) {
     setLoading(true);
     try {
       const data = await fetchAlbumInfo(token, eventId);
-      console.log(JSON.stringify(data))
+      console.log(JSON.stringify(data));
       setAlbumInfo(data);
       console.log(JSON.stringify(data.actualProgressPercentage));
       dispatch(setPercentage(data.actualProgressPercentage));
@@ -66,19 +68,18 @@ export default function Album({ navigation }) {
       dispatch(setTeamList(data));
       setTeamsInfo(data);
       console.log("qwertybb" + JSON.stringify(store.getState()));
-      
-      dispatch(setCurrentTeam({
-        'index': 0,
-        'id': data[0].id, 
-        'name': data[0].name,
-        'stickers': [],
-        'obtainedCount': data[0].stickers.length,
-      }))
 
-      
-      
+      dispatch(
+        setCurrentTeam({
+          index: 0,
+          id: data[0].id,
+          name: data[0].name,
+          stickers: [],
+          obtainedCount: data[0].stickers.length,
+        })
+      );
+
       console.log("qwertybb" + JSON.stringify(store.getState()));
-
     } catch (error) {
       alert(error.message);
     } finally {
@@ -91,20 +92,24 @@ export default function Album({ navigation }) {
   return (
     <View style={styles.fondo}>
       <Header />
-      <View style={styles.container}>
-        <ProgressBar completedPercent={albumInfo?.actualProgressPercertage} />
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <View style={styles.container}>
+          <ProgressBar completedPercent={albumInfo?.actualProgressPercertage} />
 
-        <View style={styles.rectangulo}>
-          <Image source={AlbumDigital} style={styles.albumdig}></Image>
+          <View style={styles.rectangulo}>
+            <Image source={AlbumDigital} style={styles.albumdig}></Image>
+          </View>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate(AlbumPage)}
+            style={styles.boton}
+          >
+            <Text style={styles.textSt}>¡Pega tus cromos!</Text>
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate(AlbumPage)}
-          style={styles.boton}
-        >
-          <Text style={styles.textSt}>¡Pega tus cromos!</Text>
-        </TouchableOpacity>
-      </View>
+      )}
     </View>
   );
 }

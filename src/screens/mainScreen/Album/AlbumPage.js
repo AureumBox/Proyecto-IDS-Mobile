@@ -51,12 +51,12 @@ export default function AlbumPage({ navigation }) {
     try {
       const data = await fetchPageInfo(token, eventId, teamId);
       console.log(JSON.stringify(data));
-      setPageInfo(res);
-      // dispatch(albumSlice.saveTeamStickers(0));
-      // console.log('qwertybb'+store.getState());
+      setPageInfo(data);
+      dispatch(albumSlice.setTeamStickers(0));
+      console.log('qwertybb'+JSON.stringify(store.getState()));
       setShowAlbum(true);
     } catch (error) {
-      alert("asd" + error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -93,14 +93,17 @@ export default function AlbumPage({ navigation }) {
 
           <View style={styles.containerBarajitas}>
             {console.log(pageInfo)}
+            <StickerTemplate /> 
+            <NoStickerSlot /> 
             {showAlbum ? (
-              pageInfo?.item.stickers.map((sticker) => {
+              pageInfo?.item?.stickers?.map((sticker) => {
+                <NoStickerSlot />
                 sticker.isInAlbum ? (
-                  <StickerTemplate />
+                  console.log("si esta") /* <StickerTemplate /> */
                 ) : (
                   console.log("no esta") /*<NoStickerSlot /> */
                 );
-              })
+              }) 
             ) : (
               <Text
                 style={{
