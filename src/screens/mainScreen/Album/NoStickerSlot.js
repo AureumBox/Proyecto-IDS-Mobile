@@ -11,8 +11,8 @@ export default function NoStickerSlot({ idCode = 0, nameCode = 0}) {
   console.log(idCode, nameCode);
   return (
     <View style={styles.barajita}>
-      <Text style={styles.idbarajita}>id_1</Text>
-      <Text style={styles.idbarajita}>nameid_1</Text>
+      <Text style={styles.idbarajita}>{idCode}</Text>
+      <Text style={styles.idbarajita}>{nameCode}</Text>
     </View>
   );
 }

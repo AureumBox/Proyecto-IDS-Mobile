@@ -82,6 +82,8 @@ export default function AlbumPage({ navigation }) {
         </View>
         <View style={styles.albumfondo}>
           {/* Header del album */}
+          {console.log("nombre "+teamName)}
+          
           <AlbumHeader teamName={teamName}/>
           {/* <View style={styles.barra}>
             <TouchableOpacity style={styles.flecha}>
@@ -101,7 +103,7 @@ export default function AlbumPage({ navigation }) {
             {pageInfo?.stickers?.map((sticker) => 
               <>
                 {(!(sticker?.isAttached)) && 
-                <NoStickerSlot/>}
+                <NoStickerSlot idCode={sticker?.id} nameCode={sticker?.playerName}/>}
 
                 {(sticker?.isAttached) && 
                 <StickerTemplate/>} 
