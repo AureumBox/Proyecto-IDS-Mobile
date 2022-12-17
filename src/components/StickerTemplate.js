@@ -39,14 +39,14 @@ export default function StickerTemplate({ sticker }) {
             >
                 <View style={{ alignItems: 'center', overflow: 'hidden' }}>
                     <Image
-                        source={jugador}
-                        // source={{uri:sticker.img}} //cambiar a activo cuando ya este la BD
+                        // source={jugador}
+                        source={{ uri: sticker.img }} //cambiar a activo cuando ya este la BD
                         style={[styles.jugador, {top: 8}]}
                     />
                 </View>
                 <View style={{ position: 'absolute' }}>
                     <Image
-                        source={bandera}
+                        source={{ uri: sticker.team.badge }}
                         style={[styles.bandera, { left: width / 4.5 }]}
                     />
                     <Image

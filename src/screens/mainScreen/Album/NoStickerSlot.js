@@ -1,13 +1,15 @@
 import React from "react";
 import {
-    StyleSheet,
-    Text,
-    View,
-    Dimensions,
-    TouchableOpacity
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity
 } from "react-native";
 
-export default function NoStickerSlot({ idCode = 0, nameCode = 0}) {
+const { width } = Dimensions.get('window');
+
+export default function NoStickerSlot({ idCode = 0, nameCode = 0 }) {
   console.log(idCode, nameCode);
   return (
     <View style={styles.barajita}>
@@ -20,8 +22,8 @@ export default function NoStickerSlot({ idCode = 0, nameCode = 0}) {
 const styles = StyleSheet.create({
   barajita: {
     backgroundColor: "#BBB9B9",
-    width: "25%",
-    height: "90%",
+    width: width / 3.5,
+    height: (width / 3.5) * 1.3,
     justifyContent: "center",
     alignItems: "center",
   },
