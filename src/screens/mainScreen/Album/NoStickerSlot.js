@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from "react-native";
 
-export default function NoStickerSlot({ idCode, nameCode }) {
+export default function NoStickerSlot({ idCode = 0, nameCode = 0}) {
   console.log(idCode, nameCode);
   return (
     <View style={styles.barajita}>

@@ -19,14 +19,15 @@ const { height } = Dimensions.get("window");
 
 import { useDispatch, useSelector } from "react-redux";
 import * as albumSlice from "../../../state/albumSlice.js";
-import { setPercentage, setCurrentTeam } from '../../../state/albumSlice.js';
+import { setPercentage, setCurrentTeam } from "../../../state/albumSlice.js";
 import { store } from "../../../state/store";
 
 import {
   fetchAlbumInfo,
   fetchPageInfo,
-  fetchTeamsInfo
+  fetchTeamsInfo,
 } from "../../../services/inventory.services";
+import AlbumHeader from "./AlbumHeader";
 
 export default function AlbumPage({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -41,7 +42,7 @@ export default function AlbumPage({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      console.log(teamName)
+      console.log(teamName);
       await loadPageInfo();
     })();
   }, [token]);
@@ -50,10 +51,10 @@ export default function AlbumPage({ navigation }) {
     setLoading(true);
     try {
       const data = await fetchPageInfo(token, eventId, teamId);
-      console.log(JSON.stringify(data));
-      setPageInfo(data);
+      console.log(JSON.stringify(data.item));
+      setPageInfo(data.item);
       dispatch(albumSlice.setTeamStickers(0));
-      console.log('qwertybb'+JSON.stringify(store.getState()));
+      console.log("qwertybb" + JSON.stringify(store.getState()));
       setShowAlbum(true);
     } catch (error) {
       alert(error.message);
@@ -61,6 +62,8 @@ export default function AlbumPage({ navigation }) {
       setLoading(false);
     }
   };
+
+  
 
   return (
     <View style={styles.fondo}>
@@ -79,7 +82,8 @@ export default function AlbumPage({ navigation }) {
         </View>
         <View style={styles.albumfondo}>
           {/* Header del album */}
-          <View style={styles.barra}>
+          <AlbumHeader teamName={teamName}/>
+          {/* <View style={styles.barra}>
             <TouchableOpacity style={styles.flecha}>
               <Entypo name="arrow-with-circle-left" size={24} color="white" />
             </TouchableOpacity>
@@ -89,31 +93,19 @@ export default function AlbumPage({ navigation }) {
             <TouchableOpacity style={styles.flecha}>
               <Entypo name="arrow-with-circle-right" size={24} color="white" />
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           <View style={styles.containerBarajitas}>
             {console.log(pageInfo)}
-            <StickerTemplate /> 
-            <NoStickerSlot /> 
-            {showAlbum ? (
-              pageInfo?.item?.stickers?.map((sticker) => {
-                <NoStickerSlot />
-                sticker.isInAlbum ? (
-                  console.log("si esta") /* <StickerTemplate /> */
-                ) : (
-                  console.log("no esta") /*<NoStickerSlot /> */
-                );
-              }) 
-            ) : (
-              <Text
-                style={{
-                  marginVertical: 30,
-                  fontSize: 17,
-                  textAlign: "center",
-                }}
-              >
-                Ha ocurrido un error
-              </Text>
+            
+            {pageInfo?.stickers?.map((sticker) => 
+              <>
+                {(!(sticker?.isAttached)) && 
+                <NoStickerSlot/>}
+
+                {(sticker?.isAttached) && 
+                <StickerTemplate/>} 
+              </>
             )}
           </View>
         </View>
