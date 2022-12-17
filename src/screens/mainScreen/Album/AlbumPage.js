@@ -14,8 +14,7 @@ import Carousel from "./Carousel";
 import NoStickerSlot from "./NoStickerSlot";
 import StickerTemplate from "../../../components/StickerTemplate";
 
-const { width } = Dimensions.get("window");
-const { height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 import { useDispatch, useSelector } from "react-redux";
 import * as albumSlice from "../../../state/albumSlice.js";
@@ -63,7 +62,7 @@ export default function AlbumPage({ navigation }) {
     }
   };
 
-  
+
 
   return (
     <View style={styles.fondo}>
@@ -82,7 +81,7 @@ export default function AlbumPage({ navigation }) {
         </View>
         <View style={styles.albumfondo}>
           {/* Header del album */}
-          <AlbumHeader teamName={teamName}/>
+          <AlbumHeader teamName={teamName} />
           {/* <View style={styles.barra}>
             <TouchableOpacity style={styles.flecha}>
               <Entypo name="arrow-with-circle-left" size={24} color="white" />
@@ -97,16 +96,23 @@ export default function AlbumPage({ navigation }) {
 
           <View style={styles.containerBarajitas}>
             {console.log(pageInfo)}
-            
-            {pageInfo?.stickers?.map((sticker) => 
-              <>
-                {(!(sticker?.isAttached)) && 
-                <NoStickerSlot/>}
+            <View style={{
+              justifyContent: 'center',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}>
+              {pageInfo?.stickers?.map((sticker) =>
+                <View style={{ bottom: 90, right: 35 }}>
+                  <View style={{ margin: 1 }}>
+                    {(!(sticker?.isAttached)) &&
+                      <NoStickerSlot />}
 
-                {(sticker?.isAttached) && 
-                <StickerTemplate/>} 
-              </>
-            )}
+                    {(sticker?.isAttached) &&
+                      <StickerTemplate sticker={sticker}/>}
+                  </View>
+                </View>
+              )}
+            </View>
           </View>
         </View>
 
@@ -184,10 +190,10 @@ const styles = StyleSheet.create({
     /*  flexWrap: "wrap",
     alignContent: "space-around", */
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    // justifyContent: "space-evenly",
     alignItems: "center",
-    height: "29%",
-    width: "100%",
+    height: "30%",
+    width: "120%",
   },
   containerPor: {
     height: "9%",
