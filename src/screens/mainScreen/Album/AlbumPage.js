@@ -25,6 +25,7 @@ import {
   fetchAlbumInfo,
   fetchPageInfo,
   fetchTeamsInfo,
+  fetchCarousel,
 } from "../../../services/inventory.services";
 import AlbumHeader from "./AlbumHeader";
 
@@ -37,31 +38,42 @@ export default function AlbumPage({ navigation }) {
 
   const { token } = useSelector((state) => state.auth);
   const teamName = useSelector((state) => state.album.currentTeam.name);
+  const percentage = useSelector((state) => state.album.percentage);
+  const teamList = useSelector((state) => state.album.teamList);
+  const index = useSelector((state) => state.album.currentTeam.index);
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     (async () => {
-      console.log(teamName);
       await loadPageInfo();
     })();
-  }, [token]);
-
+  }, [token, index]);
+  
+  
   const loadPageInfo = async () => {
     setLoading(true);
     try {
+      console.log('index'+index)
+      dispatch(
+        setCurrentTeam({
+          id: teamList[index].id,
+          name: teamList[index].name,
+          stickers: [],
+          obtainedCount: teamList[index].stickers.length,
+        })
+      );
       const data = await fetchPageInfo(token, eventId, teamId);
-      console.log(JSON.stringify(data.item));
       setPageInfo(data.item);
-      dispatch(albumSlice.setTeamStickers(0));
+      dispatch(albumSlice.setTeamStickers(data.item));
       console.log("qwertybb" + JSON.stringify(store.getState()));
       setShowAlbum(true);
     } catch (error) {
-      alert(error.message);
+      alert('pagina'+error.message);
     } finally {
       setLoading(false);
     }
   };
-
 
 
   return (
@@ -69,7 +81,7 @@ export default function AlbumPage({ navigation }) {
       <Header />
       <View style={styles.container}>
         <View style={styles.containerPor}>
-          <ProgressBar />
+        <ProgressBar completedPercent={percentage} />
           <TouchableOpacity>
             <Ionicons
               name="search-circle"
@@ -80,62 +92,32 @@ export default function AlbumPage({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.albumfondo}>
+          
           {/* Header del album */}
           <AlbumHeader teamName={teamName} />
-          {console.log("nombre "+teamName)}
+          {console.log(teamName)}
           
-          <AlbumHeader teamName={teamName}/>
-          {/* <View style={styles.barra}>
-            <TouchableOpacity style={styles.flecha}>
-              <Entypo name="arrow-with-circle-left" size={24} color="white" />
-            </TouchableOpacity>
-            <View style={styles.nomPais}>
-              <Text style={styles.pais}>{teamName}</Text>
-            </View>
-            <TouchableOpacity style={styles.flecha}>
-              <Entypo name="arrow-with-circle-right" size={24} color="white" />
-            </TouchableOpacity>
-          </View> */}
 
           <View style={styles.containerBarajitas}>
-            {console.log(pageInfo)}
             <View style={{
               justifyContent: 'center',
               flexDirection: 'row',
               flexWrap: 'wrap',
             }}>
-              {pageInfo?.stickers?.map((sticker) =>
+              {pageInfo?.stickers?.map((sticker, i) =>
                 <View style={{ bottom: 90, right: 35 }}>
                   <View style={{ margin: 1 }}>
                     {(!(sticker?.isAttached)) &&
-                      <NoStickerSlot idCode={sticker?.id} nameCode={sticker?.playerName} />}
+                      <NoStickerSlot idCode={sticker?.id} nameCode={sticker?.playerName} key={i} />}
 
                     {(sticker?.isAttached) &&
-                      <StickerTemplate sticker={sticker}/>}
+                      <StickerTemplate sticker={sticker} key={i} />}
                   </View>
                 </View>
               )}
             </View>
           </View>
         </View>
-
-        {/* Pagina */}
-        {/* <View style={styles.containerBarajitas}>
-            <StickerTemplate />
-            <NoStickerSlot />
-            <NoStickerSlot />
-          </View>
-          <View style={styles.containerBarajitas}>
-            <NoStickerSlot />
-            <NoStickerSlot />
-            <NoStickerSlot />
-          </View>
-          <View style={styles.containerBarajitas}>
-            <NoStickerSlot />
-            <NoStickerSlot />
-            <NoStickerSlot />
-          </View>
-        </View> */}
 
         <Carousel />
       </View>
@@ -197,6 +179,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "30%",
     width: "120%",
+    overflow: "hidden",
   },
   containerPor: {
     height: "9%",

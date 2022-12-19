@@ -10,7 +10,6 @@ import {
 const { width } = Dimensions.get('window');
 
 export default function NoStickerSlot({ idCode = 0, nameCode = 0 }) {
-  console.log(idCode, nameCode);
   return (
     <View style={styles.barajita}>
       <Text style={styles.idbarajita}>{idCode}</Text>

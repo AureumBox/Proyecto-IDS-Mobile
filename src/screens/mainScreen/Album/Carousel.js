@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 
-import { fetchInventory } from "../../../services/inventory.services";
+import { fetchCarousel } from "../../../services/inventory.services";
 import { useDispatch, useSelector } from "react-redux";
 
 import StickerTemplate from "../../../components/StickerTemplate";
@@ -24,23 +24,24 @@ export default function Carousel() {
   const [loading, setLoading] = useState(true);
   const [stickers, setStickers] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [eventId, setEventId] = useState(1);
 
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
     (async () => {
-      await loadInventoryInfo();
+      await loadCarouselInfo();
     })();
   }, [token, currentPage]);
 
 
-  const loadInventoryInfo = async () => {
+  const loadCarouselInfo = async () => {
     setLoading(true);
     try {
-      const data = await fetchInventory(token, 1, currentPage);
+      const data = await fetchCarousel(token, eventId);
       setStickers(data.items);
     } catch (error) {
-      alert(error.message);
+      alert('asdfghjkl'+error.message);
     } finally {
       setLoading(false);
     }

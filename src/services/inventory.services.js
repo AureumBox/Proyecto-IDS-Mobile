@@ -13,25 +13,31 @@ export const fetchAlbumInfo = async (token, eventId) => {
         Authorization: "Bearer " + token,
       },
     }
-  );/* 
+  ); /* 
   console.log("mira album" + JSON.stringify(data)); */
   return data;
 };
 
-
-
 export const fetchPageInfo = async (token, eventId, teamId) => {
-  const { data } = await axios.get(`${URL_INV}/public-events/${eventId}/album/${teamId}`, {
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
+  const { data } = await axios.get(
+    `${URL_INV}/public-events/${eventId}/album/${teamId}`,
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
   // console.log("mira stupido" + JSON.stringify(data));
   return data;
 };
 
-export const fetchTeamsInfo = async () => {
-  const { data } = await axios.get(`${BASE_URL}/teams/all`);
+export const fetchTeamsInfo = async (token, eventId) => {
+  const { data } = await axios.get(`${BASE_URL}/teams/all/${eventId}`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  console.log(data);
   return data;
 };
 
@@ -45,6 +51,19 @@ export const fetchInventory = async (token, eventId, page) => {
         },
       }
     );
+    return data;
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export const fetchCarousel = async (token, eventId) => {
+  try {
+    const { data } = await axios.get(`${URL_INV}/public-events/${eventId}/carousel`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     return data;
   } catch (e) {
     throw new Error(e);

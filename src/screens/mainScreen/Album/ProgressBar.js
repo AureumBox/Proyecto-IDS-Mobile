@@ -10,7 +10,6 @@ import {
 
 
 export default function ProgressBar({completedPercent = 70}) {
-
     const [percent, setPercent] = useState(completedPercent)
 
     const completedBar = {

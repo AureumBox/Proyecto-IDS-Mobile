@@ -37,6 +37,8 @@ export default function Album({ navigation }) {
 
   const eventId = 1;
   const { token } = useSelector((state) => state.auth);
+  const percentage = useSelector((state) => state.album.percentage);
+  const index = useSelector((state) => state.album.currentTeam.index);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function Album({ navigation }) {
     })();
   }, [token]);
 
-  const loadAlbumInfo = async () => {
+  const loadAlbumInfo = async () => { //percentage 
     setLoading(true);
     try {
       const data = await fetchAlbumInfo(token, eventId);
@@ -61,33 +63,22 @@ export default function Album({ navigation }) {
     }
   };
 
-  const loadTeamsInfo = async () => {
+  const loadTeamsInfo = async () => { //teamList
     setLoading(true);
     try {
-      const data = await fetchTeamsInfo();
+      const data = await fetchTeamsInfo(token, eventId);
+      console.log(JSON.stringify(data))
       dispatch(setTeamList(data));
       setTeamsInfo(data);
-      console.log("qwertybb" + JSON.stringify(store.getState()));
-
-      dispatch(
-        setCurrentTeam({
-          index: 0,
-          id: data[0].id,
-          name: data[0].name,
-          stickers: [],
-          obtainedCount: data[0].stickers.length,
-        })
-      );
-
-      console.log("qwertybb" + JSON.stringify(store.getState()));
+      console.log("qwertybddfghb" + JSON.stringify(store.getState()));
+      
     } catch (error) {
-      alert(error.message);
+      alert('asdf'+error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) return <Text>Loading...</Text>;
 
   return (
     <View style={styles.fondo}>
@@ -96,7 +87,7 @@ export default function Album({ navigation }) {
         <Text>Loading...</Text>
       ) : (
         <View style={styles.container}>
-          <ProgressBar completedPercent={albumInfo?.actualProgressPercertage} />
+          <ProgressBar completedPercent={percentage} />
 
           <View style={styles.rectangulo}>
             <Image source={AlbumDigital} style={styles.albumdig}></Image>

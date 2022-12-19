@@ -8,17 +8,60 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import {
+  setPercentage,
+  setTeamList,
+  setCurrentTeam,
+  setNextIndex,
+  setPrevIndex
+} from "../../../state/albumSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AlbumHeader({ teamName = "" }) {
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const teamList = useSelector((state) => state.album.teamList);
+  const index = useSelector((state) => state.album.currentTeam.index);
+
+  const dispatch = useDispatch();
+
+
+  const navPrevPage = (input) => {
+    console.log("right");
+    setLoading(true);
+    try {
+      dispatch(setPrevIndex())
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const navNextPage = () => {
+    console.log("right");
+    setLoading(true);
+    try {
+      dispatch(setNextIndex())
+    } catch (error) {
+      alert('heaeder'+error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View style={styles.barra}>
-      <TouchableOpacity style={styles.flecha}>
+      {console.log('indice '+index)}
+      <TouchableOpacity style={styles.flecha} onPress={navPrevPage}>
         <Entypo name="arrow-with-circle-left" size={24} color="white" />
       </TouchableOpacity>
+
       <View style={styles.nomPais}>
         <Text style={styles.pais}>{teamName}</Text>
       </View>
-      <TouchableOpacity style={styles.flecha}>
+
+      <TouchableOpacity style={styles.flecha} onPress={navNextPage}>
         <Entypo name="arrow-with-circle-right" size={24} color="white" />
       </TouchableOpacity>
     </View>
