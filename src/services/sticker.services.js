@@ -1,5 +1,5 @@
 import axios from "axios";
-import Constants from "expo-constants";
+import Constants from 'expo-constants';
 
 const BASE_URL = Constants.expoConfig.extra.apiUrl;
 const URL_STICKERS_OBTAIN = `${BASE_URL}/stickers/obtain/1`; //numero depende del id del evento

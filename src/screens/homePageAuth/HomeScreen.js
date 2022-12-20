@@ -9,7 +9,7 @@ import {
     Dimensions
 } from "react-native";
 import HPANavigation from "../../constants/HPANavigation";
-import logoVerticalImg from '../../../assets/app/logoVertical.png'
+import logoVerticalImg from '../../../assets/app/logoVertical.png';
 
 export default function HomeScreen({ navigation }) {
     const { height } = Dimensions.get('window')
