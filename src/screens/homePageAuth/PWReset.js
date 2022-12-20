@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     TouchableOpacity,
     ScrollView,
@@ -9,8 +9,11 @@ import {
     View
 } from "react-native";
 import HPANavigation from "../../constants/HPANavigation";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function PWReset({ navigation }) {
+    const [showPass, setShowPass] = useState(true);
+    const [showConf, setShowConf] = useState(true);
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -19,16 +22,54 @@ export default function PWReset({ navigation }) {
                     <Text style={styles.text}>
                         Tip: Las contraseñas fuertes incluyen una combinación de números, letras y signos de puntuación
                     </Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Nueva Contraseña'
-                        autoCorrect={false}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Verificar Contraseña'
-                        autoCorrect={false}
-                    />
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="lock-closed-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <TextInput
+                            style={styles.inputText}
+                            placeholder='Nueva Contraseña'
+                            autoCorrect={false}
+                            secureTextEntry={showPass}
+                        />
+                        <TouchableOpacity
+                            onPress={() => { setShowPass(!showPass) }}
+                            style={styles.buttonEye}
+                        >
+                            <Ionicons
+                                name={showPass === false ? 'eye-outline' : 'eye-off-outline'}
+                                size={26}
+                                color='black'
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="lock-closed-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <TextInput
+                            style={styles.inputText}
+                            placeholder='Verificar Contraseña'
+                            autoCorrect={false}
+                            secureTextEntry={showConf}
+                        />
+                        <TouchableOpacity
+                            onPress={() => { setShowConf(!showConf) }}
+                            style={styles.buttonEye}
+                        >
+                            <Ionicons
+                                name={showConf === false ? 'eye-outline' : 'eye-off-outline'}
+                                size={26}
+                                color='black'
+                            />
+                        </TouchableOpacity>
+                    </View>
                     {/* Boton Iniciar Sesión */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate(HPANavigation.PWRESET)}
@@ -97,15 +138,26 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginHorizontal: 10,
     },
-    input: {
+    inputContainer: {
+        width: '100%',
         backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 16,
-        marginBottom: 15,
-        borderWidth: 2,
-        borderColor: 'white',
-        borderRadius: 16,
-        marginHorizontal: 5,
+        borderRadius: 25,
+        marginBottom: 20,
+        justifyContent: 'center',
+        padding: 20
+    },
+    inputIcon: {
+        position: 'absolute',
+        alignItems: 'center',
+        left: 25
+    },
+    inputText: {
+        paddingLeft: 20,
+        marginHorizontal: 20
+    },
+    buttonEye: {
+        position: 'absolute',
+        right: 25
     },
     logInButton: {
         backgroundColor: '#70ABAF',

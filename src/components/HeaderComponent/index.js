@@ -36,7 +36,7 @@ export default function HeaderComponent() {
   const onClaimClick = async () => {
     setLoading(true);
     try {
-      setAd(await watchAd());
+      setAd(await watchAd(token));
     } catch (error) {
       alert(error.message);
     } finally {

@@ -8,6 +8,8 @@ import {
     Dimensions,
 } from 'react-native';
 import fondoImg from '../../assets/app/template/fondo.jpg';
+import alturaImg from '../../assets/app/template/altura.png';
+import pesoImg from '../../assets/app/template/peso.png';
 import marcoImg from '../../assets/app/template/marco.png';
 import arqueroImg from '../../assets/app/template/arquero.png';
 import defensaImg from '../../assets/app/template/defensa.png';
@@ -18,7 +20,7 @@ const { width } = Dimensions.get('window');
 
 function getPlayerRoleImg(position) {
     switch (position) {
-        case 'Arquero': 
+        case 'Arquero':
             return arqueroImg;
         case 'Defensa':
             return defensaImg;
@@ -55,9 +57,21 @@ export default function StickerTemplate({ sticker }) {
                     source={marcoImg}
                     style={[styles.marco, { position: 'absolute', alignItems: 'center', justifyContent: 'flex-end' }]}
                 >
-                    <View style={{ bottom: 90, right: 35 }}>
-                        <Text style={styles.texto}>{sticker.height}</Text>
-                        <Text style={styles.texto}>{sticker.weight}</Text>
+                    <View style={{ bottom: '50%', right: '30%' }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Image
+                                source={alturaImg}
+                                style={[styles.iconos]}
+                            />
+                            <Text style={styles.texto}>{sticker.height}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Image
+                                source={pesoImg}
+                                style={[styles.iconos, { marginRight: 2}]}
+                            />
+                            <Text style={styles.texto}>{sticker.weight}</Text>
+                        </View>
                     </View>
                     <Text style={styles.nombreJugador}>{sticker.playerName}</Text>
                 </ImageBackground>
@@ -79,6 +93,11 @@ const styles = StyleSheet.create({
         height: (width / 3.5) * 1.3,
         resizeMode: 'contain',
     },
+    iconos: {
+        width: 15,
+        height: 15,
+        resizeMode: 'contain',
+    },
     bandera: {
         width: width / 16,
         height: width / 16,
@@ -88,11 +107,12 @@ const styles = StyleSheet.create({
     jugador: {
         width: width / 3.5 * 1.15,
         height: width / 3.5 * 1.2,
+        overflow: 'hidden',
         resizeMode: 'contain',
     },
     texto: {
         color: '#000000',
-        fontSize: 8,
+        fontSize: 9,
         fontWeight: 'bold',
     },
     nombreJugador: {

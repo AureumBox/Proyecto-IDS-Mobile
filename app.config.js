@@ -3,7 +3,7 @@ module.exports = ({ config }) => {
     ...config,
     extra: {
       // TODO: Se instalo dotenv pero no esta funcionando de momento, revisar luego
-      apiUrl: process.env.API_URL || 'http://192.168.1.106:3000',
+      apiUrl: process.env.API_URL || 'https://backend-staging.playoffside.online',
     }
   };
 };
