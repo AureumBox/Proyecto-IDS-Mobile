@@ -113,7 +113,7 @@ export default function HeaderComponent() {
 
           {obtainedStickers ? (
             obtainedStickers.map((sticker, i) => (
-              <View key={i} style={{marginVertical: 78}}>
+              <View key={i} style={{ marginVertical: 78 }}>
                 <StickerTemplate sticker={sticker} />
               </View>
             ))
@@ -136,7 +136,7 @@ export default function HeaderComponent() {
             textAlign: 'center',
           }}
         >
-          ¡Felicidades! Has obtenido un sobre
+          ¡Felicidades, has conseguido un sobre!
         </Text>
       </ModalPopup>
 
@@ -144,14 +144,6 @@ export default function HeaderComponent() {
       <ModalPopup visible={visibleAnuncio}>
         <View style={{ alignItems: 'center' }}>
           <View style={styles.modalHeader}>
-            <TouchableOpacity
-              onPress={() => {
-                onCloseAd();
-                setVisibleAnuncio(false);
-              }}
-            >
-              <Image source={botonXImg} style={{ height: 30, width: 30 }} />
-            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity onPress={onAdClick}>
@@ -178,18 +170,25 @@ export default function HeaderComponent() {
             textAlign: 'center',
           }}
         >
-          ¡¡Felicidades has obtenido un Sobre!!
+          ¡Felicidades, has conseguido un sobre!
         </Text>
+        <TouchableOpacity
+          style={styles.logInButton}
+          onPress={() => {
+            onCloseAd();
+            setVisibleAnuncio(false);
+          }}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Ver Sobre</Text>
+        </TouchableOpacity>
       </ModalPopup>
 
       {/* Header Layout */}
       <Image source={logoImg} style={styles.logo} />
 
-      <TouchableOpacity>
-        <View style={[styles.coins]}>
-          <Icon name="money-dollar-circle-fill" size="26" color="#63130B"/>
-        </View>
-      </TouchableOpacity>
+      <View style={[styles.coins]}>
+        <Icon name="money-dollar-circle-fill" size="26" color="#63130B" />
+      </View>
 
       <TouchableOpacity onPress={() => setVisibleObtener(true)}>
         <View style={[styles.cofre]}>
