@@ -16,6 +16,7 @@ import { fetchCarousel } from "../../../services/inventory.services";
 import { setIdStickerSelected } from "../../../state/albumSlice.js";
 
 import StickerTemplate from "../../../components/StickerTemplate";
+
 import { store } from "../../../state/store";
 const { width, height } = Dimensions.get("screen");
 
@@ -28,19 +29,20 @@ export default function Carousel() {
   const [eventId, setEventId] = useState(1);
 
   const { token } = useSelector((state) => state.auth);
+  const pageInfo = useSelector((state) => state.album.currentTeam.stickers);
   dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
       await loadCarouselInfo();
     })();
-  }, [token, currentPage]);
+  }, [token, pageInfo]);
 
   function selectSticker(id){
     setSelectedId(id)
     dispatch(setIdStickerSelected(id))
+    console.log(JSON.stringify(store.getState()))
   }
-
 
   const loadCarouselInfo = async () => {
     setLoading(true);

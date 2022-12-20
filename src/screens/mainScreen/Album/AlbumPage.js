@@ -15,22 +15,18 @@ import ProgressBar from "./ProgressBar";
 import Carousel from "./Carousel";
 import NoStickerSlot from "./NoStickerSlot";
 import StickerTemplate from "../../../components/StickerTemplate";
+import AlbumHeader from "./AlbumHeader";
 
 const { width, height } = Dimensions.get("window");
 
 import { useDispatch, useSelector } from "react-redux";
-import * as albumSlice from "../../../state/albumSlice.js";
-import { setCurrentTeam } from "../../../state/albumSlice.js";
+import { setCurrentTeam, setStickers } from "../../../state/albumSlice.js";
 import { store } from "../../../state/store";
 
 import {
-  fetchAlbumInfo,
   fetchPageInfo,
-  fetchTeamsInfo,
-  fetchCarousel,
   claimSticker,
 } from "../../../services/inventory.services";
-import AlbumHeader from "./AlbumHeader";
 
 export default function AlbumPage({ navigation }) {
   const dispatch = useDispatch();
@@ -38,6 +34,7 @@ export default function AlbumPage({ navigation }) {
   const [pageInfo, setPageInfo] = useState({});
   const [showAlbum, setShowAlbum] = useState(false);
   const [eventId, setEventId] = useState(1);
+  const [change, setChange] = useState(false);
 
   const { token } = useSelector((state) => state.auth);
   const teamName = useSelector((state) => state.album.currentTeam.name);
@@ -51,8 +48,9 @@ export default function AlbumPage({ navigation }) {
   useEffect(() => {
     (async () => {
       await loadPageInfo();
+      setChange(false)
     })();
-  }, [token, index]);
+  }, [token, index, change]);
 
   const loadPageInfo = async () => {
     setLoading(true);
@@ -65,9 +63,10 @@ export default function AlbumPage({ navigation }) {
         })
       );
       teamId = teamList[index].id;
-
+      
       const data = await fetchPageInfo(token, eventId, teamId);
       setPageInfo(data.item);
+      dispatch(setStickers(pageInfo));
       setShowAlbum(true);
     } catch (error) {
       alert(error.message);
@@ -76,10 +75,14 @@ export default function AlbumPage({ navigation }) {
     }
   };
 
-  const putSticker = async () => {
+  async function putSticker(idSlot = 0) {
+    console.log('hii'+idSlot+'baii'+stickerSelected)
     try {
-      console.log(stickerSelected);
+      if (idSlot!=stickerSelected){
+        throw new Error ("Esta no es la casilla del sticker")
+      } 
       const data = await claimSticker(token, eventId, stickerSelected);
+      setChange(true)
     } catch (error) {
       alert(error.message);
     }
@@ -117,7 +120,7 @@ export default function AlbumPage({ navigation }) {
                 <View style={{ bottom: 90, right: 35 }}>
                   <View style={{ margin: 1 }}>
                     {!sticker?.isAttached && (
-                      <TouchableOpacity onPress={() => putSticker()}>
+                      <TouchableOpacity key={i} onPress={() => putSticker(sticker?.id)}>
                         <NoStickerSlot
                           idCode={sticker?.id}
                           nameCode={sticker?.playerName}

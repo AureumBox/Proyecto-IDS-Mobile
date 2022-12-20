@@ -22,7 +22,7 @@ export default function ProgressBar({completedPercent = 70}) {
 
     return (
         <View style={styles.containerPor}>
-            <Text style={styles.texto}>{percent}%</Text>
+            <Text style={styles.texto}>{Math.trunc(percent)}%</Text>
             <View style={styles.barraPorcentaje}>
                 <View style = {completedBar}></View>
             </View>

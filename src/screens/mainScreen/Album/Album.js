@@ -69,11 +69,9 @@ export default function Album({ navigation }) {
       const data = await fetchTeamsInfo(token, eventId);
       console.log(JSON.stringify(data))
       dispatch(setTeamList(data));
-      setTeamsInfo(data);
-      console.log("qwertybddfghb" + JSON.stringify(store.getState()));
-      
+      setTeamsInfo(data);      
     } catch (error) {
-      alert('asdf'+error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }

@@ -24,7 +24,6 @@ export const albumSlice = createSlice({
       state.teamList = action.payload;
     },
     setIdStickerSelected: (state, action) => {
-      console.log('unu')
       state.idStickerSelected = action.payload;
     },
     setCurrentTeam: (state, action) => {
