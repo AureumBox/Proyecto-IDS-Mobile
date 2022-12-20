@@ -66,7 +66,7 @@ export default function HeaderComponent() {
 
   const onAdClick = () => {
     const redirectUrl = getAdRedirectUrl(ad?.id);
-    console.log("LE HAZ DADO CLICK A UN ANUNCIO :D ", redirectUrl);
+    console.log("LE HAS DADO CLICK A UN ANUNCIO :D ", redirectUrl);
     Linking.openURL(redirectUrl);
   };
 

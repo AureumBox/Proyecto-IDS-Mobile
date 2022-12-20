@@ -6,9 +6,11 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import Header from "../../../components/HeaderComponent";
+
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+
+import Header from "../../../components/HeaderComponent";
 import ProgressBar from "./ProgressBar";
 import Carousel from "./Carousel";
 import NoStickerSlot from "./NoStickerSlot";
@@ -18,7 +20,7 @@ const { width, height } = Dimensions.get("window");
 
 import { useDispatch, useSelector } from "react-redux";
 import * as albumSlice from "../../../state/albumSlice.js";
-import { setPercentage, setCurrentTeam } from "../../../state/albumSlice.js";
+import { setCurrentTeam } from "../../../state/albumSlice.js";
 import { store } from "../../../state/store";
 
 import {
@@ -26,62 +28,69 @@ import {
   fetchPageInfo,
   fetchTeamsInfo,
   fetchCarousel,
+  claimSticker,
 } from "../../../services/inventory.services";
 import AlbumHeader from "./AlbumHeader";
 
 export default function AlbumPage({ navigation }) {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [pageInfo, setPageInfo] = useState({});
   const [showAlbum, setShowAlbum] = useState(false);
   const [eventId, setEventId] = useState(1);
-  const [teamId, setTeamId] = useState(1);
 
   const { token } = useSelector((state) => state.auth);
   const teamName = useSelector((state) => state.album.currentTeam.name);
   const percentage = useSelector((state) => state.album.percentage);
   const teamList = useSelector((state) => state.album.teamList);
   const index = useSelector((state) => state.album.currentTeam.index);
-  const dispatch = useDispatch();
+  const stickerSelected = useSelector((state) => state.album.idStickerSelected);
 
-  
+  let teamId = 0;
+
   useEffect(() => {
     (async () => {
       await loadPageInfo();
     })();
   }, [token, index]);
-  
-  
+
   const loadPageInfo = async () => {
     setLoading(true);
     try {
-      console.log('index'+index)
       dispatch(
         setCurrentTeam({
           id: teamList[index].id,
           name: teamList[index].name,
-          stickers: [],
           obtainedCount: teamList[index].stickers.length,
         })
       );
+      teamId = teamList[index].id;
+
       const data = await fetchPageInfo(token, eventId, teamId);
       setPageInfo(data.item);
-      dispatch(albumSlice.setTeamStickers(data.item));
-      console.log("qwertybb" + JSON.stringify(store.getState()));
       setShowAlbum(true);
     } catch (error) {
-      alert('pagina'+error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
   };
 
+  const putSticker = async () => {
+    try {
+      console.log(stickerSelected);
+      const data = await claimSticker(token, eventId, stickerSelected);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <View style={styles.fondo}>
       <Header />
       <View style={styles.container}>
         <View style={styles.containerPor}>
-        <ProgressBar completedPercent={percentage} />
+          <ProgressBar completedPercent={percentage} />
           <TouchableOpacity>
             <Ionicons
               name="search-circle"
@@ -92,29 +101,37 @@ export default function AlbumPage({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.albumfondo}>
-          
           {/* Header del album */}
           <AlbumHeader teamName={teamName} />
-          {console.log(teamName)}
-          
 
+          {/* Pagina del album */}
           <View style={styles.containerBarajitas}>
-            <View style={{
-              justifyContent: 'center',
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}>
-              {pageInfo?.stickers?.map((sticker, i) =>
+            <View
+              style={{
+                justifyContent: "center",
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              {pageInfo?.stickers?.map((sticker, i) => (
                 <View style={{ bottom: 90, right: 35 }}>
                   <View style={{ margin: 1 }}>
-                    {(!(sticker?.isAttached)) &&
-                      <NoStickerSlot idCode={sticker?.id} nameCode={sticker?.playerName} key={i} />}
+                    {!sticker?.isAttached && (
+                      <TouchableOpacity onPress={() => putSticker()}>
+                        <NoStickerSlot
+                          idCode={sticker?.id}
+                          nameCode={sticker?.playerName}
+                          key={i}
+                        />
+                      </TouchableOpacity>
+                    )}
 
-                    {(sticker?.isAttached) &&
-                      <StickerTemplate sticker={sticker} key={i} />}
+                    {sticker?.isAttached && (
+                      <StickerTemplate sticker={sticker} key={i} />
+                    )}
                   </View>
                 </View>
-              )}
+              ))}
             </View>
           </View>
         </View>

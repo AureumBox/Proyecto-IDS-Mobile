@@ -9,25 +9,16 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import {
-  setPercentage,
-  setTeamList,
-  setCurrentTeam,
   setNextIndex,
   setPrevIndex
 } from "../../../state/albumSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function AlbumHeader({ teamName = "" }) {
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const teamList = useSelector((state) => state.album.teamList);
-  const index = useSelector((state) => state.album.currentTeam.index);
-
   const dispatch = useDispatch();
 
-
   const navPrevPage = (input) => {
-    console.log("right");
     setLoading(true);
     try {
       dispatch(setPrevIndex())
@@ -39,12 +30,11 @@ export default function AlbumHeader({ teamName = "" }) {
   };
 
   const navNextPage = () => {
-    console.log("right");
     setLoading(true);
     try {
       dispatch(setNextIndex())
     } catch (error) {
-      alert('heaeder'+error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -52,7 +42,6 @@ export default function AlbumHeader({ teamName = "" }) {
 
   return (
     <View style={styles.barra}>
-      {console.log('indice '+index)}
       <TouchableOpacity style={styles.flecha} onPress={navPrevPage}>
         <Entypo name="arrow-with-circle-left" size={24} color="white" />
       </TouchableOpacity>

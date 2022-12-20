@@ -10,12 +10,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
-
-import { fetchCarousel } from "../../../services/inventory.services";
 import { useDispatch, useSelector } from "react-redux";
 
-import StickerTemplate from "../../../components/StickerTemplate";
+import { fetchCarousel } from "../../../services/inventory.services";
+import { setIdStickerSelected } from "../../../state/albumSlice.js";
 
+import StickerTemplate from "../../../components/StickerTemplate";
+import { store } from "../../../state/store";
 const { width, height } = Dimensions.get("screen");
 
 export default function Carousel() {
@@ -27,12 +28,18 @@ export default function Carousel() {
   const [eventId, setEventId] = useState(1);
 
   const { token } = useSelector((state) => state.auth);
+  dispatch = useDispatch()
 
   useEffect(() => {
     (async () => {
       await loadCarouselInfo();
     })();
   }, [token, currentPage]);
+
+  function selectSticker(id){
+    setSelectedId(id)
+    dispatch(setIdStickerSelected(id))
+  }
 
 
   const loadCarouselInfo = async () => {
@@ -41,14 +48,14 @@ export default function Carousel() {
       const data = await fetchCarousel(token, eventId);
       setStickers(data.items);
     } catch (error) {
-      alert('asdfghjkl'+error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
   };
 
   const Item = ({ item, selectedId }) => (
-    <TouchableOpacity onPress={() => setSelectedId(item.id)}>
+    <TouchableOpacity onPress={() => selectSticker(item.id)}>
       <View
         style={{
           width: 150,
