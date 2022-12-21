@@ -37,17 +37,13 @@ const styles = StyleSheet.create({
         marginBottom: '2%',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
     },
     texto: {
         fontWeight: 'bold',
         color: 'black',
         fontSize: 26,
-    },
-    pais: {
-        fontWeight: 'bold',
-        color: 'white',
-        fontSize: 25,
+        marginRight: 10
     },
     barraPorcentaje: {
         width: '60%',

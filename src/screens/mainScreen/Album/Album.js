@@ -37,7 +37,7 @@ export default function Album({ navigation }) {
   const eventId = 1;
   const { token } = useSelector((state) => state.auth);
   const percentage = useSelector((state) => state.album.percentage);
- 
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,9 +51,7 @@ export default function Album({ navigation }) {
     setLoading(true);
     try {
       const data = await fetchAlbumInfo(token, eventId);
-      console.log(JSON.stringify(data));
       setAlbumInfo(data);
-      console.log(JSON.stringify(data.actualProgressPercentage));
       dispatch(setPercentage(data.actualProgressPercentage));
     } catch (error) {
       alert("mami" + error.message);
@@ -66,9 +64,8 @@ export default function Album({ navigation }) {
     setLoading(true);
     try {
       const data = await fetchTeamsInfo(token, eventId);
-      console.log(JSON.stringify(data))
       dispatch(setTeamList(data));
-      setTeamsInfo(data);      
+      setTeamsInfo(data);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -85,7 +82,6 @@ export default function Album({ navigation }) {
       ) : (
         <View style={styles.container}>
           <ProgressBar completedPercent={percentage} />
-
           <View style={styles.rectangulo}>
             <Image source={AlbumDigital} style={styles.albumdig}></Image>
           </View>

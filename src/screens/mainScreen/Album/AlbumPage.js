@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
+  ScrollView,
   View,
   Image,
   Dimensions,
   TouchableOpacity,
+  FlatList,
+  SafeAreaView
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -19,7 +22,6 @@ import Carousel from "./Carousel";
 import NoStickerSlot from "./NoStickerSlot";
 import StickerTemplate from "../../../components/StickerTemplate";
 import AlbumHeader from "./AlbumHeader";
-import TeamFilter from "./TeamFilter";
 
 const { width, height } = Dimensions.get("window");
 
@@ -40,6 +42,7 @@ export default function AlbumPage({ navigation }) {
   const [showAlbum, setShowAlbum] = useState(false);
   const [eventId, setEventId] = useState(1);
   const [change, setChange] = useState(false);
+  const [filterVisible, setFilterVisible] = useState(false);
 
   const { token } = useSelector((state) => state.auth);
   const teamName = useSelector((state) => state.album.currentTeam.name);
@@ -67,7 +70,6 @@ export default function AlbumPage({ navigation }) {
     setLoading(true);
     try {
       const data = await fetchAlbumInfo(token, eventId);
-      console.log(data.actualProgressPercentage)
       dispatch(setPercentage(data.actualProgressPercentage));
     } catch (error) {
       alert(error.message);
@@ -115,26 +117,50 @@ export default function AlbumPage({ navigation }) {
     }
   }
 
+  const oneTeam = ( { item } ) => (
+    <View style={styles.listItem}>
+      <View style={styles.listItemImageContainer}>
+        <Image 
+          source={{uri: item.badge}}
+          style={styles.listItemImage}
+        />
+      </View>
+      <Text style={styles.listItemName}>{item.name}</Text>
+    </View>
+  )
+
+  const itemSeparator = () => {
+    return <View style={styles.separator}/>
+  }
+
   return (
     <View style={styles.fondo}>
+
+      {/* Ventana Emergente con el Filtro de Equipos */}
+      <ModalPopup visible={filterVisible}>
+        <View style={{ alignItems: "center" }}>
+          <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => setFilterVisible(false)}>
+              <Image source={botonX} style={{ height: 30, width: 30 }} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <SafeAreaView>
+          <FlatList
+            ListHeaderComponentStyle = {styles.listHeader}
+            ListHeaderComponent = {<Text style={styles.listHeadLine}>Filtrar por Equipos</Text>}
+            ItemSeparatorComponent = { itemSeparator }
+            data = { teamList }
+            renderItem = { oneTeam }
+          />
+        </SafeAreaView>
+      </ModalPopup>
+
       <Header />
       <View style={styles.container}>
-        {/* <ModalPopup visible={true}>
-          <View style={{ alignItems: "center" }}>
-            <View style={styles.modalHeader}>
-              <TouchableOpacity onPress={() => setVisibleStickers(false)}>
-                <Image source={botonX} style={{ height: 30, width: 30 }} />
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <TeamFilter teams={teamList} />
-        </ModalPopup> */}
-
-        <TeamFilter />
-        <View style={styles.containerPor}>
-          <ProgressBar completedPercent={percentage} />
-          <TouchableOpacity>
+        <ProgressBar completedPercent={percentage} />
+        <View>
+          <TouchableOpacity onPress={() => setFilterVisible(true)}>
             <Ionicons
               name="search-circle"
               size={40}
@@ -195,6 +221,50 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#70ABAF",
   },
+  modalHeader: {
+    width: "100%",
+    height: 40,
+    alignItems: "flex-end",
+    justifyContent: "center",
+  },
+  listHeader: {
+    height: 55,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  listHeadLine: {
+    color: '#333',
+    fontSize: 21,
+    fontWeight: 'bold',
+  },
+  listItemName: {
+    fontWeight: '600',
+    fontSize: 16,
+    marginLeft: 13
+  },
+  listItem: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 13
+  },
+  listItemImageContainer: {
+    width: 89,
+    height: 89,
+    backgroundColor: '#D9D9D9',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  listItemImage: {
+    width: 55,
+    height: 55
+  },
+  separator: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#CCC'
+  },
   albumfondo: {
     width: "85%",
     height: "60%",
@@ -243,14 +313,6 @@ const styles = StyleSheet.create({
     height: "30%",
     width: "120%",
     overflow: "hidden",
-  },
-  containerPor: {
-    height: "9%",
-    width: "90%",
-    marginBottom: "2%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
   },
   texto: {
     fontWeight: "bold",
