@@ -8,7 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   FlatList,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -26,7 +26,13 @@ import AlbumHeader from "./AlbumHeader";
 const { width, height } = Dimensions.get("window");
 
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentTeam, setStickers, setIdStickerSelected, setPercentage } from "../../../state/albumSlice.js";
+import {
+  setCurrentTeam,
+  setStickers,
+  setIdStickerSelected,
+  setPercentage,
+  setIndex,
+} from "../../../state/albumSlice.js";
 import { store } from "../../../state/store";
 
 import {
@@ -38,18 +44,23 @@ import {
 export default function AlbumPage({ navigation }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [pageInfo, setPageInfo] = useState({});
+  const [pageInfo, setPageInfo] = useState([]);
   const [showAlbum, setShowAlbum] = useState(false);
   const [eventId, setEventId] = useState(1);
   const [change, setChange] = useState(false);
+  const stickerPerPage = 9;
   const [filterVisible, setFilterVisible] = useState(false);
 
   const { token } = useSelector((state) => state.auth);
   const teamName = useSelector((state) => state.album.currentTeam.name);
+  const teamStickers = useSelector((state) => state.album.currentTeam.stickers);
   const percentage = useSelector((state) => state.album.percentage);
   const teamList = useSelector((state) => state.album.teamList);
   const index = useSelector((state) => state.album.currentTeam.index);
   const stickerSelected = useSelector((state) => state.album.idStickerSelected);
+  const currentPage = useSelector(
+    (state) => state.album.currentTeam.currentPage
+  );
 
   let teamId = 0;
 
@@ -66,10 +77,16 @@ export default function AlbumPage({ navigation }) {
     })();
   }, [change]);
 
-  const loadAlbumInfo = async () => { //percentage 
+  useEffect(() => {
+    setPageInfo();
+  }, [currentPage]);
+
+  const loadAlbumInfo = async () => {
+    //percentage
     setLoading(true);
     try {
       const data = await fetchAlbumInfo(token, eventId);
+      console.log(data.actualProgressPercentage);
       dispatch(setPercentage(data.actualProgressPercentage));
     } catch (error) {
       alert(error.message);
@@ -91,8 +108,11 @@ export default function AlbumPage({ navigation }) {
       teamId = teamList[index].id;
 
       const data = await fetchPageInfo(token, eventId, teamId);
-      setPageInfo(data.item);
-      dispatch(setStickers(pageInfo));
+      console.log(JSON.stringify(data));
+      dispatch(setStickers(data.item.stickers));
+      console.log(JSON.stringify(teamStickers));
+      setPageInfo(teamStickers);
+
       setShowAlbum(true);
     } catch (error) {
       alert(error.message);
@@ -102,7 +122,7 @@ export default function AlbumPage({ navigation }) {
   };
 
   async function putSticker(idSlot = 0) {
-    if ((stickerSelected == 0)) {
+    if (stickerSelected == 0) {
       return 0;
     }
     try {
@@ -110,32 +130,30 @@ export default function AlbumPage({ navigation }) {
         throw new Error("Esta no es la casilla del sticker");
       }
       const data = await claimSticker(token, eventId, stickerSelected);
-      dispatch(setIdStickerSelected(0))
+      dispatch(setIdStickerSelected(0));
       setChange(true);
     } catch (error) {
       alert(error.message);
     }
   }
 
-  const oneTeam = ( { item } ) => (
-    <View style={styles.listItem}>
-      <View style={styles.listItemImageContainer}>
-        <Image 
-          source={{uri: item.badge}}
-          style={styles.listItemImage}
-        />
+  const OneTeam = ({ item, i }) => (
+     <TouchableOpacity onPress={() => dispatch(setIndex(i))}>
+      <View style={styles.listItem}>
+        <View style={styles.listItemImageContainer}>
+          <Image source={{ uri: item.badge }} style={styles.listItemImage} />
+        </View>
+        <Text style={styles.listItemName}>{item.name}</Text>
       </View>
-      <Text style={styles.listItemName}>{item.name}</Text>
-    </View>
-  )
+    </TouchableOpacity>
+  );
 
   const itemSeparator = () => {
-    return <View style={styles.separator}/>
-  }
+    return <View style={styles.separator} />;
+  };
 
   return (
     <View style={styles.fondo}>
-
       {/* Ventana Emergente con el Filtro de Equipos */}
       <ModalPopup visible={filterVisible}>
         <View style={{ alignItems: "center" }}>
@@ -147,11 +165,15 @@ export default function AlbumPage({ navigation }) {
         </View>
         <SafeAreaView>
           <FlatList
-            ListHeaderComponentStyle = {styles.listHeader}
-            ListHeaderComponent = {<Text style={styles.listHeadLine}>Filtrar por Equipos</Text>}
-            ItemSeparatorComponent = { itemSeparator }
-            data = { teamList }
-            renderItem = { oneTeam }
+            ListHeaderComponentStyle={styles.listHeader}
+            ListHeaderComponent={
+              <Text style={styles.listHeadLine}>Filtrar por Equipos</Text>
+            }
+            ItemSeparatorComponent={itemSeparator}
+            data={teamList}
+            renderItem={({ item, index }) => {
+              return (<OneTeam item={item} i={index} />);
+            }}
           />
         </SafeAreaView>
       </ModalPopup>
@@ -182,7 +204,7 @@ export default function AlbumPage({ navigation }) {
                 flexWrap: "wrap",
               }}
             >
-              {pageInfo?.stickers?.map((sticker, i) => (
+              {pageInfo?.map((sticker, i) => (
                 <View style={{ bottom: 90, right: 35 }}>
                   <View style={{ margin: 1 }}>
                     {!sticker?.isAttached && (
@@ -229,41 +251,41 @@ const styles = StyleSheet.create({
   },
   listHeader: {
     height: 55,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   listHeadLine: {
-    color: '#333',
+    color: "#333",
     fontSize: 21,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   listItemName: {
-    fontWeight: '600',
+    fontWeight: "600",
     fontSize: 16,
-    marginLeft: 13
+    marginLeft: 13,
   },
   listItem: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 13
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 13,
   },
   listItemImageContainer: {
     width: 89,
     height: 89,
-    backgroundColor: '#D9D9D9',
+    backgroundColor: "#D9D9D9",
     borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   listItemImage: {
     width: 55,
-    height: 55
+    height: 55,
   },
   separator: {
-    width: '100%',
+    width: "100%",
     height: 1,
-    backgroundColor: '#CCC'
+    backgroundColor: "#CCC",
   },
   albumfondo: {
     width: "85%",

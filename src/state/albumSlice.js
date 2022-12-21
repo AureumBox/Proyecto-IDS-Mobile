@@ -8,11 +8,13 @@ export const albumSlice = createSlice({
     teamList: [],
     idStickerSelected: 0,
     currentTeam: {
+      stickers: [],
       index: 0,
       id: 0,
       name: "",
-      stickers: [],
       obtainedCount: 0,
+      pages: 0,
+      currentPage: 0,
     },
   },
   reducers: {
@@ -31,6 +33,9 @@ export const albumSlice = createSlice({
       state.currentTeam.id = id;
       state.currentTeam.name = name;
       state.currentTeam.obtainedCount = obtainedCount;
+      console.log(Math.ceil(obtainedCount/9))
+      state.currentTeam.pages = (Math.ceil(obtainedCount/9));
+      state.currentTeam.currentPage = 1;
     },
     setStickers: (state, action) => {
       state.currentTeam.stickers = action.payload;
@@ -43,13 +48,21 @@ export const albumSlice = createSlice({
         state.currentTeam.index++;
       }
     },
-    setIndex: (state) => {
+    setIndex: (state, action) => {
+      console.log('>')
       state.currentTeam.index = action.payload;
     },
     setPrevIndex: (state) => {
       if (state.currentTeam.index - 1 >= 0) {
         state.currentTeam.index--;
       }
+    },
+    setNextPage: (state) => {
+      if (state.currentTeam.currentPage < state.currentTeam.pages)
+        state.currentTeam.currentPage++;
+    },
+    setPrevPage: (state) => {
+      state.currentTeam.currentPage--;
     },
   },
 });
@@ -65,5 +78,7 @@ export const {
   setStickers,
   setIdStickerSelected,
   setIndex,
+  setNextPage,
+  setPrevPage,
 } = albumSlice.actions;
 export default albumSlice.reducer;
