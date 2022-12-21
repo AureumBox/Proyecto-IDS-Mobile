@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import {
   setNextIndex,
   setPrevIndex
@@ -43,7 +43,7 @@ export default function AlbumHeader({ teamName = "" }) {
   return (
     <View style={styles.barra}>
       <TouchableOpacity style={styles.flecha} onPress={navPrevPage}>
-        <Entypo name="arrow-with-circle-left" size={24} color="white" />
+        <Ionicons name="chevron-back-outline" size={24} color="white" />
       </TouchableOpacity>
 
       <View style={styles.nomPais}>
@@ -51,7 +51,7 @@ export default function AlbumHeader({ teamName = "" }) {
       </View>
 
       <TouchableOpacity style={styles.flecha} onPress={navNextPage}>
-        <Entypo name="arrow-with-circle-right" size={24} color="white" />
+        <Ionicons name="chevron-forward-outline" size={24} color="white" />
       </TouchableOpacity>
     </View>
   );
