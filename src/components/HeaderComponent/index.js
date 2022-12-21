@@ -13,7 +13,7 @@ import {
   MaterialCommunityIcons,
   Octicons
 } from "@expo/vector-icons";
-import { ModalPopup } from "../ModalPopup";
+import { ModalPopup } from "../../components/ModalPopup";
 import logo from "../../../assets/appAssets/logo.png";
 import botonX from "../../../assets/appAssets/x.png";
 import sobre from "../../../assets/appAssets/sobre.png";

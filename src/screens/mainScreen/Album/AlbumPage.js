@@ -3,29 +3,34 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { ModalPopup } from "../../../components/ModalPopup";
 
+import botonX from "../../../../assets/appAssets/x.png";
 import Header from "../../../components/HeaderComponent";
 import ProgressBar from "./ProgressBar";
 import Carousel from "./Carousel";
 import NoStickerSlot from "./NoStickerSlot";
 import StickerTemplate from "../../../components/StickerTemplate";
 import AlbumHeader from "./AlbumHeader";
+import TeamFilter from "./TeamFilter";
 
 const { width, height } = Dimensions.get("window");
 
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentTeam, setStickers } from "../../../state/albumSlice.js";
+import { setCurrentTeam, setStickers, setIdStickerSelected, setPercentage } from "../../../state/albumSlice.js";
 import { store } from "../../../state/store";
 
 import {
   fetchPageInfo,
   claimSticker,
+  fetchAlbumInfo,
 } from "../../../services/inventory.services";
 
 export default function AlbumPage({ navigation }) {
@@ -48,9 +53,28 @@ export default function AlbumPage({ navigation }) {
   useEffect(() => {
     (async () => {
       await loadPageInfo();
-      setChange(false)
+      setChange(false);
     })();
   }, [token, index, change]);
+
+  useEffect(() => {
+    (async () => {
+      await loadAlbumInfo();
+    })();
+  }, [change]);
+
+  const loadAlbumInfo = async () => { //percentage 
+    setLoading(true);
+    try {
+      const data = await fetchAlbumInfo(token, eventId);
+      console.log(data.actualProgressPercentage)
+      dispatch(setPercentage(data.actualProgressPercentage));
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const loadPageInfo = async () => {
     setLoading(true);
@@ -63,7 +87,7 @@ export default function AlbumPage({ navigation }) {
         })
       );
       teamId = teamList[index].id;
-      
+
       const data = await fetchPageInfo(token, eventId, teamId);
       setPageInfo(data.item);
       dispatch(setStickers(pageInfo));
@@ -76,22 +100,38 @@ export default function AlbumPage({ navigation }) {
   };
 
   async function putSticker(idSlot = 0) {
-    console.log('hii'+idSlot+'baii'+stickerSelected)
+    if ((stickerSelected == 0)) {
+      return 0;
+    }
     try {
-      if (idSlot!=stickerSelected){
-        throw new Error ("Esta no es la casilla del sticker")
-      } 
+      if (idSlot != stickerSelected) {
+        throw new Error("Esta no es la casilla del sticker");
+      }
       const data = await claimSticker(token, eventId, stickerSelected);
-      setChange(true)
+      dispatch(setIdStickerSelected(0))
+      setChange(true);
     } catch (error) {
       alert(error.message);
     }
-  };
+  }
 
   return (
     <View style={styles.fondo}>
       <Header />
       <View style={styles.container}>
+        {/* <ModalPopup visible={true}>
+          <View style={{ alignItems: "center" }}>
+            <View style={styles.modalHeader}>
+              <TouchableOpacity onPress={() => setVisibleStickers(false)}>
+                <Image source={botonX} style={{ height: 30, width: 30 }} />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <TeamFilter teams={teamList} />
+        </ModalPopup> */}
+
+        <TeamFilter />
         <View style={styles.containerPor}>
           <ProgressBar completedPercent={percentage} />
           <TouchableOpacity>
@@ -120,7 +160,10 @@ export default function AlbumPage({ navigation }) {
                 <View style={{ bottom: 90, right: 35 }}>
                   <View style={{ margin: 1 }}>
                     {!sticker?.isAttached && (
-                      <TouchableOpacity key={i} onPress={() => putSticker(sticker?.id)}>
+                      <TouchableOpacity
+                        key={i}
+                        onPress={() => putSticker(sticker?.id)}
+                      >
                         <NoStickerSlot
                           idCode={sticker?.id}
                           nameCode={sticker?.playerName}

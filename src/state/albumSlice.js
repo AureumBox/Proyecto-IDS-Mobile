@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 export const albumSlice = createSlice({
   name: "album",
   initialState: {
@@ -12,7 +11,7 @@ export const albumSlice = createSlice({
       index: 0,
       id: 0,
       name: "",
-      stickers: [],     
+      stickers: [],
       obtainedCount: 0,
     },
   },
@@ -40,12 +39,15 @@ export const albumSlice = createSlice({
       state.percentage = action.payload;
     },
     setNextIndex: (state) => {
-      if (state.currentTeam.index+1 < state.teamList.length) {
+      if (state.currentTeam.index + 1 < state.teamList.length) {
         state.currentTeam.index++;
-      } 
+      }
+    },
+    setIndex: (state) => {
+      state.currentTeam.index = action.payload;
     },
     setPrevIndex: (state) => {
-      if (state.currentTeam.index-1 >= 0) {
+      if (state.currentTeam.index - 1 >= 0) {
         state.currentTeam.index--;
       }
     },
@@ -62,5 +64,6 @@ export const {
   setPrevIndex,
   setStickers,
   setIdStickerSelected,
+  setIndex,
 } = albumSlice.actions;
 export default albumSlice.reducer;

@@ -14,6 +14,7 @@ import AlbumDigital from "../../../../assets/albumd.png";
 import AlbumPage from "./AlbumPage";
 import ProgressBar from "./ProgressBar";
 
+
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
@@ -22,11 +23,9 @@ import {
   fetchAlbumInfo,
   fetchTeamsInfo,
 } from "../../../services/inventory.services";
-import * as albumSlice from "../../../state/albumSlice.js";
 import {
   setPercentage,
   setTeamList,
-  setCurrentTeam,
 } from "../../../state/albumSlice.js";
 import { store } from "../../../state/store";
 
@@ -38,7 +37,7 @@ export default function Album({ navigation }) {
   const eventId = 1;
   const { token } = useSelector((state) => state.auth);
   const percentage = useSelector((state) => state.album.percentage);
-  const index = useSelector((state) => state.album.currentTeam.index);
+ 
   const dispatch = useDispatch();
 
   useEffect(() => {
