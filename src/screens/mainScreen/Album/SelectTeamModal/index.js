@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setCurrentTeam,
 } from "../../../../state/albumSlice.js";
+import OneTeam from "./OneTeam";
 
 export default function SelectTeamModal({ isVisible, onClose }) {
   const dispatch = useDispatch();

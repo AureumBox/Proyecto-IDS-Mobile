@@ -33,7 +33,7 @@ export default function AlbumPage() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [eventId, setEventId] = useState(1);
-  const [teamsModalOpens, seTeamsModalOpens] = useState(false);
+  const [teamsModalOpens, setTeamsModalOpens] = useState(false);
 
   const { token } = useSelector((state) => state.auth);
   const teamName = useSelector((state) => state.album.currentTeam.name);
