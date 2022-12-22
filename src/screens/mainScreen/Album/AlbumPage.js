@@ -22,6 +22,7 @@ import Carousel from "./Carousel";
 import NoStickerSlot from "./NoStickerSlot";
 import StickerTemplate from "../../../components/StickerTemplate";
 import AlbumHeader from "./AlbumHeader";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const { width, height } = Dimensions.get("window");
 
@@ -42,6 +43,7 @@ import {
 } from "../../../services/inventory.services";
 
 export default function AlbumPage({ navigation }) {
+  console.log('COMPONENT: AlbumPage executes');
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [pageInfo, setPageInfo] = useState([]);
@@ -64,6 +66,32 @@ export default function AlbumPage({ navigation }) {
 
   let teamId = 0;
 
+  const loadPageInfo = async () => {
+    setLoading(true);
+    try {
+      dispatch(
+        setCurrentTeam({
+          id: teamList[index].id,
+          name: teamList[index].name,
+          obtainedCount: teamList[index].stickers.length,
+        })
+      );
+      teamId = teamList[index].id;
+
+      const data = await fetchPageInfo(token, eventId, teamId);
+      //console.log(data);
+      dispatch(setStickers(data.item.stickers));
+      //console.log(teamStickers);
+      setPageInfo(teamStickers);
+
+      setShowAlbum(true);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       await loadPageInfo();
@@ -72,7 +100,9 @@ export default function AlbumPage({ navigation }) {
   }, [token, index, change]);
 
   useEffect(() => {
+    console.log('ejecutando loadAlbumInfo ', { change });
     (async () => {
+      console.log('ejecutando loadAlbumInfo content', { change });
       await loadAlbumInfo();
     })();
   }, [change]);
@@ -88,32 +118,6 @@ export default function AlbumPage({ navigation }) {
       const data = await fetchAlbumInfo(token, eventId);
       console.log(data.actualProgressPercentage);
       dispatch(setPercentage(data.actualProgressPercentage));
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadPageInfo = async () => {
-    setLoading(true);
-    try {
-      dispatch(
-        setCurrentTeam({
-          id: teamList[index].id,
-          name: teamList[index].name,
-          obtainedCount: teamList[index].stickers.length,
-        })
-      );
-      teamId = teamList[index].id;
-
-      const data = await fetchPageInfo(token, eventId, teamId);
-      console.log(JSON.stringify(data));
-      dispatch(setStickers(data.item.stickers));
-      console.log(JSON.stringify(teamStickers));
-      setPageInfo(teamStickers);
-
-      setShowAlbum(true);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -154,6 +158,7 @@ export default function AlbumPage({ navigation }) {
 
   return (
     <View style={styles.fondo}>
+      <Spinner visible={loading} textContent={"Cargando..."} />
       {/* Ventana Emergente con el Filtro de Equipos */}
       <ModalPopup visible={filterVisible}>
         <View style={{ alignItems: "center" }}>

@@ -30,6 +30,7 @@ import {
 import { store } from "../../../state/store";
 
 export default function Album({ navigation }) {
+  console.log('COMPONENT: ALBUM executes');
   const [loading, setLoading] = useState(true);
   const [albumInfo, setAlbumInfo] = useState({});
   const [teamsInfo, setTeamsInfo] = useState({});
