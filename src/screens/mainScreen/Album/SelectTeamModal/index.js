@@ -29,6 +29,8 @@ export default function SelectTeamModal({ isVisible, onClose }) {
         obtainedCount: teamList[index].stickers.length,
       })
     );
+
+    onClose();
   }
 
   return (
@@ -47,7 +49,7 @@ export default function SelectTeamModal({ isVisible, onClose }) {
             ListHeaderComponent={
               <Text style={styles.listHeadLine}>Filtrar por Equipos</Text>
             }
-            ItemSeparatorComponent={<View style={styles.separator} />}
+            ItemSeparatorComponent={() => <View style={styles.separator} />}
             data={teamList}
             renderItem={({ item, index }) => {
               return (<OneTeam item={item} index={index} onPress={changeCurrentTeamByIndex} />);
