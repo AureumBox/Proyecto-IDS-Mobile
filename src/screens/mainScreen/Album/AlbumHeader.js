@@ -23,35 +23,19 @@ export default function AlbumHeader({ teamName = "" }) {
   );
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true);
-
-  const navPrevPage = (input) => {
-    setLoading(true);
-    try {
-      if (currentPage > 1) {
-        dispatch(setPrevPage());
-      } else {
-        dispatch(setPrevIndex());
-      }
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
+  const navPrevPage = () => {
+    if (currentPage > 1) {
+      dispatch(setPrevPage());
+    } else {
+      dispatch(setPrevIndex());
     }
   };
 
   const navNextPage = () => {
-    setLoading(true);
-    try {
-      if (currentPage < pages) {
-        dispatch(setNextPage());
-      } else {
-        dispatch(setNextIndex());
-      }
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
+    if (currentPage < pages) {
+      dispatch(setNextPage());
+    } else {
+      dispatch(setNextIndex());
     }
   };
 

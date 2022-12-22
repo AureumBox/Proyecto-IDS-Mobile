@@ -46,6 +46,11 @@ export const albumSlice = createSlice({
     setNextIndex: (state) => {
       if (state.currentTeam.index + 1 < state.teamList.length) {
         state.currentTeam.index++;
+        // TODO: Esto debe refactorizarse amiwos xd... By Hector
+        const index = state.currentTeam.index;
+        state.currentTeam.id = state.teamList[index].id;
+        state.currentTeam.name = state.teamList[index].name;
+        state.currentTeam.obtainedCount = state.teamList[index].stickers.length;
       }
     },
     setIndex: (state, action) => {
@@ -55,6 +60,11 @@ export const albumSlice = createSlice({
     setPrevIndex: (state) => {
       if (state.currentTeam.index - 1 >= 0) {
         state.currentTeam.index--;
+        // TODO: Esto debe refactorizarse amiwos xd... By Hector
+        const index = state.currentTeam.index;
+        state.currentTeam.id = state.teamList[index].id;
+        state.currentTeam.name = state.teamList[index].name;
+        state.currentTeam.obtainedCount = state.teamList[index].stickers.length;
       }
     },
     setNextPage: (state) => {
