@@ -43,7 +43,7 @@ export const albumSlice = createSlice({
         state.currentTeam.index++;
       }
     },
-    setIndex: (state) => {
+    setIndex: (state, action) => {
       state.currentTeam.index = action.payload;
     },
     setPrevIndex: (state) => {
