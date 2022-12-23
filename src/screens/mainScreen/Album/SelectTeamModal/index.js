@@ -11,9 +11,8 @@ import { ModalPopup } from "../../../../components/ModalPopup";
 import botonX from "../../../../../assets/appAssets/x.png";
 import styles from '../styles';
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setCurrentTeam,
-} from "../../../../state/albumSlice.js";
+import { setCurrentTeam } from "../../../../state/albumSlice.js";
+import OneTeam from "./OneTeam";
 
 export default function SelectTeamModal({ isVisible, onClose }) {
   const dispatch = useDispatch();
@@ -28,31 +27,31 @@ export default function SelectTeamModal({ isVisible, onClose }) {
         obtainedCount: teamList[index].stickers.length,
       })
     );
+    onClose();
   }
 
   return (
-      <ModalPopup visible={isVisible}>
-        {/* Ventana Emergente con el Filtro de Equipos */}
-        <View style={{ alignItems: "center" }}>
-          <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={onClose}>
-              <Image source={botonX} style={{ height: 30, width: 30 }} />
-            </TouchableOpacity>
-          </View>
+    <ModalPopup visible={isVisible}>
+      <View style={{ alignItems: "center" }}>
+        <View style={styles.modalHeader}>
+          <TouchableOpacity onPress={onClose}>
+            <Image source={botonX} style={{ height: 30, width: 30 }} />
+          </TouchableOpacity>
         </View>
-        <SafeAreaView>
-          <FlatList
-            ListHeaderComponentStyle={styles.listHeader}
-            ListHeaderComponent={
-              <Text style={styles.listHeadLine}>Filtrar por Equipos</Text>
-            }
-            ItemSeparatorComponent={<View style={styles.separator} />}
-            data={teamList}
-            renderItem={({ item, index }) => {
-              return (<OneTeam item={item} index={index} onPress={changeCurrentTeamByIndex} />);
-            }}
-          />
-        </SafeAreaView>
-      </ModalPopup>
+      </View>
+      <SafeAreaView>
+        <FlatList
+          ListHeaderComponentStyle={styles.listHeader}
+          ListHeaderComponent={
+            <Text style={styles.listHeadLine}>Filtrar por Equipos</Text>
+          }
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          data={teamList}
+          renderItem={({ item, index }) => {
+            return (<OneTeam item={item} index={index} onPress={changeCurrentTeamByIndex} />);
+          }}
+        />
+      </SafeAreaView>
+    </ModalPopup>
   );
 }
