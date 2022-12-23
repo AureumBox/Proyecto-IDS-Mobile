@@ -51,10 +51,10 @@ export default function StickerTemplate({ sticker }) {
                     />
                     <Image
                         source={
-                            (sticker?.position=='arquero')?(arquero):
-                            ((sticker?.position=='defensa')?(defensa):
-                            ((sticker?.position=='medioCentro')?(medioCentro):
-                            ((sticker?.position=='delantero')?(delantero):(delantero))
+                            (sticker?.position=='Arquero')?(arquero):
+                            ((sticker?.position=='Defensa')?(defensa):
+                            ((sticker?.position=='MedioCentro')?(medioCentro):
+                            ((sticker?.position=='Delantero')?(delantero):(delantero))
                             ))
                         }
                         style={[styles.bandera, { left: width / 4.75 }]}
