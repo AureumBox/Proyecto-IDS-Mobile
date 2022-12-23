@@ -77,9 +77,6 @@ export default function StickerTemplate({ sticker }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        width: 'auto',
-        height: 'auto',
         alignItems: 'center',
         justifyContent: 'center'
     },

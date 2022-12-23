@@ -52,7 +52,7 @@ export default StyleSheet.create({
     backgroundColor: "#CCC",
   },
   albumfondo: {
-    width: "85%",
+    width: "90%",
     height: "60%",
     backgroundColor: "white",
     marginBottom: "3%",

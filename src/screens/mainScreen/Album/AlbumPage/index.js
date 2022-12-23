@@ -4,6 +4,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import SelectTeamModal from "../SelectTeamModal";
@@ -136,6 +137,7 @@ export default function AlbumPage() {
         <View style={styles.albumfondo}>
           <AlbumHeader teamName={teamName} />
           <View style={styles.containerBarajitas}>
+            <ScrollView>
             <View
               style={{
                 justifyContent: "center",
@@ -152,20 +154,23 @@ export default function AlbumPage() {
                         onPress={() => putSticker(sticker?.id)}
                       >
                         <NoStickerSlot
+                          key={i}
                           idCode={sticker?.id}
                           nameCode={sticker?.playerName}
-                          key={i}
                         />
                       </TouchableOpacity>
                     )}
-
                     {sticker?.isAttached && (
-                      <StickerTemplate sticker={sticker} key={i} />
+                      <StickerTemplate
+                        key={i}
+                        sticker={sticker}
+                      />
                     )}
                   </View>
                 </View>
               ))}
             </View>
+            </ScrollView>
           </View>
         </View>
         <Carousel />
