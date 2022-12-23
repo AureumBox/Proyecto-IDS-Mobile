@@ -38,7 +38,7 @@ export default function Carousel() {
     })();
   }, [token, pageInfo]);
 
-  function selectSticker(id){
+  function selectSticker(id) {
     setSelectedId(id)
     dispatch(setIdStickerSelected(id))
     console.log(JSON.stringify(store.getState()))
@@ -65,7 +65,7 @@ export default function Carousel() {
         }}
       >
         <StickerTemplate sticker={item} />
-        
+
         {/* Overlay rojo cuando item es seleccionado */}
         {item.id === selectedId && <View style={styles.selectedItem} />}
       </View>

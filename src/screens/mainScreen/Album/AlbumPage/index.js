@@ -146,7 +146,7 @@ export default function AlbumPage() {
               }}
             >
               {pageInfo?.stickers?.map((sticker, i) => (
-                <View style={{ bottom: 90, right: 35 }}>
+                <View key={i} style={{ bottom: 90, right: 35 }}>
                   <View style={{ margin: 1 }}>
                     {!sticker?.isAttached && (
                       <TouchableOpacity
