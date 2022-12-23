@@ -10,29 +10,18 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import {
   setNextIndex,
-  setPrevIndex,
-  setNextPage,
-  setPrevPage,
+  setPrevIndex
 } from "../../../state/albumSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function AlbumHeader({ teamName = "" }) {
-  const pages = useSelector((state) => state.album.currentTeam.pages);
-  const currentPage = useSelector(
-    (state) => state.album.currentTeam.currentPage
-  );
-  const dispatch = useDispatch();
-
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
   const navPrevPage = (input) => {
     setLoading(true);
     try {
-      if (currentPage > 1) {
-        dispatch(setPrevPage());
-      } else {
-        dispatch(setPrevIndex());
-      }
+      dispatch(setPrevIndex())
     } catch (error) {
       alert(error.message);
     } finally {
@@ -43,11 +32,7 @@ export default function AlbumHeader({ teamName = "" }) {
   const navNextPage = () => {
     setLoading(true);
     try {
-      if (currentPage < pages) {
-        dispatch(setNextPage());
-      } else {
-        dispatch(setNextIndex());
-      }
+      dispatch(setNextIndex())
     } catch (error) {
       alert(error.message);
     } finally {
