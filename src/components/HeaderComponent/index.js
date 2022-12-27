@@ -110,11 +110,10 @@ export default function HeaderComponent() {
             flexWrap: 'wrap',
           }}
         >
-
           {obtainedStickers ? (
             obtainedStickers.map((sticker, i) => (
               <View key={i} style={{ marginVertical: 78 }}>
-                <StickerTemplate sticker={sticker} />
+                <StickerTemplate sticker={sticker} onModal={true}/>
               </View>
             ))
           ) : (
@@ -219,7 +218,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   logo: {
-    height: 40,
+    height: '97%',
     width: 120,
     marginLeft: 15,
     marginTop: 15,
@@ -231,8 +230,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginLeft: -50,
     marginTop: -1,
-    marginRight: -40,
-    marginBottom: 6,
+    marginRight: -30,
+    marginBottom: 6
   },
   coins: {
     width: 80,
@@ -243,7 +242,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginRight: -40,
     marginTop: 3,
-    marginBottom: 8,
+    marginBottom: 8
   },
   logInButton: {
     backgroundColor: '#70ABAF',

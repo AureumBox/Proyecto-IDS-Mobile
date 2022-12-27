@@ -30,14 +30,14 @@ function getPlayerRoleImg(position) {
     return delanteroImg;
 }
 
-export default function StickerTemplate({ sticker }) {
+export default function StickerTemplate({ sticker, onModal }) {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { flex: onModal ? 1 : -1, margin: onModal ? 5 : 0 }]}>
             <ImageBackground
                 source={fondoImg}
                 style={styles.marco}
             >
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: 'center', overflow: 'hidden' }}>
                     <Image
                         source={{ uri: sticker.img }}
                         style={[styles.jugador, { top: 8 }]}
@@ -82,9 +82,6 @@ export default function StickerTemplate({ sticker }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        width: 'auto',
-        height: 'auto',
         alignItems: 'center',
         justifyContent: 'center'
     },

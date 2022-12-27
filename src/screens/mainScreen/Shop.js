@@ -12,12 +12,12 @@ export default function Inventory({ navigation }) {
 
     return (
         <View style={styles.fondo}>
-        <Header/>
-        <View style={styles.container}>
-            <Text style={styles.textSt}>
-                Tienda
-            </Text>
-        </View>
+            <Header />
+            <View style={styles.container}>
+                <Text style={styles.textSt}>
+                    Tienda
+                </Text>
+            </View>
         </View>
     )
 }

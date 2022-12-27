@@ -7,7 +7,6 @@ const URL_SIGNUP = `${BASE_URL}/auth/register`;
 
 export const login = async (user) => {
   try {
-    console.log('==== login', URL_LOGIN, user);
     const result = await axios.post(URL_LOGIN, user);
     return result;
   } catch (error) {
@@ -17,7 +16,6 @@ export const login = async (user) => {
 
 export const signup = async (user) => {
   try {
-    console.log('====', URL_SIGNUP);
     const result = await axios.post(URL_SIGNUP, {
       name: user.name,
       email: user.email,
