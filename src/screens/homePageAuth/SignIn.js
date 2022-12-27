@@ -10,34 +10,35 @@ import {
     View
 } from "react-native";
 import { signup } from "../../services/auth.services";
-import {useForm, Controller} from "react-hook-form";
-import Constants from 'expo-constants';
+import { useForm, Controller } from "react-hook-form";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
 import { logIn } from '../../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function SignIn({ navigation }) {
     const [loading, setLoading] = useState(false);
-    const {control, handleSubmit, formState: {errors}, watch} = useForm();
+    const [showPass, setShowPass] = useState(true);
+    const [showConf, setShowConf] = useState(true);
+    const { control, handleSubmit, formState: { errors }, watch } = useForm();
     const pwd = watch("password");
     const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     const dispatch = useDispatch();
 
-    const sendRegisterData = async (data) =>{
+    const sendRegisterData = async (data) => {
         setLoading(true);
         try {
-            console.log(JSON.stringify(data))
             const result = await signup(data);
             setLoading(false);
-            if (result.data.token){
+            if (result.data.token) {
                 dispatch(logIn(result.data.token));
                 navigation.navigate(HPANavigation.HOME);
-            } 
+            }
         } catch (error) {
-             if (error?.response?.data) {
+            if (error?.response?.data) {
                 alert(error?.response?.data.message);
-             }else{
+            } else {
                 alert("Error del servidor al registrarse");
             }
         } finally {
@@ -53,95 +54,146 @@ export default function SignIn({ navigation }) {
                         visible={loading}
                         textContent={'Cargando...'}
                     />
-                    <Text/>
+                    <Text />
                     <Text style={styles.body}>Crea una Cuenta</Text>
-                    <Controller 
-                        control={control}
-                        name="name"
-                        rules={{required: "Ingrese su nombre de usuario"}}
-                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
-                            <>
-                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
-                                    {error.message}</Text>
-                                )}
-                                <TextInput
-                                    value={value}
-                                    style={error ? styles.inputError : styles.input}
-                                    placeholder='Nombre de usuario'
-                                    autoCorrect={false}
-                                    onChangeText={onChange}
-                                />
-                                
-                            </>
-                        )}
-                    />
-                    <Controller 
-                        control={control}
-                        name="email"
-                        rules={{
-                            required: "Ingrese su correo electrónico",
-                            pattern: {value: EMAIL_REGEX, message: "Ingrese un correo válido"}
-                        }}
-                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
-                            <>
-                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
-                                    {error.message}</Text>
-                                )}
-                                <TextInput
-                                    value={value}
-                                    style={error ? styles.inputError : styles.input}
-                                    placeholder='Correo Electrónico'
-                                    autoCorrect={false}
-                                    onChangeText={onChange}
-                                />
-                                
-                            </>
-                        )}
-                    />
-                    <Controller 
-                        control={control}
-                        name="password"
-                        rules={{required: "Ingrese su contraseña"}}
-                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
-                            <>
-                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
-                                    {error.message}</Text>
-                                )}
-                                <TextInput
-                                    value={value}
-                                    style={error ? styles.inputError : styles.input}
-                                    placeholder='Contraseña'
-                                    autoCorrect={false}
-                                    onChangeText={onChange}
-                                    secureTextEntry={true}
-                                />
-                            </>
-                        )}
-                    />
-                    <Controller 
-                        control={control}
-                        name="passwordConf"
-                        rules={{
-                            required: "Verifique su contraseña",
-                            validate: value => value === pwd ? true: "Las contraseñas no coinciden"
-                        }}
-                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
-                            <>
-                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
-                                    {error.message}</Text>
-                                )}
-                                <TextInput
-                                    value={value}
-                                    style={error ? styles.inputError : styles.input}
-                                    placeholder='Verificar Contraseña'
-                                    autoCorrect={false}
-                                    onChangeText={onChange}
-                                    secureTextEntry={true}
-                                />
-                            </>
-                        )}
-                    />
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="person-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <Controller
+                            control={control}
+                            name="name"
+                            rules={{ required: "Ingrese su nombre de usuario" }}
+                            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+                                <>
+                                    {error && (<Text style={{ color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                        {error.message}</Text>
+                                    )}
+                                    <TextInput
+                                        value={value}
+                                        style={error ? styles.inputError : styles.inputText}
+                                        placeholder='Nombre de usuario'
+                                        autoCorrect={false}
+                                        onChangeText={onChange}
+                                    />
 
+                                </>
+                            )}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="card-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <Controller
+                            control={control}
+                            name="email"
+                            rules={{
+                                required: "Ingrese su correo electrónico",
+                                pattern: { value: EMAIL_REGEX, message: "Ingrese un correo válido" }
+                            }}
+                            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+                                <>
+                                    {error && (<Text style={{ color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                        {error.message}</Text>
+                                    )}
+                                    <TextInput
+                                        value={value}
+                                        style={error ? styles.inputError : styles.inputText}
+                                        placeholder='Correo Electrónico'
+                                        autoCorrect={false}
+                                        onChangeText={onChange}
+                                    />
+
+                                </>
+                            )}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="lock-closed-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <Controller
+                            control={control}
+                            name="password"
+                            rules={{ required: "Ingrese su contraseña" }}
+                            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+                                <>
+                                    {error && (<Text style={{ color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                        {error.message}</Text>
+                                    )}
+                                    <TextInput
+                                        value={value}
+                                        style={error ? styles.inputError : styles.inputText}
+                                        placeholder='Contraseña'
+                                        autoCorrect={false}
+                                        onChangeText={onChange}
+                                        secureTextEntry={showPass}
+                                    />
+                                </>
+                            )}
+                        />
+                        <TouchableOpacity
+                            onPress={() => { setShowPass(!showPass) }}
+                            style={styles.buttonEye}
+                        >
+                            <Ionicons
+                                name={showPass === false ? 'eye-outline' : 'eye-off-outline'}
+                                size={26}
+                                color='black'
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="lock-closed-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <Controller
+                            control={control}
+                            name="passwordConf"
+                            rules={{
+                                required: "Verifique su contraseña",
+                                validate: value => value === pwd ? true : "Las contraseñas no coinciden"
+                            }}
+                            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+                                <>
+                                    {error && (<Text style={{ color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                        {error.message}</Text>
+                                    )}
+                                    <TextInput
+                                        value={value}
+                                        style={error ? styles.inputError : styles.inputText}
+                                        placeholder='Verificar Contraseña'
+                                        autoCorrect={false}
+                                        onChangeText={onChange}
+                                        secureTextEntry={showConf}
+                                    />
+                                </>
+                            )}
+                        />
+                        <TouchableOpacity
+                            onPress={() => { setShowConf(!showConf) }}
+                            style={styles.buttonEye}
+                        >
+                            <Ionicons
+                                name={showConf === false ? 'eye-outline' : 'eye-off-outline'}
+                                size={26}
+                                color='black'
+                            />
+                        </TouchableOpacity>
+                    </View>
                     {/* Botón Registrarte */}
                     <TouchableOpacity
                         onPress={handleSubmit(sendRegisterData)}
@@ -243,15 +295,26 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginHorizontal: 10,
     },
-    input: {
+    inputContainer: {
+        width: '100%',
         backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 16,
-        marginBottom: 10,
-        borderWidth: 2,
-        borderColor: 'white',
-        borderRadius: 16,
-        marginHorizontal: 10,
+        borderRadius: 25,
+        marginBottom: 20,
+        justifyContent: 'center',
+        padding: 20
+    },
+    inputIcon: {
+        position: 'absolute',
+        alignItems: 'center',
+        left: 25
+    },
+    inputText: {
+        paddingLeft: 20,
+        marginHorizontal: 20
+    },
+    buttonEye: {
+        position: 'absolute',
+        right: 25
     },
     inputError: {
         backgroundColor: 'white',

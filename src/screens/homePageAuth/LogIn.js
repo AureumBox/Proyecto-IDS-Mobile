@@ -9,38 +9,39 @@ import {
     Image,
     View
 } from "react-native";
-import {useForm, Controller} from "react-hook-form";
+import { useDispatch } from 'react-redux';
+import { logIn as logInRedux } from '../../state/authSlice.js';
+import { useForm, Controller } from "react-hook-form";
 import { login } from "../../services/auth.services";
 import Spinner from 'react-native-loading-spinner-overlay';
-import { useDispatch } from 'react-redux'
-import { logIn as logInRedux } from '../../state/authSlice.js';
 import HPANavigation from "../../constants/HPANavigation";
-import { store } from "../../state/store";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function LogIn({ navigation }) {
     const [loading, setLoading] = useState(false);
-    const {control, handleSubmit, formState: {errors}} = useForm();
+    const [show, setShow] = useState(true);
+    const { control, handleSubmit, formState: { errors } } = useForm();
     const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     const dispatch = useDispatch();
 
-    const sendLoginData = async (data) =>{
+    const sendLoginData = async (data) => {
         setLoading(true);
         try {
             const result = await login(data);
             setLoading(false);
-            if(result.data.token){
+            if (result.data.token) {
                 dispatch(logInRedux(result.data.token));
                 navigation.navigate(HPANavigation.BNB);
             }
-        } catch (error) {  
+        } catch (error) {
             if (error?.response?.data) {
                 alert(error?.response?.data.message);
-             }else{
+            } else {
                 alert("Error del servidor al autenticarse");
             }
-       } finally {
-           setLoading(false);
-       }
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -52,49 +53,79 @@ export default function LogIn({ navigation }) {
                         textContent={'Cargando...'}
                     />
                     <Text style={styles.body}>Inicia sesión en tu Cuenta</Text>
-                    <Controller 
-                        control={control}
-                        name="email"
-                        rules={{
-                            required: "Ingrese su correo electrónico",
-                            pattern: {value: EMAIL_REGEX, message: "Ingrese un correo válido"}
-                        }}
-                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
-                            <>
-                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
-                                    {error.message}</Text>
-                                )}
-                                <TextInput
-                                    value={value}
-                                    style={error ? styles.inputError : styles.input}
-                                    placeholder='Correo Electrónico'
-                                    autoCorrect={false}
-                                    onChangeText={onChange}
-                                />
-                                
-                            </>
-                        )}
-                    />
-                    <Controller 
-                        control={control}
-                        name="password"
-                        rules={{required: "Ingrese su contraseña"}}
-                        render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
-                            <>
-                                {error && (<Text style={{color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
-                                    {error.message}</Text>
-                                )}
-                                <TextInput
-                                    value={value}
-                                    style={error ? styles.inputError : styles.input}
-                                    placeholder='Contraseña'
-                                    autoCorrect={false}
-                                    onChangeText={onChange}
-                                    secureTextEntry={true}
-                                />
-                            </>
-                        )}
-                    />
+
+                    {/* Email Input */}
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="card-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <Controller
+                            control={control}
+                            name="email"
+                            rules={{
+                                required: "Ingrese su correo electrónico",
+                                pattern: { value: EMAIL_REGEX, message: "Ingrese un correo válido" }
+                            }}
+                            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+                                <>
+                                    {error && (<Text style={{ color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                        {error.message}</Text>
+                                    )}
+                                    <TextInput
+                                        value={value}
+                                        style={error ? styles.inputError : styles.inputText}
+                                        placeholder='Correo Electrónico'
+                                        autoCorrect={false}
+                                        onChangeText={onChange}
+                                    />
+
+                                </>
+                            )}
+                        />
+                    </View>
+
+                    {/* Password Input */}
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="lock-closed-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <Controller
+                            control={control}
+                            name="password"
+                            rules={{ required: "Ingrese su contraseña" }}
+                            render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+                                <>
+                                    {error && (<Text style={{ color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
+                                        {error.message}</Text>
+                                    )}
+                                    <TextInput
+                                        value={value}
+                                        style={error ? styles.inputError : styles.inputText}
+                                        placeholder='Contraseña'
+                                        autoCorrect={false}
+                                        onChangeText={onChange}
+                                        secureTextEntry={show}
+                                    />
+                                </>
+                            )}
+                        />
+                        <TouchableOpacity
+                            onPress={() => { setShow(!show) }}
+                            style={styles.buttonEye}
+                        >
+                            <Ionicons
+                                name={show === false ? 'eye-outline' : 'eye-off-outline'}
+                                size={26}
+                                color='black'
+                            />
+                        </TouchableOpacity>
+                    </View>
                     {/* Boton Olvido su Contraseña */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate(HPANavigation.PWRECOVERY)}
@@ -208,15 +239,26 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginHorizontal: 10,
     },
-    input: {
+    inputContainer: {
+        width: '100%',
         backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 16,
-        marginBottom: 15,
-        borderWidth: 2,
-        borderColor: 'white',
-        borderRadius: 16,
-        marginHorizontal: 5,
+        borderRadius: 25,
+        marginBottom: 20,
+        justifyContent: 'center',
+        padding: 20
+    },
+    inputIcon: {
+        position: 'absolute',
+        alignItems: 'center',
+        left: 25
+    },
+    inputText: {
+        paddingLeft: 20,
+        marginHorizontal: 20
+    },
+    buttonEye: {
+        position: 'absolute',
+        right: 25
     },
     inputError: {
         backgroundColor: 'white',

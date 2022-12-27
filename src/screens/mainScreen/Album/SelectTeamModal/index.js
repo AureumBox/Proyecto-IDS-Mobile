@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { ModalPopup } from "../../../../components/ModalPopup";
-import botonX from "../../../../../assets/appAssets/x.png";
+import botonX from "../../../../../assets/app/x.png";
 import styles from '../styles';
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTeam, setIndex, setFirstPage } from "../../../../state/albumSlice.js";

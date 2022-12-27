@@ -10,6 +10,7 @@ import {
     View
 } from "react-native";
 import HPANavigation from "../../constants/HPANavigation";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function PWRecovery({ navigation }) {
     return (
@@ -20,11 +21,19 @@ export default function PWRecovery({ navigation }) {
                     <Text style={styles.text}>
                         No te preocupes, puede suceder. Por favor ingresa tu Correo Electrónico. Estaremos enviandote un correo para reiniciar tu contraseña
                     </Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder='Correo Electrónico'
-                        autoCorrect={false}
-                    />
+                    <View style={styles.inputContainer}>
+                        <Ionicons
+                            name="card-outline"
+                            size={24}
+                            color="black"
+                            style={styles.inputIcon}
+                        />
+                        <TextInput
+                            style={styles.inputText}
+                            placeholder='Correo Electrónico'
+                            autoCorrect={false}
+                        />
+                    </View>
                     {/* Boton Reiniciar Contraseña */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate(HPANavigation.PWRESET)}
@@ -93,16 +102,22 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginHorizontal: 10,
     },
-    input: {
+    inputContainer: {
+        width: '100%',
         backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 16,
-        marginBottom: 15,
-        borderWidth: 2,
-        borderColor: 'white',
-        borderRadius: 16,
-        marginHorizontal: 5,
-        marginVertical: 30,
+        borderRadius: 25,
+        marginBottom: 20,
+        justifyContent: 'center',
+        padding: 20
+    },
+    inputIcon: {
+        position: 'absolute',
+        alignItems: 'center',
+        left: 25
+    },
+    inputText: {
+        paddingLeft: 20,
+        marginHorizontal: 20
     },
     logInButton: {
         backgroundColor: '#70ABAF',

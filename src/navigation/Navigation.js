@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HPANavigation from '../constants/HPANavigation';
 import {
     HPAHomeScreen,
@@ -9,7 +9,7 @@ import {
     HPAPWRecovery,
     HPAPWReset,
     BNBMainScreen
-} from '../screens'
+} from '../screens';
 
 const Stack = createNativeStackNavigator();
 

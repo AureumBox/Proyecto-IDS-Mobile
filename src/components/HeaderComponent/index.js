@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,26 +7,22 @@ import {
   Dimensions,
   SafeAreaView,
   Text,
-} from "react-native";
-import {
-  MaterialIcons,
-  MaterialCommunityIcons,
-  Octicons
-} from "@expo/vector-icons";
-import { ModalPopup } from "../../components/ModalPopup";
-import logo from "../../../assets/appAssets/logo.png";
-import botonX from "../../../assets/appAssets/x.png";
-import sobre from "../../../assets/appAssets/sobre.png";
-import { watchAd, getAdRedirectUrl } from "../../services/ad.services";
-import Spinner from "react-native-loading-spinner-overlay";
-import { Linking } from "react-native";
-import { obtainStickers } from "../../services/sticker.services";
-import StickerTemplate from "../StickerTemplate";
+  Linking
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-remix-icon';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
+import { obtainStickers } from '../../services/sticker.services';
+import { ModalPopup } from '../ModalPopup';
+import StickerTemplate from '../StickerTemplate';
 
-import { useDispatch, useSelector } from "react-redux";
+import logoImg from '../../../assets/app/logo.png';
+import botonXImg from '../../../assets/app/x.png';
+import sobreImg from '../../../assets/app/sobre.png';
 
-const { width } = Dimensions.get("window");
-const { height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 export default function HeaderComponent() {
   const [loading, setLoading] = useState(false);
@@ -35,15 +31,12 @@ export default function HeaderComponent() {
   const [visibleStickers, setVisibleStickers] = useState(false);
   const [ad, setAd] = useState(null);
   const [obtainedStickers, setObtainedStickers] = useState([]);
-
   const { token } = useSelector(state => state.auth);
 
   const onClaimClick = async () => {
     setLoading(true);
     try {
-      const ad = await watchAd();
-      setAd(ad);
-      setVisibleAnuncio(true);
+      setAd(await watchAd(token));
     } catch (error) {
       alert(error.message);
     } finally {
@@ -56,39 +49,38 @@ export default function HeaderComponent() {
     setLoading(true);
     try {
       setObtainedStickers(await obtainStickers(token));
-      setVisibleStickers(true);
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
+      setVisibleStickers(true);
     }
   };
 
   const onAdClick = () => {
     const redirectUrl = getAdRedirectUrl(ad?.id);
-    console.log("LE HAS DADO CLICK A UN ANUNCIO :D ", redirectUrl);
     Linking.openURL(redirectUrl);
   };
 
   return (
     <SafeAreaView style={styles.header}>
-      <Spinner visible={loading} textContent={"Cargando..."} />
+      <Spinner visible={loading} textContent={'Cargando...'} />
       {/* Ventana Emergente de Obtener Cromos */}
       <ModalPopup visible={visibleObtener}>
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: 'center' }}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setVisibleObtener(false)}>
-              <Image source={botonX} style={{ height: 30, width: 30 }} />
+              <Image source={botonXImg} style={{ height: 30, width: 30 }} />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: 'center' }}>
           <Image
-            source={sobre}
+            source={sobreImg}
             style={{
               width: 250,
               height: 250,
-              resizeMode: "contain",
+              resizeMode: 'contain',
             }}
           />
         </View>
@@ -98,100 +90,73 @@ export default function HeaderComponent() {
             onClaimClick();
           }}
         >
-          <Text style={{ color: "white", fontWeight: "bold" }}>Reclamar</Text>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Reclamar</Text>
         </TouchableOpacity>
       </ModalPopup>
 
       {/* Ventana Emergente de drop de Stickers */}
       <ModalPopup visible={visibleStickers}>
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: 'center' }}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setVisibleStickers(false)}>
-              <Image source={botonX} style={{ height: 30, width: 30 }} />
+              <Image source={botonXImg} style={{ height: 30, width: 30 }} />
             </TouchableOpacity>
           </View>
         </View>
         <View
           style={{
-            alignItems: "center",
-            flexDirection: "row",
-            flexWrap: "wrap",
+            justifyContent: 'center',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
           }}
         >
           {obtainedStickers ? (
             obtainedStickers.map((sticker, i) => (
-              <StickerTemplate sticker={sticker} key={i} />
+              <View key={i} style={{ marginVertical: 78 }}>
+                <StickerTemplate sticker={sticker} onModal={true}/>
+              </View>
             ))
           ) : (
             <Text
               style={{
                 marginVertical: 30,
                 fontSize: 17,
-                textAlign: "center",
+                textAlign: 'center',
               }}
             >
               Ha ocurrido un error
             </Text>
           )}
-          {/* <StickerTemplate sticker={obtainedStickers[0]} key='1'/> */}
-          {/* <Image
-            source={sobre}
-            style={{ height: 140, width: 140, resizeMode: 'contain', marginVertical: -15 }}
-          />
-          <Image
-            source={sobre}
-            style={{ height: 140, width: 140, resizeMode: 'contain', marginVertical: -15 }}
-          />
-          <Image
-            source={sobre}
-            style={{ height: 140, width: 140, resizeMode: 'contain', marginVertical: -15 }}
-          />
-          <Image
-            source={sobre}
-            style={{ height: 140, width: 140, resizeMode: 'contain', marginVertical: -15 }}
-          />
-          <Image
-            source={sobre}
-            style={{ height: 140, width: 140, resizeMode: 'contain', marginVertical: -15, marginLeft: 75 }}
-          /> */}
         </View>
         <Text
           style={{
             marginVertical: 30,
             fontSize: 20,
-            textAlign: "center",
+            textAlign: 'center',
           }}
         >
-          ¡Felicidades! Has obtenido un sobre
+          ¡Felicidades, has conseguido un sobre!
         </Text>
       </ModalPopup>
 
       {/* Ventana Emergente de Anuncio */}
       <ModalPopup visible={visibleAnuncio}>
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: 'center' }}>
           <View style={styles.modalHeader}>
-            <TouchableOpacity
-              onPress={() => {
-                onCloseAd();
-                setVisibleAnuncio(false);
-              }}
-            >
-              <Image source={botonX} style={{ height: 30, width: 30 }} />
-            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity onPress={onAdClick}>
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: 'center' }}>
             <Image
               source={
                 ad?.img
                   ? { uri: ad?.img }
-                  : require("../../../assets/Ads/yummy.jpg")
+                  : require('../../../assets/ads/yummy.jpg')
               }
               style={{
                 height: 175,
                 width: 320,
-                resizeMode: "contain",
+                resizeMode: 'contain',
                 marginVertical: 10,
               }}
             />
@@ -201,51 +166,52 @@ export default function HeaderComponent() {
           style={{
             marginVertical: 30,
             fontSize: 20,
-            textAlign: "center",
+            textAlign: 'center',
           }}
         >
-          ¡¡Felicidades has obtenido un Sobre!!
+          ¡Felicidades, has conseguido un sobre!
         </Text>
+        <TouchableOpacity
+          style={styles.logInButton}
+          onPress={() => {
+            onCloseAd();
+            setVisibleAnuncio(false);
+          }}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Ver Sobre</Text>
+        </TouchableOpacity>
       </ModalPopup>
 
       {/* Header Layout */}
-      <Image source={logo} style={styles.logo} />
+      <Image source={logoImg} style={styles.logo} />
 
-      <TouchableOpacity>
-        <View style={[styles.coins]}>
-          <MaterialIcons name="attach-money" size={25} color="#63130B" />
-        </View>
-      </TouchableOpacity>
+      <View style={[styles.coins]}>
+        <Icon name="money-dollar-circle-fill" size="26" color="#63130B" />
+      </View>
 
       <TouchableOpacity onPress={() => setVisibleObtener(true)}>
         <View style={[styles.cofre]}>
-          <MaterialCommunityIcons
-            name="treasure-chest"
+          <Ionicons
+            name='gift'
             size={35}
-            color="#63130B"
+            color='#63130B'
           />
         </View>
       </TouchableOpacity>
-
-      {/* <TouchableOpacity>
-        <View style={[styles.iconos]}>
-          <Octicons name="three-bars" size={35} color="#63130B" />
-        </View>
-      </TouchableOpacity> */}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   modalHeader: {
-    width: "100%",
+    width: '100%',
     height: 40,
-    alignItems: "flex-end",
-    justifyContent: "center",
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   header: {
     width: width,
-    height: '10%',
+    height: height / 11,
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
@@ -258,11 +224,11 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 22,
     marginRight: 10,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   cofre: {
     alignItems: 'flex-start',
-    marginLeft: -60,
+    marginLeft: -50,
     marginTop: -1,
     marginRight: -30,
     marginBottom: 6
@@ -270,7 +236,7 @@ const styles = StyleSheet.create({
   coins: {
     width: 80,
     height: 25,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: '#D9D9D9',
     borderRadius: 18,
     alignItems: 'flex-start',
     marginLeft: 12,
@@ -279,10 +245,10 @@ const styles = StyleSheet.create({
     marginBottom: 8
   },
   logInButton: {
-    backgroundColor: "#70ABAF",
+    backgroundColor: '#70ABAF',
     padding: 20,
     borderRadius: 120,
-    alignItems: "center",
+    alignItems: 'center',
     marginVertical: 30,
     marginHorizontal: 20,
   },
