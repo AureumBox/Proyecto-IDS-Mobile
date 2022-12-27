@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     StyleSheet,
     Text,
     View,
 } from "react-native";
+import { useSelector } from "react-redux";
 
-
-export default function ProgressBar({completedPercent = 70}) {
-    const [percent, setPercent] = useState(completedPercent)
-
+export default function ProgressBar() {
+    const percent = useSelector((state) => state.album.percentage);
+    
     const completedBar = {
         width: `${percent}%`, //Para calcular el porcentaje de llenado de la barra
         height: '100%',

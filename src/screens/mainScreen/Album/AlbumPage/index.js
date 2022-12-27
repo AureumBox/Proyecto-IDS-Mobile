@@ -52,14 +52,13 @@ export default function AlbumPage() {
     setLoading(true);
     try {
       const data = await fetchAlbumInfo(token, eventId);
-      console.log(data.actualProgressPercentage);
       dispatch(setPercentage(data.actualProgressPercentage));
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
     }
-  }, [token, eventId]);
+  }, [token, eventId, change]);
 
   useEffect(() => {
     loadAlbumInfo();
@@ -126,7 +125,7 @@ export default function AlbumPage() {
       <Header />
 
       <View style={styles.container}>
-        <ProgressBar completedPercent={percentage} />
+        <ProgressBar />
         <View>
           <TouchableOpacity onPress={() => setTeamsModalOpens(true)}>
             <Ionicons

@@ -8,11 +8,11 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import Header from "../../../components/HeaderComponent";
 import AlbumDigital from "../../../../assets/albumd.png";
 import AlbumPage from "./AlbumPage";
 import ProgressBar from "./ProgressBar";
-
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
@@ -22,10 +22,7 @@ import {
   fetchAlbumInfo,
   fetchTeamsInfo,
 } from "../../../services/inventory.services";
-import {
-  setPercentage,
-  setTeamList,
-} from "../../../state/albumSlice.js";
+import { setPercentage, setTeamList } from "../../../state/albumSlice.js";
 
 export default function Album({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -45,7 +42,8 @@ export default function Album({ navigation }) {
     })();
   }, [token]);
 
-  const loadAlbumInfo = async () => { //percentage 
+  const loadAlbumInfo = async () => {
+    //percentage
     setLoading(true);
     try {
       const data = await fetchAlbumInfo(token, eventId);
@@ -58,7 +56,8 @@ export default function Album({ navigation }) {
     }
   };
 
-  const loadTeamsInfo = async () => { //teamList
+  const loadTeamsInfo = async () => {
+    //teamList
     setLoading(true);
     try {
       const data = await fetchTeamsInfo(token, eventId);
@@ -71,27 +70,24 @@ export default function Album({ navigation }) {
     }
   };
 
-
   return (
     <View style={styles.fondo}>
-      <Header />
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <View style={styles.container}>
-          <ProgressBar completedPercent={percentage} />
-          <View style={styles.rectangulo}>
-            <Image source={AlbumDigital} style={styles.albumdig}></Image>
-          </View>
+      <Spinner visible={loading} textContent={"Cargando..."} />
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate(AlbumPage)}
-            style={styles.boton}
-          >
-            <Text style={styles.textSt}>¡Pega tus cromos!</Text>
-          </TouchableOpacity>
+      <Header />
+      <View style={styles.container}>
+        <ProgressBar completedPercent={percentage} />
+        <View style={styles.rectangulo}>
+          <Image source={AlbumDigital} style={styles.albumdig}></Image>
         </View>
-      )}
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate(AlbumPage)}
+          style={styles.boton}
+        >
+          <Text style={styles.textSt}>¡Pega tus cromos!</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
