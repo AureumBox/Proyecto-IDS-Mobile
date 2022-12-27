@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const STICKER_PER_PAGE = 6;
+
 export const albumSlice = createSlice({
   name: "album",
   initialState: {
@@ -8,12 +10,12 @@ export const albumSlice = createSlice({
     teamList: [],
     idStickerSelected: 0,
     currentTeam: {
+      stickers: [],
       index: 0,
       id: 0,
       name: "",
       pages: 0,
       currentPage: 0,
-      stickers: [],
       obtainedCount: 0,
     },
   },
@@ -33,8 +35,8 @@ export const albumSlice = createSlice({
       state.currentTeam.id = id;
       state.currentTeam.name = name;
       state.currentTeam.obtainedCount = obtainedCount;
-      state.currentTeam.pages = ((Math.ceil(obtainedCount/9))-1);
-      state.currentTeam.currentPage = 0;
+      state.currentTeam.pages = ((Math.ceil(obtainedCount/STICKER_PER_PAGE)));
+      state.currentTeam.currentPage = 1;
     },
     setStickers: (state, action) => {
       state.currentTeam.stickers = action.payload;
@@ -56,13 +58,15 @@ export const albumSlice = createSlice({
       }
     },
     setNextPage: (state) => {
-      if (state.currentTeam.currentPage < state.currentTeam.pages)
+      if (state.currentTeam.currentPage < state.currentTeam.pages){
         state.currentTeam.currentPage++;
+        state.currentTeam.index = state.currentTeam.index
+      
+      }
     },
     setPrevPage: (state) => {
       state.currentTeam.currentPage--;
     },
-    
   },
 });
 

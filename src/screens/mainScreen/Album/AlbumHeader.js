@@ -45,8 +45,10 @@ export default function AlbumHeader({ teamName = "" }) {
 
   const navNextPage = () => {
     if (currentPage < pages) {
+      console.log('page aaa')
       dispatch(setNextPage());
     } else {
+      console.log('index aaa')
       dispatch(setNextIndex());
     }
   };

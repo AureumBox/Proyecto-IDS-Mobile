@@ -33,7 +33,7 @@ export default function AlbumPage() {
   console.log('COMPONENT: AlbumPage executes');
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [pageInfo, setPageInfo] = useState({});
+  const [pageInfo, setPageInfo] = useState([]);
   const [showAlbum, setShowAlbum] = useState(false);
   const [eventId, setEventId] = useState(1);
   const [change, setChange] = useState(false);
@@ -46,8 +46,13 @@ export default function AlbumPage() {
   const teamList = useSelector((state) => state.album.teamList);
   const index = useSelector((state) => state.album.currentTeam.index);
   const stickerSelected = useSelector((state) => state.album.idStickerSelected);
+  const currentPage = useSelector(
+    (state) => state.album.currentTeam.currentPage
+  );
 
-  let teamId = 0;
+  const STICKER_PER_PAGE = 6;
+  let indexStart = STICKER_PER_PAGE * currentPage;
+  let indexEnd = indexStart + STICKER_PER_PAGE;
 
   // PARA OBTENER LA INFORMACION DEL ALBUM
   const loadAlbumInfo = useCallback(async () => {
@@ -78,11 +83,11 @@ export default function AlbumPage() {
           obtainedCount: teamList[index].stickers.length,
         })
       );
-      teamId = teamList[index].id;
+      const teamId = teamList[index].id;
 
       const data = await fetchPageInfo(token, eventId, teamId);
-      setPageInfo(data.item);
-      dispatch(setStickers(pageInfo));
+      setPageInfo((data.item.stickers));
+      dispatch(setStickers(data.item.stickers));
       setShowAlbum(true);
     } catch (error) {
       alert(error.message);
@@ -145,7 +150,9 @@ export default function AlbumPage() {
                 flexWrap: "wrap",
               }}
             >
-              {pageInfo?.stickers?.map((sticker, i) => (
+              {console.log(indexStart+' // '+indexEnd)}
+              {console.log(JSON.stringify(pageInfo?.slice(indexStart, indexEnd)))}
+              {pageInfo?.slice(indexStart-6, indexEnd-6).map((sticker, i) => (
                 <View key={i} style={{ bottom: 90, right: 35 }}>
                   <View style={{ margin: 1 }}>
                     {!sticker?.isAttached && (

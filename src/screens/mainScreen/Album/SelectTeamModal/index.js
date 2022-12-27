@@ -11,7 +11,7 @@ import { ModalPopup } from "../../../../components/ModalPopup";
 import botonX from "../../../../../assets/appAssets/x.png";
 import styles from '../styles';
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentTeam, setIndex } from "../../../../state/albumSlice.js";
+import { setCurrentTeam, setIndex, setFirstPage } from "../../../../state/albumSlice.js";
 import OneTeam from "./OneTeam";
 
 export default function SelectTeamModal({ isVisible, onClose }) {
