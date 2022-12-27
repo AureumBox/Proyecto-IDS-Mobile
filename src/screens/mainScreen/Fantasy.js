@@ -5,13 +5,17 @@ import {
     View,
     Dimensions,
     Image,
+    ScrollView,
+    TouchableOpacity,
 } from "react-native";
 import Header from '../../components/HeaderComponent';
 import Cancha from '../../../assets/cancha.jpg';
 import { withSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Fantasy({ navigation }) {
-    const { height } = Dimensions.get('window')
+    const { height } = Dimensions.get('window');
+
+    const jugadores = ["https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png", "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png"]
 
     return (
         <View style={styles.fondo}>
@@ -24,14 +28,27 @@ export default function Fantasy({ navigation }) {
                     </View>
                     </View>
                 <View style={styles.container2}>
-                <Image source={Cancha} style={styles.imCancha}></Image>
+                    <Image source={Cancha} style={styles.imCancha}/>
+                    <View style={styles.contJugadoresCancha}>
+                        {jugadores.map((jugador, index) => (
+                            <TouchableOpacity  key={index+""}>
+                                <Image style={eval(`styles.jugador${index+1}`)} source={{ uri: jugador}}/>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
                     <Text style={styles.texto}>¡Arma tu equipo!</Text>
                     <View style={styles.carruselContainer}>
                         <View style={styles.cont}>
-                        <Text style={styles.bancas}>Bancas</Text>
-                        <View style={styles.opciones}></View>
+                            <Text style={styles.bancas}>Bancas</Text>
+                            <View style={styles.opciones}></View>
                         </View>
-                        <View style={styles.carrusel}></View>
+                        <ScrollView horizontal style={styles.carrusel}>
+                            {jugadores.map((jugador,index) => (
+                                <TouchableOpacity key={index+""}>
+                                    <Image style={styles.bancaImg} source={{ uri: jugador}}/>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
                     </View>
                 </View>
             </View>
@@ -45,6 +62,104 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#70ABAF',
+    },
+    jugador1: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 40,
+        left: '50%',
+        marginLeft: -25,
+    },
+    jugador2: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 40,
+        left: 20,
+    },
+    jugador3: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 40,
+        right: 20,
+    },
+    jugador4: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 120,
+        left: '50%',
+        marginLeft: -25,
+    },
+    jugador5: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 120,
+        left: 20,
+    },
+    jugador6: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 120,
+        right: 20,
+    },
+    jugador7: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 205,
+        right: 5,
+    },
+    jugador8: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 205,
+        left: 5,
+    },
+    jugador9: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 205,
+        left: '50%',
+        marginLeft: -54.5,
+    },
+    jugador10: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 205,
+        left: '50%',
+        marginLeft: 4.5,
+    },
+    jugador11: {
+        width: 50,
+        height: 70,
+        position: 'absolute',
+        top: 285,
+        left: '50%',
+        marginLeft: -25,
+    },
+    contJugadoresCancha: {
+        backgroundColor: '#ffffff50',
+        position: 'absolute',
+        width: 235,
+        height: 365,
+    },
+    canchaImg: {
+        width: 70,
+        height: 100,
+    },
+    bancaImg: {
+        width: 100,
+        height: 130,
+        marginLeft: 2.5,
+        marginRight: 2.5,
     },
     cont:{
         height: '20%',
@@ -119,5 +234,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
         marginTop: 3,
+        paddingTop: 5,
+        
     }
 })
