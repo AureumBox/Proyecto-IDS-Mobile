@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   StyleSheet,
-  Dimensions,
   Text,
   View,
-  Image,
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -22,18 +20,6 @@ export default function AlbumHeader({ teamName = "" }) {
     (state) => state.album.currentTeam.currentPage
   );
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-
-  /* const navPrevPage = (input) => {
-    setLoading(true);
-    try {
-      dispatch(setPrevIndex())
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }; */
 
   const navPrevPage = () => {
     if (currentPage > 1) {
@@ -45,24 +31,11 @@ export default function AlbumHeader({ teamName = "" }) {
 
   const navNextPage = () => {
     if (currentPage < pages) {
-      console.log('page aaa')
       dispatch(setNextPage());
     } else {
-      console.log('index aaa')
       dispatch(setNextIndex());
     }
   };
-
-  /* const navNextPage = () => {
-    setLoading(true);
-    try {
-      dispatch(setNextIndex())
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }; */
 
   return (
     <View style={styles.barra}>

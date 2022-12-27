@@ -12,23 +12,13 @@ import {
 import fondo from '../../assets/appAssets/template/fondo.jpg'
 import marco from '../../assets/appAssets/template/marco.png'
 
-// Mientras no se tenga banderas
-import bandera from "../../assets/appAssets/test/bandera.png";
-
 import delantero from "../../assets/appAssets/test/delantero.png";
 import defensa from "../../assets/appAssets/test/defensa.png";
 import medioCentro from "../../assets/appAssets/test/medioCentro.png";
 import arquero from "../../assets/appAssets/test/arquero.png";
 
-// se borra luego esto es para tamaños
-import jugador from "../../assets/appAssets/test/ksa/ksa_5.png"
-
-const pos = '../assets/appAssets/test/'
 const { width } = Dimensions.get('window')
 
-/* cambiar luego de subir a online SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS */
-import Constants from 'expo-constants';
-/* SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS */
 
 export default function StickerTemplate({ sticker }) {
     return (
@@ -39,8 +29,7 @@ export default function StickerTemplate({ sticker }) {
             >
                 <View style={{ alignItems: 'center', overflow: 'hidden' }}>
                     <Image
-                        // source={jugador}
-                        source={{ uri: sticker.img }} //cambiar a activo cuando ya este la BD
+                        source={{ uri: sticker.img }} 
                         style={[styles.jugador, {top: 8}]}
                     />
                 </View>

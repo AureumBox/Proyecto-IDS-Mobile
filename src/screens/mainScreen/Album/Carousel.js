@@ -1,8 +1,6 @@
 import * as React from "react";
 import {
-  StatusBar,
   FlatList,
-  Image,
   Text,
   View,
   Dimensions,
@@ -17,7 +15,6 @@ import { setIdStickerSelected } from "../../../state/albumSlice.js";
 
 import StickerTemplate from "../../../components/StickerTemplate";
 
-import { store } from "../../../state/store";
 const { width, height } = Dimensions.get("screen");
 
 export default function Carousel() {
@@ -41,7 +38,6 @@ export default function Carousel() {
   function selectSticker(id) {
     setSelectedId(id)
     dispatch(setIdStickerSelected(id))
-    console.log(JSON.stringify(store.getState()))
   }
 
   const loadCarouselInfo = async () => {

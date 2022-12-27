@@ -7,7 +7,6 @@ import {
   View,
   Image,
   TouchableOpacity,
-  AccessibilityInfo,
 } from "react-native";
 import Header from "../../../components/HeaderComponent";
 import AlbumDigital from "../../../../assets/albumd.png";
@@ -27,10 +26,8 @@ import {
   setPercentage,
   setTeamList,
 } from "../../../state/albumSlice.js";
-import { store } from "../../../state/store";
 
 export default function Album({ navigation }) {
-  console.log('COMPONENT: ALBUM executes');
   const [loading, setLoading] = useState(true);
   const [albumInfo, setAlbumInfo] = useState({});
   const [teamsInfo, setTeamsInfo] = useState({});
@@ -55,7 +52,7 @@ export default function Album({ navigation }) {
       setAlbumInfo(data);
       dispatch(setPercentage(data.actualProgressPercentage));
     } catch (error) {
-      alert("mami" + error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -132,21 +129,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
     fontSize: 26,
-  },
-  barraPorcentaje: {
-    width: "70%",
-    height: "60%",
-    backgroundColor: "white",
-    borderRadius: 10,
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  Porcentaje: {
-    width: "30%", //Para calcular el porcentaje de llenado de la barra
-    height: "100%",
-    backgroundColor: "#63130B",
-    borderRadius: 10,
-    flexDirection: "row",
   },
   boton: {
     width: "80%",

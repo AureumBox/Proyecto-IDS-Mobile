@@ -24,15 +24,12 @@ export default function LogIn({ navigation }) {
     const dispatch = useDispatch();
 
     const sendLoginData = async (data) =>{
-        console.log(data)
         setLoading(true);
         try {
             const result = await login(data);
             setLoading(false);
             if(result.data.token){
-                console.log(result.data.token)
                 dispatch(logInRedux(result.data.token));
-                console.log(store.getState())
                 navigation.navigate(HPANavigation.BNB);
             }
         } catch (error) {  

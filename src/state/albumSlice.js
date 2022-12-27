@@ -61,7 +61,6 @@ export const albumSlice = createSlice({
       if (state.currentTeam.currentPage < state.currentTeam.pages){
         state.currentTeam.currentPage++;
         state.currentTeam.index = state.currentTeam.index
-      
       }
     },
     setPrevPage: (state) => {

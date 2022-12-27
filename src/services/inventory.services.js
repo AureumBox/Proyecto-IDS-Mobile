@@ -5,7 +5,6 @@ const BASE_URL = Constants.expoConfig.extra.apiUrl;
 const URL_INV = `${BASE_URL}/inventory`;
 
 export const fetchAlbumInfo = async (token, eventId) => {
-  // console.log(URL_INV + `/public-events/${eventId}/album`)
   const { data } = await axios.get(
     URL_INV + `/public-events/${eventId}/album`,
     {
@@ -13,8 +12,7 @@ export const fetchAlbumInfo = async (token, eventId) => {
         Authorization: "Bearer " + token,
       },
     }
-  ); /* 
-  console.log("mira album" + JSON.stringify(data)); */
+  );
   return data;
 };
 
@@ -27,7 +25,6 @@ export const fetchPageInfo = async (token, eventId, teamId) => {
       },
     }
   );
-  // console.log("mira stupido" + JSON.stringify(data));
   return data;
 };
 
@@ -38,7 +35,6 @@ export const fetchTeamsInfo = async (token, eventId) => {
       Authorization: "Bearer " + token,
     },
   });
-  console.log(data);
   return data;
   } catch (e) {
     throw new Error(e);

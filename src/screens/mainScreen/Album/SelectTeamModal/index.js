@@ -41,10 +41,11 @@ export default function SelectTeamModal({ isVisible, onClose }) {
         </View>
       </View>
       <SafeAreaView>
+        {/* Lista de equipos */}
         <FlatList
           ListHeaderComponentStyle={styles.listHeader}
           ListHeaderComponent={
-            <Text style={styles.listHeadLine}>Filtrar por Equipos</Text>
+            <Text style={styles.listHeadLine}>Equipos</Text>
           }
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           data={teamList}

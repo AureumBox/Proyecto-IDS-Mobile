@@ -29,7 +29,6 @@ export default function SignIn({ navigation }) {
         try {
             console.log(JSON.stringify(data))
             const result = await signup(data);
-            console.log(JSON.stringify(result))
             setLoading(false);
             if (result.data.token){
                 dispatch(logIn(result.data.token));
@@ -45,9 +44,6 @@ export default function SignIn({ navigation }) {
             setLoading(false);
         }
     }
-
-    // TODO: Delete it later, is for test propurses
-    console.log("EXTRA CONFIG:", Constants.expoConfig.extra);
 
     return (
         <View style={styles.container}>
