@@ -50,7 +50,7 @@ export default function StickerTemplate({ sticker, onModal }) {
                     />
                     <Image
                         source={getPlayerRoleImg(sticker.position)}
-                        style={[styles.bandera, { left: width / 4.75 }]}
+                        style={[styles.playerRole, { left: width / 4.75 }]}
                     />
                 </View>
                 <ImageBackground
@@ -68,7 +68,7 @@ export default function StickerTemplate({ sticker, onModal }) {
                         <View style={{ flexDirection: 'row' }}>
                             <Image
                                 source={pesoImg}
-                                style={[styles.iconos, { marginRight: 2}]}
+                                style={[styles.iconos, { marginRight: 2 }]}
                             />
                             <Text style={styles.texto}>{sticker.weight}</Text>
                         </View>
@@ -96,10 +96,16 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     bandera: {
+        width: width / 24,
+        height: width / 24,
+        resizeMode: 'contain',
+        top: 12
+    },
+    playerRole: {
         width: width / 16,
         height: width / 16,
         resizeMode: 'contain',
-        top: 10
+        top: 14
     },
     jugador: {
         width: width / 3.5 * 1.15,
