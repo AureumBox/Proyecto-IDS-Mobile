@@ -186,14 +186,14 @@ export default function HeaderComponent() {
       <Image source={logoImg} style={styles.logo} />
 
       <View style={[styles.coins]}>
-        <Icon name="money-dollar-circle-fill" size="26" color="#63130B" />
+        <Icon name="money-dollar-circle-fill" size="30" color="#63130B" />
       </View>
 
       <TouchableOpacity onPress={() => setVisibleObtener(true)}>
         <View style={[styles.cofre]}>
           <Ionicons
             name='gift'
-            size={35}
+            size={38}
             color='#63130B'
           />
         </View>
@@ -215,34 +215,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   logo: {
-    height: '97%',
-    width: 120,
-    marginLeft: 15,
-    marginTop: 15,
-    marginBottom: 22,
-    marginRight: 10,
+    width: 125,
     resizeMode: 'contain',
+    left: width / 32
   },
   cofre: {
-    alignItems: 'flex-start',
-    marginLeft: -50,
-    marginTop: -1,
-    marginRight: -30,
-    marginBottom: 6
+    right: width / 20
   },
   coins: {
     width: 80,
-    height: 25,
+    height: 30,
     backgroundColor: '#D9D9D9',
     borderRadius: 18,
-    alignItems: 'flex-start',
-    marginLeft: 12,
-    marginRight: -40,
-    marginTop: 3,
-    marginBottom: 8
+    left: width / 8
   },
   logInButton: {
     backgroundColor: '#70ABAF',

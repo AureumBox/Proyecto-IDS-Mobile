@@ -241,14 +241,6 @@ export default function SignIn({ navigation }) {
                     >
                         <Text style={styles.forgotPW}>¿Ya tienes una cuenta?, ¡Inicia Sesión!</Text>
                     </TouchableOpacity>
-                    {/* Boton HomePage */}
-                    <View style={{ alignItems: 'center' }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate(HPANavigation.HOME)}
-                            style={styles.homePageButton}>
-                            <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </ScrollView>
             <StatusBar style="auto" />
@@ -340,12 +332,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 20,
-    },
-    homePageButton: {
-        backgroundColor: '#C10001',
-        padding: 15,
-        borderRadius: 16,
-        alignItems: 'center',
-        marginVertical: 30,
-    },
+    }
 })

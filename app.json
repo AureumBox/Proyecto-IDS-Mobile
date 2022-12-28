@@ -30,7 +30,7 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "apiUrl": "https://backend-staging.playoffside.online/"
+      "apiUrl": "https://backend-staging.playoffside.online"
     }
   }
 }
