@@ -239,8 +239,7 @@ const styles = StyleSheet.create({
     left: '40%', 
     fontSize: 20,
     fontWeight: '600'
-  }
-  ,
+  },
   logInButton: {
     backgroundColor: '#70ABAF',
     padding: 20,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { View, TouchableOpacity, ScrollView, Dimensions } from "react-native";
+import { View, TouchableOpacity, ScrollView} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import SelectTeamModal from "../SelectTeamModal";
 import Header from "../../../../components/HeaderComponent";
@@ -109,8 +109,6 @@ export default function AlbumPage() {
       alert(error.message);
     }
   }
-
-  const { width, height } = Dimensions.get("window");
 
   return (
     <View style={styles.fondo}>
