@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
-import * as Font from "expo-font";
 import {
   StyleSheet,
-  Dimensions,
   Text,
   View,
   Image,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import Header from "../../../components/HeaderComponent";
 import AlbumDigital from "../../../../assets/albumd.png";
 import AlbumPage from "./AlbumPage";
 import ProgressBar from "./ProgressBar";
-
-const { width } = Dimensions.get("window");
-const { height } = Dimensions.get("window");
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -76,7 +71,7 @@ export default function Album({ navigation }) {
 
       <Header />
       <View style={styles.container}>
-        <ProgressBar completedPercent={percentage} />
+        <ProgressBar/>
         <View style={styles.rectangulo}>
           <Image source={AlbumDigital} style={styles.albumdig}></Image>
         </View>

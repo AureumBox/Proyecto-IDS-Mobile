@@ -9,7 +9,7 @@ import {
   Text,
   Linking
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-remix-icon';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -113,7 +113,7 @@ export default function HeaderComponent() {
           {obtainedStickers ? (
             obtainedStickers.map((sticker, i) => (
               <View key={i} style={{ marginVertical: 78 }}>
-                <StickerTemplate sticker={sticker} onModal={true}/>
+                <StickerTemplate sticker={sticker} onModal={true} />
               </View>
             ))
           ) : (
@@ -185,12 +185,13 @@ export default function HeaderComponent() {
       {/* Header Layout */}
       <Image source={logoImg} style={styles.logo} />
 
-      <View style={[styles.coins]}>
+      <View style={styles.coins}>
         <Icon name="money-dollar-circle-fill" size="30" color="#63130B" />
+        <Text style={styles.coinsText}>999</Text>
       </View>
 
       <TouchableOpacity onPress={() => setVisibleObtener(true)}>
-        <View style={[styles.cofre]}>
+        <View style={styles.cofre}>
           <Ionicons
             name='gift'
             size={38}
@@ -228,10 +229,18 @@ const styles = StyleSheet.create({
   coins: {
     width: 80,
     height: 30,
+    justifyContent: 'center',
     backgroundColor: '#D9D9D9',
     borderRadius: 18,
     left: width / 8
   },
+  coinsText: {
+    position: 'absolute', 
+    left: '40%', 
+    fontSize: 20,
+    fontWeight: '600'
+  }
+  ,
   logInButton: {
     backgroundColor: '#70ABAF',
     padding: 20,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import SelectTeamModal from "../SelectTeamModal";
 import Header from "../../../../components/HeaderComponent";
@@ -110,6 +110,8 @@ export default function AlbumPage() {
     }
   }
 
+  const { width, height } = Dimensions.get("window");
+
   return (
     <View style={styles.fondo}>
       <Spinner visible={loading} textContent={"Cargando..."} />
@@ -125,17 +127,14 @@ export default function AlbumPage() {
       <Header />
 
       <View style={styles.container}>
-        <ProgressBar />
-        <View>
+          <ProgressBar/>
           <TouchableOpacity onPress={() => setTeamsModalOpens(true)}>
             <Ionicons
               name="search-circle"
               size={40}
               color="#63130B"
-              style={styles.lupa}
             />
           </TouchableOpacity>
-        </View>
 
         {/* Pagina de album */}
         <View style={styles.albumfondo}>
@@ -168,7 +167,7 @@ export default function AlbumPage() {
                           </TouchableOpacity>
                         )}
                         {sticker?.isAttached && (
-                          <StickerTemplate key={i} sticker={sticker} />
+                          <StickerTemplate key={i} sticker={sticker} onModal={false}/>
                         )}
                       </View>
                     </View>

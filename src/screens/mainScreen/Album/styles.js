@@ -91,10 +91,7 @@ export default StyleSheet.create({
   },
   containerBarajitas: {
     flex: 1,
-    /*  flexWrap: "wrap",
-    alignContent: "space-around", */
     flexDirection: "row",
-    // justifyContent: "space-evenly",
     alignItems: "center",
     height: "30%",
     width: "120%",
