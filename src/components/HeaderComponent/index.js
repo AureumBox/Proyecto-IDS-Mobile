@@ -18,7 +18,7 @@ import { obtainStickers } from '../../services/sticker.services';
 import { ModalPopup } from '../ModalPopup';
 import StickerTemplate from '../StickerTemplate';
 
-import logoImg from '../../../assets/app/logo.png';
+import logoImg from '../../../assets/app/logoHorizontal.png';
 import botonXImg from '../../../assets/app/x.png';
 import sobreImg from '../../../assets/app/sobre.png';
 

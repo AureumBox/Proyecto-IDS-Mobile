@@ -1,18 +1,19 @@
 {
   "expo": {
-    "name": "Proyecto-IDS-Mobile",
+    "name": "Offside",
     "slug": "Proyecto-IDS-Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app/logoApp.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/app/logoVertical.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/a06f98c2-2463-4898-b584-c5c55ccc2cb9"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -22,15 +23,22 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/app/logoApp.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.ids.offside"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/app/logoApp.png"
     },
     "extra": {
-      "apiUrl": "https://backend-staging.playoffside.online"
+      "apiUrl": "https://backend.playoffside.online",
+      "eas": {
+        "projectId": "a06f98c2-2463-4898-b584-c5c55ccc2cb9"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
