@@ -23,7 +23,7 @@ export default function PWRecovery({ navigation }) {
                     </Text>
                     <View style={styles.inputContainer}>
                         <Ionicons
-                            name="card-outline"
+                            name="mail-outline"
                             size={24}
                             color="black"
                             style={styles.inputIcon}
