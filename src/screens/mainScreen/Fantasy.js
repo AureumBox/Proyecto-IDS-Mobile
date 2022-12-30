@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import {
   StyleSheet,
   Text,
@@ -11,10 +11,13 @@ import {
 import Header from "../../components/HeaderComponent";
 import FantasyDrawer from './Fantasy/FantasyDrawer'
 import Cancha from "../../../assets/cancha.jpg";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
+import { IconButton, MD3Colors } from 'react-native-paper';
+import { TextInput } from "react-native-paper";
 
 export default function Fantasy({ navigation }) {
   const { height } = Dimensions.get("window");
+
+  const [open, setOpen] = useState(false);
 
   const jugadores = [
     "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
@@ -35,6 +38,23 @@ export default function Fantasy({ navigation }) {
       <Header />
 
       <View style={styles.container}>
+
+        <View style={{...styles.drawer, width: open ? "80%" : 0}}>
+            <IconButton
+                icon="close"
+                size={20}
+                onPress={() => setOpen(false)}
+            />
+            <TextInput
+                placeholder="Buscar jugador"
+                left={<TextInput.Icon icon="magnify" />}
+                style={styles.inputStyle}
+                underlineStyle={{ display: "none" }}
+            />
+            <ScrollView>
+                {/* colocar imagenes aca */}
+            </ScrollView>
+        </View>
 
         {/* Titulo */}
         <View style={styles.containerpuntaje}>
@@ -60,7 +80,12 @@ export default function Fantasy({ navigation }) {
           <View style={styles.carruselContainer}>
             <View style={styles.cont}>
               <Text style={styles.bancas}>Bancas</Text>
-              <View style={styles.opciones}></View>
+              <IconButton 
+                style={styles.opciones}
+                icon="dots-horizontal"
+                size={20}
+                onPress={() => setOpen(true)}
+              />
             </View>
             <FantasyDrawer />
           </View>
@@ -68,6 +93,7 @@ export default function Fantasy({ navigation }) {
       </View>
     </View>
   );
+
 }
 
 const styles = StyleSheet.create({
@@ -76,6 +102,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#70ABAF",
+  },
+  inputStyle: {
+    backgroundColor: "#F2F6FE",
+    margin: 10,
+  },
+  drawer: {
+    position: 'absolute',
+    zIndex: 999,
+    height: "80%",
+    backgroundColor: "#bbb",
+    right: 0,
+    
   },
   jugador1: {
     width: 50,
@@ -183,11 +221,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   opciones: {
-    height: 25,
-    width: 25,
+    height: 30,
+    width: 30,
     borderRadius: 15,
     backgroundColor: "white",
-    marginLeft: "60%",
+    position: 'absolute',
+    right: 0,
   },
   bancas: {
     color: "white",
