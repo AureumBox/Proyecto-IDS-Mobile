@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         paddingHorizontal: 30,
-        marginTop: 50,
+        marginTop: 75,
     },
     body: {
         padding: 20,
@@ -275,11 +275,9 @@ const styles = StyleSheet.create({
         marginVertical: 30,
     },
     forgotPW: {
-        fontSize: 17,
-        lineHeight: 30,
+        fontSize: 20,
         color: 'gray',
         fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 60,
+        textAlign: 'center'
     }
 })

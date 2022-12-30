@@ -1,27 +1,27 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, ScrollView} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import SelectTeamModal from "../SelectTeamModal";
-import Header from "../../../../components/HeaderComponent";
-import ProgressBar from "../ProgressBar";
-import Carousel from "../Carousel";
-import NoStickerSlot from "../NoStickerSlot";
-import StickerTemplate from "../../../../components/StickerTemplate";
-import AlbumHeader from "../AlbumHeader";
+import SelectTeamModal from "./SelectTeamModal";
+import Header from "../../../components/HeaderComponent";
+import ProgressBar from "./ProgressBar";
+import Carousel from "./Carousel";
+import NoStickerSlot from "./NoStickerSlot";
+import StickerTemplate from "../../../components/StickerTemplate";
+import AlbumHeader from "./AlbumHeader";
 import Spinner from "react-native-loading-spinner-overlay";
-import styles from "../styles";
+import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCurrentTeam,
   setStickers,
   setIdStickerSelected,
   setPercentage,
-} from "../../../../state/albumSlice";
+} from "../../../state/albumSlice";
 import {
   fetchPageInfo,
   claimSticker,
   fetchAlbumInfo,
-} from "../../../../services/inventory.services";
+} from "../../../services/inventory.services";
 
 export default function AlbumPage() {
   const dispatch = useDispatch();
