@@ -39,21 +39,14 @@ export default function Fantasy({ navigation }) {
 
       <View style={styles.container}>
 
+        {/* Drawer */}
         <View style={{...styles.drawer, width: open ? "80%" : 0}}>
             <IconButton
                 icon="close"
                 size={20}
                 onPress={() => setOpen(false)}
             />
-            <TextInput
-                placeholder="Buscar jugador"
-                left={<TextInput.Icon icon="magnify" />}
-                style={styles.inputStyle}
-                underlineStyle={{ display: "none" }}
-            />
-            <ScrollView>
-                {/* colocar imagenes aca */}
-            </ScrollView>
+            <FantasyDrawer/>
         </View>
 
         {/* Titulo */}
@@ -87,7 +80,6 @@ export default function Fantasy({ navigation }) {
                 onPress={() => setOpen(true)}
               />
             </View>
-            <FantasyDrawer />
           </View>
         </View>
       </View>

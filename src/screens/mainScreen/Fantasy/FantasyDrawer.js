@@ -91,7 +91,7 @@ export default function Inventorytest({ navigation }) {
   }, [page]);
 
   const loadNextPageTeams = useCallback(async () => {
-    console.log("qwertyuioppppppppppppppppppppp")
+    console.log("qwertyuioppppppppppppppppppppp");
     setLoading(true);
     try {
       const data = await fetchBench(
@@ -141,6 +141,40 @@ export default function Inventorytest({ navigation }) {
   return (
     <View>
       {/* Filtros */}
+      <View>
+        <TextInput
+          placeholder="Buscar jugador"
+          value={playerName}
+          onChangeText={(playerName) => setPlayerName(playerName)}
+          left={<TextInput.Icon icon="magnify" />}
+          style={styles.imputStyle}
+          theme={{ roundness: 50 }}
+          underlineStyle={{ display: "none" }}
+        />
+
+        <Picker
+          style={styles.picker}
+          selectedValue={position}
+          onValueChange={(itemValue, itemIndex) => setPosition(itemValue)}
+        >
+          <Picker.Item label="Posicion" value="" />
+          <Picker.Item label="Arquero" value="Arquero" />
+          <Picker.Item label="Defensa" value="Defensa" />
+          <Picker.Item label="Delantero" value="Delantero" />
+          <Picker.Item label="MedioCentro" value="MedioCentro" />
+        </Picker>
+
+        <Picker
+          style={styles.picker}
+          selectedValue={team}
+          onValueChange={(itemValue, itemIndex) => setTeam(itemValue)}
+        >
+          <Picker.Item label="Equipo" value="" />
+          {teamsList?.map((team, index) => (
+            <Picker.Item label={team?.name} value={team?.name} />
+          ))}
+        </Picker>
+      </View>
 
       {/* Jugadores fantasy */}
       <View style={{ backgroundColor: "#FFFFFF", margin: 10 }}>
@@ -153,9 +187,9 @@ export default function Inventorytest({ navigation }) {
             if (page < paginate?.pages) setPage(page + 1);
           }}
           renderItem={({ item }) => {
-            console.log("aaaaaaaaaaaeeeeeeeeeeeeeeeeeee")
+            console.log("aaaaaaaaaaaeeeeeeeeeeeeeeeeeee");
             return (
-              <TouchableOpacity >
+              <TouchableOpacity>
                 <PlayerTemplate player={item} />
               </TouchableOpacity>
             );
