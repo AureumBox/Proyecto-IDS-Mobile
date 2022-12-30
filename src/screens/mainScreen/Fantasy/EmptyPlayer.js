@@ -20,8 +20,8 @@ export default function EmptyPlayer({ idCode = 0, nameCode = 0 }) {
 const styles = StyleSheet.create({
   barajita: {
     backgroundColor: "#BBB9B9",
-    width: width / 3.5,
-    height: (width / 3.5) * 1.3,
+    width: 50,
+    height: 50,
     justifyContent: "center",
     alignItems: "center",
   },

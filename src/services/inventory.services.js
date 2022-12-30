@@ -38,7 +38,7 @@ export const fetchTeamsInfo = async (token, eventId) => {
       Authorization: "Bearer " + token,
     },
   });
-  console.log(data);
+  // console.log(data);
   return data;
   } catch (e) {
     throw new Error(e);

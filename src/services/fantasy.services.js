@@ -8,7 +8,7 @@ export const fetchBench = async (
   eventId,
   playerName,
   team,
-  position, 
+  position,
   page
 ) => {
   let queryString = "";
@@ -18,7 +18,7 @@ export const fetchBench = async (
   if (position) queryString += `&position=${position}`;
   if (page) queryString += `&page=${page}`;
 
-  console.log(`${BASE_URL}/public-events/${eventId}/squad?${queryString}`);
+  // console.log(`${BASE_URL}/public-events/${eventId}/squad?${queryString}`);
 
   try {
     const { data } = await axios.get(
@@ -27,7 +27,85 @@ export const fetchBench = async (
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("DATA bench", JSON.stringify(data), "---");
+    // console.log("DATA bench", JSON.stringify(data), "---");
+
+    if (!data.items || !data.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error desconocido del servidor"
+      );
+    }
+    throw error;
+  }
+};
+
+export const fetchSquad = async (token, eventId) => {
+  console.log(`${BASE_URL}public-events/${eventId}/squad/players`)
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}public-events/${eventId}/squad/players`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("DATA squad", data, "---");
+
+    if (!data.item || !data.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error desconocido del servidor"
+      );
+    }
+    throw error;
+  }
+};
+
+export const insertPlayer = async (token, eventId, player) => {
+  try {
+    const { data } = await axios.post(
+      `${BASE_URL}/public-events/${eventId}/squad/player`,
+      {
+        playerId: player.id,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    if (!data.items || !data.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
+
+    return data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error desconocido del servidor"
+      );
+    }
+    throw error;
+  }
+};
+
+export const extractPlayer = async (token, eventId, playerId) => {
+  try {
+    const { data } = await axios.delete(
+      `${BASE_URL}/public-events/${eventId}/squad/player${playerId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("DATA delete", data, "---");
 
     if (!data.items || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");

@@ -19,52 +19,15 @@ import Header from "../../../components/HeaderComponent";
 import PlayerTemplate from "../../../components/PlayerTemplate";
 import { fetchBench } from "../../../services/fantasy.services";
 import { fetchTeamsInfo } from "../../../services/inventory.services";
+import * as fantasySlice from "../../../state/fantasySlice";
 
 const { height, width } = Dimensions.get("window");
 
-{
-  /* <View>
-  <TextInput
-    placeholder="Buscar jugador"
-    value={playerName}
-    onChangeText={(playerName) => setPlayerName(playerName)}
-    left={<TextInput.Icon icon="magnify" />}
-    style={styles.imputStyle}
-    theme={{ roundness: 50 }}
-    underlineStyle={{ display: "none" }}
-  />
-
-  <Picker
-    style={styles.picker}
-    selectedValue={position}
-    onValueChange={(itemValue, itemIndex) => setPosition(itemValue)}
-  >
-    <Picker.Item label="Posicion" value="" />
-    <Picker.Item label="Arquero" value="Arquero" />
-    <Picker.Item label="Defensa" value="Defensa" />
-    <Picker.Item label="Delantero" value="Delantero" />
-    <Picker.Item label="MedioCentro" value="MedioCentro" />
-  </Picker>
-
-  <Picker
-    style={styles.picker}
-    selectedValue={team}
-    onValueChange={(itemValue, itemIndex) => setTeam(itemValue)}
-  >
-    <Picker.Item label="Equipo" value="" />
-    {teamsList?.map((team, index) => (
-      <Picker.Item label={team?.name} value={team?.name} />
-    ))}
-  </Picker>
-</View>; */
-}
-
 export default function Inventorytest({ navigation }) {
   const [loading, setLoading] = useState(false);
-  const [teamsList, setTeamsList] = useState();
-  const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [paginate, setPaginate] = useState({});
+  const [teamsList, setTeamsList] = useState();
   const [squad, setSquad] = useState([]);
 
   const [playerName, setPlayerName] = useState("");
@@ -74,9 +37,11 @@ export default function Inventorytest({ navigation }) {
   const dispatch = useDispatch();
   const eventId = 1;
 
-  const stickers = ["papa", "arepa", "zanahoria"];
-
   const { token } = useSelector((state) => state.auth);
+
+  const selectPlayer = (item) => {
+    dispatch(fantasySlice.setSelectedPlayer(item.sticker));
+  };
 
   useEffect(() => {
     loadTeams();
@@ -91,7 +56,6 @@ export default function Inventorytest({ navigation }) {
   }, [page]);
 
   const loadNextPageTeams = useCallback(async () => {
-    console.log("qwertyuioppppppppppppppppppppp");
     setLoading(true);
     try {
       const data = await fetchBench(
@@ -102,9 +66,7 @@ export default function Inventorytest({ navigation }) {
         position,
         page
       );
-      console.log(JSON.stringify(data));
       setSquad((squad) => squad.concat(data.items));
-      console.log(JSON.stringify(squad));
     } catch (error) {
       alert(error.message);
     } finally {
@@ -118,7 +80,7 @@ export default function Inventorytest({ navigation }) {
       const data = await fetchBench(token, eventId, playerName, team, position);
       setSquad(data.items);
       setPaginate(data.paginate);
-      console.log(JSON.stringify(squad));
+      // console.log(JSON.stringify(squad));
     } catch (error) {
       alert(error.message);
     } finally {
@@ -177,20 +139,20 @@ export default function Inventorytest({ navigation }) {
       </View>
 
       {/* Jugadores fantasy */}
-      <View style={{ backgroundColor: "#FFFFFF", margin: 10 }}>
+      <View style={{ margin: 10 }}>
         <FlatList
           data={squad}
           keyExtractor={(_, index) => index.toString()}
-          ListEmptyComponent={<Text>n</Text>}
+          ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           onEndReached={() => {
             if (page < paginate?.pages) setPage(page + 1);
           }}
           renderItem={({ item }) => {
-            console.log("aaaaaaaaaaaeeeeeeeeeeeeeeeeeee");
             return (
-              <TouchableOpacity>
-                <PlayerTemplate player={item} />
+              <TouchableOpacity
+              onPress={() => selectPlayer(item)}>
+                <PlayerTemplate player={item.sticker} />
               </TouchableOpacity>
             );
           }}

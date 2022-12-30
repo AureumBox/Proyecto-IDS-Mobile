@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,16 +8,26 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/HeaderComponent";
-import FantasyDrawer from './Fantasy/FantasyDrawer'
+import FantasyDrawer from "./Fantasy/FantasyDrawer";
 import Cancha from "../../../assets/cancha.jpg";
-import { IconButton, MD3Colors } from 'react-native-paper';
+import { IconButton, MD3Colors } from "react-native-paper";
 import { TextInput } from "react-native-paper";
+import EmptyPlayer from "./Fantasy/EmptyPlayer";
+import * as fantasyServices from "../../services/fantasy.services";
 
 export default function Fantasy({ navigation }) {
   const { height } = Dimensions.get("window");
-
+  const { token } = useSelector((state) => state.auth);
+  const {selectedPlayer} = useSelector((state) => state.fantasy);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const eventId = 1;
+
+  const posicion = "0-2, 3-5, 6-9, 10";
+  const nombres = "delante, medio, defensa, arquero";
 
   const jugadores = [
     "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
@@ -33,20 +43,69 @@ export default function Fantasy({ navigation }) {
     "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
   ];
 
+
+  
+
+  const addPlayer = (key) => {
+    console.log(key, selectedPlayer.id, selectedPlayer.position);
+    if ((selectedPlayer.position == "Delantero") && (key >= 0 && key <= 2)){
+      console.log("posicion correcta")
+      insertPlayer(token, eventId, selectedPlayer)
+      
+    } else if ((selectedPlayer.position == "MedioCampo") && (key >= 3 && key <= 5)){
+      console.log("posicion correcta")
+      insertPlayer(token, eventId, selectedPlayer)
+      
+    } else if ((selectedPlayer.position == "Defensa") && (key >= 6 && key <= 9)){
+      console.log("posicion correcta")
+      insertPlayer(token, eventId, selectedPlayer)
+      
+    } else if ((selectedPlayer.position == "Arquero") && (key == 10)){
+      console.log("posicion correcta")
+      insertPlayer(token, eventId, selectedPlayer)
+      
+    } else {
+      alert("Posicion incorrecta")
+    }
+  };
+
+  const insertPlayer = async (token, eventId, selectedPlayer) => {
+    setLoading(true);
+    try {
+      const data = await fantasyServices.insertPlayer(token, eventId, selectedPlayer);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadSquad = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await fantasyServices.fetchSquad(token, eventId);
+      console.log('gg'+JSON.stringify(data));
+      const squad = data;
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadSquad();
+  }, [loadSquad]);
+
   return (
     <View style={styles.fondo}>
       <Header />
 
       <View style={styles.container}>
-
         {/* Drawer */}
-        <View style={{...styles.drawer, width: open ? "80%" : 0}}>
-            <IconButton
-                icon="close"
-                size={20}
-                onPress={() => setOpen(false)}
-            />
-            <FantasyDrawer/>
+        <View style={{ ...styles.drawer, width: open ? "80%" : 0 }}>
+          <IconButton icon="close" size={20} onPress={() => setOpen(false)} />
+          <FantasyDrawer />
         </View>
 
         {/* Titulo */}
@@ -59,21 +118,23 @@ export default function Fantasy({ navigation }) {
           <Image source={Cancha} style={styles.imCancha} />
           <View style={styles.contJugadoresCancha}>
             {jugadores.map((jugador, index) => (
-              <TouchableOpacity key={index + ""}>
-                <Image
-                  style={eval(`styles.jugador${index + 1}`)}
-                  source={{ uri: jugador }}
-                />
+              <TouchableOpacity
+                key={index + ""}
+                onPress={() => addPlayer(index)}
+              >
+                <View style={eval(`styles.jugador${index + 1}`)}>
+                  <EmptyPlayer />
+                </View>
               </TouchableOpacity>
             ))}
           </View>
-          <Text style={styles.texto}>¡Arma tu equipo!</Text>
 
           {/*  */}
           <View style={styles.carruselContainer}>
             <View style={styles.cont}>
-              <Text style={styles.bancas}>Bancas</Text>
-              <IconButton 
+              <Text style={styles.texto}>¡Arma tu equipo!</Text>
+              <Text style={styles.bancas}>Almacen</Text>
+              <IconButton
                 style={styles.opciones}
                 icon="dots-horizontal"
                 size={20}
@@ -85,7 +146,6 @@ export default function Fantasy({ navigation }) {
       </View>
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({
@@ -100,27 +160,26 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   drawer: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 999,
     height: "80%",
     backgroundColor: "#bbb",
     right: 0,
-    
   },
   jugador1: {
     width: 50,
     height: 70,
     position: "absolute",
     top: 40,
-    left: "50%",
-    marginLeft: -25,
+    left: 20,
   },
   jugador2: {
     width: 50,
     height: 70,
     position: "absolute",
     top: 40,
-    left: 20,
+    left: "50%",
+    marginLeft: -25,
   },
   jugador3: {
     width: 50,
@@ -134,15 +193,15 @@ const styles = StyleSheet.create({
     height: 70,
     position: "absolute",
     top: 120,
-    left: "50%",
-    marginLeft: -25,
+    left: 20,
   },
   jugador5: {
     width: 50,
     height: 70,
     position: "absolute",
     top: 120,
-    left: 20,
+    left: "50%",
+    marginLeft: -25,
   },
   jugador6: {
     width: 50,
@@ -156,16 +215,9 @@ const styles = StyleSheet.create({
     height: 70,
     position: "absolute",
     top: 205,
-    right: 5,
-  },
-  jugador8: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 205,
     left: 5,
   },
-  jugador9: {
+  jugador8: {
     width: 50,
     height: 70,
     position: "absolute",
@@ -173,13 +225,20 @@ const styles = StyleSheet.create({
     left: "50%",
     marginLeft: -54.5,
   },
-  jugador10: {
+  jugador9: {
     width: 50,
     height: 70,
     position: "absolute",
     top: 205,
     left: "50%",
     marginLeft: 4.5,
+  },
+  jugador10: {
+    width: 50,
+    height: 70,
+    position: "absolute",
+    top: 205,
+    right: 5,
   },
   jugador11: {
     width: 50,
@@ -217,7 +276,7 @@ const styles = StyleSheet.create({
     width: 30,
     borderRadius: 15,
     backgroundColor: "white",
-    position: 'absolute',
+    position: "absolute",
     right: 0,
   },
   bancas: {

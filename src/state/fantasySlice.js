@@ -8,9 +8,7 @@ export const fantasySlice = createSlice({
   },
   reducers: {
     setSelectedPlayer: (state, action) => {
-      console.log('unu')
       state.selectedPlayer = action.payload;
-      console.log('slice'+JSON.stringify(state.selectedPlayer))
     },
     setBench: (state, action) => {
       state.bench = action.payload;
