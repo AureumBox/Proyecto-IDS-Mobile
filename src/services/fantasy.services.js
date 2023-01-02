@@ -45,7 +45,6 @@ export const fetchBench = async (
 };
 
 export const fetchSquad = async (token, eventId) => {
-  console.log(`${BASE_URL}public-events/${eventId}/squad/players`)
   try {
     const { data } = await axios.get(
       `${BASE_URL}public-events/${eventId}/squad/players`,
@@ -59,7 +58,7 @@ export const fetchSquad = async (token, eventId) => {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
 
-    return data;
+    return data.item;
   } catch (error) {
     if (error.response) {
       throw new Error(

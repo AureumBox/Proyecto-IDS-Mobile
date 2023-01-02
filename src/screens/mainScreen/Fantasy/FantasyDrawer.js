@@ -38,10 +38,14 @@ export default function Inventorytest({ navigation }) {
   const eventId = 1;
 
   const { token } = useSelector((state) => state.auth);
+  const { selectedPlayer } = useSelector((state) => state.fantasy);
 
   const selectPlayer = (item) => {
     dispatch(fantasySlice.setSelectedPlayer(item.sticker));
   };
+
+  useEffect(() => {
+  }, [selectedPlayer]);
 
   useEffect(() => {
     loadTeams();
@@ -103,7 +107,8 @@ export default function Inventorytest({ navigation }) {
   return (
     <View>
       {/* Filtros */}
-      <View>
+      <View style={styles.filterContainer}>
+        <Text style={styles.textSt}>Almacen de jugadores</Text>
         <TextInput
           placeholder="Buscar jugador"
           value={playerName}
@@ -151,8 +156,15 @@ export default function Inventorytest({ navigation }) {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-              onPress={() => selectPlayer(item)}>
-                <PlayerTemplate player={item.sticker} />
+                onPress={() => {
+                  console.log(JSON.stringify(item));
+                  selectPlayer(item);
+                }}
+              >
+                <View styles={{ backgroundColor: "red" }}>
+                  <PlayerTemplate player={item.sticker} />
+                  {item.id === selectedPlayer.id && <Text>hh</Text>}
+                </View>
               </TouchableOpacity>
             );
           }}
@@ -171,6 +183,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#34545d",
     color: "#FFFFFF",
     marginHorizontal: 50,
+    marginVertical: 5,
     borderRadius: 20,
   },
   checkContainer: {
@@ -202,6 +215,7 @@ const styles = StyleSheet.create({
   imputStyle: {
     backgroundColor: "#F2F6FE",
     borderRadius: 50,
+    marginHorizontal: 15,
   },
   textSt: {
     fontStyle: "normal",
@@ -221,5 +235,10 @@ const styles = StyleSheet.create({
   },
   separator: {
     width: 20,
+  },
+  filterContainer: {
+    backgroundColor: "#325D69",
+    margin: 15,
+    borderRadius: 10,
   },
 });

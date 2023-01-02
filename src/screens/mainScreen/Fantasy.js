@@ -16,63 +16,51 @@ import { IconButton, MD3Colors } from "react-native-paper";
 import { TextInput } from "react-native-paper";
 import EmptyPlayer from "./Fantasy/EmptyPlayer";
 import * as fantasyServices from "../../services/fantasy.services";
+import * as fantasySlice from "../../state/fantasySlice";
+import FantasyPlayer from "../../components/HeaderComponent/FantasyPlayer";
 
 export default function Fantasy({ navigation }) {
   const { height } = Dimensions.get("window");
   const { token } = useSelector((state) => state.auth);
-  const {selectedPlayer} = useSelector((state) => state.fantasy);
+  const { selectedPlayer } = useSelector((state) => state.fantasy);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [squad, setSquad] = useState([]);
   const dispatch = useDispatch();
   const eventId = 1;
 
-  const posicion = "0-2, 3-5, 6-9, 10";
-  const nombres = "delante, medio, defensa, arquero";
-
-  const jugadores = [
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-    "https://figuritasqatar.com.ar/wp-content/uploads/angel-di-maria-231x300.png",
-  ];
-
-
-  
+  /*   const posicion = "0-2, 3-5, 6-9, 10";
+  const nombres = "delante, medio, defensa, arquero"; */
 
   const addPlayer = (key) => {
-    console.log(key, selectedPlayer.id, selectedPlayer.position);
-    if ((selectedPlayer.position == "Delantero") && (key >= 0 && key <= 2)){
-      console.log("posicion correcta")
-      insertPlayer(token, eventId, selectedPlayer)
-      
-    } else if ((selectedPlayer.position == "MedioCampo") && (key >= 3 && key <= 5)){
-      console.log("posicion correcta")
-      insertPlayer(token, eventId, selectedPlayer)
-      
-    } else if ((selectedPlayer.position == "Defensa") && (key >= 6 && key <= 9)){
-      console.log("posicion correcta")
-      insertPlayer(token, eventId, selectedPlayer)
-      
-    } else if ((selectedPlayer.position == "Arquero") && (key == 10)){
-      console.log("posicion correcta")
-      insertPlayer(token, eventId, selectedPlayer)
-      
+    const position = selectedPlayer.position;
+    console.log(key, position, selectedPlayer.id);
+    if (position == "Delantero" && key >= 0 && key <= 2) {
+      console.log("posicion correcta");
+      insertPlayer(token, eventId, selectedPlayer);
+    } else if (position == "MedioCampo" && key >= 3 && key <= 5) {
+      console.log("posicion correcta");
+      insertPlayer(token, eventId, selectedPlayer);
+    } else if (position == "Defensa" && key >= 6 && key <= 9) {
+      console.log("posicion correcta");
+      insertPlayer(token, eventId, selectedPlayer);
+    } else if (position == "Arquero" && key == 10) {
+      console.log("posicion correcta");
+      insertPlayer(token, eventId, selectedPlayer);
     } else {
-      alert("Posicion incorrecta")
+      alert("Posicion incorrecta");
     }
   };
 
   const insertPlayer = async (token, eventId, selectedPlayer) => {
     setLoading(true);
     try {
-      const data = await fantasyServices.insertPlayer(token, eventId, selectedPlayer);
+      const data = await fantasyServices.insertPlayer(
+        token,
+        eventId,
+        selectedPlayer
+      );
+      dispatch(fantasySlice.setSelectedPlayer({}));
     } catch (error) {
       alert(error.message);
     } finally {
@@ -83,9 +71,37 @@ export default function Fantasy({ navigation }) {
   const loadSquad = useCallback(async () => {
     setLoading(true);
     try {
+      let squad = [];
       const data = await fantasyServices.fetchSquad(token, eventId);
-      console.log('gg'+JSON.stringify(data));
-      const squad = data;
+      console.log(JSON.stringify(data));
+      const arqueros = data.filter((player) => player?.position == "Arquero");
+      const delanteros = data.filter(
+        (player) => player?.position == "Delantero"
+      );
+      squad = createArray(
+        data.filter((player) => player?.position == "Delantero"),
+        3
+      );
+      squad = squad.concat(
+        createArray(
+          data.filter((player) => player?.position == "MedioCampo"),
+          3
+        )
+      );
+      squad = squad.concat(
+        createArray(
+          data.filter((player) => player?.position == "Defensa"),
+          4
+        )
+      );
+      squad = squad.concat(
+        createArray(
+          data.filter((player) => player?.position == "Arquero"),
+          1
+        )
+      );
+      console.log(JSON.stringify(squad));
+      setSquad(squad);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -93,9 +109,20 @@ export default function Fantasy({ navigation }) {
     }
   }, []);
 
+  function createArray(players, MAX_PLAYERS) {
+    let finalArray = [];
+    for (let index = players.length; index < MAX_PLAYERS; index++) {
+      finalArray.push({ emptyPlayer: true });
+    }
+    console.log("final " + JSON.stringify(finalArray));
+    finalArray = finalArray.concat(players);
+    console.log("return " + JSON.stringify(finalArray));
+    return finalArray;
+  }
+
   useEffect(() => {
     loadSquad();
-  }, [loadSquad]);
+  }, [loadSquad, ]);
 
   return (
     <View style={styles.fondo}>
@@ -103,7 +130,13 @@ export default function Fantasy({ navigation }) {
 
       <View style={styles.container}>
         {/* Drawer */}
-        <View style={{ ...styles.drawer, width: open ? "80%" : 0 }}>
+        <View
+          style={{
+            ...styles.drawer,
+            width: open ? "100%" : 0,
+            height: open ? "100%" : 0,
+          }}
+        >
           <IconButton icon="close" size={20} onPress={() => setOpen(false)} />
           <FantasyDrawer />
         </View>
@@ -117,13 +150,14 @@ export default function Fantasy({ navigation }) {
         <View style={styles.container2}>
           <Image source={Cancha} style={styles.imCancha} />
           <View style={styles.contJugadoresCancha}>
-            {jugadores.map((jugador, index) => (
+
+            {squad.map((jugador, index) => (
               <TouchableOpacity
                 key={index + ""}
                 onPress={() => addPlayer(index)}
               >
                 <View style={eval(`styles.jugador${index + 1}`)}>
-                  <EmptyPlayer />
+                  {(jugador?.emptyPlayer) ? <EmptyPlayer /> : <FantasyPlayer key={index} player={jugador}/>}
                 </View>
               </TouchableOpacity>
             ))}
@@ -163,7 +197,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 999,
     height: "80%",
-    backgroundColor: "#bbb",
+    backgroundColor: "#34545d",
     right: 0,
   },
   jugador1: {
@@ -310,7 +344,7 @@ const styles = StyleSheet.create({
   textSt: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 38,
   },
   texto: {
     color: "white",

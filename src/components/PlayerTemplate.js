@@ -10,18 +10,22 @@ import {
 
 export default function PlayerTemplate({ player = {} }) {
   return (
-    <View>
-      <Image
-        resizeMode="contain"
-        source={{ uri: player?.img }}
-        style={styles.cardImage}
-      />
-      <View style={styles.containerName}>
-        <Text
-          style={styles.playerName}
-        >
-          {player?.playerName}
-        </Text>
+    <View styles={styles.container}>
+      <View>
+        <Image
+          resizeMode="contain"
+          source={{ uri: player?.img }}
+          style={styles.cardImage}
+        />
+      </View>
+      <View style={styles.container}>
+        <Text style={styles.playerName}>{player?.playerName}</Text>
+        <View styles={{backgroundColor: "red"}}>
+
+        <Text style={styles.playerName}>{player?.position}</Text>
+        </View>
+        <Text style={styles.playerName}>En alineacion</Text>
+
       </View>
     </View>
   );
@@ -32,6 +36,9 @@ const styles = StyleSheet.create({
     height: 200,
     margin: 10,
   },
+  container: {
+    backgroundColor: "#66959A",
+  },
   containerName: {
     backgroundColor: "#34545D",
     borderRadius: 20,
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
     top: 190,
     left: 5,
     right: 5,
-    bottom: 7, 
+    bottom: 7,
   },
   playerName: {
     fontStyle: "normal",
