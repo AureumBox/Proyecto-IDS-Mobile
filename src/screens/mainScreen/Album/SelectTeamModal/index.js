@@ -11,7 +11,7 @@ import { ModalPopup } from "../../../../components/ModalPopup";
 import botonX from "../../../../../assets/app/x.png";
 import styles from '../styles';
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentTeam, setIndex, setFirstPage } from "../../../../state/albumSlice.js";
+import { setCurrentTeam, setIndex, setCurrentPage } from "../../../../state/albumSlice.js";
 import OneTeam from "./OneTeam";
 
 export default function SelectTeamModal({ isVisible, onClose }) {
@@ -20,6 +20,7 @@ export default function SelectTeamModal({ isVisible, onClose }) {
 
   const changeCurrentTeamByIndex = (index) => {
     dispatch(setIndex(index))
+    dispatch(setCurrentPage(1))
     dispatch(
       setCurrentTeam({
         index,
