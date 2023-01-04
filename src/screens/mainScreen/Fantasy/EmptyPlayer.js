@@ -8,18 +8,18 @@ import {
 
 const { width } = Dimensions.get('window');
 
-export default function EmptyPlayer({ idCode = 0, nameCode = 0 }) {
+export default function EmptyPlayer({ idCode = 0, nameCode = 0, position}) {
   return (
     <View style={styles.barajita}>
-      <Text style={styles.idbarajita}>Jugador</Text>
+      <Text style={styles.idbarajita}>{position}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   barajita: {
-    width: 75,
-    height: 105,
+    width: '22%',
+    height: '90%',
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#325D6960",

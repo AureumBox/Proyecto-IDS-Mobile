@@ -27,8 +27,8 @@ export default function FantasyPlayer({ player = {} }) {
 
 const styles = StyleSheet.create({
   cardImage: {
-    width: 75,
-    height: 105,
+    width: '22%',
+    height: '90%',
     resizeMode: 'contain'
   },
   containerName: {
