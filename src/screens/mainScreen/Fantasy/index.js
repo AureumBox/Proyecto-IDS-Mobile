@@ -17,6 +17,10 @@ import EmptyPlayer from "./EmptyPlayer";
 import * as fantasyServices from "../../../services/fantasy.services";
 import * as fantasySlice from "../../../state/fantasySlice";
 import FantasyPlayer from "./FantasyPlayer";
+import Goalkeeper from "./Goalkeeper";
+import Defender from './Defender';
+import Midfielder from './Midfielder';
+import Foward from "./Forward";
 
 export default function Fantasy({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -165,8 +169,14 @@ export default function Fantasy({ navigation }) {
         <View style={styles.containerCancha}>
           <Image source={Cancha} style={styles.canchaImg} />
           <View style={styles.contJugadoresCancha}>
-
-            {squad.map((jugador, index) => (
+            <Goalkeeper/>
+            <Defender/>
+            <Midfielder/>
+            <Foward/>
+          {/* 💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀 */}
+          {/* Revisa esto Auri creo que no usaremos Maps so */}
+          {/* 💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀 */}
+            {/* {squad.map((jugador, index) => (
               <TouchableOpacity
                 key={index + ""}
                 onPress={() => addPlayer(index)}
@@ -175,7 +185,7 @@ export default function Fantasy({ navigation }) {
                   {(jugador?.emptyPlayer) ? <EmptyPlayer /> : <FantasyPlayer key={index} player={jugador} />}
                 </View>
               </TouchableOpacity>
-            ))}
+            ))} */}
           </View>
 
           {/*  */}
@@ -264,60 +274,6 @@ const styles = StyleSheet.create({
     height: "80%",
     backgroundColor: "#34545d",
     right: 0,
-  },
-  jugador1: {
-    paddingHorizontal: 2
-  },
-  jugador2: {
-    // position: "absolute",
-    // top: 40,
-    // left: "50%",
-    // marginLeft: -25,
-  },
-  jugador3: {
-    // position: "absolute",
-    // top: 40,
-    // right: 20,
-  },
-  jugador4: {
-    paddingHorizontal: 2
-    // paddingHorizontal: '13%'
-    // position: "absolute",
-    // top: 120,
-    // left: 20,
-  },
-  jugador5: {
-    // paddingHorizontal: '13%'
-    // position: "absolute",
-    // top: 120,
-    // left: "50%",
-    // marginLeft: -25,
-  },
-  jugador6: {
-    // paddingHorizontal: '13%'
-    // position: "absolute",
-    // top: 120,
-    // right: 20,
-  },
-  jugador7: {
-    // position: "absolute",
-    // top: 230,
-  },
-  jugador8: {
-    // position: "absolute",
-    // top: 230,
-  },
-  jugador9: {
-    // position: "absolute",
-    // top: 230,
-  },
-  jugador10: {
-    // position: "absolute",
-    // top: 230,
-  },
-  jugador11: {
-    paddingHorizontal: '100%',
-    alignSelf: 'center',
   },
   bancaImg: {
     width: 100,
