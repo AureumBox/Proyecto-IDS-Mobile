@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { TextInput } from "react-native-paper";
 import { Checkbox } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
-import Spinner from "react-native-loading-spinner-overlay";
 
 import Header from "../../../components/HeaderComponent";
 import PlayerTemplate from "../../../components/PlayerTemplate";
@@ -28,7 +27,7 @@ export default function Inventorytest({ navigation }) {
   const [page, setPage] = useState(0);
   const [paginate, setPaginate] = useState({});
   const [teamsList, setTeamsList] = useState();
-  const [squad, setSquad] = useState([]);
+  const [bench, setBench] = useState([]);
 
   const [playerName, setPlayerName] = useState("");
   const [team, setTeam] = useState("");
@@ -48,21 +47,7 @@ export default function Inventorytest({ navigation }) {
     dispatch(fantasySlice.setSelectedPlayer(item));
   };
 
-  useEffect(() => {}, [selectedPlayer]);
-
-  useEffect(() => {
-    loadTeams();
-  }, [loadTeams]);
-
-  useEffect(() => {
-    loadBench();
-  }, [loadBench, playerName, team, position]);
-
-  useEffect(() => {
-    loadNextPageTeams();
-  }, [page]);
-
-  const loadNextPageTeams = useCallback(async () => {
+  const loadNextPageBench = useCallback(async () => {
     setLoading(true);
     try {
       const data = await fetchBench(
@@ -73,27 +58,34 @@ export default function Inventorytest({ navigation }) {
         position,
         page
       );
-      setSquad((squad) => squad.concat(data.items));
+      setBench((bench) => bench.concat(data.items));
+      console.log("proxima pag", JSON.stringify(data));
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
     }
   }, [page]);
+  useEffect(() => {
+    loadNextPageBench();
+  }, [loadNextPageBench]);
 
   const loadBench = useCallback(async () => {
     setLoading(true);
     try {
       const data = await fetchBench(token, eventId, playerName, team, position);
-      setSquad(data.items);
+      setBench(data.items);
       setPaginate(data.paginate);
-      // console.log(JSON.stringify(squad));
+      console.log("primera pag ", JSON.stringify(data));
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
     }
-  }, [token, eventId, playerName, team, position]);
+  }, [eventId, playerName, team, position]);
+  useEffect(() => {
+    loadBench();
+  }, [loadBench]);
 
   const loadTeams = useCallback(async () => {
     setLoading(true);
@@ -106,6 +98,9 @@ export default function Inventorytest({ navigation }) {
       setLoading(false);
     }
   }, [eventId]);
+  useEffect(() => {
+    loadTeams();
+  }, [loadTeams]);
 
   return (
     <View>
@@ -141,21 +136,19 @@ export default function Inventorytest({ navigation }) {
         >
           <Picker.Item label="Equipo" value="" />
           {teamsList?.map((team, index) => (
-            <Picker.Item label={team?.name} value={team?.name} />
+            <Picker.Item label={team?.name} value={team?.name} key={index}/>
           ))}
         </Picker>
       </View>
 
       {/* Jugadores fantasy */}
       <View style={{ margin: 10 }}>
-        {console.log("squad drawer ", JSON.stringify(squad))}
         <FlatList
-          data={squad}
+          data={bench}
           keyExtractor={(_, index) => index.toString()}
           ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           onEndReached={() => {
-            {console.log("cargando..")}
             if (page < paginate?.pages) setPage(page + 1);
           }}
           renderItem={({ item }) => {
@@ -165,9 +158,8 @@ export default function Inventorytest({ navigation }) {
                   selectPlayer(item);
                 }}
               >
-                {console.log(item)}
                 <View styles={{ backgroundColor: "red" }}>
-                  <PlayerTemplate player={item} />
+                  <PlayerTemplate player={item} key={item.id}/>
                   {item.id === selectedPlayer.id && (
                     <View style={styles.selectedItem} />
                   )}
@@ -222,7 +214,7 @@ const styles = StyleSheet.create({
   imputStyle: {
     backgroundColor: "#F2F6FE",
     borderRadius: 50,
-    marginHorizontal: 15
+    marginHorizontal: 15,
   },
   textSt: {
     fontStyle: "normal",
