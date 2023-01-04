@@ -6,10 +6,13 @@ import {
     Text,
     Image, 
     ScrollView,
+    TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import Header from '../../components/HeaderComponent';
 import Sobre from '../../../assets/app/sobre.png';
+import Album from '../../../assets/app/album.png';
+import Fantasy from '../../../assets/app/fantasy.png';
 
 
 export default function Home({ navigation }) {
@@ -37,50 +40,68 @@ export default function Home({ navigation }) {
                     onFocus={()=> setIsFocus(true)}
                     /> 
                     <View style={styles.containerCuadro}>
-                        <View style={styles.containerImg}></View> 
+                        <View style={styles.containerImg}>
+                            <Image source={Sobre} style={styles.sobreImg}></Image>
+                        </View> 
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Sobre diario</Text>
                             <Text style={styles.textoSecondary}>Disponible en 00:00:00</Text>
+                            <TouchableOpacity>
                             <LinearGradient colors={['#D13256','#FE5F42']}
-                            style={styles.boton}>
+                            style={styles.botonSobre}>
                                 <Text style={styles.textoBoton}>Reclamar</Text>
                             </LinearGradient>
+                            </TouchableOpacity>
                         </View> 
                     </View> 
                     <View style={styles.containerCuadro}>
-                        <View style={styles.containerImg}></View> 
+                        <View style={styles.containerImgAlbum}>
+                            <Image source={Album} style={styles.sobreImg}></Image>
+                        </View> 
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Álbum</Text>
                             <Text style={styles.textoSecondary}>Colecciona todos los cromos</Text>
                             <View style={styles.espacio}>
                                 <View style={styles.casilla}>
+                                    <TouchableOpacity>
                                     <View style={styles.botonSecondary}>
                                         <Text style={styles.textoBotonSeconday}>Intercambiar cromos</Text>
                                     </View>
+                                    </TouchableOpacity>
                                 </View>
-                                <View style={styles.casilla}><LinearGradient colors={['#D13256','#FE5F42']}
-                            style={styles.boton}>
+                                <View style={styles.casilla}>
+                                   <TouchableOpacity>
+                                    <LinearGradient colors={['#D13256','#FE5F42']}
+                                    style={styles.boton}>
                                 <Text style={styles.textoBoton}>Ver álbum</Text>
-                            </LinearGradient></View>
+                            </LinearGradient>
+                            </TouchableOpacity> 
+                            </View>
                             </View>
                         </View> 
                     </View> 
                     <View style={styles.containerCuadro}>
-                        <View style={styles.containerImg}></View> 
+                        <View style={styles.containerImg}>
+                            <Image source={Fantasy} style={styles.sobreImg}></Image>
+                        </View> 
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Fantasy</Text>
                             <Text style={styles.textoSecondary}>Arma tu equipo ideal</Text>
                             <View style={styles.espacio}>
                                 <View style={styles.casilla}>
+                                    <TouchableOpacity>
                                     <View style={styles.botonSecondary}>
                                         <Text style={styles.textoBotonSeconday}>Ver subastas</Text>
-                                    </View>   
+                                    </View>
+                                    </TouchableOpacity>   
                                 </View>
                                 <View style={styles.casilla}>
+                                <TouchableOpacity> 
                                 <LinearGradient colors={['#D13256','#FE5F42']}
                                     style={styles.boton}>
                                     <Text style={styles.textoBoton}>Ver plantilla</Text>
                                 </LinearGradient>
+                                </TouchableOpacity>   
                                 </View>
                             </View>
                         </View> 
@@ -129,6 +150,8 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         height: 200,
         resizeMode: 'contain',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     containerinfo:{
         backgroundColor: 'white',
@@ -144,6 +167,14 @@ const styles = StyleSheet.create({
         width: 100,
         borderRadius: 20,
         marginTop: 7,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    botonSobre:{
+        height: 30,
+        width: 100,
+        borderRadius: 20,
+        marginTop: 7,
         marginLeft: 210,
         justifyContent: 'center',
         alignItems: 'center'
@@ -151,19 +182,18 @@ const styles = StyleSheet.create({
     containerImg:{
         width: '100%',
         height: 110,
+        alignItems: 'center'
+    },
+    containerImgAlbum:{
+        width: '100%',
+        height: 110,
+        alignItems: 'flex-end',
+        marginLeft: 20
     },
     sobreImg:{
-        height: '75%',
+        marginTop: 15,
+        height: '140%',
         resizeMode: 'contain'
-    },
-    sobreContainer:{
-        backgroundColor: 'white',
-        width: '55%',
-        height: '40%',
-        borderRadius: 10,
-        justifyContent: 'space-evenly',
-        flexDirection: 'column',
-        alignItems: 'center'
     },
     fondo: {
         flex: 1,
