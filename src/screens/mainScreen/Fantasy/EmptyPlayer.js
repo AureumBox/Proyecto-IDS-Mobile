@@ -3,8 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions,
-  TouchableOpacity
+  Dimensions
 } from "react-native";
 
 const { width } = Dimensions.get('window');
@@ -19,15 +18,17 @@ export default function EmptyPlayer({ idCode = 0, nameCode = 0 }) {
 
 const styles = StyleSheet.create({
   barajita: {
-    backgroundColor: "#BBB9B9",
-    width: 50,
-    height: 50,
+    width: 75,
+    height: 105,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#325D6960",
+    borderRadius: 10,
+    margin: 3
   },
   idbarajita: {
     fontWeight: "bold",
     color: "white",
-    fontSize: 14,
+    fontSize: 13,
   },
 });

@@ -5,19 +5,18 @@ import {
   View,
   Dimensions,
   Image,
-  ScrollView,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../../components/HeaderComponent";
-import FantasyDrawer from "./Fantasy/FantasyDrawer";
-import Cancha from "../../../assets/cancha.jpg";
+import Header from "../../../components/HeaderComponent";
+import FantasyDrawer from "./FantasyDrawer";
+import Cancha from "../../../../assets/cancha.jpg";
 import { IconButton, MD3Colors } from "react-native-paper";
 import { TextInput } from "react-native-paper";
-import EmptyPlayer from "./Fantasy/EmptyPlayer";
-import * as fantasyServices from "../../services/fantasy.services";
-import * as fantasySlice from "../../state/fantasySlice";
-import FantasyPlayer from "../../components/HeaderComponent/FantasyPlayer";
+import EmptyPlayer from "./EmptyPlayer";
+import * as fantasyServices from "../../../services/fantasy.services";
+import * as fantasySlice from "../../../state/fantasySlice";
+import FantasyPlayer from "./FantasyPlayer";
 
 export default function Fantasy({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -122,7 +121,7 @@ export default function Fantasy({ navigation }) {
 
   useEffect(() => {
     loadSquad();
-  }, [loadSquad, ]);
+  }, [loadSquad,]);
 
   return (
     <View style={styles.fondo}>
@@ -133,22 +132,37 @@ export default function Fantasy({ navigation }) {
         <View
           style={{
             ...styles.drawer,
-            width: open ? "100%" : 0,
+            width: open ? "75%" : 0,
             height: open ? "100%" : 0,
           }}
         >
-          <IconButton icon="close" size={20} onPress={() => setOpen(false)} />
+          <IconButton
+            icon="close"
+            iconColor="white"
+            size={20}
+            onPress={() => setOpen(false)}
+          />
           <FantasyDrawer />
         </View>
 
         {/* Titulo */}
-        <View style={styles.containerpuntaje}>
-          <Text style={styles.textSt}>FANTASY</Text>
+        <View style={styles.containerTitulo}>
+          <View style={styles.containerPuntaje}>
+            <Text style={styles.textSt}>FANTASY</Text>
+          </View>
+          <View style={styles.containerPuntaje}>
+            <TouchableOpacity>
+              <Text style={[styles.textBoton, styles.textBotonSelected]}>Equipo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={[styles.textBoton]}>Ranking</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Cancha */}
-        <View style={styles.container2}>
-          <Image source={Cancha} style={styles.imCancha} />
+        <View style={styles.containerCancha}>
+          <Image source={Cancha} style={styles.canchaImg} />
           <View style={styles.contJugadoresCancha}>
 
             {squad.map((jugador, index) => (
@@ -156,25 +170,25 @@ export default function Fantasy({ navigation }) {
                 key={index + ""}
                 onPress={() => addPlayer(index)}
               >
-                <View style={eval(`styles.jugador${index + 1}`)}>
-                  {(jugador?.emptyPlayer) ? <EmptyPlayer /> : <FantasyPlayer key={index} player={jugador}/>}
+                <View style={[{top: 45}, eval(`styles.jugador${index + 1}`)]}>
+                  {(jugador?.emptyPlayer) ? <EmptyPlayer /> : <FantasyPlayer key={index} player={jugador} />}
                 </View>
               </TouchableOpacity>
             ))}
           </View>
 
           {/*  */}
-          <View style={styles.carruselContainer}>
-            <View style={styles.cont}>
-              <Text style={styles.texto}>¡Arma tu equipo!</Text>
-              <Text style={styles.bancas}>Almacen</Text>
-              <IconButton
-                style={styles.opciones}
-                icon="dots-horizontal"
-                size={20}
-                onPress={() => setOpen(true)}
-              />
-            </View>
+        </View>
+        <View style={styles.carruselContainer}>
+          <View style={styles.cont}>
+            <Text style={styles.texto}>¡Arma tu equipo!</Text>
+            <Text style={styles.bancas}>Almacen</Text>
+            <IconButton
+              style={styles.opciones}
+              icon="dots-horizontal"
+              size={20}
+              onPress={() => setOpen(true)}
+            />
           </View>
         </View>
       </View>
@@ -183,11 +197,61 @@ export default function Fantasy({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  fondo: {
+    flex: 1,
+    backgroundColor: "#325D69"
+  },
   container: {
     flex: 1,
+    justifyContent: "space-between"
+  },
+  containerTitulo: {
+    backgroundColor: "#294851",
+    borderBottomColor: "#294148",
+    borderBottomWidth: 8,
+  },
+  containerPuntaje: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  textSt: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 32,
+  },
+  textBoton: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 24,
+    paddingHorizontal: "10%"
+  },
+  textBotonSelected: {
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomColor: "#63130B",
+    borderBottomWidth: 8,
+  },
+  containerCancha: {
+    width: "90%",
+    height: "75%",
+    alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#70ABAF",
+    backgroundColor: "#2A434A",
+    marginVertical: 15
+  },
+  contJugadoresCancha: {
+    width: '86%',
+    height: '95%',
+    position: "absolute",
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: "#ffffff50",
+  },
+  canchaImg: {
+    height: "95%",
+    resizeMode: "contain"
   },
   inputStyle: {
     backgroundColor: "#F2F6FE",
@@ -201,96 +265,58 @@ const styles = StyleSheet.create({
     right: 0,
   },
   jugador1: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 40,
-    left: 20,
+    paddingHorizontal: 2
   },
   jugador2: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 40,
-    left: "50%",
-    marginLeft: -25,
+    // position: "absolute",
+    // top: 40,
+    // left: "50%",
+    // marginLeft: -25,
   },
   jugador3: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 40,
-    right: 20,
+    // position: "absolute",
+    // top: 40,
+    // right: 20,
   },
   jugador4: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 120,
-    left: 20,
+    paddingHorizontal: 2
+    // paddingHorizontal: '13%'
+    // position: "absolute",
+    // top: 120,
+    // left: 20,
   },
   jugador5: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 120,
-    left: "50%",
-    marginLeft: -25,
+    // paddingHorizontal: '13%'
+    // position: "absolute",
+    // top: 120,
+    // left: "50%",
+    // marginLeft: -25,
   },
   jugador6: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 120,
-    right: 20,
+    // paddingHorizontal: '13%'
+    // position: "absolute",
+    // top: 120,
+    // right: 20,
   },
   jugador7: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 205,
-    left: 5,
+    // position: "absolute",
+    // top: 230,
   },
   jugador8: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 205,
-    left: "50%",
-    marginLeft: -54.5,
+    // position: "absolute",
+    // top: 230,
   },
   jugador9: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 205,
-    left: "50%",
-    marginLeft: 4.5,
+    // position: "absolute",
+    // top: 230,
   },
   jugador10: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 205,
-    right: 5,
+    // position: "absolute",
+    // top: 230,
   },
   jugador11: {
-    width: 50,
-    height: 70,
-    position: "absolute",
-    top: 285,
-    left: "50%",
-    marginLeft: -25,
-  },
-  contJugadoresCancha: {
-    backgroundColor: "#ffffff50",
-    position: "absolute",
-    width: 235,
-    height: 365,
-  },
-  canchaImg: {
-    width: 70,
-    height: 100,
+    paddingHorizontal: '100%',
+    alignSelf: 'center',
   },
   bancaImg: {
     width: 100,
@@ -332,19 +358,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-  fondo: {
-    flex: 1,
-    backgroundColor: "#70ABAF",
-  },
   textoBoton: {
     color: "white",
     fontWeight: "bold",
     fontSize: 12,
-  },
-  textSt: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 38,
   },
   texto: {
     color: "white",
@@ -355,12 +372,6 @@ const styles = StyleSheet.create({
     height: "62%",
     justifyContent: "space-evenly",
     resizeMode: "contain",
-  },
-  container2: {
-    width: "100%",
-    height: "90%",
-    justifyContent: "space-evenly",
-    alignItems: "center",
   },
   carruselContainer: {
     width: "90%",

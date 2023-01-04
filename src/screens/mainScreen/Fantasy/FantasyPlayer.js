@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Dimensions,
   Text,
   View,
   Image,
-  TouchableOpacity,
 } from "react-native";
 
 export default function FantasyPlayer({ player = {} }) {
@@ -29,8 +27,9 @@ export default function FantasyPlayer({ player = {} }) {
 
 const styles = StyleSheet.create({
   cardImage: {
-    height: 200,
-    margin: 10,
+    width: 75,
+    height: 105,
+    resizeMode: 'contain'
   },
   containerName: {
     backgroundColor: "#34545D",
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     top: 190,
     left: 5,
     right: 5,
-    bottom: 7, 
+    bottom: 7
   },
   playerName: {
     fontStyle: "normal",

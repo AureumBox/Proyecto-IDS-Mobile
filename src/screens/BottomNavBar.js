@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 
 // Screen Imports
-import Fantasy from './mainScreen/Fantasy'
+import Fantasy from './mainScreen/Fantasy';
 import Album from './mainScreen/Album'
 import Shop from './mainScreen/Shop'
 import Home from './mainScreen/Home'
