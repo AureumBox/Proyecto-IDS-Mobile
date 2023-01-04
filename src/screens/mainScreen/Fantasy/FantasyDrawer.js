@@ -41,11 +41,14 @@ export default function Inventorytest({ navigation }) {
   const { selectedPlayer } = useSelector((state) => state.fantasy);
 
   const selectPlayer = (item) => {
-    dispatch(fantasySlice.setSelectedPlayer(item.sticker));
+    if (item == selectedPlayer) {
+      dispatch(fantasySlice.setSelectedPlayer({}));
+      return;
+    }
+    dispatch(fantasySlice.setSelectedPlayer(item));
   };
 
-  useEffect(() => {
-  }, [selectedPlayer]);
+  useEffect(() => {}, [selectedPlayer]);
 
   useEffect(() => {
     loadTeams();
@@ -125,10 +128,10 @@ export default function Inventorytest({ navigation }) {
           onValueChange={(itemValue, itemIndex) => setPosition(itemValue)}
         >
           <Picker.Item label="Posicion" value="" />
-          <Picker.Item label="Arquero" value="Arquero" />
-          <Picker.Item label="Defensa" value="Defensa" />
-          <Picker.Item label="Delantero" value="Delantero" />
-          <Picker.Item label="MedioCentro" value="MedioCentro" />
+          <Picker.Item label="Arquero" value="goalkeeper" />
+          <Picker.Item label="Defensa" value="defender" />
+          <Picker.Item label="Delantero" value="forward" />
+          <Picker.Item label="MedioCentro" value="midfielder" />
         </Picker>
 
         <Picker
@@ -145,25 +148,29 @@ export default function Inventorytest({ navigation }) {
 
       {/* Jugadores fantasy */}
       <View style={{ margin: 10 }}>
+        {console.log("squad drawer ", JSON.stringify(squad))}
         <FlatList
           data={squad}
           keyExtractor={(_, index) => index.toString()}
           ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           onEndReached={() => {
+            {console.log("cargando..")}
             if (page < paginate?.pages) setPage(page + 1);
           }}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  console.log(JSON.stringify(item));
                   selectPlayer(item);
                 }}
               >
+                {console.log(item)}
                 <View styles={{ backgroundColor: "red" }}>
-                  <PlayerTemplate player={item.sticker} />
-                  {item.id === selectedPlayer.id && <Text>hh</Text>}
+                  <PlayerTemplate player={item} />
+                  {item.id === selectedPlayer.id && (
+                    <View style={styles.selectedItem} />
+                  )}
                 </View>
               </TouchableOpacity>
             );
@@ -215,13 +222,13 @@ const styles = StyleSheet.create({
   imputStyle: {
     backgroundColor: "#F2F6FE",
     borderRadius: 50,
-    marginHorizontal: 15,
+    marginHorizontal: 15
   },
   textSt: {
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: 30,
-    lineHeight: 60,
+    lineHeight: 50,
     color: "#FFFFFF",
     marginRight: 10,
     textAlign: "center",
@@ -240,5 +247,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#325D69",
     margin: 15,
     borderRadius: 10,
+  },
+  selectedItem: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(194, 0, 0, 0.39)",
+    borderColor: "#C10001",
+    borderWidth: 3,
   },
 });

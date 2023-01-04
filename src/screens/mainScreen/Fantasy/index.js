@@ -132,7 +132,8 @@ export default function Fantasy({ navigation }) {
         <View
           style={{
             ...styles.drawer,
-            width: open ? "75%" : 0,
+            overflow: "hidden",
+            width: open ? "100%" : 0,
             height: open ? "100%" : 0,
           }}
         >
