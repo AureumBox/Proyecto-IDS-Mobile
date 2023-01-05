@@ -14,7 +14,7 @@ import {
 } from "../../../state/albumSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function AlbumHeader({ teamName = "" }) {
+export default function AlbumHeader({ teamName = "", setFilter }) {
   const pages = useSelector((state) => state.album.currentTeam.pages);
   const currentPage = useSelector(
     (state) => state.album.currentTeam.currentPage
@@ -43,9 +43,14 @@ export default function AlbumHeader({ teamName = "" }) {
         <Ionicons name="chevron-back-outline" size={24} color="white" />
       </TouchableOpacity>
 
-      <View style={styles.nomPais}>
+      <TouchableOpacity 
+        onPress={() => {
+          setFilter(true);
+        }}
+        style={styles.nomPais}
+      >
         <Text style={styles.pais}>{teamName}</Text>
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.flecha} onPress={navNextPage}>
         <Ionicons name="chevron-forward-outline" size={24} color="white" />

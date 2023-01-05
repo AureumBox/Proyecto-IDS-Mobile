@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   albumdig: {
     resizeMode: "contain",
-    width: "100%",
+    width: "70%",
     marginLeft: 10,
   },
   rectangulo: {
