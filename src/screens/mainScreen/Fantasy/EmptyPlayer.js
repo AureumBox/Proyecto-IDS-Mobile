@@ -3,16 +3,17 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions
+  Dimensions,
+  TouchableOpacity
 } from "react-native";
 
 const { width } = Dimensions.get('window');
 
 export default function EmptyPlayer({ idCode = 0, nameCode = 0, position}) {
   return (
-    <View style={styles.barajita}>
+    <TouchableOpacity style={styles.barajita}>
       <Text style={styles.idbarajita}>{position}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 

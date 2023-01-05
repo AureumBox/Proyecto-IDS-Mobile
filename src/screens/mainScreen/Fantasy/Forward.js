@@ -7,13 +7,13 @@ export default function Foward(players = []) {
   return (
     <TouchableOpacity style={styles.container}>
       {players?.players?.map((player, index) => (
-        <View key={player.id} >
+        <>
           {player?.emptyPlayer ? (
             <EmptyPlayer position={"Delantero"} />
           ) : (
             <FantasyPlayer player={player} />
           )}
-        </View>
+        </>
       ))}
     </TouchableOpacity>
   );

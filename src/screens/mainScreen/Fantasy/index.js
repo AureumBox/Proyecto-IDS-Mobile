@@ -101,7 +101,7 @@ export default function Fantasy({ navigation }) {
       setArrayDefenders(
         createArray(
           data.filter((player) => player?.position == "defender"),
-          3
+          4
         )
       );
 

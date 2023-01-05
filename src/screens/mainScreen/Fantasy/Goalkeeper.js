@@ -10,13 +10,13 @@ export default function Goalkeeper(players = {}) {
   return (
     <TouchableOpacity style={styles.container}>
       {players?.players?.map((player, index) => (
-        <View key={player.id} >
+        <>
           {player?.emptyPlayer ? (
             <EmptyPlayer position={"Arquero"} />
           ) : (
             <FantasyPlayer player={player} />
           )}
-        </View>
+        </>
       ))}
     </TouchableOpacity>
   )

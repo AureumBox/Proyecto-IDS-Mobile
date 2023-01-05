@@ -7,13 +7,13 @@ export default function Defender(players = []) {
   return (
     <TouchableOpacity style={styles.container}>
       {players?.players?.map((player, index) => (
-        <View key={player.id} >
+        <>
           {player?.emptyPlayer ? (
             <EmptyPlayer position={"Defensa"} />
           ) : (
             <FantasyPlayer player={player} />
           )}
-        </View>
+        </>
       ))}
     </TouchableOpacity>
   );
