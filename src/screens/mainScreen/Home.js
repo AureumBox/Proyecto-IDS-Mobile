@@ -27,7 +27,6 @@ import Fantasy from '../../../assets/app/fantasy.png';
 
 export default function Home({ navigation }) {
     const [loading, setLoading] = useState(false);
-    const [visibleObtener, setVisibleObtener] = useState(false);
     const [visibleAnuncio, setVisibleAnuncio] = useState(false);
     const [visibleStickers, setVisibleStickers] = useState(false);
     const [ad, setAd] = useState(null);
@@ -76,6 +75,7 @@ export default function Home({ navigation }) {
     return (
         <View style={styles.fondo}>
             <Spinner visible={loading} textContent={'Cargando...'} />
+
             {/* Ventana Emergente de drop de Stickers */}
             <ModalPopup visible={visibleStickers}>
                 <View style={{ alignItems: 'center' }}>
@@ -182,7 +182,11 @@ export default function Home({ navigation }) {
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Sobre diario</Text>
                             <Text style={styles.textoSecondary}>Disponible en 00:00:00</Text>
-                            <TouchableOpacity onPress={() => setVisibleAnuncio(true)}>
+                            <TouchableOpacity onPress={() => {
+                                onClaimClick();
+                                setVisibleAnuncio(true)
+                            }}
+                            >
                                 <LinearGradient colors={['#D13256', '#FE5F42']}
                                     style={styles.botonSobre}>
                                     <Text style={styles.textoBoton}>Reclamar</Text>
