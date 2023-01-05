@@ -57,7 +57,7 @@ export default function LogIn({ navigation }) {
                     {/* Email Input */}
                     <View style={styles.inputContainer}>
                         <Ionicons
-                            name="card-outline"
+                            name="mail-outline"
                             size={24}
                             color="black"
                             style={styles.inputIcon}
@@ -71,8 +71,8 @@ export default function LogIn({ navigation }) {
                             }}
                             render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                                 <>
-                                    {error && (<Text style={{ color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
-                                        {error.message}</Text>
+                                    {error && (
+                                        <Text style={styles.textError}>{error.message}</Text>
                                     )}
                                     <TextInput
                                         value={value}
@@ -101,8 +101,8 @@ export default function LogIn({ navigation }) {
                             rules={{ required: "Ingrese su contraseña" }}
                             render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                                 <>
-                                    {error && (<Text style={{ color: 'red', fontWeight: 'bold', lineHeight: 15, textAlign: 'left' }}>
-                                        {error.message}</Text>
+                                    {error && (
+                                        <Text style={styles.textError}>{error.message}</Text>
                                     )}
                                     <TextInput
                                         value={value}
@@ -185,14 +185,6 @@ export default function LogIn({ navigation }) {
                     >
                         <Text style={styles.forgotPW}>¿No tienes una cuenta?, ¡Registrate Ahora!</Text>
                     </TouchableOpacity>
-                    {/* Boton HomePage */}
-                    <View style={{ alignItems: 'center' }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate(HPANavigation.HOME)}
-                            style={styles.homePageButton}>
-                            <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </ScrollView>
             <StatusBar style="auto" />
@@ -210,7 +202,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         paddingHorizontal: 30,
-        marginTop: 50,
+        marginTop: 75,
     },
     body: {
         padding: 20,
@@ -241,11 +233,11 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: '100%',
+        height: 60,
         backgroundColor: 'white',
         borderRadius: 25,
         marginBottom: 20,
-        justifyContent: 'center',
-        padding: 20
+        justifyContent: 'center'
     },
     inputIcon: {
         position: 'absolute',
@@ -253,7 +245,7 @@ const styles = StyleSheet.create({
         left: 25
     },
     inputText: {
-        paddingLeft: 20,
+        paddingLeft: 40,
         marginHorizontal: 20
     },
     buttonEye: {
@@ -261,14 +253,19 @@ const styles = StyleSheet.create({
         right: 25
     },
     inputError: {
-        backgroundColor: 'white',
         padding: 20,
-        borderRadius: 16,
-        marginBottom: 15,
+        paddingLeft: 60,
         borderWidth: 2,
         borderColor: 'red',
-        borderRadius: 16,
-        marginHorizontal: 5,
+        borderRadius: 25,
+    },
+    textError: {
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: 14,
+        position: 'absolute',
+        bottom: 60,
+        alignSelf: "center"
     },
     logInButton: {
         backgroundColor: '#70ABAF',
@@ -278,18 +275,9 @@ const styles = StyleSheet.create({
         marginVertical: 30,
     },
     forgotPW: {
-        fontSize: 17,
-        lineHeight: 30,
+        fontSize: 20,
         color: 'gray',
         fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 60,
-    },
-    homePageButton: {
-        backgroundColor: '#C10001',
-        padding: 15,
-        borderRadius: 16,
-        alignItems: 'center',
-        marginVertical: 30,
-    },
+        textAlign: 'center'
+    }
 })

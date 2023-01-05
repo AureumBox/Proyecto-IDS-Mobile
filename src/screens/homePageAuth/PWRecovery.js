@@ -23,7 +23,7 @@ export default function PWRecovery({ navigation }) {
                     </Text>
                     <View style={styles.inputContainer}>
                         <Ionicons
-                            name="card-outline"
+                            name="mail-outline"
                             size={24}
                             color="black"
                             style={styles.inputIcon}
@@ -40,14 +40,6 @@ export default function PWRecovery({ navigation }) {
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Enviar correo para reiniciar contraseña</Text>
                     </TouchableOpacity>
-                    {/* Boton HomePage */}
-                    <View style={{ alignItems: 'center' }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate(HPANavigation.HOME)}
-                            style={styles.homePageButton}>
-                            <Text style={{ color: 'white', fontWeight: 'bold' }}>HomePage</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </ScrollView>
             <StatusBar style="auto" />
@@ -125,12 +117,5 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         alignItems: 'center',
         marginVertical: 30,
-    },
-    homePageButton: {
-        backgroundColor: '#C10001',
-        padding: 15,
-        borderRadius: 16,
-        alignItems: 'center',
-        marginTop: 235,
-    },
+    }
 })

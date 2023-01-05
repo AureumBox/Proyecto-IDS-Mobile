@@ -12,7 +12,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-remix-icon';
 
-import logoImg from '../../../assets/app/logo.png';
+import logoImg from '../../../assets/app/logoHorizontal.png';
 
 const { width, height } = Dimensions.get('window');
 
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   logo: {
     width: 125,
@@ -45,6 +45,8 @@ const styles = StyleSheet.create({
   },
   coins: {
     width: 80,
+    height: 30,
+    justifyContent: 'center',
     height: 30,
     justifyContent: 'center',
     backgroundColor: '#D9D9D9',

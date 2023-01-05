@@ -5,11 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 
 // Screen Imports
-import Fantasy from './mainScreen/Fantasy'
-import Album from './mainScreen/Album'
-import Shop from './mainScreen/Shop'
-import Home from './mainScreen/Home'
-import Profile from './mainScreen/Profile'
+import Home from './mainScreen/Home';
+import AlbumNavigator from './mainScreen/Album/AlbumNavigator';
+import Fantasy from './mainScreen/Fantasy';
+import Shop from './mainScreen/Shop';
+import Profile from './mainScreen/Profile';
 
 const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();
@@ -20,13 +20,12 @@ export default function BottomNavBar({ navigation }) {
             <Tab.Navigator
                 initialRouteName='Home'
                 screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused, color, size }) => {
+                    tabBarIcon: ({ focused, color }) => {
                         let iconName
-                        let iconSize // Para luego tamaños personalizados
                         let rn = route.name
                         if (rn === 'Home') {
                             iconName = focused ? 'home' : 'home-outline'
-                        } else if (rn === 'Album') {
+                        } else if (rn === 'AlbumNavigator') {
                             iconName = focused ? 'book' : 'book-outline'
                         } else if (rn === 'Fantasy') {
                             iconName = focused ? 'football' : 'football-outline'
@@ -38,69 +37,17 @@ export default function BottomNavBar({ navigation }) {
 
                         return <Ionicons name={iconName} color={color} size={45} />
                     },
+                    headerShown: false,
+                    tabBarShowLabel: false,
+                    tabBarActiveTintColor: '#C10001',
+                    tabBarInactiveTintColor: 'grey',
+                    tabBarStyle: { padding: 0, height: height / 10 }
                 })}>
-
-                <Tab.Screen
-                    name='Home'
-                    component={Home}
-                    options={{
-                        headerShown: false,
-                        tabBarActiveTintColor: '#C10001',
-                        tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height / 10 },
-                        tabBarShowLabel: false
-                    }}
-                />
-                <Tab.Screen
-                    name='Album'
-                    component={Album}
-                    options={{
-                        headerShown: false,
-                        tabBarActiveTintColor: '#C10001',
-                        tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height / 10 },
-                        tabBarShowLabel: false
-                    }}
-                />
-                <Tab.Screen
-                    name='Fantasy'
-                    component={Fantasy}
-                    options={{
-                        headerShown: false,
-                        tabBarActiveTintColor: '#C10001',
-                        tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height / 10 },
-                        tabBarShowLabel: false
-                    }}
-                />
-                <Tab.Screen
-                    name='Shop'
-                    component={Shop}
-                    options={{
-                        headerShown: false,
-                        tabBarActiveTintColor: '#C10001',
-                        tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height / 10 },
-                        tabBarShowLabel: false
-                    }}
-                />
-                <Tab.Screen
-                    name='Profile'
-                    component={Profile}
-                    options={{
-                        headerShown: false,
-                        tabBarActiveTintColor: '#C10001',
-                        tabBarInactiveTintColor: 'grey',
-                        tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                        tabBarStyle: { padding: 0, height: height / 10 },
-                        tabBarShowLabel: false
-                    }}
-                />
-
+                <Tab.Screen name='Home' component={Home} />
+                <Tab.Screen name='AlbumNavigator' component={AlbumNavigator} />
+                <Tab.Screen name='Fantasy' component={Fantasy} />
+                <Tab.Screen name='Shop' component={Shop} />
+                <Tab.Screen name='Profile' component={Profile} />
             </Tab.Navigator>
         </NavigationContainer>
     )

@@ -7,13 +7,14 @@ import {
     Image,
     ScrollView,
     TouchableOpacity,
+    Linking
 } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import Header from '../../components/HeaderComponent';
 import Sobre from '../../../assets/app/sobre.png';
 import Album from '../../../assets/app/album.png';
 import Fantasy from '../../../assets/app/fantasy.png';
-import AlbumPage from './Album';
+import AlbumPage from './Album/Album';
 import FantasyPage from './Fantasy';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -85,6 +86,7 @@ export default function Home({ navigation }) {
                         </TouchableOpacity>
                     </View>
                 </View>
+
                 <View style={{ alignItems: 'center' }}>
                     <Image
                         source={sobreImg}
@@ -95,6 +97,7 @@ export default function Home({ navigation }) {
                         }}
                     />
                 </View>
+
                 <TouchableOpacity
                     style={styles.logInButton}
                     onPress={() => {
@@ -125,7 +128,7 @@ export default function Home({ navigation }) {
                     {obtainedStickers ? (
                         obtainedStickers.map((sticker, i) => (
                             <View key={i} style={{ marginVertical: 78 }}>
-                                <StickerTemplate sticker={sticker} />
+                                <StickerTemplate sticker={sticker} onModal={true} />
                             </View>
                         ))
                     ) : (
