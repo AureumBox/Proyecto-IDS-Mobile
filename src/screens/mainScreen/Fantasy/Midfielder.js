@@ -8,11 +8,11 @@ export default function Midfielder(players = []) {
   return (
     <TouchableOpacity style={styles.container}>
       {players?.players?.map((player, index) => (
-        <View>
+        <View key={player.id} >
           {player?.emptyPlayer ? (
             <EmptyPlayer position={"MedioCentro"} />
           ) : (
-            <FantasyPlayer key={index} player={player} />
+            <FantasyPlayer player={player} />
           )}
         </View>
       ))}

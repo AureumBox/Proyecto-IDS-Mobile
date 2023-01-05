@@ -28,16 +28,21 @@ export default function Fantasy({ navigation }) {
   const { selectedPlayer } = useSelector((state) => state.fantasy);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [squad, setSquad] = useState([]);
   const [arrayMidfielders, setArrayMidfielders] = useState([]);
   const [arrayDefenders, setArrayDefenders] = useState([]);
   const [arrayFowarders, setArrayFowarders] = useState([]);
-  const [goalkeeper, setGoalkeeper] = useState({});
+  const [arrayGoalkeepers, setArrayGoalkeepers] = useState([]);
   const dispatch = useDispatch();
   const eventId = 1;
 
-  /*   const posicion = "0-2, 3-5, 6-9, 10";
-  const nombres = "delante, medio, defensa, arquero"; */
+  function createArray(players, MAX_PLAYERS) {
+    let finalArray = [];
+    for (let index = players.length; index < MAX_PLAYERS; index++) {
+      finalArray.push({ emptyPlayer: true });
+    }
+    finalArray = finalArray.concat(players);
+    return finalArray;
+  }
 
   const addPlayer = (key) => {
     const position = selectedPlayer.position;
@@ -78,17 +83,13 @@ export default function Fantasy({ navigation }) {
   const loadSquad = useCallback(async () => {
     setLoading(true);
     try {
-      let squad = [];
       const data = await fantasyServices.fetchSquad(token, eventId);
-      console.log("squad ", JSON.stringify(data));
-
-      setGoalkeeper(
+      setArrayGoalkeepers(
         createArray(
           data.filter((player) => player?.position == "goalkeeper"),
           1
         )
       );
-      console.log("gaol ", JSON.stringify(goalkeeper));
 
       setArrayMidfielders(
         createArray(
@@ -96,6 +97,7 @@ export default function Fantasy({ navigation }) {
           3
         )
       );
+
       setArrayDefenders(
         createArray(
           data.filter((player) => player?.position == "defender"),
@@ -109,51 +111,12 @@ export default function Fantasy({ navigation }) {
           3
         )
       );
-
-      /* const arqueros = data.filter(
-        (player) => player?.position == "goalkeeper"
-      );
-      const delanteros = data.filter((player) => player?.position == "forward");
-      squad = createArray(
-        data.filter((player) => player?.position == "forward"),
-        3
-      );
-      squad = squad.concat(
-        createArray(
-          data.filter((player) => player?.position == "midfielder"),
-          3
-        )
-      );
-      squad = squad.concat(
-        createArray(
-          data.filter((player) => player?.position == "defense"),
-          4
-        )
-      );
-      squad = squad.concat(
-        createArray(
-          data.filter((player) => player?.position == "goalkeeper"),
-          1
-        )
-      );
-      // console.log(JSON.stringify(squad));
-      setSquad(squad); */
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
     }
   }, [token]);
-
-  function createArray(players, MAX_PLAYERS) {
-    let finalArray = [];
-    for (let index = players.length; index < MAX_PLAYERS; index++) {
-      finalArray.push({ emptyPlayer: true });
-    }
-    finalArray = finalArray.concat(players);
-    return finalArray;
-  }
-
   useEffect(() => {
     loadSquad();
   }, [loadSquad]);
@@ -202,8 +165,7 @@ export default function Fantasy({ navigation }) {
         <View style={styles.containerCancha}>
           <Image source={Cancha} style={styles.canchaImg} />
           <View style={styles.contJugadoresCancha}>
-            {console.log(JSON.stringify(goalkeeper))}
-            <Goalkeeper players={goalkeeper} />
+            <Goalkeeper players={arrayGoalkeepers} />
             <Defender players={arrayDefenders} />
             <Midfielder players={arrayMidfielders} />
             <Foward players={arrayFowarders} />

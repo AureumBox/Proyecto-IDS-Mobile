@@ -7,15 +7,14 @@ import EmptyPlayer from './EmptyPlayer';
 import FantasyPlayer from "./FantasyPlayer";
 
 export default function Goalkeeper(players = {}) {
-  console.log("dento de gk ", JSON.stringify(players))
   return (
     <TouchableOpacity style={styles.container}>
       {players?.players?.map((player, index) => (
-        <View>
+        <View key={player.id} >
           {player?.emptyPlayer ? (
             <EmptyPlayer position={"Arquero"} />
           ) : (
-            <FantasyPlayer key={index} player={player} />
+            <FantasyPlayer player={player} />
           )}
         </View>
       ))}
