@@ -9,7 +9,8 @@ import {
 export default function FantasyPlayer({ player = {} }) {
   return (
     <View>
-      <Image
+      <Text>{player.id}</Text>
+      {/* <Image
         resizeMode="contain"
         source={{ uri: player?.img }}
         style={styles.cardImage}
@@ -20,7 +21,7 @@ export default function FantasyPlayer({ player = {} }) {
         >
           {player?.playerName}
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 }

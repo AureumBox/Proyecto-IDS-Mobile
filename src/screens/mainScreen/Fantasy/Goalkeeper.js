@@ -1,17 +1,25 @@
 import React from 'react';
 import {
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity, View
 } from "react-native";
 import EmptyPlayer from './EmptyPlayer';
+import FantasyPlayer from "./FantasyPlayer";
 
-export default function Goalkeeper() {
+export default function Goalkeeper(players = {}) {
+  console.log("dento de gk ", JSON.stringify(players))
   return (
-    // <View style={styles.container}>
-      <TouchableOpacity style={styles.container}>
-        <EmptyPlayer position={'Arquero'} />
-      </TouchableOpacity>
-    // </View>
+    <TouchableOpacity style={styles.container}>
+      {players?.players?.map((player, index) => (
+        <View>
+          {player?.emptyPlayer ? (
+            <EmptyPlayer position={"Arquero"} />
+          ) : (
+            <FantasyPlayer key={index} player={player} />
+          )}
+        </View>
+      ))}
+    </TouchableOpacity>
   )
 }
 

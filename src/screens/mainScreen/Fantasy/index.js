@@ -5,7 +5,7 @@ import {
   View,
   Dimensions,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../../components/HeaderComponent";
@@ -18,8 +18,8 @@ import * as fantasyServices from "../../../services/fantasy.services";
 import * as fantasySlice from "../../../state/fantasySlice";
 import FantasyPlayer from "./FantasyPlayer";
 import Goalkeeper from "./Goalkeeper";
-import Defender from './Defender';
-import Midfielder from './Midfielder';
+import Defender from "./Defender";
+import Midfielder from "./Midfielder";
 import Foward from "./Forward";
 
 export default function Fantasy({ navigation }) {
@@ -29,6 +29,10 @@ export default function Fantasy({ navigation }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [squad, setSquad] = useState([]);
+  const [arrayMidfielders, setArrayMidfielders] = useState([]);
+  const [arrayDefenders, setArrayDefenders] = useState([]);
+  const [arrayFowarders, setArrayFowarders] = useState([]);
+  const [goalkeeper, setGoalkeeper] = useState({});
   const dispatch = useDispatch();
   const eventId = 1;
 
@@ -76,56 +80,83 @@ export default function Fantasy({ navigation }) {
     try {
       let squad = [];
       const data = await fantasyServices.fetchSquad(token, eventId);
-      console.log(JSON.stringify(data));
-      const arqueros = data.filter((player) => player?.position == "Arquero");
-      const delanteros = data.filter(
-        (player) => player?.position == "Delantero"
+      console.log("squad ", JSON.stringify(data));
+
+      setGoalkeeper(
+        createArray(
+          data.filter((player) => player?.position == "goalkeeper"),
+          1
+        )
       );
+      console.log("gaol ", JSON.stringify(goalkeeper));
+
+      setArrayMidfielders(
+        createArray(
+          data.filter((player) => player?.position == "midfielder"),
+          3
+        )
+      );
+      setArrayDefenders(
+        createArray(
+          data.filter((player) => player?.position == "defender"),
+          3
+        )
+      );
+
+      setArrayFowarders(
+        createArray(
+          data.filter((player) => player?.position == "forward"),
+          3
+        )
+      );
+
+      /* const arqueros = data.filter(
+        (player) => player?.position == "goalkeeper"
+      );
+      const delanteros = data.filter((player) => player?.position == "forward");
       squad = createArray(
-        data.filter((player) => player?.position == "Delantero"),
+        data.filter((player) => player?.position == "forward"),
         3
       );
       squad = squad.concat(
         createArray(
-          data.filter((player) => player?.position == "MedioCampo"),
+          data.filter((player) => player?.position == "midfielder"),
           3
         )
       );
       squad = squad.concat(
         createArray(
-          data.filter((player) => player?.position == "Defensa"),
+          data.filter((player) => player?.position == "defense"),
           4
         )
       );
       squad = squad.concat(
         createArray(
-          data.filter((player) => player?.position == "Arquero"),
+          data.filter((player) => player?.position == "goalkeeper"),
           1
         )
       );
-      console.log(JSON.stringify(squad));
-      setSquad(squad);
+      // console.log(JSON.stringify(squad));
+      setSquad(squad); */
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [token]);
 
   function createArray(players, MAX_PLAYERS) {
     let finalArray = [];
     for (let index = players.length; index < MAX_PLAYERS; index++) {
       finalArray.push({ emptyPlayer: true });
     }
-    console.log("final " + JSON.stringify(finalArray));
     finalArray = finalArray.concat(players);
-    console.log("return " + JSON.stringify(finalArray));
     return finalArray;
   }
 
   useEffect(() => {
     loadSquad();
-  }, [loadSquad,]);
+  }, [loadSquad]);
 
   return (
     <View style={styles.fondo}>
@@ -157,7 +188,9 @@ export default function Fantasy({ navigation }) {
           </View>
           <View style={styles.containerPuntaje}>
             <TouchableOpacity>
-              <Text style={[styles.textBoton, styles.textBotonSelected]}>Equipo</Text>
+              <Text style={[styles.textBoton, styles.textBotonSelected]}>
+                Equipo
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity>
               <Text style={[styles.textBoton]}>Ranking</Text>
@@ -169,23 +202,11 @@ export default function Fantasy({ navigation }) {
         <View style={styles.containerCancha}>
           <Image source={Cancha} style={styles.canchaImg} />
           <View style={styles.contJugadoresCancha}>
-            <Goalkeeper/>
-            <Defender/>
-            <Midfielder/>
-            <Foward/>
-          {/* 💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀 */}
-          {/* Revisa esto Auri creo que no usaremos Maps so */}
-          {/* 💀💀💀💀💀💀💀💀💀💀💀💀💀💀💀 */}
-            {/* {squad.map((jugador, index) => (
-              <TouchableOpacity
-                key={index + ""}
-                onPress={() => addPlayer(index)}
-              >
-                <View style={[{top: 45}, eval(`styles.jugador${index + 1}`)]}>
-                  {(jugador?.emptyPlayer) ? <EmptyPlayer /> : <FantasyPlayer key={index} player={jugador} />}
-                </View>
-              </TouchableOpacity>
-            ))} */}
+            {console.log(JSON.stringify(goalkeeper))}
+            <Goalkeeper players={goalkeeper} />
+            <Defender players={arrayDefenders} />
+            <Midfielder players={arrayMidfielders} />
+            <Foward players={arrayFowarders} />
           </View>
 
           {/*  */}
@@ -210,11 +231,11 @@ export default function Fantasy({ navigation }) {
 const styles = StyleSheet.create({
   fondo: {
     flex: 1,
-    backgroundColor: "#325D69"
+    backgroundColor: "#325D69",
   },
   container: {
     flex: 1,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   containerTitulo: {
     backgroundColor: "#294851",
@@ -234,7 +255,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 24,
-    paddingHorizontal: "10%"
+    paddingHorizontal: "10%",
   },
   textBotonSelected: {
     borderBottomLeftRadius: 10,
@@ -249,20 +270,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#2A434A",
-    marginVertical: 15
+    marginVertical: 15,
   },
   contJugadoresCancha: {
-    width: '86%',
-    height: '95%',
+    width: "86%",
+    height: "95%",
     position: "absolute",
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "space-around",
     backgroundColor: "#ffffff50",
   },
   canchaImg: {
     height: "95%",
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
   inputStyle: {
     backgroundColor: "#F2F6FE",

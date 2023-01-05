@@ -59,7 +59,6 @@ export default function Inventorytest({ navigation }) {
         page
       );
       setBench((bench) => bench.concat(data.items));
-      console.log("proxima pag", JSON.stringify(data));
     } catch (error) {
       alert(error.message);
     } finally {
@@ -76,7 +75,6 @@ export default function Inventorytest({ navigation }) {
       const data = await fetchBench(token, eventId, playerName, team, position);
       setBench(data.items);
       setPaginate(data.paginate);
-      console.log("primera pag ", JSON.stringify(data));
     } catch (error) {
       alert(error.message);
     } finally {
