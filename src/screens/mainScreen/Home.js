@@ -76,38 +76,6 @@ export default function Home({ navigation }) {
     return (
         <View style={styles.fondo}>
             <Spinner visible={loading} textContent={'Cargando...'} />
-            {/* Ventana Emergente de Obtener Cromos */}
-            <ModalPopup visible={visibleObtener}>
-                <View style={{ alignItems: 'center' }}>
-                    <View style={styles.modalHeader}>
-                        <TouchableOpacity onPress={() => setVisibleObtener(false)}>
-                            <Image source={botonXImg} style={{ height: 30, width: 30 }} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                <View style={{ alignItems: 'center' }}>
-                    <Image
-                        source={sobreImg}
-                        style={{
-                            width: 250,
-                            height: 250,
-                            resizeMode: 'contain',
-                        }}
-                    />
-                </View>
-
-                <TouchableOpacity
-                    style={styles.logInButton}
-                    onPress={() => {
-                        setVisibleObtener(false);
-                        onClaimClick();
-                    }}
-                >
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Reclamar</Text>
-                </TouchableOpacity>
-            </ModalPopup>
-
             {/* Ventana Emergente de drop de Stickers */}
             <ModalPopup visible={visibleStickers}>
                 <View style={{ alignItems: 'center' }}>
@@ -214,7 +182,7 @@ export default function Home({ navigation }) {
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Sobre diario</Text>
                             <Text style={styles.textoSecondary}>Disponible en 00:00:00</Text>
-                            <TouchableOpacity onPress={() => setVisibleObtener(true)}>
+                            <TouchableOpacity onPress={() => setVisibleAnuncio(true)}>
                                 <LinearGradient colors={['#D13256', '#FE5F42']}
                                     style={styles.botonSobre}>
                                     <Text style={styles.textoBoton}>Reclamar</Text>
