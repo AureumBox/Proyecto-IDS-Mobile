@@ -101,8 +101,8 @@ export default function Home({ navigation }) {
                 <TouchableOpacity
                     style={styles.logInButton}
                     onPress={() => {
-                        onClaimClick();
                         setVisibleObtener(false);
+                        onClaimClick();
                     }}
                 >
                     <Text style={{ color: 'white', fontWeight: 'bold' }}>Reclamar</Text>
@@ -190,8 +190,8 @@ export default function Home({ navigation }) {
                 <TouchableOpacity
                     style={styles.logInButton}
                     onPress={() => {
-                        onCloseAd();
                         setVisibleAnuncio(false);
+                        onCloseAd();
                     }}
                 >
                     <Text style={{ color: 'white', fontWeight: 'bold' }}>Ver Sobre</Text>
