@@ -37,8 +37,6 @@ export default function Home({ navigation }) {
         setLoading(true);
         try {
             setAd(await watchAd(token));
-        } catch (error) {
-            alert(error.message);
         } finally {
             setLoading(false);
             setVisibleAnuncio(true);
@@ -75,49 +73,6 @@ export default function Home({ navigation }) {
     return (
         <View style={styles.fondo}>
             <Spinner visible={loading} textContent={'Cargando...'} />
-
-            {/* Ventana Emergente de Anuncio */}
-            <ModalPopup visible={visibleAnuncio}>
-                <View style={{ alignItems: 'center' }}>
-                    <View style={styles.modalHeader}>
-                    </View>
-                </View>
-                <TouchableOpacity onPress={onAdClick}>
-                    <View style={{ alignItems: 'center' }}>
-                        <Image
-                            source={
-                                ad?.img
-                                    ? { uri: ad?.img }
-                                    : require('../../../assets/ads/yummy.jpg')
-                            }
-                            style={{
-                                height: 175,
-                                width: 320,
-                                resizeMode: 'contain',
-                                marginVertical: 10,
-                            }}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <Text
-                    style={{
-                        marginVertical: 30,
-                        fontSize: 20,
-                        textAlign: 'center',
-                    }}
-                >
-                    ¡Felicidades, has conseguido un sobre!
-                </Text>
-                <TouchableOpacity
-                    style={styles.logInButton}
-                    onPress={() => {
-                        setVisibleAnuncio(false);
-                        onCloseAd();
-                    }}
-                >
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Ver Sobre</Text>
-                </TouchableOpacity>
-            </ModalPopup>
 
             {/* Ventana Emergente de drop de Stickers */}
             <ModalPopup visible={visibleStickers}>
@@ -165,6 +120,49 @@ export default function Home({ navigation }) {
                 </Text>
             </ModalPopup>
 
+            {/* Ventana Emergente de Anuncio */}
+            <ModalPopup visible={visibleAnuncio}>
+                <View style={{ alignItems: 'center' }}>
+                    <View style={styles.modalHeader}>
+                    </View>
+                </View>
+                <TouchableOpacity onPress={onAdClick}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            source={
+                                ad?.img
+                                    ? { uri: ad?.img }
+                                    : require('../../../assets/ads/yummy.jpg')
+                            }
+                            style={{
+                                height: 175,
+                                width: 320,
+                                resizeMode: 'contain',
+                                marginVertical: 10,
+                            }}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <Text
+                    style={{
+                        marginVertical: 30,
+                        fontSize: 20,
+                        textAlign: 'center',
+                    }}
+                >
+                    ¡Felicidades, has conseguido un sobre!
+                </Text>
+                <TouchableOpacity
+                    style={styles.logInButton}
+                    onPress={() => {
+                        setVisibleAnuncio(false);
+                        onCloseAd();
+                    }}
+                >
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Ver Sobre</Text>
+                </TouchableOpacity>
+            </ModalPopup>
+
             <Header />
             <View style={styles.container}>
                 <ScrollView>
@@ -183,10 +181,7 @@ export default function Home({ navigation }) {
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Sobre diario</Text>
                             <Text style={styles.textoSecondary}>Disponible en 00:00:00</Text>
-                            <TouchableOpacity onPress={() => {
-                                onClaimClick();
-                                setVisibleAnuncio(true)
-                            }}
+                            <TouchableOpacity onPress={() => setVisibleAnuncio(true)}
                             >
                                 <LinearGradient colors={['#D13256', '#FE5F42']}
                                     style={styles.botonSobre}>
