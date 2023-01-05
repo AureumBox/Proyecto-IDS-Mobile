@@ -4,7 +4,7 @@ import {
     StyleSheet,
     View,
     Text,
-    Image, 
+    Image,
     ScrollView,
     TouchableOpacity,
 } from "react-native";
@@ -15,106 +15,269 @@ import Album from '../../../assets/app/album.png';
 import Fantasy from '../../../assets/app/fantasy.png';
 import AlbumPage from './Album';
 import FantasyPage from './Fantasy';
+import { useDispatch, useSelector } from 'react-redux';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { ModalPopup } from '../../components/ModalPopup';
+import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
+import { obtainStickers } from '../../services/sticker.services';
+import StickerTemplate from '../../components/StickerTemplate';
 
+import botonXImg from '../../../assets/app/x.png';
+import sobreImg from '../../../assets/app/sobre.png';
 
 export default function Home({ navigation }) {
-  const [selected, setSelected] = React.useState("");
-  const [isFocus, setIsFocus]= useState(false);
-  
-  const data = [
-      {key:'1', value:'Seleccione un evento', disabled:true},
-      {key:'2', value:'FIFA World Cup 2022'},
-      {key:'3', value:'Eurocopa'},
-      {key:'4', value:'Uefa Champions League'},
-  ];
+    const [loading, setLoading] = useState(false);
+    const [visibleObtener, setVisibleObtener] = useState(false);
+    const [visibleAnuncio, setVisibleAnuncio] = useState(false);
+    const [visibleStickers, setVisibleStickers] = useState(false);
+    const [ad, setAd] = useState(null);
+    const [obtainedStickers, setObtainedStickers] = useState([]);
+    const { token } = useSelector(state => state.auth);
+
+    const onClaimClick = async () => {
+        setLoading(true);
+        try {
+            setAd(await watchAd(token));
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            setLoading(false);
+            setVisibleAnuncio(true);
+        }
+    };
+
+    const onCloseAd = async () => {
+        setLoading(true);
+        try {
+            setObtainedStickers(await obtainStickers(token));
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            setLoading(false);
+            setVisibleStickers(true);
+        }
+    };
+
+    const onAdClick = () => {
+        const redirectUrl = getAdRedirectUrl(ad?.id);
+        Linking.openURL(redirectUrl);
+    };
+
+    const [selected, setSelected] = React.useState("");
+    const [isFocus, setIsFocus] = useState(false);
+
+    const data = [
+        { key: '1', value: 'Seleccione un evento', disabled: true },
+        { key: '2', value: 'FIFA World Cup 2022' },
+        { key: '3', value: 'Eurocopa' },
+        { key: '4', value: 'Uefa Champions League' },
+    ];
 
     return (
         <View style={styles.fondo}>
+            <Spinner visible={loading} textContent={'Cargando...'} />
+            {/* Ventana Emergente de Obtener Cromos */}
+            <ModalPopup visible={visibleObtener}>
+                <View style={{ alignItems: 'center' }}>
+                    <View style={styles.modalHeader}>
+                        <TouchableOpacity onPress={() => setVisibleObtener(false)}>
+                            <Image source={botonXImg} style={{ height: 30, width: 30 }} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={{ alignItems: 'center' }}>
+                    <Image
+                        source={sobreImg}
+                        style={{
+                            width: 250,
+                            height: 250,
+                            resizeMode: 'contain',
+                        }}
+                    />
+                </View>
+                <TouchableOpacity
+                    style={styles.logInButton}
+                    onPress={() => {
+                        onClaimClick();
+                    }}
+                >
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Reclamar</Text>
+                </TouchableOpacity>
+            </ModalPopup>
+
+            {/* Ventana Emergente de drop de Stickers */}
+            <ModalPopup visible={visibleStickers}>
+                <View style={{ alignItems: 'center' }}>
+                    <View style={styles.modalHeader}>
+                        <TouchableOpacity onPress={() => setVisibleStickers(false)}>
+                            <Image source={botonXImg} style={{ height: 30, width: 30 }} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        justifyContent: 'center',
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                    }}
+                >
+
+                    {obtainedStickers ? (
+                        obtainedStickers.map((sticker, i) => (
+                            <View key={i} style={{ marginVertical: 78 }}>
+                                <StickerTemplate sticker={sticker} />
+                            </View>
+                        ))
+                    ) : (
+                        <Text
+                            style={{
+                                marginVertical: 30,
+                                fontSize: 17,
+                                textAlign: 'center',
+                            }}
+                        >
+                            Ha ocurrido un error
+                        </Text>
+                    )}
+                </View>
+                <Text
+                    style={{
+                        marginVertical: 30,
+                        fontSize: 20,
+                        textAlign: 'center',
+                    }}
+                >
+                    ¡Felicidades! Has obtenido un sobre
+                </Text>
+            </ModalPopup>
+
+            {/* Ventana Emergente de Anuncio */}
+            <ModalPopup visible={visibleAnuncio}>
+                <View style={{ alignItems: 'center' }}>
+                    <View style={styles.modalHeader}>
+                    </View>
+                </View>
+                <TouchableOpacity onPress={onAdClick}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            source={
+                                ad?.img
+                                    ? { uri: ad?.img }
+                                    : require('../../../assets/ads/yummy.jpg')
+                            }
+                            style={{
+                                height: 175,
+                                width: 320,
+                                resizeMode: 'contain',
+                                marginVertical: 10,
+                            }}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <Text
+                    style={{
+                        marginVertical: 30,
+                        fontSize: 20,
+                        textAlign: 'center',
+                    }}
+                >
+                    ¡Felicidades, has conseguido un sobre!
+                </Text>
+                <TouchableOpacity
+                    style={styles.logInButton}
+                    onPress={() => {
+                        onCloseAd();
+                        setVisibleAnuncio(false);
+                    }}
+                >
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Ver Sobre</Text>
+                </TouchableOpacity>
+            </ModalPopup>
             <Header />
             <View style={styles.container}>
-            <ScrollView>  
+                <ScrollView>
                     <Text style={styles.textSt}>Home</Text>
                     <Text style={styles.textoEvento}>Evento</Text>
-                    <SelectList setSelected={(val)=> setSelected(val)}
-                    data={data}
-                    save="value"
-                    placeholder={!isFocus ? 'Seleccione un evento' : '...'}
-                    onFocus={()=> setIsFocus(true)}
-                    /> 
+                    <SelectList setSelected={(val) => setSelected(val)}
+                        data={data}
+                        save="value"
+                        placeholder={!isFocus ? 'Seleccione un evento' : '...'}
+                        onFocus={() => setIsFocus(true)}
+                    />
                     <View style={styles.containerCuadro}>
                         <View style={styles.containerImg}>
                             <Image source={Sobre} style={styles.sobreImg}></Image>
-                        </View> 
+                        </View>
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Sobre diario</Text>
                             <Text style={styles.textoSecondary}>Disponible en 00:00:00</Text>
-                            <TouchableOpacity>
-                            <LinearGradient colors={['#D13256','#FE5F42']}
-                            style={styles.botonSobre}>
-                                <Text style={styles.textoBoton}>Reclamar</Text>
-                            </LinearGradient>
+                            <TouchableOpacity onPress={() => setVisibleObtener(true)}>
+                                <LinearGradient colors={['#D13256', '#FE5F42']}
+                                    style={styles.botonSobre}>
+                                    <Text style={styles.textoBoton}>Reclamar</Text>
+                                </LinearGradient>
                             </TouchableOpacity>
-                        </View> 
-                    </View> 
+                        </View>
+                    </View>
                     <View style={styles.containerCuadro}>
                         <View style={styles.containerImgAlbum}>
                             <Image source={Album} style={styles.sobreImg}></Image>
                             <View style={styles.barraProgreso}>
                                 <View style={styles.porcentaje}>
-                                    <Text style={{color: 'white'}}>30%</Text>
+                                    <Text style={{ color: 'white' }}>30%</Text>
                                 </View>
                             </View>
-                            <Text style={{marginRight: 125, marginTop:1, color: '#3D405B', fontSize: 12}}>Completado</Text>    
-                        </View> 
+                            <Text style={{ marginRight: 125, marginTop: 1, color: '#3D405B', fontSize: 12 }}>Completado</Text>
+                        </View>
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Álbum</Text>
                             <Text style={styles.textoSecondary}>Colecciona todos los cromos</Text>
                             <View style={styles.espacio}>
                                 <View style={styles.casilla}>
                                     <TouchableOpacity>
-                                    <View style={styles.botonSecondary}>
-                                        <Text style={styles.textoBotonSeconday}>Intercambiar cromos</Text>
-                                    </View>
+                                        <View style={styles.botonSecondary}>
+                                            <Text style={styles.textoBotonSeconday}>Intercambiar cromos</Text>
+                                        </View>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.casilla}>
-                                   <TouchableOpacity onPress={() => navigation.navigate(AlbumPage)}>
-                                    <LinearGradient colors={['#D13256','#FE5F42']}
-                                    style={styles.boton}>
-                                <Text style={styles.textoBoton}>Ver álbum</Text>
-                            </LinearGradient>
-                            </TouchableOpacity> 
+                                    <TouchableOpacity onPress={() => navigation.navigate(AlbumPage)}>
+                                        <LinearGradient colors={['#D13256', '#FE5F42']}
+                                            style={styles.boton}>
+                                            <Text style={styles.textoBoton}>Ver álbum</Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                            </View>
-                        </View> 
-                    </View> 
+                        </View>
+                    </View>
                     <View style={styles.containerCuadro}>
                         <View style={styles.containerImg}>
                             <Image source={Fantasy} style={styles.sobreImg}></Image>
-                        </View> 
+                        </View>
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Fantasy</Text>
                             <Text style={styles.textoSecondary}>Arma tu equipo ideal</Text>
                             <View style={styles.espacio}>
                                 <View style={styles.casilla}>
                                     <TouchableOpacity>
-                                    <View style={styles.botonSecondary}>
-                                        <Text style={styles.textoBotonSeconday}>Ver subastas</Text>
-                                    </View>
-                                    </TouchableOpacity>   
+                                        <View style={styles.botonSecondary}>
+                                            <Text style={styles.textoBotonSeconday}>Ver subastas</Text>
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
                                 <View style={styles.casilla}>
-                                <TouchableOpacity onPress={() => navigation.navigate(FantasyPage)}> 
-                                <LinearGradient colors={['#D13256','#FE5F42']}
-                                    style={styles.boton}>
-                                    <Text style={styles.textoBoton}>Ver plantilla</Text>
-                                </LinearGradient>
-                                </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigation.navigate(FantasyPage)}>
+                                        <LinearGradient colors={['#D13256', '#FE5F42']}
+                                            style={styles.boton}>
+                                            <Text style={styles.textoBoton}>Ver plantilla</Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
-                        </View> 
-                    </View> 
-            </ScrollView>  
+                        </View>
+                    </View>
+                </ScrollView>
             </View>
         </View>
     )
@@ -128,20 +291,34 @@ const styles = StyleSheet.create({
         paddingRight: 25,
         paddingTop: 10
     },
-    espacio:{
+    modalHeader: {
+        width: '100%',
+        height: 40,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+    },
+    logInButton: {
+        backgroundColor: '#70ABAF',
+        padding: 20,
+        borderRadius: 120,
+        alignItems: 'center',
+        marginVertical: 30,
+        marginHorizontal: 20,
+    },
+    espacio: {
         height: 40,
         width: '100%',
         flexDirection: 'row',
         paddingRight: 15,
         paddingLeft: 70
     },
-    casilla:{
+    casilla: {
         height: 40,
         width: '50%',
-        justifyContent:'center',
+        justifyContent: 'center',
         alignItems: 'flex-end',
     },
-    botonSecondary:{
+    botonSecondary: {
         backgroundColor: 'white',
         borderRadius: 20,
         height: 30,
@@ -153,7 +330,7 @@ const styles = StyleSheet.create({
         borderColor: '#3D405B',
         borderWidth: 2
     },
-    containerCuadro:{
+    containerCuadro: {
         backgroundColor: '#8FCCCA',
         marginTop: 10,
         borderRadius: 12,
@@ -162,7 +339,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    containerinfo:{
+    containerinfo: {
         backgroundColor: 'white',
         width: '100%',
         height: 90,
@@ -171,15 +348,15 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         shadowColor: 'black',
-        shadowOffset:{
+        shadowOffset: {
             width: 0,
             height: 1,
         },
         shadowOpacity: 0.22,
-        shadowRadius: 2.22,  
-        elevation: 3,      
+        shadowRadius: 2.22,
+        elevation: 3,
     },
-    boton:{
+    boton: {
         height: 30,
         width: 100,
         borderRadius: 20,
@@ -187,7 +364,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    botonSobre:{
+    botonSobre: {
         height: 30,
         width: 100,
         borderRadius: 20,
@@ -196,24 +373,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    containerImg:{
+    containerImg: {
         width: '100%',
         height: 110,
         alignItems: 'center'
     },
-    containerImgAlbum:{
+    containerImgAlbum: {
         width: '100%',
         height: 110,
         alignItems: 'flex-end',
         marginLeft: 20,
         flexDirection: 'column'
     },
-    sobreImg:{
+    sobreImg: {
         marginTop: 15,
         height: '140%',
         resizeMode: 'contain'
     },
-    barraProgreso:{
+    barraProgreso: {
         height: 20,
         width: 150,
         backgroundColor: '#D9D9D9',
@@ -221,7 +398,7 @@ const styles = StyleSheet.create({
         marginTop: -125,
         marginRight: 60
     },
-    porcentaje:{
+    porcentaje: {
         height: '100%',
         width: '50%', //Colocar porcentaje de llenado 
         backgroundColor: '#3D405B',
