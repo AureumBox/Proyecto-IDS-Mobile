@@ -190,6 +190,7 @@ export default function Home({ navigation }) {
                     style={styles.logInButton}
                     onPress={() => {
                         onCloseAd();
+                        setVisibleObtener(false);
                         setVisibleAnuncio(false);
                     }}
                 >
