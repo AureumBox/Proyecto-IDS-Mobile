@@ -13,6 +13,8 @@ import Header from '../../components/HeaderComponent';
 import Sobre from '../../../assets/app/sobre.png';
 import Album from '../../../assets/app/album.png';
 import Fantasy from '../../../assets/app/fantasy.png';
+import AlbumPage from './Album';
+import FantasyPage from './Fantasy';
 
 
 export default function Home({ navigation }) {
@@ -57,6 +59,12 @@ export default function Home({ navigation }) {
                     <View style={styles.containerCuadro}>
                         <View style={styles.containerImgAlbum}>
                             <Image source={Album} style={styles.sobreImg}></Image>
+                            <View style={styles.barraProgreso}>
+                                <View style={styles.porcentaje}>
+                                    <Text style={{color: 'white'}}>30%</Text>
+                                </View>
+                            </View>
+                            <Text style={{marginRight: 125, marginTop:1, color: '#3D405B', fontSize: 12}}>Completado</Text>    
                         </View> 
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Álbum</Text>
@@ -70,7 +78,7 @@ export default function Home({ navigation }) {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.casilla}>
-                                   <TouchableOpacity>
+                                   <TouchableOpacity onPress={() => navigation.navigate(AlbumPage)}>
                                     <LinearGradient colors={['#D13256','#FE5F42']}
                                     style={styles.boton}>
                                 <Text style={styles.textoBoton}>Ver álbum</Text>
@@ -96,12 +104,12 @@ export default function Home({ navigation }) {
                                     </TouchableOpacity>   
                                 </View>
                                 <View style={styles.casilla}>
-                                <TouchableOpacity> 
+                                <TouchableOpacity onPress={() => navigation.navigate(FantasyPage)}> 
                                 <LinearGradient colors={['#D13256','#FE5F42']}
                                     style={styles.boton}>
                                     <Text style={styles.textoBoton}>Ver plantilla</Text>
                                 </LinearGradient>
-                                </TouchableOpacity>   
+                                </TouchableOpacity>
                                 </View>
                             </View>
                         </View> 
@@ -125,7 +133,7 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         paddingRight: 15,
-        paddingLeft: 100
+        paddingLeft: 70
     },
     casilla:{
         height: 40,
@@ -138,6 +146,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         height: 30,
         marginTop: 7,
+        marginRight: 8,
         width: 160,
         justifyContent: 'center',
         alignItems: 'center',
@@ -160,7 +169,15 @@ const styles = StyleSheet.create({
         borderBottomEndRadius: 12,
         borderBottomStartRadius: 12,
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        shadowColor: 'black',
+        shadowOffset:{
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,  
+        elevation: 3,      
     },
     boton:{
         height: 30,
@@ -188,12 +205,28 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 110,
         alignItems: 'flex-end',
-        marginLeft: 20
+        marginLeft: 20,
+        flexDirection: 'column'
     },
     sobreImg:{
         marginTop: 15,
         height: '140%',
         resizeMode: 'contain'
+    },
+    barraProgreso:{
+        height: 20,
+        width: 150,
+        backgroundColor: '#D9D9D9',
+        borderRadius: 20,
+        marginTop: -125,
+        marginRight: 60
+    },
+    porcentaje:{
+        height: '100%',
+        width: '50%', //Colocar porcentaje de llenado 
+        backgroundColor: '#3D405B',
+        borderRadius: 20,
+        alignItems: 'center'
     },
     fondo: {
         flex: 1,

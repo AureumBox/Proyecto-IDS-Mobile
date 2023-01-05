@@ -17,6 +17,7 @@ import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
 import { obtainStickers } from '../../services/sticker.services';
 import { ModalPopup } from '../ModalPopup';
 import StickerTemplate from '../StickerTemplate';
+import HomePage from '../../screens/mainScreen/Home';
 
 import logoImg from '../../../assets/app/logo.png';
 import botonXImg from '../../../assets/app/x.png';
