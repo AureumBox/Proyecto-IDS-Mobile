@@ -65,12 +65,10 @@ export const albumSlice = createSlice({
         const teamList = current(state.teamList);
         
         if ((state.currentTeam.index - 1) > 0) {
-          console.log('entro')
           state.lastPagePrevTeam = Math.ceil(
             teamList[state.currentTeam.index - 1].stickers.length /
               STICKER_PER_PAGE
           );
-          console.log(state.lastPagePrevTeam);
         }
       }
     },
