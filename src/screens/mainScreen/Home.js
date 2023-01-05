@@ -11,10 +11,6 @@ import {
 } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import Header from '../../components/HeaderComponent';
-import Sobre from '../../../assets/app/sobre.png';
-import Album from '../../../assets/app/album.png';
-import Fantasy from '../../../assets/app/fantasy.png';
-import AlbumPage from './Album/Album';
 import FantasyPage from './Fantasy';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -23,8 +19,11 @@ import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
 import { obtainStickers } from '../../services/sticker.services';
 import StickerTemplate from '../../components/StickerTemplate';
 
+import Album from './Album/AlbumNavigator';
 import botonXImg from '../../../assets/app/x.png';
 import sobreImg from '../../../assets/app/sobre.png';
+import albumImg from '../../../assets/app/album.png';
+import Fantasy from '../../../assets/app/fantasy.png';
 
 export default function Home({ navigation }) {
     const [loading, setLoading] = useState(false);
@@ -64,7 +63,7 @@ export default function Home({ navigation }) {
         Linking.openURL(redirectUrl);
     };
 
-    const [selected, setSelected] = React.useState("");
+    const [selected, setSelected] = useState("");
     const [isFocus, setIsFocus] = useState(false);
 
     const data = [
@@ -210,7 +209,7 @@ export default function Home({ navigation }) {
                     />
                     <View style={styles.containerCuadro}>
                         <View style={styles.containerImg}>
-                            <Image source={Sobre} style={styles.sobreImg}></Image>
+                            <Image source={sobreImg} style={styles.sobreImg}></Image>
                         </View>
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Sobre diario</Text>
@@ -225,7 +224,7 @@ export default function Home({ navigation }) {
                     </View>
                     <View style={styles.containerCuadro}>
                         <View style={styles.containerImgAlbum}>
-                            <Image source={Album} style={styles.sobreImg}></Image>
+                            <Image source={albumImg} style={styles.sobreImg}></Image>
                             <View style={styles.barraProgreso}>
                                 <View style={styles.porcentaje}>
                                     <Text style={{ color: 'white' }}>30%</Text>
@@ -245,7 +244,7 @@ export default function Home({ navigation }) {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.casilla}>
-                                    <TouchableOpacity onPress={() => navigation.navigate(AlbumPage)}>
+                                    <TouchableOpacity onPress={() => navigation.navigate(Album)}>
                                         <LinearGradient colors={['#D13256', '#FE5F42']}
                                             style={styles.boton}>
                                             <Text style={styles.textoBoton}>Ver álbum</Text>
