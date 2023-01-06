@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import Header from '../../components/HeaderComponent';
 import { ScrollView } from 'react-native';
-import { Searchbar } from 'react-native-paper';
 import {
     MaterialIcons,
     MaterialCommunityIcons,
@@ -23,16 +22,14 @@ export default function Inventory({ navigation }) {
     
     const [opciones, setOpciones] = useState(1);
 
-    const [searchQuery, setSearchQuery] = React.useState('');
-
-    const onChangeSearch = query => setSearchQuery(query);
-
     return (
         <View style={styles.fondo}>
         <Header/>
         <View style={styles.container}>
+            <View style={styles.fondoMercado}>
+            <View style={styles.rectanguloMercado}>
+            <Text style={styles.title}>Mercado</Text>
             <View style={{width: '100%', alignItems: 'center'}}>
-                <Text style={styles.title}>Mercado</Text>
                 <View style={styles.containerButtons}>
                     <TouchableOpacity style={ opciones === 1 ? styles.buttonSelected : styles.button} onPress={() => setOpciones(1)}>
                         <Text style={styles.textButton}>Ofertas globales</Text>
@@ -41,18 +38,14 @@ export default function Inventory({ navigation }) {
                         <Text style={styles.textButton}>Mis subastas</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={ opciones === 3 ? styles.buttonSelected : styles.button} onPress={() => setOpciones(3)}>
-                        <Text style={styles.textButton}>Mis ofertas</Text>
+                        <Text style={styles.textButton}>Mis   ofertas</Text>
                     </TouchableOpacity>
                 </View>
-                <Searchbar
-                    style={{width: width - 50, margin: 20 }}
-                    placeholder="Buscar"
-                    onChangeText={onChangeSearch}
-                    value={searchQuery}
-                />
+            </View>
             </View>
             <ScrollView style={{ width: '100%' }}>
-                <View style={styles.card}>
+                <View>
+                    {opciones == 1 ? <View style={styles.card}>
                     <View style={styles.containerPlayerName}>
                         <Text style={styles.playerName}>Neymar Jr</Text>
                     </View>
@@ -76,8 +69,10 @@ export default function Inventory({ navigation }) {
                     <TouchableOpacity style={styles.editButton}>
                         <Text style={{color: '#fff'}}>Pujar</Text>
                     </TouchableOpacity>
+                </View>: null}
                 </View>
             </ScrollView>
+        </View>
         </View>
         </View>
     )
@@ -88,7 +83,24 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#294851',
+        backgroundColor: '#EAEAEA',
+        padding: 10,
+        paddingTop: 16,
+    },
+    rectanguloMercado:{
+        backgroundColor: '#D7D3DA',
+        height: 100,
+        width: '100%',
+        borderRadius: 10,
+        paddingLeft: 10,
+        paddingRight: 10
+    },
+    fondoMercado:{
+        backgroundColor: '#E2DDDD',
+        height: '100%',
+        width: '100%',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
     },
     editButton: {
         backgroundColor: '#B02419',
@@ -136,53 +148,44 @@ const styles = StyleSheet.create({
         position: 'relative',
         flexDirection: 'row',
     },
-    searchBar: {
-        marginTop: 15,
-        width: 200,
-    },
     fondo: {
         flex: 1,
-        backgroundColor: '#294851',
+        backgroundColor: '#EAEAEA',
     },
     title: {  
-        marginTop: 15,
-        fontWeight: 700,
-        fontSize: '40px',
-        lineHeight: '49px',
-        color: '#fff'
+        marginTop: 2,
+        fontWeight: 'bold',
+        fontSize: '28px',
+        color: '#3D405B'
     },
     buttonSelected: {
-        backgroundColor: '#294249',
-        borderRadius: '10px',
         textAlign: 'center',
         margin: '1.66%',
         padding: 10,
-        borderBottomWidth: 5,
-        borderBottomColor: '#63130B',
+        borderBottomWidth: 3,
+        borderBottomColor: '#D13256',
         width: '30%',
         alignItems: 'center',
         justifyContent: 'center',
     },
     button: {
-        backgroundColor: '#294249',
-        borderRadius: '10px',
         textAlign: 'center',
         margin: '1.66%',
-        padding: 10,
+        padding: 8,
         width: '30%',
         alignItems: 'center',
         justifyContent: 'center',
-        borderBottomWidth: 5,
-        borderBottomColor: '#294249',
     },
     textButton: {
-        fontWeight: 700,
+        fontWeight: 'bold',
         fontSize: '15px',
         lineHeight: '18px',
-        color: '#fff',
+        color: '#3D405B',
+        textAlign: 'center'
     },
     containerButtons: {
         flexDirection: 'row',
-        flexWrap:'wrap'
+        flexWrap:'wrap',
+        justifyContent: 'space-between'
     }
 })
