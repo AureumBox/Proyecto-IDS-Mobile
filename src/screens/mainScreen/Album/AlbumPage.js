@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import SelectTeamModal from "./SelectTeamModal";
-import Header from "../../../components/HeaderComponent";
 import ProgressBar from "./ProgressBar";
 import Carousel from "./Carousel";
 import NoStickerSlot from "./NoStickerSlot";
@@ -121,7 +119,7 @@ export default function AlbumPage() {
           setTeamsModalOpens(false);
         }}
       />
-      <Header  />
+      {/* <Header  /> */}
 
       <View style={styles.container}>
         <ProgressBar />

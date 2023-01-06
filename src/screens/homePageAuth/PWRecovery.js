@@ -6,10 +6,8 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    Image,
     View
 } from "react-native";
-import HPANavigation from "../../constants/HPANavigation";
 import { Ionicons } from '@expo/vector-icons';
 
 export default function PWRecovery({ navigation }) {
@@ -36,7 +34,7 @@ export default function PWRecovery({ navigation }) {
                     </View>
                     {/* Boton Reiniciar Contraseña */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(HPANavigation.PWRESET)}
+                        onPress={() => navigation.navigate('PWReset')}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Enviar correo para reiniciar contraseña</Text>
                     </TouchableOpacity>

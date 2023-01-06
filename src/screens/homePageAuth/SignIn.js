@@ -14,7 +14,6 @@ import { useForm, Controller } from "react-hook-form";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
 import { logIn } from '../../state/authSlice.js';
-import HPANavigation from "../../constants/HPANavigation";
 import { Ionicons } from '@expo/vector-icons';
 
 export default function SignIn({ navigation }) {
@@ -33,7 +32,7 @@ export default function SignIn({ navigation }) {
             setLoading(false);
             if (result.data.token) {
                 dispatch(logIn(result.data.token));
-                navigation.navigate(HPANavigation.HOME);
+                navigation.navigate('HomeScreen');
             }
         } catch (error) {
             if (error?.response?.data) {
@@ -205,7 +204,7 @@ export default function SignIn({ navigation }) {
                     {/* Botones de Aplicaciones */}
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate(HPANavigation.HOME)}
+                            onPress={() => navigation.navigate('HomeScreen')}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -215,7 +214,7 @@ export default function SignIn({ navigation }) {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate(HPANavigation.HOME)}
+                            onPress={() => navigation.navigate('HomeScreen')}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -225,7 +224,7 @@ export default function SignIn({ navigation }) {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate(HPANavigation.HOME)}
+                            onPress={() => navigation.navigate('HomeScreen')}
                             style={styles.button}>
                             <Image
                                 source={{
@@ -237,7 +236,7 @@ export default function SignIn({ navigation }) {
                     </View>
                     {/* Boton Cambiar a pantalla de iniciar sesion */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(HPANavigation.LOGIN)}
+                        onPress={() => navigation.navigate('LogIn')}
                     >
                         <Text style={styles.forgotPW}>¿Ya tienes una cuenta?, ¡Inicia Sesión!</Text>
                     </TouchableOpacity>

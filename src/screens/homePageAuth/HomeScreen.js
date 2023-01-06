@@ -8,7 +8,6 @@ import {
     View,
     Dimensions
 } from "react-native";
-import HPANavigation from "../../constants/HPANavigation";
 import logoVerticalImg from '../../../assets/app/logoVertical.png';
 
 export default function HomeScreen({ navigation }) {
@@ -32,13 +31,13 @@ export default function HomeScreen({ navigation }) {
                 </Text>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(HPANavigation.SIGNIN)}
+                        onPress={() => navigation.navigate('SignIn')}
                         style={styles.button1}
                     >
                         <Text style={styles.buttonText}>Registrarse</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(HPANavigation.LOGIN)}
+                        onPress={() => navigation.navigate('LogIn')}
                         style={styles.button2}
                     >
                         <Text style={styles.buttonText}>Iniciar Sesión</Text>

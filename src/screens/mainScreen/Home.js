@@ -10,20 +10,21 @@ import {
     Linking
 } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import Header from '../../components/HeaderComponent';
-import FantasyPage from './Fantasy';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { ModalPopup } from '../../components/ModalPopup';
 import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
 import { obtainStickers } from '../../services/sticker.services';
 import StickerTemplate from '../../components/StickerTemplate';
 
+// Rutas
 import Album from './Album/AlbumNavigator';
+import FantasyPage from './Fantasy';
+// Imagenes
 import botonXImg from '../../../assets/app/x.png';
 import sobreImg from '../../../assets/app/sobre.png';
 import albumImg from '../../../assets/app/album.png';
-import Fantasy from '../../../assets/app/fantasy.png';
+import fantasyImg from '../../../assets/app/fantasy.png';
 
 export default function Home({ navigation }) {
     const [loading, setLoading] = useState(false);
@@ -163,7 +164,6 @@ export default function Home({ navigation }) {
                 </TouchableOpacity>
             </ModalPopup>
 
-            <Header />
             <View style={styles.container}>
                 <ScrollView>
                     <Text style={styles.textSt}>Home</Text>
@@ -227,7 +227,7 @@ export default function Home({ navigation }) {
                     </View>
                     <View style={styles.containerCuadro}>
                         <View style={styles.containerImg}>
-                            <Image source={Fantasy} style={styles.sobreImg}></Image>
+                            <Image source={fantasyImg} style={styles.sobreImg}></Image>
                         </View>
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Fantasy</Text>

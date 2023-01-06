@@ -7,7 +7,6 @@ import {
   TouchableOpacity
 } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
-import Header from "../../../components/HeaderComponent";
 import AlbumDigital from "../../../../assets/app/album.png";
 import AlbumPage from "./AlbumPage";
 import ProgressBar from "./ProgressBar";
@@ -69,7 +68,7 @@ export default function Album({ navigation }) {
     <View style={styles.fondo}>
       <Spinner visible={loading} textContent={"Cargando..."} />
 
-      <Header />
+      {/* <Header /> */}
       <View style={styles.container}>
         <ProgressBar/>
         <View style={styles.rectangulo}>

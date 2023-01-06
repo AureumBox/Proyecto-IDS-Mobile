@@ -8,7 +8,6 @@ import {
     TextInput,
     View
 } from "react-native";
-import HPANavigation from "../../constants/HPANavigation";
 import { Ionicons } from '@expo/vector-icons';
 
 export default function PWReset({ navigation }) {
@@ -72,7 +71,7 @@ export default function PWReset({ navigation }) {
                     </View>
                     {/* Boton Iniciar Sesión */}
                     <TouchableOpacity
-                        onPress={() => navigation.navigate(HPANavigation.PWRESET)}
+                        onPress={() => navigation.navigate('PWReset')}
                         style={styles.logInButton}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Reiniciar Contraseña</Text>
                     </TouchableOpacity>

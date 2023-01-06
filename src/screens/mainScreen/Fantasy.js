@@ -5,14 +5,12 @@ import {
     View,
     Dimensions
 } from "react-native";
-import Header from '../../components/HeaderComponent';
 
 export default function Fantasy({ navigation }) {
     const { height } = Dimensions.get('window')
 
     return (
         <View style={styles.fondo}>
-            <Header />
             <View style={styles.container}>
                 <Text style={styles.textSt}>
                     Fantasy
