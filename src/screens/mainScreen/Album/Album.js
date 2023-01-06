@@ -64,19 +64,15 @@ export default function Album({ navigation }) {
     <View style={styles.fondo}>
       <Spinner visible={loading} textContent={"Cargando..."} />
 
-      {/* <Header /> */}
       <View style={styles.container}>
-        <ProgressBar/>
-        <View style={styles.rectangulo}>
+        <ProgressBar />
+        <TouchableOpacity style={styles.rectangulo} onPress={() => navigation.navigate('AlbumPage')}>
           <Image source={AlbumDigital} style={styles.albumdig}></Image>
-        </View>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate('AlbumPage')}
-          style={styles.boton}
-        >
-          <Text style={styles.textSt}>¡Pega tus cromos!</Text>
         </TouchableOpacity>
+
+        <View style={styles.boton}>
+          <Text style={styles.textSt}>¡Pega tus cromos!</Text>
+        </View>
       </View>
     </View>
   );
