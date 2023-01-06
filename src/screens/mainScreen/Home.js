@@ -181,8 +181,11 @@ export default function Home({ navigation }) {
                         <View style={styles.containerinfo}>
                             <Text style={styles.textoFeature}>Sobre diario</Text>
                             <Text style={styles.textoSecondary}>Disponible en 00:00:00</Text>
-                            <TouchableOpacity onPress={() => setVisibleAnuncio(true)}
-                            >
+                            <TouchableOpacity onPress={() => {
+                                onClaimClick()
+                                setVisibleAnuncio(false)
+                                setVisibleStickers(true)
+                            }}>
                                 <LinearGradient colors={['#D13256', '#FE5F42']}
                                     style={styles.botonSobre}>
                                     <Text style={styles.textoBoton}>Reclamar</Text>
