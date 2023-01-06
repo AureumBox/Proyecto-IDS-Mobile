@@ -16,14 +16,14 @@ import logoImg from '../../../assets/app/logoHorizontal.png';
 
 const { width, height } = Dimensions.get('window');
 
-export default function HeaderComponent() {
+export default function HeaderComponent({money = 0}) {
   return (
     <SafeAreaView style={styles.header}>
       {/* Header Layout */}
       <Image source={logoImg} style={styles.logo} />
       <View style={styles.coins}>
         <Icon name="money-dollar-circle-fill" size="30" color="#63130B" />
-        <Text style={styles.coinsText}>999</Text>
+        <Text style={styles.coinsText}>{money}</Text>
       </View>
     </SafeAreaView>
   );
