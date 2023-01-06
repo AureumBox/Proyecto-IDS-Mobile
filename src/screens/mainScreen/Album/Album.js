@@ -6,17 +6,13 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
-import AlbumDigital from "../../../../assets/app/album.png";
-import AlbumPage from "./AlbumPage";
+import { setPercentage, setTeamList } from "../../../state/albumSlice.js";
+import { fetchAlbumInfo, fetchTeamsInfo } from "../../../services/inventory.services";
 import ProgressBar from "./ProgressBar";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAlbumInfo,
-  fetchTeamsInfo,
-} from "../../../services/inventory.services";
-import { setPercentage, setTeamList } from "../../../state/albumSlice.js";
+import AlbumDigital from "../../../../assets/app/album.png";
 
 export default function Album({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -76,7 +72,7 @@ export default function Album({ navigation }) {
         </View>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate(AlbumPage)}
+          onPress={() => navigation.navigate('AlbumPage')}
           style={styles.boton}
         >
           <Text style={styles.textSt}>¡Pega tus cromos!</Text>

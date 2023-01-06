@@ -17,9 +17,6 @@ import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
 import { obtainStickers } from '../../services/sticker.services';
 import StickerTemplate from '../../components/StickerTemplate';
 
-// Rutas
-import Album from './Album/AlbumNavigator';
-import FantasyPage from './Fantasy';
 // Imagenes
 import botonXImg from '../../../assets/app/x.png';
 import sobreImg from '../../../assets/app/sobre.png';
@@ -215,7 +212,7 @@ export default function Home({ navigation }) {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.casilla}>
-                                    <TouchableOpacity onPress={() => navigation.navigate(Album)}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('AlbumNavigator')}>
                                         <LinearGradient colors={['#D13256', '#FE5F42']}
                                             style={styles.boton}>
                                             <Text style={styles.textoBoton}>Ver álbum</Text>
@@ -241,7 +238,7 @@ export default function Home({ navigation }) {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.casilla}>
-                                    <TouchableOpacity onPress={() => navigation.navigate(FantasyPage)}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('Fantasy')}>
                                         <LinearGradient colors={['#D13256', '#FE5F42']}
                                             style={styles.boton}>
                                             <Text style={styles.textoBoton}>Ver plantilla</Text>

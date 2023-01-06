@@ -2,13 +2,10 @@ import React from "react";
 import {
     StyleSheet,
     Text,
-    View,
-    Dimensions
+    View
 } from "react-native";
 
-export default function Fantasy({ navigation }) {
-    const { height } = Dimensions.get('window')
-
+export default function Fantasy() {
     return (
         <View style={styles.fondo}>
             <View style={styles.container}>

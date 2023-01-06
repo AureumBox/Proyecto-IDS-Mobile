@@ -2,13 +2,10 @@ import React from "react";
 import {
     StyleSheet,
     Text,
-    View,
-    Dimensions
+    View
 } from "react-native";
 
-export default function Inventory({ navigation }) {
-    const { height } = Dimensions.get('window')
-
+export default function Inventory() {
     return (
         <View style={styles.fondo}>
             <View style={styles.container}>
