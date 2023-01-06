@@ -52,7 +52,7 @@ export const fetchSquad = async (token, eventId) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("DATA squad", data, "---");
+    // console.log("DATA squad", data, "---");
 
     if (!data.item || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");

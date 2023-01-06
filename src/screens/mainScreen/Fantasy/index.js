@@ -44,28 +44,9 @@ export default function Fantasy({ navigation }) {
     return finalArray;
   }
 
-  const addPlayer = (key) => {
-    const position = selectedPlayer.position;
-    console.log(key, position, selectedPlayer.id);
-    if (position == "Delantero" && key >= 0 && key <= 2) {
-      console.log("posicion correcta");
-      insertPlayer(token, eventId, selectedPlayer);
-    } else if (position == "MedioCampo" && key >= 3 && key <= 5) {
-      console.log("posicion correcta");
-      insertPlayer(token, eventId, selectedPlayer);
-    } else if (position == "Defensa" && key >= 6 && key <= 9) {
-      console.log("posicion correcta");
-      insertPlayer(token, eventId, selectedPlayer);
-    } else if (position == "Arquero" && key == 10) {
-      console.log("posicion correcta");
-      insertPlayer(token, eventId, selectedPlayer);
-    } else {
-      alert("Posicion incorrecta");
-    }
-  };
-
   const insertPlayer = async (token, eventId, selectedPlayer) => {
-    setLoading(true);
+    console.log("insertanding", token, eventId, selectedPlayer)
+    /* setLoading(true);
     try {
       const data = await fantasyServices.insertPlayer(
         token,
@@ -77,10 +58,11 @@ export default function Fantasy({ navigation }) {
       alert(error.message);
     } finally {
       setLoading(false);
-    }
+    } */
   };
 
   const loadSquad = useCallback(async () => {
+    console.log("alineacion")
     setLoading(true);
     try {
       const data = await fantasyServices.fetchSquad(token, eventId);
@@ -168,7 +150,7 @@ export default function Fantasy({ navigation }) {
             <Goalkeeper players={arrayGoalkeepers} />
             <Defender players={arrayDefenders} />
             <Midfielder players={arrayMidfielders} />
-            <Foward players={arrayFowarders} />
+            <Foward players={arrayFowarders} insertPlayer={insertPlayer} />
           </View>
 
           {/*  */}
