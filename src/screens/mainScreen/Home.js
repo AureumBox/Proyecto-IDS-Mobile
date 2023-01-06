@@ -91,8 +91,6 @@ export default function Home({ navigation }) {
 
   const joinGame = async (token, id) => {
     const join = await eventServices.joinGame(token, id);
-    console.log(JSON.stringify(join));
-    console.log(join.message);
 
     /* Bienvenida al evento */
     alert(join.message);
@@ -100,7 +98,6 @@ export default function Home({ navigation }) {
   };
 
   const loadEventList = useCallback(async () => {
-    console.log("fetch lista");
     setLoading(true);
     try {
       const data = await eventServices.fetchEventsList(token);
