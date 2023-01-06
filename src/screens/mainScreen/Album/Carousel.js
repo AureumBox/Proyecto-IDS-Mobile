@@ -83,7 +83,6 @@ export default function Carousel() {
           data={stickers}
           keyExtractor={(_, index) => index.toString()}
           horizontal
-          pagingEnabled
           ListEmptyComponent={noStickers}
           ListFooterComponent={() => <View style={styles.separator} />}
           ListHeaderComponent={() => <View style={styles.separator} />}

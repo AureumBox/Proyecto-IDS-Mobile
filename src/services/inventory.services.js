@@ -72,10 +72,10 @@ export const fetchCarousel = async (token, eventId) => {
 
 export const claimSticker = async (token, eventId, stickerId) => {
   try {
-    const { data } = await axios.post(
+    const data = await axios.post(
       `${URL_INV}/public-events/${eventId}/claim-sticker`,
       {
-        stickerId: stickerId,
+        stickerId: stickerId
       },
       {
         headers: {

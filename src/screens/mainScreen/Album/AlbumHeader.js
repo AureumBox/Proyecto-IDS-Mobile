@@ -11,6 +11,7 @@ import {
   setPrevIndex,
   setNextPage,
   setPrevPage,
+  setCurrentPage,
 } from "../../../state/albumSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -28,7 +29,7 @@ export default function AlbumHeader({ teamName = "", setFilter }) {
       dispatch(setPrevIndex());
     }
   };
-
+  
   const navNextPage = () => {
     if (currentPage < pages) {
       dispatch(setNextPage());
