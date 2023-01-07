@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
   Image,
-  TouchableOpacity,
   Dimensions,
-  SafeAreaView,
-  Text,
-  Linking
+  Text
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { useSelector } from "react-redux";
 import Icon from 'react-native-remix-icon';
 
 import logoImg from '../../../assets/app/logoHorizontal.png';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-export default function HeaderComponent({money = 0}) {
+export default function HeaderComponent() {
+  const { money } = useSelector((state) => state.auth);
   return (
-    <SafeAreaView style={styles.header}>
-      {/* Header Layout */}
+    <View style={styles.header}>
       <Image source={logoImg} style={styles.logo} />
       <View style={styles.coins}>
         <Icon name="money-dollar-circle-fill" size="30" color="#63130B" />
         <Text style={styles.coinsText}>{money}</Text>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   header: {
     width: width,
-    height: height / 11,
     backgroundColor: 'white',
+    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -47,15 +44,13 @@ const styles = StyleSheet.create({
     width: 80,
     height: 30,
     justifyContent: 'center',
-    height: 30,
-    justifyContent: 'center',
     backgroundColor: '#D9D9D9',
     borderRadius: 18,
     right: width / 16
   },
   coinsText: {
-    position: 'absolute', 
-    left: '40%', 
+    position: 'absolute',
+    left: '40%',
     fontSize: 20,
     fontWeight: '600'
   },

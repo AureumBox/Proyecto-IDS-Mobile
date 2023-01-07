@@ -32,7 +32,10 @@
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "apiUrl": "https://backend-staging.playoffside.online"
+      "apiUrl": "https://backend.playoffside.online",
+      "eas": {
+        "projectId": "a06f98c2-2463-4898-b584-c5c55ccc2cb9"
+      }
     },
     "runtimeVersion": {
       "policy": "sdkVersion"

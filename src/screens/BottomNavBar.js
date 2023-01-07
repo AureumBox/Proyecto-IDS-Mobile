@@ -3,13 +3,13 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
+import Header from '../components/HeaderComponent';
 
 // Screen Imports
 import Home from './mainScreen/Home';
 import AlbumNavigator from './mainScreen/Album/AlbumNavigator';
 import Fantasy from './mainScreen/Fantasy';
 import Shop from './mainScreen/Shop';
-import Profile from './mainScreen/Profile';
 
 const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();
@@ -31,13 +31,12 @@ export default function BottomNavBar({ navigation }) {
                             iconName = focused ? 'football' : 'football-outline'
                         } else if (rn === 'Shop') {
                             iconName = focused ? 'basket' : 'basket-outline'
-                        } else if (rn === 'Profile') {
-                            iconName = focused ? 'person' : 'person-outline'
                         }
-
                         return <Ionicons name={iconName} color={color} size={45} />
                     },
-                    headerShown: false,
+                    headerTitle: () => <Header/>,
+                    headerBackVisible: false,
+                    headerBackTitleVisible: false,
                     tabBarShowLabel: false,
                     tabBarActiveTintColor: '#C10001',
                     tabBarInactiveTintColor: 'grey',
@@ -47,7 +46,6 @@ export default function BottomNavBar({ navigation }) {
                 <Tab.Screen name='AlbumNavigator' component={AlbumNavigator} />
                 <Tab.Screen name='Fantasy' component={Fantasy} />
                 <Tab.Screen name='Shop' component={Shop} />
-                <Tab.Screen name='Profile' component={Profile} />
             </Tab.Navigator>
         </NavigationContainer>
     )

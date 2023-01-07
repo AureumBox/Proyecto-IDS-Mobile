@@ -9,24 +9,22 @@ import {
   TouchableOpacity,
   Linking,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import Header from "../../components/HeaderComponent";
-import FantasyPage from "./Fantasy";
+import { LinearGradient } from 'expo-linear-gradient';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { ModalPopup } from '../../components/ModalPopup';
+import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
+import { obtainStickers } from '../../services/sticker.services';
+import StickerTemplate from '../../components/StickerTemplate';
 import { useDispatch, useSelector } from "react-redux";
-import Spinner from "react-native-loading-spinner-overlay";
-import { ModalPopup } from "../../components/ModalPopup";
-import { watchAd, getAdRedirectUrl } from "../../services/ad.services";
-import { obtainStickers } from "../../services/sticker.services";
-import StickerTemplate from "../../components/StickerTemplate";
 import * as eventServices from "../../services/event.services";
 import * as userServices from "../../state/authSlice";
 import * as fantasyServices from "../../state/fantasySlice";
 
-import Album from "./Album/AlbumNavigator";
-import botonXImg from "../../../assets/app/x.png";
-import sobreImg from "../../../assets/app/sobre.png";
-import albumImg from "../../../assets/app/album.png";
-import Fantasy from "../../../assets/app/fantasy.png";
+// Imagenes
+import botonXImg from '../../../assets/app/x.png';
+import sobreImg from '../../../assets/app/sobre.png';
+import albumImg from '../../../assets/app/album.png';
+import fantasyImg from '../../../assets/app/fantasy.png';
 
 export default function Home({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -40,7 +38,6 @@ export default function Home({ navigation }) {
   const [eventsListPicker, setEventsListPicker] = useState([]);
   const [eventsList, setEventsList] = useState([]);
   const { token } = useSelector((state) => state.auth);
-  const { money } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const onClaimClick = async () => {
@@ -83,7 +80,9 @@ export default function Home({ navigation }) {
       dispatch(userServices.setCurrentEventId(event?.id));
       dispatch(fantasyServices.setPoints(data?.points));
     } catch (error) {
-      alert(error);
+      // 💀💀💀💀💀💀
+      // alert(error);
+      // 💀💀💀💀💀💀
     } finally {
       setLoading(false);
     }
@@ -93,7 +92,8 @@ export default function Home({ navigation }) {
     const join = await eventServices.joinGame(token, id);
 
     /* Bienvenida al evento */
-    alert(join.message);
+    // alert(join.message);
+    // 💀💀💀💀💀💀
     setJoinedEvent(true);
   };
 
@@ -108,7 +108,9 @@ export default function Home({ navigation }) {
       });
       setEventsListPicker(newArray);
     } catch (error) {
-      alert(error.message);
+      // 💀💀💀💀💀💀
+      // alert(error.message);
+      // 💀💀💀💀💀💀
     } finally {
       setLoading(false);
       setJoinedEvent(false);
@@ -209,7 +211,6 @@ export default function Home({ navigation }) {
         </TouchableOpacity>
       </ModalPopup>
 
-      <Header money={money} />
       <View style={styles.container}>
         <ScrollView>
           <Text style={styles.textSt}>Home</Text>
@@ -280,7 +281,7 @@ export default function Home({ navigation }) {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.casilla}>
-                  <TouchableOpacity onPress={() => navigation.navigate(Album)}>
+                  <TouchableOpacity onPress={() => navigation.navigate('AlbumNavigator')}>
                     <LinearGradient
                       colors={["#D13256", "#FE5F42"]}
                       style={styles.boton}
@@ -294,7 +295,7 @@ export default function Home({ navigation }) {
           </View>
           <View style={styles.containerCuadro}>
             <View style={styles.containerImg}>
-              <Image source={Fantasy} style={styles.sobreImg}></Image>
+              <Image source={fantasyImg} style={styles.sobreImg}></Image>
             </View>
             <View style={styles.containerinfo}>
               <Text style={styles.textoFeature}>Fantasy</Text>
@@ -311,7 +312,7 @@ export default function Home({ navigation }) {
                 </View>
                 <View style={styles.casilla}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate(FantasyPage)}
+                    onPress={() => navigation.navigate('Fantasy')}
                   >
                     <LinearGradient
                       colors={["#D13256", "#FE5F42"]}

@@ -6,18 +6,13 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
-import Header from "../../../components/HeaderComponent";
-import AlbumDigital from "../../../../assets/app/album.png";
-import AlbumPage from "./AlbumPage";
+import { setPercentage, setTeamList } from "../../../state/albumSlice.js";
+import { fetchAlbumInfo, fetchTeamsInfo } from "../../../services/inventory.services";
 import ProgressBar from "./ProgressBar";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchAlbumInfo,
-  fetchTeamsInfo,
-} from "../../../services/inventory.services";
-import { setPercentage, setTeamList } from "../../../state/albumSlice.js";
+import AlbumDigital from "../../../../assets/app/album.png";
 
 export default function Album({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -26,7 +21,6 @@ export default function Album({ navigation }) {
 
   const eventId = 1;
   const { token } = useSelector((state) => state.auth);
-  const percentage = useSelector((state) => state.album.percentage);
 
   const dispatch = useDispatch();
 
@@ -69,19 +63,13 @@ export default function Album({ navigation }) {
     <View style={styles.fondo}>
       <Spinner visible={loading} textContent={"Cargando..."} />
 
-      <Header />
       <View style={styles.container}>
-        <ProgressBar/>
-        <View style={styles.rectangulo}>
+        <ProgressBar />
+        <TouchableOpacity style={styles.rectangulo} onPress={() => navigation.navigate('AlbumPage')}>
           <Image source={AlbumDigital} style={styles.albumdig}></Image>
-        </View>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate(AlbumPage)}
-          style={styles.boton}
-        >
-          <Text style={styles.textSt}>¡Pega tus cromos!</Text>
         </TouchableOpacity>
+
+          <Text style={styles.textSt}>¡Pega tus cromos!</Text>
       </View>
     </View>
   );

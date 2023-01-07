@@ -2,17 +2,12 @@ import React from "react";
 import {
     StyleSheet,
     Text,
-    View,
-    Dimensions
+    View
 } from "react-native";
-import Header from '../../components/HeaderComponent';
 
-export default function Inventory({ navigation }) {
-    const { height } = Dimensions.get('window')
-
+export default function Inventory() {
     return (
         <View style={styles.fondo}>
-            <Header />
             <View style={styles.container}>
                 <Text style={styles.textSt}>
                     Tienda

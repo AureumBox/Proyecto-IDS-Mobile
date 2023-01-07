@@ -2,17 +2,12 @@ import React from "react";
 import {
     StyleSheet,
     Text,
-    View,
-    Dimensions
+    View
 } from "react-native";
-import Header from '../../components/HeaderComponent';
 
-export default function Fantasy({ navigation }) {
-    const { height } = Dimensions.get('window')
-
+export default function Fantasy() {
     return (
         <View style={styles.fondo}>
-            <Header />
             <View style={styles.container}>
                 <Text style={styles.textSt}>
                     Fantasy

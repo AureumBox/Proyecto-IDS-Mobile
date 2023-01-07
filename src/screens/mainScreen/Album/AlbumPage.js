@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import SelectTeamModal from "./SelectTeamModal";
-import Header from "../../../components/HeaderComponent";
 import ProgressBar from "./ProgressBar";
 import Carousel from "./Carousel";
 import NoStickerSlot from "./NoStickerSlot";
@@ -34,7 +32,6 @@ export default function AlbumPage() {
 
   const { token } = useSelector((state) => state.auth);
   const teamName = useSelector((state) => state.album.currentTeam.name);
-  const percentage = useSelector((state) => state.album.percentage);
   const teamList = useSelector((state) => state.album.teamList);
   const index = useSelector((state) => state.album.currentTeam.index);
   const stickerSelected = useSelector((state) => state.album.idStickerSelected);
@@ -121,7 +118,7 @@ export default function AlbumPage() {
           setTeamsModalOpens(false);
         }}
       />
-      <Header  />
+      {/* <Header  /> */}
 
       <View style={styles.container}>
         <ProgressBar />
