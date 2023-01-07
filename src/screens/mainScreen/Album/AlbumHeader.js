@@ -41,7 +41,7 @@ export default function AlbumHeader({ teamName = "", setFilter }) {
   return (
     <View style={styles.barra}>
       <TouchableOpacity style={styles.flecha} onPress={navPrevPage}>
-        <Ionicons name="chevron-back-outline" size={24} color="white" />
+        <Ionicons name="chevron-back-outline" size={24} color="red" />
       </TouchableOpacity>
 
       <TouchableOpacity 
@@ -54,7 +54,7 @@ export default function AlbumHeader({ teamName = "", setFilter }) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.flecha} onPress={navNextPage}>
-        <Ionicons name="chevron-forward-outline" size={24} color="white" />
+        <Ionicons name="chevron-forward-outline" size={24} color="red" />
       </TouchableOpacity>
     </View>
   );
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   barra: {
-    backgroundColor: "#2A555E",
+    backgroundColor: "#FAF7F7",
     width: "100%",
     height: "12%",
     resizeMode: "contain",
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   pais: {
     fontWeight: "bold",
-    color: "white",
+    color: "red",
     fontSize: 25,
   },
 });
