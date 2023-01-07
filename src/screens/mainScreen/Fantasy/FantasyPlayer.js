@@ -16,6 +16,7 @@ export default function FantasyPlayer({ player = {},  removePlayer}) {
 
   const handlePress = () => {
     try {
+      console.log(player?.position)
       removePlayer(token, eventId, player);
     } catch (error) {
       alert(error.message);

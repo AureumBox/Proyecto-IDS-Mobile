@@ -12,20 +12,13 @@ import Header from "../../../components/HeaderComponent";
 import FantasyDrawer from "./FantasyDrawer";
 import Cancha from "../../../../assets/cancha.jpg";
 import { IconButton, MD3Colors } from "react-native-paper";
-import { TextInput } from "react-native-paper";
-import EmptyPlayer from "./EmptyPlayer";
 import * as fantasyServices from "../../../services/fantasy.services";
 import * as fantasySlice from "../../../state/fantasySlice";
-import FantasyPlayer from "./FantasyPlayer";
-import Goalkeeper from "./Goalkeeper";
-import Defender from "./Defender";
-import Midfielder from "./Midfielder";
-import Foward from "./Forward";
+import PlayerRow from "./PlayerRow";
 
 export default function Fantasy({ navigation }) {
   const { height } = Dimensions.get("window");
   const { token } = useSelector((state) => state.auth);
-  const { selectedPlayer } = useSelector((state) => state.fantasy);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [arrayMidfielders, setArrayMidfielders] = useState([]);
@@ -44,10 +37,8 @@ export default function Fantasy({ navigation }) {
     return finalArray;
   }
 
- 
-
   const loadSquad = useCallback(async () => {
-    console.log("alineacion")
+    console.log("alineacion");
     setLoading(true);
     try {
       const data = await fantasyServices.fetchSquad(token, eventId);
@@ -83,7 +74,7 @@ export default function Fantasy({ navigation }) {
     } finally {
       setLoading(false);
     }
-  }, [token]);  
+  }, [token]);
   useEffect(() => {
     loadSquad();
   }, [loadSquad]);
@@ -96,31 +87,30 @@ export default function Fantasy({ navigation }) {
         eventId,
         player?.id
       );
-      loadSquad();
       dispatch(fantasySlice.setSelectedPlayer({}));
+      loadSquad();
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
-    } 
+    }
   };
-  
+
   const insertPlayer = async (token, eventId, selectedPlayer) => {
-    console.log("insertanding", token, eventId, selectedPlayer?.id)
-     setLoading(true);
+    setLoading(true);
     try {
       const data = await fantasyServices.insertPlayer(
         token,
         eventId,
         selectedPlayer
       );
-      loadSquad();
       dispatch(fantasySlice.setSelectedPlayer({}));
+      loadSquad();
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
-    } 
+    }
   };
 
   return (
@@ -167,10 +157,30 @@ export default function Fantasy({ navigation }) {
         <View style={styles.containerCancha}>
           <Image source={Cancha} style={styles.canchaImg} />
           <View style={styles.contJugadoresCancha}>
-            <Foward players={arrayGoalkeepers} insertPlayer={insertPlayer} position={"goalkeeper"}/>
-            <Foward players={arrayDefenders} insertPlayer={insertPlayer} position={"defender"}/>
-            <Foward players={arrayFowarders} insertPlayer={insertPlayer} position={"midfielder"}/>
-            <Foward players={arrayMidfielders} insertPlayer={insertPlayer} position={"forward"} removePlayer={removePlayer}/>
+            <PlayerRow
+              position={"goalkeeper"}
+              players={arrayGoalkeepers}
+              insertPlayer={insertPlayer}
+              removePlayer={removePlayer}
+            />
+            <PlayerRow
+              position={"defender"}
+              players={arrayDefenders}
+              insertPlayer={insertPlayer}
+              removePlayer={removePlayer}
+            />
+            <PlayerRow
+              position={"midfielder"}
+              players={arrayMidfielders}
+              insertPlayer={insertPlayer}
+              removePlayer={removePlayer}
+            />
+            <PlayerRow
+              position={"forward"}
+              players={arrayFowarders}
+              insertPlayer={insertPlayer}
+              removePlayer={removePlayer}
+            />
           </View>
 
           {/*  */}
