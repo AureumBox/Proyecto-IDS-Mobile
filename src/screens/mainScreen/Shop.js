@@ -18,6 +18,7 @@ import {
   
   import { Searchbar } from 'react-native-paper';
   import { SelectList } from 'react-native-dropdown-select-list';
+  import { Entypo } from '@expo/vector-icons';
 
   import JugadorBra from '../../../assets/app/bra_10.png';
   import MoneyIcon from '../../../assets/app/moneyIcon.png';
@@ -82,7 +83,13 @@ export default function Inventory({ navigation }) {
             <ScrollView style={{ width: '100%' }}>
                 <View style={{paddingTop:5}}>
                     {opciones == 1 ? <View style={{alignItems: 'center'}}>
-                    <Image style={{height: 24, width: 24, alignSelf: 'flex-end', marginRight: 10, marginBottom: -15}} source={Ayuda}/>    
+                <View style={{flexDirection: 'column', width: '90%', alignItems: 'flex-end', marginBottom: -15}}>    
+                <TouchableOpacity>
+                <LinearGradient colors={['#D13256', '#FE5F42']} style={{borderRadius:15, padding:3}}>   
+                <Entypo name="help" size={22} color="white" />
+                </LinearGradient> 
+                </TouchableOpacity> 
+                </View>    
                     <Searchbar
                      style={{width: width - 130,height: 35, margin: 20, borderRadius: 25}}
                      placeholder="Buscar"
@@ -272,7 +279,13 @@ export default function Inventory({ navigation }) {
                 </View>
                 : null}
                 {opciones == 2 ? <View style={{alignItems: 'center'}}>
-                <Image style={{height: 24, width: 24, alignSelf: 'flex-end', marginRight: 10, marginBottom: -15}} source={Ayuda}/>     
+                <View style={{flexDirection: 'column', width: '90%', alignItems: 'flex-end', marginBottom: -15}}>    
+                <TouchableOpacity>
+                <LinearGradient colors={['#D13256', '#FE5F42']} style={{borderRadius:15, padding:3}}>   
+                <Entypo name="help" size={22} color="white" />
+                </LinearGradient> 
+                </TouchableOpacity> 
+                </View>   
                 <Searchbar
                      style={{width: width - 130,height: 35, margin: 20, borderRadius: 25}}
                      placeholder="Buscar"
@@ -415,7 +428,13 @@ export default function Inventory({ navigation }) {
 
                 {opciones == 3 ? 
                 <View style={{alignItems: 'center'}}>
-                <Image style={{height: 24, width: 24, alignSelf: 'flex-end', marginRight: 10, marginBottom: -15}} source={Ayuda}/>    
+                <View style={{flexDirection: 'column', width: '90%', alignItems: 'flex-end', marginBottom: -15}}>    
+                <TouchableOpacity>
+                <LinearGradient colors={['#D13256', '#FE5F42']} style={{borderRadius:15, padding:3}}>   
+                <Entypo name="help" size={22} color="white" />
+                </LinearGradient> 
+                </TouchableOpacity> 
+                </View>   
                 <Searchbar
                  style={{width: width - 130,height: 35, margin: 20, borderRadius: 25}}
                  placeholder="Buscar"
