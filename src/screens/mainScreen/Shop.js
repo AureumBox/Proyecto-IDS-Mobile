@@ -25,7 +25,7 @@ import {
   import Reloj from '../../../assets/app/reloj.png';
   import Bra from '../../../assets/app/bra.png';
 
-export default function Inventory({ navigation }) {
+export default function Shop({ navigation }) {
     const { height, width } = Dimensions.get('window')
     const [visible, setVisible] = React.useState(false);
     const hideDialog = () => setVisible(false);

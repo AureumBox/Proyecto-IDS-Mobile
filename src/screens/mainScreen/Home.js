@@ -235,11 +235,9 @@ export default function Home({ navigation }) {
                             <Text style={styles.textoSecondary}>Arma tu equipo ideal</Text>
                             <View style={styles.espacio}>
                                 <View style={styles.casilla}>
-                                    <TouchableOpacity>
-                                        <View style={styles.botonSecondary}>
+                                        <TouchableOpacity style={styles.botonSecondary} onPress={() => navigation.navigate('Shop')}>
                                             <Text style={styles.textoBotonSeconday}>Ver subastas</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                        </TouchableOpacity>
                                 </View>
                                 <View style={styles.casilla}>
                                     <TouchableOpacity onPress={() => navigation.navigate(FantasyPage)}>
