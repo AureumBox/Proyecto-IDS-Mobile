@@ -15,6 +15,7 @@ import { useForm, Controller } from "react-hook-form";
 import { login } from "../../services/auth.services";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function LogIn({ navigation }) {
     const [loading, setLoading] = useState(false);
@@ -137,11 +138,13 @@ export default function LogIn({ navigation }) {
                         </Text>
                     </TouchableOpacity>
                     {/* Boton Iniciar Sesión */}
+                    <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
                     <TouchableOpacity
                         onPress={handleSubmit(sendLoginData)}
-                        style={styles.logInButton}>
+                        style={{width: '100%', alignItems: 'center'}}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Iniciar Sesión</Text>
                     </TouchableOpacity>
+                    </LinearGradient>
 
                     <Text style={{ textAlign: 'center' }}>o Inicia Sesión con:</Text>
 

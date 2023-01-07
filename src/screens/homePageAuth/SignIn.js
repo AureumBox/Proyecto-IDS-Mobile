@@ -15,6 +15,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { useDispatch } from 'react-redux'
 import { logIn } from '../../state/authSlice.js';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function SignIn({ navigation }) {
     const [loading, setLoading] = useState(false);
@@ -194,11 +195,13 @@ export default function SignIn({ navigation }) {
                         </TouchableOpacity>
                     </View>
                     {/* Botón Registrarte */}
+                    <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
                     <TouchableOpacity
                         onPress={handleSubmit(sendRegisterData)}
-                        style={styles.logInButton}>
+                        style={{width: '100%', alignItems: 'center'}}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
                     </TouchableOpacity>
+                    </LinearGradient>
                     <Text style={{ textAlign: 'center' }}>o Regístrate con:</Text>
 
                     {/* Botones de Aplicaciones */}
