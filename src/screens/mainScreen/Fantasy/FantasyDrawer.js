@@ -5,14 +5,13 @@ import {
   View,
   Dimensions,
   Image,
-  ScrollView,
   TouchableOpacity,
   FlatList,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInput } from "react-native-paper";
-import { Checkbox } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import Header from "../../../components/HeaderComponent";
 import PlayerTemplate from "../../../components/PlayerTemplate";
@@ -141,6 +140,7 @@ export default function Inventorytest({ navigation }) {
 
       {/* Jugadores fantasy */}
       <View style={{ margin: 10 }}>
+      <Spinner visible={loading} textContent={"Cargando..."} />
         <FlatList
           data={bench}
           keyExtractor={(_, index) => index.toString()}

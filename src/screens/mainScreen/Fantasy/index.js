@@ -15,6 +15,7 @@ import { IconButton, MD3Colors } from "react-native-paper";
 import * as fantasyServices from "../../../services/fantasy.services";
 import * as fantasySlice from "../../../state/fantasySlice";
 import PlayerRow from "./PlayerRow";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default function Fantasy({ navigation }) {
   const { height } = Dimensions.get("window");
@@ -116,6 +117,8 @@ export default function Fantasy({ navigation }) {
   return (
     <View style={styles.fondo}>
       <Header />
+
+      <Spinner visible={loading} textContent={"Cargando..."} />
 
       <View style={styles.container}>
         {/* Drawer */}

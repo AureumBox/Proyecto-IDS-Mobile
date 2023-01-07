@@ -18,7 +18,6 @@ export default function EmptyPlayer({ idCode = 0, nameCode = 0, position, insert
     midfielder: "Mediocampista",
   };
 
-  const [loading, setLoading] = useState(false);
   const { selectedPlayer } = useSelector((state) => state.fantasy);
   const { token } = useSelector((state) => state.auth);
 
