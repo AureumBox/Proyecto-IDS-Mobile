@@ -24,7 +24,6 @@ import {
   import MoneyIcon from '../../../assets/app/moneyIcon.png';
   import Reloj from '../../../assets/app/reloj.png';
   import Bra from '../../../assets/app/bra.png';
-  import Ayuda from '../../../assets/app/ayuda.png';
 
 export default function Inventory({ navigation }) {
     const { height, width } = Dimensions.get('window')
@@ -308,9 +307,11 @@ export default function Inventory({ navigation }) {
                     />
                     </View>
                     <View style={styles.shadow}>
+                    <TouchableOpacity style={{alignItems: 'center'}}>        
                     <LinearGradient style={styles.botonañadir} colors={['#D13256', '#FE5F42']}>
                     <Text style={styles.textAñadir}>+  Añade tus jugadores al mercado</Text>
                     </LinearGradient> 
+                    </TouchableOpacity>
                     </View>   
 
                     <View style={styles.card}>
@@ -679,7 +680,7 @@ const styles = StyleSheet.create({
         fontWeight: '600'
     },
     botonañadir:{
-        width: '80%', 
+        width: '100%', 
         height: 40,
         borderRadius: 10,
         padding: 8,
@@ -769,7 +770,7 @@ const styles = StyleSheet.create({
     },
     textAñadir: {
         fontWeight: 'bold',
-        fontSize: "14",
+        fontSize: "12",
         lineHeight: '18px',
         color: 'white',
         textAlign: 'left'
