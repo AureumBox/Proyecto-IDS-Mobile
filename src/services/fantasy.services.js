@@ -81,7 +81,9 @@ export const insertPlayer = async (token, eventId, player) => {
       }
     );
 
-    if (!data.items || !data.success) {
+    console.log(data)
+
+    if (!data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
 
@@ -96,17 +98,19 @@ export const insertPlayer = async (token, eventId, player) => {
   }
 };
 
-export const extractPlayer = async (token, eventId, playerId) => {
+export const removePlayer = async (token, eventId, playerId) => {
+  console.log("borranding", token, eventId, playerId)
+  console.log(`${BASE_URL}/public-events/${eventId}/squad/player/${playerId}`)
   try {
     const { data } = await axios.delete(
-      `${BASE_URL}/public-events/${eventId}/squad/player${playerId}`,
+      `${BASE_URL}/public-events/${eventId}/squad/player/${playerId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
     console.log("DATA delete", data, "---");
 
-    if (!data.items || !data.success) {
+    if (!data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
 

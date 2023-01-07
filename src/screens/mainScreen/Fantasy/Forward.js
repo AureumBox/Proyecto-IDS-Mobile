@@ -3,17 +3,15 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import EmptyPlayer from "./EmptyPlayer";
 import FantasyPlayer from "./FantasyPlayer";
 
-export default function Foward({players = [], insertPlayer}) {
-  
-
+export default function Foward({players = [], insertPlayer, position = "", removePlayer}) {
   return (
     <View style={styles.container}>
       {players?.map((player, index) => (
         <>
           {player?.emptyPlayer ? (
-            <EmptyPlayer position={"forward"} insertPlayer={insertPlayer}/>
+            <EmptyPlayer position={position} insertPlayer={insertPlayer}/>
           ) : (
-            <FantasyPlayer player={player} />
+            <FantasyPlayer player={player} removePlayer={removePlayer}/>
           )}
         </>
       ))}

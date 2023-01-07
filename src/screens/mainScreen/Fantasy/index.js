@@ -83,30 +83,44 @@ export default function Fantasy({ navigation }) {
     } finally {
       setLoading(false);
     }
-  }, [token]);
-
- 
-  
+  }, [token]);  
   useEffect(() => {
     loadSquad();
   }, [loadSquad]);
+
+  const removePlayer = async (token, eventId, player) => {
+    setLoading(true);
+    try {
+      const data = await fantasyServices.removePlayer(
+        token,
+        eventId,
+        player?.id
+      );
+      loadSquad();
+      dispatch(fantasySlice.setSelectedPlayer({}));
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    } 
+  };
   
   const insertPlayer = async (token, eventId, selectedPlayer) => {
-    console.log("insertanding", token, eventId, selectedPlayer)
-    /* setLoading(true);
+    console.log("insertanding", token, eventId, selectedPlayer?.id)
+     setLoading(true);
     try {
       const data = await fantasyServices.insertPlayer(
         token,
         eventId,
         selectedPlayer
       );
+      loadSquad();
       dispatch(fantasySlice.setSelectedPlayer({}));
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
-    } */
-    loadSquad();
+    } 
   };
 
   return (
@@ -153,10 +167,10 @@ export default function Fantasy({ navigation }) {
         <View style={styles.containerCancha}>
           <Image source={Cancha} style={styles.canchaImg} />
           <View style={styles.contJugadoresCancha}>
-            <Goalkeeper players={arrayGoalkeepers} />
-            <Defender players={arrayDefenders} />
-            <Midfielder players={arrayMidfielders} />
-            <Foward players={arrayFowarders} insertPlayer={insertPlayer} />
+            <Foward players={arrayGoalkeepers} insertPlayer={insertPlayer} position={"goalkeeper"}/>
+            <Foward players={arrayDefenders} insertPlayer={insertPlayer} position={"defender"}/>
+            <Foward players={arrayFowarders} insertPlayer={insertPlayer} position={"midfielder"}/>
+            <Foward players={arrayMidfielders} insertPlayer={insertPlayer} position={"forward"} removePlayer={removePlayer}/>
           </View>
 
           {/*  */}

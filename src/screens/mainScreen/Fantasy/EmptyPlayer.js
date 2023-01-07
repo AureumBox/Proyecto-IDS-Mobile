@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
-import * as fantasyServices from "../../../services/fantasy.services";
 
 const { width } = Dimensions.get("window");
 
@@ -29,7 +28,7 @@ export default function EmptyPlayer({ idCode = 0, nameCode = 0, position, insert
   const handlePress = () => {
     try {
       if (!selectedPlayer?.id) {
-        throw new Error("No tienes un seleccionado");
+        throw new Error("No tienes un jugador seleccionado");
       }
       if (selectedPlayer?.position != position) {
         throw new Error("Posicion incorrecta para el jugador");

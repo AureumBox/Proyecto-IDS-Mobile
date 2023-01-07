@@ -4,48 +4,44 @@ import {
   Text,
   View,
   Image,
+  TouchableOpacity,
 } from "react-native";
+import { useSelector } from "react-redux";
 
-export default function FantasyPlayer({ player = {} }) {
+export default function FantasyPlayer({ player = {},  removePlayer}) {
+
+  const { token } = useSelector((state) => state.auth);
+  // const { eventId } = useSelector((state) => state.auth);
+  const eventId = 1;
+
+  const handlePress = () => {
+    try {
+      removePlayer(token, eventId, player);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
-    <View>
-      <Text>{player.id}</Text>
-      {/* <Image
-        resizeMode="contain"
-        source={{ uri: player?.img }}
-        style={styles.cardImage}
-      />
-      <View style={styles.containerName}>
-        <Text
-          style={styles.playerName}
-        >
-          {player?.playerName}
-        </Text>
-      </View> */}
-    </View>
-  );
+      <TouchableOpacity style={styles.barajita} onPress={handlePress}>
+        <Text style={styles.idbarajita}>{player?.id}</Text>
+      </TouchableOpacity>
+    );
 }
 
 const styles = StyleSheet.create({
-  cardImage: {
-    width: '22%',
-    height: '90%',
-    resizeMode: 'contain'
+  barajita: {
+    width: "22%",
+    height: "90%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#325D6960",
+    borderRadius: 10,
+    margin: 3,
   },
-  containerName: {
-    backgroundColor: "#34545D",
-    borderRadius: 20,
-    position: "absolute",
-    top: 190,
-    left: 5,
-    right: 5,
-    bottom: 7
-  },
-  playerName: {
-    fontStyle: "normal",
-    fontWeight: "700",
-    fontSize: 15,
-    color: "#FFFFFF",
-    textAlign: "center",
+  idbarajita: {
+    fontWeight: "bold",
+    color: "white",
+    fontSize: 13,
   },
 });
