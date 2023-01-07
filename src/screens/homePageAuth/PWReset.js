@@ -25,7 +25,7 @@ export default function PWReset({ navigation }) {
                         <Ionicons
                             name="lock-closed-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <TextInput
@@ -41,7 +41,7 @@ export default function PWReset({ navigation }) {
                             <Ionicons
                                 name={showPass === false ? 'eye-outline' : 'eye-off-outline'}
                                 size={26}
-                                color='black'
+                                color='#808080'
                             />
                         </TouchableOpacity>
                     </View>
@@ -49,7 +49,7 @@ export default function PWReset({ navigation }) {
                         <Ionicons
                             name="lock-closed-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <TextInput
@@ -65,7 +65,7 @@ export default function PWReset({ navigation }) {
                             <Ionicons
                                 name={showConf === false ? 'eye-outline' : 'eye-off-outline'}
                                 size={26}
-                                color='black'
+                                color='#808080'
                             />
                         </TouchableOpacity>
                     </View>
