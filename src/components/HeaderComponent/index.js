@@ -6,20 +6,21 @@ import {
   Dimensions,
   Text
 } from 'react-native';
+import { useSelector } from "react-redux";
 import Icon from 'react-native-remix-icon';
 
 import logoImg from '../../../assets/app/logoHorizontal.png';
 
-
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default function HeaderComponent() {
+  const { money } = useSelector((state) => state.auth);
   return (
     <View style={styles.header}>
       <Image source={logoImg} style={styles.logo} />
       <View style={styles.coins}>
         <Icon name="money-dollar-circle-fill" size="30" color="#63130B" />
-        <Text style={styles.coinsText}>999</Text>
+        <Text style={styles.coinsText}>{money}</Text>
       </View>
     </View>
   );

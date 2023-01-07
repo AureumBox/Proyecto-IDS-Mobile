@@ -21,7 +21,6 @@ export default function Album({ navigation }) {
 
   const eventId = 1;
   const { token } = useSelector((state) => state.auth);
-  const percentage = useSelector((state) => state.album.percentage);
 
   const dispatch = useDispatch();
 
@@ -70,9 +69,7 @@ export default function Album({ navigation }) {
           <Image source={AlbumDigital} style={styles.albumdig}></Image>
         </TouchableOpacity>
 
-        <View style={styles.boton}>
           <Text style={styles.textSt}>¡Pega tus cromos!</Text>
-        </View>
       </View>
     </View>
   );

@@ -32,7 +32,6 @@ export default function AlbumPage() {
 
   const { token } = useSelector((state) => state.auth);
   const teamName = useSelector((state) => state.album.currentTeam.name);
-  const percentage = useSelector((state) => state.album.percentage);
   const teamList = useSelector((state) => state.album.teamList);
   const index = useSelector((state) => state.album.currentTeam.index);
   const stickerSelected = useSelector((state) => state.album.idStickerSelected);
