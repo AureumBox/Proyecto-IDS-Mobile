@@ -12,7 +12,7 @@ import * as fantasyServices from "../../../services/fantasy.services";
 const { width } = Dimensions.get("window");
 
 export default function EmptyPlayer({ idCode = 0, nameCode = 0, position, insertPlayer }) {
-  var positionSpa = {
+  let positionSpa = {
     defender: "Defensa",
     forward: "Delantero",
     goalkeeper: "Arquero",

@@ -44,22 +44,7 @@ export default function Fantasy({ navigation }) {
     return finalArray;
   }
 
-  const insertPlayer = async (token, eventId, selectedPlayer) => {
-    console.log("insertanding", token, eventId, selectedPlayer)
-    /* setLoading(true);
-    try {
-      const data = await fantasyServices.insertPlayer(
-        token,
-        eventId,
-        selectedPlayer
-      );
-      dispatch(fantasySlice.setSelectedPlayer({}));
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
-    } */
-  };
+ 
 
   const loadSquad = useCallback(async () => {
     console.log("alineacion")
@@ -99,9 +84,30 @@ export default function Fantasy({ navigation }) {
       setLoading(false);
     }
   }, [token]);
+
+ 
+  
   useEffect(() => {
     loadSquad();
   }, [loadSquad]);
+  
+  const insertPlayer = async (token, eventId, selectedPlayer) => {
+    console.log("insertanding", token, eventId, selectedPlayer)
+    /* setLoading(true);
+    try {
+      const data = await fantasyServices.insertPlayer(
+        token,
+        eventId,
+        selectedPlayer
+      );
+      dispatch(fantasySlice.setSelectedPlayer({}));
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    } */
+    loadSquad();
+  };
 
   return (
     <View style={styles.fondo}>
