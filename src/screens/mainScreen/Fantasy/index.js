@@ -22,6 +22,7 @@ export default function Fantasy({ navigation }) {
   const { token } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [squadChange, setSquadChange] = useState(false);
   const [arrayMidfielders, setArrayMidfielders] = useState([]);
   const [arrayDefenders, setArrayDefenders] = useState([]);
   const [arrayFowarders, setArrayFowarders] = useState([]);
@@ -89,6 +90,7 @@ export default function Fantasy({ navigation }) {
       );
       dispatch(fantasySlice.setSelectedPlayer({}));
       loadSquad();
+      setSquadChange(!squadChange);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -106,6 +108,7 @@ export default function Fantasy({ navigation }) {
       );
       dispatch(fantasySlice.setSelectedPlayer({}));
       loadSquad();
+      setSquadChange(!squadChange);
     } catch (error) {
       alert(error.message);
     } finally {
@@ -135,7 +138,7 @@ export default function Fantasy({ navigation }) {
             size={20}
             onPress={() => setOpen(false)}
           />
-          <FantasyDrawer />
+          <FantasyDrawer squadChange={squadChange}/>
         </View>
 
         {/* Titulo */}

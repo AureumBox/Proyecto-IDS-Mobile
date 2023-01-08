@@ -10,7 +10,7 @@ export default function FantasyPlayer({ player = {}, removePlayer }) {
     try {
       removePlayer(token, eventId, player);
     } catch (error) {
-      alert(error.message);
+      alert("jug "+error.message);
     }
   };
 

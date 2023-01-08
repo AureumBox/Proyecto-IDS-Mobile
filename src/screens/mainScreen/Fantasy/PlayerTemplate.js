@@ -9,18 +9,6 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-function getPlayerRole(position) {
-  switch (position) {
-    case "goalkeeper":
-      return "Arquero";
-    case "defender":
-      return "Defensa";
-    case "midfielder":
-      return "Medio Campista";
-  }
-  return "Delantero";
-}
-
 function isInLineup(isInLineup) {
   if (isInLineup) {
     return (
@@ -40,6 +28,13 @@ function isInLineup(isInLineup) {
 const { width, height } = Dimensions.get("window");
 
 export default function PlayerTemplate({ player = {} }) {
+  const positionSpa = {
+    goalkeeper: "Arquero",
+    defender: "Defensa",
+    midfielder: "   Medio Campista",
+    forward: "Delantero",
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -58,7 +53,7 @@ export default function PlayerTemplate({ player = {} }) {
       </ImageBackground>
       <View style={styles.containerInfo}>
         <Text style={styles.playerPosition}>
-          {getPlayerRole(player?.position)}
+          {positionSpa[player?.position]}
         </Text>
         {isInLineup(player?.isInLineup)}
 

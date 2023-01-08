@@ -18,16 +18,13 @@ export const fetchBench = async (
   if (position) queryString += `&position=${position}`;
   if (page) queryString += `&page=${page}`;
 
-  // console.log(`${BASE_URL}/public-events/${eventId}/squad?${queryString}`);
-
   try {
     const { data } = await axios.get(
-      `${BASE_URL}/public-events/${eventId}/squad?${queryString}`,
+      `${BASE_URL}public-events/${eventId}/squad?${queryString}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    // console.log("DATA bench", JSON.stringify(data), "---");
 
     if (!data.items || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
@@ -71,7 +68,7 @@ export const fetchSquad = async (token, eventId) => {
 export const insertPlayer = async (token, eventId, player) => {
   try {
     const { data } = await axios.post(
-      `${BASE_URL}/public-events/${eventId}/squad/player`,
+      `${BASE_URL}public-events/${eventId}/squad/player`,
       {
         playerId: player.id,
       },
@@ -79,8 +76,6 @@ export const insertPlayer = async (token, eventId, player) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-
-    console.log(data);
 
     if (!data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
@@ -98,16 +93,13 @@ export const insertPlayer = async (token, eventId, player) => {
 };
 
 export const removePlayer = async (token, eventId, playerId) => {
-  console.log("borranding", token, eventId, playerId);
-  console.log(`${BASE_URL}/public-events/${eventId}/squad/player/${playerId}`);
   try {
     const { data } = await axios.delete(
-      `${BASE_URL}/public-events/${eventId}/squad/player/${playerId}`,
+      `${BASE_URL}public-events/${eventId}/squad/player/${playerId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("DATA delete", data, "---");
 
     if (!data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");

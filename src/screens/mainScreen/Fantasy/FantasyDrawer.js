@@ -20,7 +20,7 @@ import * as fantasySlice from "../../../state/fantasySlice";
 
 const { height, width } = Dimensions.get("window");
 
-export default function FantasyDrawer({ navigation}) {
+export default function FantasyDrawer({ navigation, squadChange}) {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [paginate, setPaginate] = useState({});
@@ -46,7 +46,6 @@ export default function FantasyDrawer({ navigation}) {
   };
 
   const loadNextPageBench = useCallback(async () => {
-    console.log("carga pag");
     setLoading(true);
     try {
       const data = await fetchBench(
@@ -69,7 +68,6 @@ export default function FantasyDrawer({ navigation}) {
   }, [loadNextPageBench]);
 
   const loadBench = useCallback(async () => {
-    console.log("carga 1");
     setLoading(true);
     try {
       const data = await fetchBench(token, eventId, playerName, team, position);
@@ -80,13 +78,12 @@ export default function FantasyDrawer({ navigation}) {
     } finally {
       setLoading(false);
     }
-  }, [eventId, playerName, team, position]);
+  }, [eventId, playerName, team, position, squadChange]);
   useEffect(() => {
     loadBench();
   }, [loadBench]);
 
   const loadTeams = useCallback(async () => {
-    console.log("carga eq");
     setLoading(true);
     try {
       const data = await fetchTeamsInfo(token, eventId);
@@ -150,7 +147,6 @@ export default function FantasyDrawer({ navigation}) {
           ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           onEndReached={() => {
-            console.log("reached");
             if (page < paginate?.pages - 1) setPage(page + 1);
           }}
           renderItem={({ item }) => {

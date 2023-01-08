@@ -14,7 +14,7 @@ export default function EmptyPlayer({ idCode = 0, nameCode = 0, position, insert
 	const positionSpa = {
 		goalkeeper: "Arquero",
 		defender: "Defensa",
-		midfielder: "   Medio Campista", // 💀💀💀💀💀
+		midfielder: "   Medio Campista", 
 		forward: "Delantero",
 	};
 
@@ -35,7 +35,7 @@ export default function EmptyPlayer({ idCode = 0, nameCode = 0, position, insert
 
 			insertPlayer(token, eventId, selectedPlayer);
 		} catch (error) {
-			alert(error.message);
+			alert("vacio "+error.message);
 		}
 	};
 
