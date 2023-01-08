@@ -24,7 +24,7 @@ import botonXImg from '../../../assets/app/x.png';
 import sobreImg from '../../../assets/app/sobre.png';
 import albumImg from '../../../assets/app/album.png';
 import Fantasy from '../../../assets/app/fantasy.png';
-import Inventory from "./Shop";
+import Inventory from "./Market/Shop";
 
 export default function Home({ navigation }) {
     const [loading, setLoading] = useState(false);

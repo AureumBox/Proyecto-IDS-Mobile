@@ -8,7 +8,7 @@ import { Dimensions } from 'react-native';
 import Home from './mainScreen/Home';
 import AlbumNavigator from './mainScreen/Album/AlbumNavigator';
 import Fantasy from './mainScreen/Fantasy';
-import Shop from './mainScreen/Shop';
+import Shop from './mainScreen/Market/Shop';
 import Profile from './mainScreen/Profile';
 
 const { height } = Dimensions.get('window')
