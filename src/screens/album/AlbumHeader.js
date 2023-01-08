@@ -10,9 +10,8 @@ import {
   setNextIndex,
   setPrevIndex,
   setNextPage,
-  setPrevPage,
-  setCurrentPage,
-} from "../../../state/albumSlice.js";
+  setPrevPage
+} from "../../state/albumSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function AlbumHeader({ teamName = "", setFilter }) {

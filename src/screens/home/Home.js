@@ -98,9 +98,9 @@ export default function Home({ navigation }) {
 		setLoading(true);
 		try {
 			const data = await eventServices.fetchEventsList(token);
-			setEventsList(data);
+			setEventsList(data.items);
 
-			let newArray = data.map((item, index) => {
+			let newArray = data.items.map((item, index) => {
 				return { key: index, value: item.eventName };
 			});
 			setEventsListPicker(newArray);
