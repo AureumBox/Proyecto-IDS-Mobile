@@ -72,6 +72,8 @@ const styles = StyleSheet.create({
     height: "12%",
     resizeMode: "contain",
     borderRadius: 2,
+    borderWidth: 2,
+    borderColor: '#CAC4D0',
     flexDirection: "row",
   },
   nomPais: {

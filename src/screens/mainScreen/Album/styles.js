@@ -93,9 +93,10 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    height: "30%",
-    width: "120%",
-    overflow: "hidden",
+    width: "100%",
+    borderWidth: 2,
+    borderColor: '#CAC4D0',
+    overflow: "hidden"
   },
   texto: {
     fontWeight: "bold",
