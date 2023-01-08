@@ -257,19 +257,18 @@ const styles = StyleSheet.create({
         padding: 20,
         paddingLeft: 60,
         borderWidth: 2,
-        borderColor: 'red',
+        borderColor: '#E7484D',
         borderRadius: 25,
     },
     textError: {
-        color: 'red',
-        fontWeight: 'bold',
+        color: '#E7484D',
+        fontWeight: '500',
         fontSize: 14,
         position: 'absolute',
         bottom: 60,
         alignSelf: "center"
     },
     logInButton: {
-        
         padding: 20,
         borderRadius: 25,
         alignItems: 'center',
