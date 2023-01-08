@@ -68,8 +68,9 @@ export default function Album({ navigation }) {
         <TouchableOpacity style={styles.rectangulo} onPress={() => navigation.navigate('AlbumPage')}>
           <Image source={AlbumDigital} style={styles.albumdig}></Image>
         </TouchableOpacity>
-
+          <View style={styles.boton}>
           <Text style={styles.textSt}>¡Pega tus cromos!</Text>
+          </View>
       </View>
     </View>
   );
@@ -112,9 +113,9 @@ const styles = StyleSheet.create({
   },
   boton: {
     width: "80%",
-    height: "7%",
-    backgroundColor: "white",
-    borderRadius: 20,
+    height: "9%",
+    backgroundColor: "#76778A",
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
   },
