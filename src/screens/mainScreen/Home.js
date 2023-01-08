@@ -254,7 +254,7 @@ export default function Home({ navigation }) {
               </View>
               <Text
                 style={{
-                  marginRight: 115,
+                  marginRight: '30%',
                   marginTop: 2,
                   color: "#3D405B",
                   fontSize: 12,
