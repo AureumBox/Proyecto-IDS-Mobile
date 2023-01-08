@@ -9,6 +9,7 @@ import {
     View
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function PWRecovery({ navigation }) {
     return (
@@ -33,11 +34,13 @@ export default function PWRecovery({ navigation }) {
                         />
                     </View>
                     {/* Boton Reiniciar Contraseña */}
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('PWReset')}
-                        style={styles.logInButton}>
-                        <Text style={{ color: 'white', fontWeight: 'bold' }}>Enviar correo para reiniciar contraseña</Text>
-                    </TouchableOpacity>
+                    <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('PWReset')}
+                        >
+                            <Text style={{ color: 'white', fontWeight: 'bold' }}>Enviar correo para reiniciar contraseña</Text>
+                        </TouchableOpacity>
+                    </LinearGradient>
                 </View>
             </ScrollView>
             <StatusBar style="auto" />

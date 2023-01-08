@@ -227,7 +227,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'FFFFFF70',
         padding: 16,
-        borderRadius: 6,
         borderWidth: 2,
         borderColor: 'white',
         borderRadius: 16,
@@ -272,7 +271,7 @@ const styles = StyleSheet.create({
     logInButton: {
         backgroundColor: '#70ABAF',
         padding: 20,
-        borderRadius: 16,
+        borderRadius: 25,
         alignItems: 'center',
         marginVertical: 30,
     },
