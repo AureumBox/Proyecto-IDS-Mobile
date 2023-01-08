@@ -49,12 +49,7 @@ export default function Carousel() {
 
 	const Item = ({ item, selectedId }) => (
 		<TouchableOpacity onPress={() => selectSticker(item.id)}>
-			<View
-				style={{
-					width: 150,
-					height: "95%",
-				}}
-			>
+			<View>
 				<StickerTemplate sticker={item} />
 
 				{/* Overlay rojo cuando item es seleccionado */}
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
 	},
 	selectedItem: {
 		...StyleSheet.absoluteFillObject,
-		backgroundColor: "rgba(194, 0, 0, 0.39)",
+		backgroundColor: "#FAF7F780",
 		borderColor: "#C10001",
 		borderWidth: 3,
 	},
