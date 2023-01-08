@@ -13,8 +13,7 @@ import { TextInput } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import Spinner from "react-native-loading-spinner-overlay";
 
-import Header from "../../../components/HeaderComponent";
-import PlayerTemplate from "../../../components/PlayerTemplate";
+import PlayerTemplate from "./PlayerTemplate";
 import { fetchBench } from "../../../services/fantasy.services";
 import { fetchTeamsInfo } from "../../../services/inventory.services";
 import * as fantasySlice from "../../../state/fantasySlice";
@@ -141,6 +140,9 @@ export default function Inventorytest({ navigation }) {
       {/* Jugadores fantasy */}
       <View style={{ margin: 10 }}>
       <Spinner visible={loading} textContent={"Cargando..."} />
+      <PlayerTemplate/>
+      <PlayerTemplate/>
+
         <FlatList
           data={bench}
           keyExtractor={(_, index) => index.toString()}

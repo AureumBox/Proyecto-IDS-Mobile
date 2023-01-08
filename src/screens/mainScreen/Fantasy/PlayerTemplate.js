@@ -14,18 +14,20 @@ export default function PlayerTemplate({ player = {} }) {
       <View>
         <Image
           resizeMode="contain"
-          source={{ uri: player?.img }}
+          source={{ uri: 'https://i.ebayimg.com/images/g/ptUAAOSwk8JdyYff/s-l1600.jpg'}}
+          // source={{ uri: player?.img }}
           style={styles.cardImage}
         />
       </View>
       <View style={styles.container}>
-        <Text style={styles.playerName}>{player?.playerName}</Text>
+        <Text style={styles.playerName}>Domo</Text>
+        {/* <Text style={styles.playerName}>{player?.playerName}</Text> */}
         <View styles={{backgroundColor: "red"}}>
 
-        <Text style={styles.playerName}>{player?.position}</Text>
+        <Text style={styles.playerName}>MedioCentro</Text>
+        {/* <Text style={styles.playerName}>{player?.position}</Text> */}
         </View>
         <Text style={styles.playerName}>En alineacion</Text>
-
       </View>
     </View>
   );

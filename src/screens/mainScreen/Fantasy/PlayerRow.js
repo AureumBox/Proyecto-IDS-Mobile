@@ -12,13 +12,13 @@ export default function PlayerRow({
   return (
     <View style={styles.container}>
       {players?.map((player, index) => (
-        <>
+        <View key={index}>
           {player?.emptyPlayer ? (
             <EmptyPlayer position={position} insertPlayer={insertPlayer} />
           ) : (
             <FantasyPlayer player={player} removePlayer={removePlayer} />
           )}
-        </>
+        </View>
       ))}
     </View>
   );
