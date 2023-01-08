@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
 		width: 160,
 		justifyContent: "center",
 		alignItems: "center",
-		borderColor: "#3D405B",
+		borderColor: "#3A4159",
 		borderWidth: 2,
 	},
 	containerCuadro: {
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
 	porcentaje: {
 		height: "100%",
 		width: "50%", //Colocar porcentaje de llenado
-		backgroundColor: "#3D405B",
+		backgroundColor: "#3A4159",
 		borderRadius: 20,
 		alignItems: "center",
 	},
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "#EAEAEA",
 	},
 	textSt: {
-		color: "#3D405B",
+		color: "#3A4159",
 		fontWeight: "bold",
 		fontSize: 26,
 	},
@@ -465,7 +465,7 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 	},
 	textoFeature: {
-		color: "#3D405B",
+		color: "#3A4159",
 		fontWeight: "bold",
 		fontSize: 14,
 		marginTop: 5,

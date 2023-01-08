@@ -15,7 +15,7 @@ export default function ProgressBar() {
 		<View style={styles.containerPor}>
 			<Text style={styles.texto}>{Math.trunc(percent)}%</Text>
 			<View style={styles.barraPorcentaje}>
-				<LinearGradient colors={["#D13256", "#FE5F42"]} style={[styles.completedBar, { width: `${percent}%`}]}/>
+				<LinearGradient colors={["#D13256", "#FE5F42"]} style={[styles.completedBar, { width: `${percent}%` }]} />
 			</View>
 		</View>
 	)
