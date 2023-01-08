@@ -138,10 +138,10 @@ export default function LogIn({ navigation }) {
                         </Text>
                     </TouchableOpacity>
                     {/* Boton Iniciar Sesión */}
-                    <LinearGradient colors={['#D13256', '#FE5F42']} >
+                    <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
                     <TouchableOpacity
                         onPress={handleSubmit(sendLoginData)}
-                        style={styles.logInButton}>
+                        style={{width: '100%', alignItems: 'center'}}>
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>Iniciar Sesión</Text>
                     </TouchableOpacity>
                     </LinearGradient>
@@ -227,7 +227,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'FFFFFF70',
         padding: 16,
-        borderRadius: 6,
         borderWidth: 2,
         borderColor: 'white',
         borderRadius: 16,
@@ -272,7 +271,7 @@ const styles = StyleSheet.create({
     logInButton: {
         
         padding: 20,
-        borderRadius: 16,
+        borderRadius: 25,
         alignItems: 'center',
         marginVertical: 30,
     },

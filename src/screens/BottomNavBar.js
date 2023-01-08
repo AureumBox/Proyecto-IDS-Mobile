@@ -38,7 +38,7 @@ export default function BottomNavBar({ navigation }) {
                     headerBackVisible: false,
                     headerBackTitleVisible: false,
                     tabBarShowLabel: false,
-                    tabBarActiveTintColor: '#E5464D',
+                    tabBarActiveTintColor: '#E7484D',
                     tabBarInactiveTintColor: 'grey',
                     tabBarStyle: { padding: 0, height: height / 10 }
                 })}>
