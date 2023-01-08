@@ -6,10 +6,10 @@ import { Dimensions } from 'react-native';
 import Header from '../components/HeaderComponent';
 
 // Screen Imports
-import Home from './mainScreen/Home';
-import AlbumNavigator from './mainScreen/Album/AlbumNavigator';
-import Fantasy from './mainScreen/Fantasy';
-import Shop from './mainScreen/Shop';
+import Home from './home/Home';
+import AlbumNavigator from './album/AlbumNavigator';
+import Fantasy from './fantasy/Fantasy';
+import Shop from './shop/Shop';
 
 const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();
