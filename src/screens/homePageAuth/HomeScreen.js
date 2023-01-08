@@ -70,18 +70,18 @@ export default function HomeScreen({ navigation }) {
 				</View>
 			</View>
 			<View style={styles.buttonContainer}>
-				<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.button1}>
-					<TouchableOpacity onPress={() => navigation.navigate('SignIn')} style={styles.button}>
+				<TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+					<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.button1}>
 						<Text style={styles.buttonText}>Regístrate</Text>
-					</TouchableOpacity>
-				</LinearGradient>
-				<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.button1}>
-					<View style={styles.button2}>
-						<TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.button}>
+					</LinearGradient>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
+					<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.button1}>
+						<View style={styles.button2}>
 							<Text style={styles.buttonText2}>Inicia sesión</Text>
-						</TouchableOpacity>
-					</View>
-				</LinearGradient>
+						</View>
+					</LinearGradient>
+				</TouchableOpacity>
 			</View>
 			<StatusBar style="auto" />
 		</View>
@@ -106,14 +106,9 @@ const styles = StyleSheet.create({
 		width: 40,
 		borderRadius: 7
 	},
-	button: {
-		width: '100%',
-		justifyContent: 'center',
-		alignItems: 'center'
-	},
 	button1: {
 		backgroundColor: 'blue',
-		height: '50%',
+		height: '75%',
 		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -138,7 +133,7 @@ const styles = StyleSheet.create({
 		lineHeight: 25,
 		marginTop: 12,
 		textAlign: 'center',
-		color: '#2A555E',
+		color: '#3A4159',
 	},
 	body: {
 		paddingTop: 20,
@@ -157,10 +152,13 @@ const styles = StyleSheet.create({
 		fontWeight: '16',
 		fontWeight: 'bold',
 		color: 'white',
+		textAlign: 'center',
+
 	},
 	buttonText2: {
 		color: '#E7484D',
 		fontWeight: '16',
 		fontWeight: 'bold',
+		textAlign: 'center',
 	},
 })
