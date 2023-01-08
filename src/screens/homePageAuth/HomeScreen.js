@@ -38,6 +38,7 @@ export default function HomeScreen({ navigation }) {
 							<View style={styles.contentContainer}>
 								<Text />
 								<Text />
+								<Text />
 								<Text style={styles.title}>Llena tu álbum</Text>
 								<Text style={styles.body}>Colecciona todos los cromos y llena tu álbum con tus jugadores favoritos</Text>
 							</View>
@@ -47,6 +48,7 @@ export default function HomeScreen({ navigation }) {
 						<View>
 							<Image source={Participafantasy} style={{ resizeMode: 'contain', height: '70%', alignSelf: 'center' }} />
 							<View style={styles.contentContainer}>
+								<Text />
 								<Text />
 								<Text />
 								<Text style={styles.title}>Participa en el fantasy</Text>
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
 	},
 	contentContainer: {
 		paddingHorizontal: 20,
-		marginTop: -10
+		marginTop: '-10%'
 	},
 	title: {
 		fontSize: 26,
