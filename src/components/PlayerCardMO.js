@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
     posiciontext: {
         paddingLeft:3,
         paddingRight:3,
-        fontSize: "10",
+        fontSize: 10,
         lineHeight: 25,
         color: 'white',
         fontWeight: '500'
     },
     textCard: {
-        fontSize: "12",
+        fontSize: 12,
         lineHeight: 25,
         color: 'black',
         fontWeight: '600'
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     },
     playerName: {
         fontWeight: 'bold',
-        fontSize: "14",
+        fontSize: 14,
         color: '#FFFFFF',
     },
     card: {
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     textbotones:{
-        fontSize: "10",
+        fontSize: 10,
         color: 'white',
         fontWeight: 'bold'
     }

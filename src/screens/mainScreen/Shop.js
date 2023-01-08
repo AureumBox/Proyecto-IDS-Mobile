@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     title: {  
         marginTop: 2,
         fontWeight: 'bold',
-        fontSize: "28",
+        fontSize: 28,
         color: '#3D405B'
     },
     buttonSelected: {
@@ -292,14 +292,14 @@ const styles = StyleSheet.create({
     },
     textButton: {
         fontWeight: 'bold',
-        fontSize: "15",
+        fontSize: 15,
         lineHeight: '18px',
         color: '#3D405B',
         textAlign: 'center'
     },
     textAñadir: {
         fontWeight: 'bold',
-        fontSize: "12",
+        fontSize: 12,
         lineHeight: '18px',
         color: 'white',
         textAlign: 'left'
