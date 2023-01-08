@@ -11,7 +11,7 @@ export default function ProgressBar() {
     const completedBar = {
         width: `${percent}%`, //Para calcular el porcentaje de llenado de la barra
         height: '100%',
-        backgroundColor: '#63130B',
+        backgroundColor: 'red',
         borderRadius: 10,
         flexDirection: 'row',
     }
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
     texto: {
         fontWeight: 'bold',
-        color: 'black',
+        color: '#3D405B',
         fontSize: 26,
         marginRight: 10
     },

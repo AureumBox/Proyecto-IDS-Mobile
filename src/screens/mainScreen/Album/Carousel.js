@@ -103,7 +103,7 @@ export default function Carousel() {
 
 const styles = StyleSheet.create({
   carousel: {
-    backgroundColor: "white",
+    backgroundColor: "red",
     flexDirection: "row",
     width: "90%",
     height: "25%",

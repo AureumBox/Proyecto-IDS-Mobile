@@ -20,7 +20,7 @@ export default function NoStickerSlot({ idCode = 0, nameCode = 0 }) {
 
 const styles = StyleSheet.create({
   barajita: {
-    backgroundColor: "#BBB9B9",
+    backgroundColor: "#3D405B",
     width: width / 3.5,
     height: (width / 3.5) * 1.3,
     justifyContent: "center",

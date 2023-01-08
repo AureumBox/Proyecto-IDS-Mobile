@@ -9,6 +9,7 @@ import {
     Dimensions
 } from "react-native";
 import logoVerticalImg from '../../../assets/app/logoVertical.png';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function HomeScreen({ navigation }) {
     const { height } = Dimensions.get('window')
@@ -30,18 +31,22 @@ export default function HomeScreen({ navigation }) {
                     de ensueño favorito
                 </Text>
                 <View style={styles.buttonContainer}>
+                    
                     <TouchableOpacity
                         onPress={() => navigation.navigate('SignIn')}
                         style={styles.button1}
                     >
                         <Text style={styles.buttonText}>Registrarse</Text>
                     </TouchableOpacity>
+                    
+                    <LinearGradient colors={['#D13256', '#FE5F42']} >
                     <TouchableOpacity
                         onPress={() => navigation.navigate('LogIn')}
                         style={styles.button2}
                     >
                         <Text style={styles.buttonText}>Iniciar Sesión</Text>
                     </TouchableOpacity>
+                    </LinearGradient>
                 </View>
             </View>
             <StatusBar style="auto" />
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#F2F6FF',
+        backgroundColor: '#FCFCFC',
     },
     contentContainer: {
         paddingHorizontal: 30,
@@ -90,7 +95,6 @@ const styles = StyleSheet.create({
     button1: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#70ABAF',
         padding: 16,
         borderRadius: 6,
     },

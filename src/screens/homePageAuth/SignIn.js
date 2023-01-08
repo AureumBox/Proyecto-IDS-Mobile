@@ -59,7 +59,7 @@ export default function SignIn({ navigation }) {
                         <Ionicons
                             name="person-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <Controller
@@ -87,7 +87,7 @@ export default function SignIn({ navigation }) {
                         <Ionicons
                             name="mail-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <Controller
@@ -118,7 +118,7 @@ export default function SignIn({ navigation }) {
                         <Ionicons
                             name="lock-closed-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <Controller
@@ -148,7 +148,7 @@ export default function SignIn({ navigation }) {
                             <Ionicons
                                 name={showPass === false ? 'eye-outline' : 'eye-off-outline'}
                                 size={26}
-                                color='black'
+                                color='#808080'
                             />
                         </TouchableOpacity>
                     </View>
@@ -156,7 +156,7 @@ export default function SignIn({ navigation }) {
                         <Ionicons
                             name="lock-closed-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <Controller
@@ -189,7 +189,7 @@ export default function SignIn({ navigation }) {
                             <Ionicons
                                 name={showConf === false ? 'eye-outline' : 'eye-off-outline'}
                                 size={26}
-                                color='black'
+                                color='#808080'
                             />
                         </TouchableOpacity>
                     </View>
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         fontWeight: '400',
         textAlign: 'center',
-        color: '#353147',
+        color: '#2A555E',
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
     },
     forgotPW: {
         fontSize: 20,
-        color: 'gray',
+        color: '#34545D',
         fontWeight: 'bold',
         textAlign: 'center'
     }
