@@ -20,17 +20,18 @@ const { width } = Dimensions.get('window');
 
 function getPlayerRoleImg(position) {
     switch (position) {
-        case 'Arquero':
+        case 'goalkeeper':
             return arqueroImg;
-        case 'Defensa':
+        case 'defender':
             return defensaImg;
-        case 'MedioCentro':
+        case 'midfielder':
             return medioCentroImg;
     }
     return delanteroImg;
 }
 
 export default function StickerTemplate({ sticker }) {
+    console.log('Posicion: ', sticker.playerName, sticker.position)
     return (
         <View style={styles.container}>
             <ImageBackground

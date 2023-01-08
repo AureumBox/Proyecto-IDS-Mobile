@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
-export default function FantasyPlayer({ player = {},  removePlayer}) {
+export default function FantasyPlayer({ player = {}, removePlayer }) {
 
   const { token } = useSelector((state) => state.auth);
   // const { eventId } = useSelector((state) => state.auth);
@@ -16,7 +16,6 @@ export default function FantasyPlayer({ player = {},  removePlayer}) {
 
   const handlePress = () => {
     try {
-      console.log(player?.position)
       removePlayer(token, eventId, player);
     } catch (error) {
       alert(error.message);
@@ -24,25 +23,45 @@ export default function FantasyPlayer({ player = {},  removePlayer}) {
   };
 
   return (
-      <TouchableOpacity style={styles.barajita} onPress={handlePress}>
-        <Text style={styles.idbarajita}>{player?.id}</Text>
-      </TouchableOpacity>
-    );
+    <TouchableOpacity style={styles.barajita} onPress={handlePress}>
+      <Image
+        source={{ uri: player?.img }}
+        style={styles.imgSt}
+      />
+      <View style={styles.contenedorTexto}>
+        <Text style={styles.idbarajita}>{player?.playerName}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
   barajita: {
     width: "22%",
-    height: "90%",
+    height: "95%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#325D6960",
+    backgroundColor: "#E5464D60",
     borderRadius: 10,
     margin: 3,
   },
+  imgSt: {
+    width: '100%',
+    height: '100%',
+    top: 5,
+  },
+  contenedorTexto: {
+    width: '100%',
+    height: '18%',
+    backgroundColor: "#E5464D",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    bottom: 10
+  },
   idbarajita: {
     fontWeight: "bold",
+    alignSelf: 'center',
     color: "white",
-    fontSize: 13,
+    fontSize: 9
   },
 });

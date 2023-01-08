@@ -39,7 +39,6 @@ export default function Fantasy({ navigation }) {
   }
 
   const loadSquad = useCallback(async () => {
-    console.log("alineacion");
     setLoading(true);
     try {
       const data = await fantasyServices.fetchSquad(token, eventId);
