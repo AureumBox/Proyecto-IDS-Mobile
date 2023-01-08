@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#70ABAF",
+    backgroundColor: "#EAEAEA",
   },
   albumdig: {
     resizeMode: "contain",
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   textSt: {
     fontWeight: "bold",
-    color: "#34545D",
+    color: "#FFFFFF",
     fontSize: 26,
   },
 });

@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#70ABAF",
+    backgroundColor: "#EAEAEA",
   },
   modalHeader: {
     width: "100%",
@@ -54,7 +54,7 @@ export default StyleSheet.create({
   albumfondo: {
     width: "90%",
     height: "60%",
-    backgroundColor: "white",
+    backgroundColor: "#EAEAEA",
     marginBottom: "3%",
     borderRadius: 5,
     justifyContent: "flex-start",
@@ -93,9 +93,10 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    height: "30%",
-    width: "120%",
-    overflow: "hidden",
+    width: "100%",
+    borderWidth: 2,
+    borderColor: '#CAC4D0',
+    overflow: "hidden"
   },
   texto: {
     fontWeight: "bold",
@@ -118,7 +119,7 @@ export default StyleSheet.create({
   Porcentaje: {
     width: "30%", //Para calcular el porcentaje de llenado de la barra
     height: "100%",
-    backgroundColor: "#63130B",
+    backgroundColor: "#3D405B",
     borderRadius: 10,
     flexDirection: "row",
   },

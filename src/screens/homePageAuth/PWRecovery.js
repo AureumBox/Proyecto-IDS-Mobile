@@ -24,7 +24,7 @@ export default function PWRecovery({ navigation }) {
                         <Ionicons
                             name="mail-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <TextInput
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         fontWeight: '400',
         textAlign: 'center',
-        color: '#353147',
+        color: '#2A555E',
     },
     text: {
         paddingBottom: 50,

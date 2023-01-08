@@ -59,7 +59,7 @@ export default function LogIn({ navigation }) {
                         <Ionicons
                             name="mail-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <Controller
@@ -92,7 +92,7 @@ export default function LogIn({ navigation }) {
                         <Ionicons
                             name="lock-closed-outline"
                             size={24}
-                            color="black"
+                            color="#808080"
                             style={styles.inputIcon}
                         />
                         <Controller
@@ -122,7 +122,7 @@ export default function LogIn({ navigation }) {
                             <Ionicons
                                 name={show === false ? 'eye-outline' : 'eye-off-outline'}
                                 size={26}
-                                color='black'
+                                color='#808080'
                             />
                         </TouchableOpacity>
                     </View>
@@ -132,7 +132,7 @@ export default function LogIn({ navigation }) {
                     >
                         <Text
                             style={[
-                                { color: 'gray', fontWeight: 'bold', lineHeight: 30, textAlign: 'right' },
+                                { color: '#34545D', fontWeight: 'bold', lineHeight: 30, textAlign: 'right' },
                             ]}>
                             Recuperar Contraseña
                         </Text>
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         fontWeight: '400',
         textAlign: 'center',
-        color: '#353147',
+        color: '#2A555E',
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     logInButton: {
-        backgroundColor: '#70ABAF',
+        
         padding: 20,
         borderRadius: 25,
         alignItems: 'center',
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     },
     forgotPW: {
         fontSize: 20,
-        color: 'gray',
+        color: '#34545D',
         fontWeight: 'bold',
         textAlign: 'center'
     }

@@ -80,9 +80,7 @@ export default function Home({ navigation }) {
       dispatch(userServices.setCurrentEventId(event?.id));
       dispatch(fantasyServices.setPoints(data?.points));
     } catch (error) {
-      // 💀💀💀💀💀💀
-      // alert(error);
-      // 💀💀💀💀💀💀
+      alert(error);
     } finally {
       setLoading(false);
     }
@@ -92,8 +90,7 @@ export default function Home({ navigation }) {
     const join = await eventServices.joinGame(token, id);
 
     /* Bienvenida al evento */
-    // alert(join.message);
-    // 💀💀💀💀💀💀
+    alert(join.message);
     setJoinedEvent(true);
   };
 
@@ -108,9 +105,7 @@ export default function Home({ navigation }) {
       });
       setEventsListPicker(newArray);
     } catch (error) {
-      // 💀💀💀💀💀💀
-      // alert(error.message);
-      // 💀💀💀💀💀💀
+      alert(error.message);
     } finally {
       setLoading(false);
       setJoinedEvent(false);
