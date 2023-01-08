@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
 	},
 	contentContainer: {
 		paddingHorizontal: 20,
+		marginTop: -10
 	},
 	title: {
 		fontSize: 26,

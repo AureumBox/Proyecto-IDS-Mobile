@@ -200,8 +200,11 @@ export default function Home({ navigation }) {
         >
           ¡Felicidades, has conseguido un sobre!
         </Text>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
         <TouchableOpacity
-          style={styles.logInButton}
+          style={{
+          alignItems: 'center',
+          justifyContent: 'center',}}
           onPress={() => {
             setVisibleAnuncio(false);
             onCloseAd();
@@ -209,6 +212,7 @@ export default function Home({ navigation }) {
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>Ver Sobre</Text>
         </TouchableOpacity>
+        </LinearGradient>
       </ModalPopup>
 
       <View style={styles.container}>
