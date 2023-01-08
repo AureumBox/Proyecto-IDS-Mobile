@@ -19,7 +19,7 @@ export default function HeaderComponent() {
     <View style={styles.header}>
       <Image source={logoImg} style={styles.logo} />
       <View style={styles.coins}>
-        <Icon name="money-dollar-circle-fill" size="30" color="#E5464D" />
+        <Icon name="money-dollar-circle-fill" size="30" color="#E7484D" />
         <Text style={styles.coinsText}>{money}</Text>
       </View>
     </View>

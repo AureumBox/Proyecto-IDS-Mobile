@@ -54,7 +54,7 @@ export default function AlbumHeader({ teamName = "", setFilter }) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.flecha} onPress={navNextPage}>
-        <Ionicons name="chevron-forward-outline" size={24} color="red" />
+        <Ionicons name="chevron-forward-outline" size={24} color="#E7484D" />
       </TouchableOpacity>
     </View>
   );
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   pais: {
     fontWeight: "bold",
-    color: "red",
+    color: "#E7484D",
     fontSize: 25,
   },
 });
