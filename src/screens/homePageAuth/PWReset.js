@@ -26,7 +26,7 @@ export default function PWReset({ navigation }) {
 						<Ionicons
 							name="lock-closed-outline"
 							size={24}
-							color="black"
+							color="#E7484D"
 							style={styles.inputIcon}
 						/>
 						<TextInput
@@ -42,7 +42,7 @@ export default function PWReset({ navigation }) {
 							<Ionicons
 								name={showPass === false ? 'eye-outline' : 'eye-off-outline'}
 								size={26}
-								color='black'
+								color='#E7484D'
 							/>
 						</TouchableOpacity>
 					</View>
@@ -50,7 +50,7 @@ export default function PWReset({ navigation }) {
 						<Ionicons
 							name="lock-closed-outline"
 							size={24}
-							color="black"
+							color="#E7484D"
 							style={styles.inputIcon}
 						/>
 						<TextInput
@@ -66,18 +66,18 @@ export default function PWReset({ navigation }) {
 							<Ionicons
 								name={showConf === false ? 'eye-outline' : 'eye-off-outline'}
 								size={26}
-								color='black'
+								color='#E7484D'
 							/>
 						</TouchableOpacity>
 					</View>
 					{/* Boton Iniciar Sesión */}
-					<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('PWReset')}
-						>
+					<TouchableOpacity
+						onPress={() => navigation.navigate('HomeScreen')}
+					>
+						<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
 							<Text style={{ color: 'white', fontWeight: 'bold' }}>Reiniciar Contraseña</Text>
-						</TouchableOpacity>
-					</LinearGradient>
+						</LinearGradient>
+					</TouchableOpacity>
 				</View>
 			</ScrollView>
 			<StatusBar style="auto" />
@@ -91,11 +91,11 @@ const styles = StyleSheet.create({
 		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#F2F6FF',
+		backgroundColor: '#F2F6FF'
 	},
 	contentContainer: {
 		paddingHorizontal: 30,
-		marginTop: 50,
+		marginTop: 50
 	},
 	body: {
 		padding: 20,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		fontWeight: '400',
 		textAlign: 'center',
-		color: '#353147',
+		color: '#3A4159'
 	},
 	text: {
 		paddingBottom: 50,
@@ -112,25 +112,7 @@ const styles = StyleSheet.create({
 		lineHeight: 23,
 		fontWeight: '400',
 		textAlign: 'center',
-		color: '#353147',
-	},
-	buttonContainer: {
-		flexDirection: 'row',
-		width: '100%',
-		backgroundColor: '#DFE3E630',
-		marginTop: 20,
-		marginBottom: 40,
-	},
-	button: {
-		flex: 1,
-		alignItems: 'center',
-		backgroundColor: 'FFFFFF70',
-		padding: 16,
-		borderRadius: 6,
-		borderWidth: 2,
-		borderColor: 'white',
-		borderRadius: 16,
-		marginHorizontal: 10,
+		color: '#353147'
 	},
 	inputContainer: {
 		width: '100%',
@@ -156,16 +138,8 @@ const styles = StyleSheet.create({
 	logInButton: {
 		backgroundColor: '#70ABAF',
 		padding: 20,
-		borderRadius: 16,
+		borderRadius: 25,
 		alignItems: 'center',
-		marginVertical: 60,
-	},
-	forgotPW: {
-		fontSize: 17,
-		lineHeight: 30,
-		color: 'gray',
-		fontWeight: 'bold',
-		textAlign: 'center',
-		marginTop: 60,
+		marginVertical: 60
 	}
 })
