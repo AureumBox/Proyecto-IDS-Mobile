@@ -256,8 +256,6 @@ const styles = StyleSheet.create({
     height: "95%",
     position: "absolute",
     flexWrap: "wrap",
-    flexDirection: "row",
-    justifyContent: "space-around",
     backgroundColor: "#ffffff50",
   },
   canchaImg: {

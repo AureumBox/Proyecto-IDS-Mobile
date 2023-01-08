@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
 import EmptyPlayer from "./EmptyPlayer";
 import FantasyPlayer from "./FantasyPlayer";
 

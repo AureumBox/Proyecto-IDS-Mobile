@@ -239,9 +239,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   selectedItem: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(194, 0, 0, 0.39)",
-    borderColor: "#C10001",
-    borderWidth: 3,
-  },
+		...StyleSheet.absoluteFillObject,
+		backgroundColor: "#FAF7F780",
+		borderColor: "#C10001",
+		borderWidth: 0,
+		borderRadius: 15,
+		// borderRightWidth: 10,
+		borderBottomWidth: 10,
+		zIndex: 5
+	},
 });
