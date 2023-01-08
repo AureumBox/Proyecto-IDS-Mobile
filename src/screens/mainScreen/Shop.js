@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     StyleSheet,
     Text,
     View,
     Dimensions,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator,
 } from "react-native";
 import Header from '../../components/HeaderComponent';
 import { ScrollView } from 'react-native';
@@ -15,27 +16,38 @@ import {
     MaterialCommunityIcons,
     Octicons
   } from "@expo/vector-icons";
-  
-  import { Searchbar } from 'react-native-paper';
+
   import { SelectList } from 'react-native-dropdown-select-list';
   import { Entypo } from '@expo/vector-icons';
+  import SearchBar from "../../components/SearchBar";
+  import PlayerCardOG from "../../components/PlayerCardOG";
+  import PlayerCardMS from "../../components/PlayerCardMS";
+  import PlayerCardMO from "../../components/PlayerCardMO";
+  
 
   import JugadorBra from '../../../assets/app/bra_10.png';
   import MoneyIcon from '../../../assets/app/moneyIcon.png';
   import Reloj from '../../../assets/app/reloj.png';
   import Bra from '../../../assets/app/bra.png';
 
+
+
 export default function Shop({ navigation }) {
     const { height, width } = Dimensions.get('window')
     const [visible, setVisible] = React.useState(false);
     const hideDialog = () => setVisible(false);
-    
     const [opciones, setOpciones] = useState(1);
+
+
 
     const [searchQuery, setSearchQuery] = React.useState('');
 
     const onChangeSearch = query => setSearchQuery(query);
 
+    const [searchPhrase, setSearchPhrase] = useState("");
+        
+
+    //Select
     const [selected, setSelected] = useState("");
     const [isFocus, setIsFocus] = useState(false);
 
@@ -88,13 +100,12 @@ export default function Shop({ navigation }) {
                 <Entypo name="help" size={22} color="white" />
                 </LinearGradient> 
                 </TouchableOpacity> 
-                </View>    
-                    <Searchbar
-                     style={{width: width - 130,height: 35, margin: 20, borderRadius: 25}}
-                     placeholder="Buscar"
-                     onChangeText={onChangeSearch}
-                     value={searchQuery}
-                    />
+                </View>  
+
+                <SearchBar
+                 searchPhrase={searchPhrase}
+                setSearchPhrase={setSearchPhrase}
+                />
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly', width: '100%'}}>
                     <SelectList setSelected={(val) => setSelectedE(val)}
@@ -111,169 +122,10 @@ export default function Shop({ navigation }) {
                     />
                     </View>
 
-                        <View style={styles.card}>
-                    <LinearGradient  colors={['#D13256', '#FE5F42']}
-                    style={styles.imgCard}>    
-                    <View style={styles.containerPlayerName}>
-                        <Text style={styles.playerName}>Neymar Jr</Text>
-                    </View>
-                    <View>
-                        <Image style={styles.imagePlayer} source={JugadorBra}/>
-                    </View>
-                    </LinearGradient>
-                    <View>    
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                        <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                            <LinearGradient  colors={['#D13256', '#FE5F42']}
-                            style={{borderRadius: 10, marginLeft:25}}>
-                            <Text style={styles.posiciontext}>DELANTERO</Text>
-                            </LinearGradient>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                            <Text style={styles.textCard}>100.000.000</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', margin: 3}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                            <Text style={styles.textCard}>2h 20s</Text>
-                        </View>
-                    </View>
-                    <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                    <TouchableOpacity>    
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Ofertar</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Compra directa</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    </View>
-                    </View>
-
-                    <View style={styles.card}>
-                    <LinearGradient  colors={['#D13256', '#FE5F42']}
-                    style={styles.imgCard}>    
-                    <View style={styles.containerPlayerName}>
-                        <Text style={styles.playerName}>Neymar Jr</Text>
-                    </View>
-                    <View>
-                        <Image style={styles.imagePlayer} source={JugadorBra}/>
-                    </View>
-                    </LinearGradient>
-                    <View>    
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                        <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                            <LinearGradient  colors={['#D13256', '#FE5F42']}
-                            style={{borderRadius: 10, marginLeft:25}}>
-                            <Text style={styles.posiciontext}>DELANTERO</Text>
-                            </LinearGradient>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                            <Text style={styles.textCard}>100.000.000</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', margin: 3}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                            <Text style={styles.textCard}>2h 20s</Text>
-                        </View>
-                    </View>
-                    <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                    <TouchableOpacity>    
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Ofertar</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Compra directa</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    </View>
-                    </View>
-
-                    <View style={styles.card}>
-                    <LinearGradient  colors={['#D13256', '#FE5F42']}
-                    style={styles.imgCard}>    
-                    <View style={styles.containerPlayerName}>
-                        <Text style={styles.playerName}>Neymar Jr</Text>
-                    </View>
-                    <View>
-                        <Image style={styles.imagePlayer} source={JugadorBra}/>
-                    </View>
-                    </LinearGradient>
-                    <View>    
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                        <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                            <LinearGradient  colors={['#D13256', '#FE5F42']}
-                            style={{borderRadius: 10, marginLeft:25}}>
-                            <Text style={styles.posiciontext}>DELANTERO</Text>
-                            </LinearGradient>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                            <Text style={styles.textCard}>100.000.000</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', margin: 3}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                            <Text style={styles.textCard}>2h 20s</Text>
-                        </View>
-                    </View>
-                    <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                    <TouchableOpacity>    
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Ofertar</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Compra directa</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    </View>
-                    </View>
-
-                    <View style={styles.card}>
-                    <LinearGradient  colors={['#D13256', '#FE5F42']}
-                    style={styles.imgCard}>    
-                    <View style={styles.containerPlayerName}>
-                        <Text style={styles.playerName}>Neymar Jr</Text>
-                    </View>
-                    <View>
-                        <Image style={styles.imagePlayer} source={JugadorBra}/>
-                    </View>
-                    </LinearGradient>
-                    <View>    
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                        <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                            <LinearGradient  colors={['#D13256', '#FE5F42']}
-                            style={{borderRadius: 10, marginLeft:25}}>
-                            <Text style={styles.posiciontext}>DELANTERO</Text>
-                            </LinearGradient>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                            <Text style={styles.textCard}>100.000.000</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', margin: 3}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                            <Text style={styles.textCard}>2h 20s</Text>
-                        </View>
-                    </View>
-                    <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                    <TouchableOpacity>    
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Ofertar</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Compra directa</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    </View>
-                    </View>
+                    <PlayerCardOG/>
+                    <PlayerCardOG/>
+                    <PlayerCardOG/>
+                    <PlayerCardOG/>
 
                 </View>
                 : null}
@@ -285,12 +137,10 @@ export default function Shop({ navigation }) {
                 </LinearGradient> 
                 </TouchableOpacity> 
                 </View>   
-                <Searchbar
-                     style={{width: width - 130,height: 35, margin: 20, borderRadius: 25}}
-                     placeholder="Buscar"
-                     onChangeText={onChangeSearch}
-                     value={searchQuery}
-                    />
+                <SearchBar
+                 searchPhrase={searchPhrase}
+                setSearchPhrase={setSearchPhrase}
+                />
 
                     <View style={{flexDirection: 'row', justifyContent: 'space-evenly', width: '100%'}}>
                     <SelectList setSelected={(val) => setSelectedE(val)}
@@ -314,113 +164,10 @@ export default function Shop({ navigation }) {
                     </TouchableOpacity>
                     </View>   
 
-                    <View style={styles.card}>
-                    <LinearGradient  colors={['#D13256', '#FE5F42']}
-                    style={styles.imgCard}>    
-                    <View style={styles.containerPlayerName}>
-                        <Text style={styles.playerName}>Neymar Jr</Text>
-                    </View>
-                    <View>
-                        <Image style={styles.imagePlayer} source={JugadorBra}/>
-                    </View>
-                    </LinearGradient>
-                    <View>    
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                        <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                            <LinearGradient  colors={['#D13256', '#FE5F42']}
-                            style={{borderRadius: 10, marginLeft:25}}>
-                            <Text style={styles.posiciontext}>DELANTERO</Text>
-                            </LinearGradient>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                            <Text style={styles.textCard}>100.000.000</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', margin: 3}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                            <Text style={styles.textCard}>2h 20s</Text>
-                        </View>
-                    </View>
-                    <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                    <TouchableOpacity>    
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Ver información</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    </View>
-                    </View>
-
-                    <View style={styles.card}>
-                    <LinearGradient  colors={['#D13256', '#FE5F42']}
-                    style={styles.imgCard}>    
-                    <View style={styles.containerPlayerName}>
-                        <Text style={styles.playerName}>Neymar Jr</Text>
-                    </View>
-                    <View>
-                        <Image style={styles.imagePlayer} source={JugadorBra}/>
-                    </View>
-                    </LinearGradient>
-                    <View>    
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                        <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                            <LinearGradient  colors={['#D13256', '#FE5F42']}
-                            style={{borderRadius: 10, marginLeft:25}}>
-                            <Text style={styles.posiciontext}>DELANTERO</Text>
-                            </LinearGradient>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                            <Text style={styles.textCard}>100.000.000</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', margin: 3}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                            <Text style={styles.textCard}>2h 20s</Text>
-                        </View>
-                    </View>
-                    <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                    <TouchableOpacity>    
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Ver información</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    </View>
-                    </View>
-
-                    <View style={styles.card}>
-                    <LinearGradient  colors={['#D13256', '#FE5F42']}
-                    style={styles.imgCard}>    
-                    <View style={styles.containerPlayerName}>
-                        <Text style={styles.playerName}>Neymar Jr</Text>
-                    </View>
-                    <View>
-                        <Image style={styles.imagePlayer} source={JugadorBra}/>
-                    </View>
-                    </LinearGradient>
-                    <View>    
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                        <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                            <LinearGradient  colors={['#D13256', '#FE5F42']}
-                            style={{borderRadius: 10, marginLeft:25}}>
-                            <Text style={styles.posiciontext}>DELANTERO</Text>
-                            </LinearGradient>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                            <Text style={styles.textCard}>100.000.000</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', margin: 3}}>
-                        <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                            <Text style={styles.textCard}>2h 20s</Text>
-                        </View>
-                    </View>
-                    <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                    <TouchableOpacity>    
-                    <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                        <Text style={styles.textbotones}>Ver información</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    </View>
-                    </View>
+                    <PlayerCardMS/>
+                    <PlayerCardMS/>
+                    <PlayerCardMS/>
+                    <PlayerCardMS/>
 
                 </View>
                 
@@ -436,11 +183,9 @@ export default function Shop({ navigation }) {
                 </LinearGradient> 
                 </TouchableOpacity> 
                 </View>   
-                <Searchbar
-                 style={{width: width - 130,height: 35, margin: 20, borderRadius: 25}}
-                 placeholder="Buscar"
-                 onChangeText={onChangeSearch}
-                 value={searchQuery}
+                <SearchBar
+                 searchPhrase={searchPhrase}
+                setSearchPhrase={setSearchPhrase}
                 />
 
                 <View style={{flexDirection: 'row', justifyContent: 'space-evenly', width: '100%'}}>
@@ -458,170 +203,11 @@ export default function Shop({ navigation }) {
                 />
                 </View>
 
-                    <View style={styles.card}>
-                <LinearGradient  colors={['#D13256', '#FE5F42']}
-                style={styles.imgCard}>    
-                <View style={styles.containerPlayerName}>
-                    <Text style={styles.playerName}>Neymar Jr</Text>
-                </View>
-                <View>
-                    <Image style={styles.imagePlayer} source={JugadorBra}/>
-                </View>
-                </LinearGradient>
-                <View>    
-                    <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                    <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                        <LinearGradient  colors={['#D13256', '#FE5F42']}
-                        style={{borderRadius: 10, marginLeft:25}}>
-                        <Text style={styles.posiciontext}>DELANTERO</Text>
-                        </LinearGradient>
-                    </View>
-                    <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                    <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                        <Text style={styles.textCard}>100.000.000</Text>
-                    </View>
-                    <View style={{flexDirection: 'row', margin: 3}}>
-                    <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                        <Text style={styles.textCard}>2h 20s</Text>
-                    </View>
-                </View>
-                <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                <TouchableOpacity>    
-                <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                    <Text style={styles.textbotones}>Editar</Text>
-                </LinearGradient>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                    <Text style={styles.textbotones}>Compra directa</Text>
-                </LinearGradient>
-                </TouchableOpacity>
-                </View>
-                </View>
-
-                <View style={styles.card}>
-                <LinearGradient  colors={['#D13256', '#FE5F42']}
-                style={styles.imgCard}>    
-                <View style={styles.containerPlayerName}>
-                    <Text style={styles.playerName}>Neymar Jr</Text>
-                </View>
-                <View>
-                    <Image style={styles.imagePlayer} source={JugadorBra}/>
-                </View>
-                </LinearGradient>
-                <View>    
-                    <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                    <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                        <LinearGradient  colors={['#D13256', '#FE5F42']}
-                        style={{borderRadius: 10, marginLeft:25}}>
-                        <Text style={styles.posiciontext}>DELANTERO</Text>
-                        </LinearGradient>
-                    </View>
-                    <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                    <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                        <Text style={styles.textCard}>100.000.000</Text>
-                    </View>
-                    <View style={{flexDirection: 'row', margin: 3}}>
-                    <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                        <Text style={styles.textCard}>2h 20s</Text>
-                    </View>
-                </View>
-                <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                <TouchableOpacity>    
-                <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                    <Text style={styles.textbotones}>Editar</Text>
-                </LinearGradient>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                    <Text style={styles.textbotones}>Compra directa</Text>
-                </LinearGradient>
-                </TouchableOpacity>
-                </View>
-                </View>
-
-                <View style={styles.card}>
-                <LinearGradient  colors={['#D13256', '#FE5F42']}
-                style={styles.imgCard}>    
-                <View style={styles.containerPlayerName}>
-                    <Text style={styles.playerName}>Neymar Jr</Text>
-                </View>
-                <View>
-                    <Image style={styles.imagePlayer} source={JugadorBra}/>
-                </View>
-                </LinearGradient>
-                <View>    
-                    <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                    <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                        <LinearGradient  colors={['#D13256', '#FE5F42']}
-                        style={{borderRadius: 10, marginLeft:25}}>
-                        <Text style={styles.posiciontext}>DELANTERO</Text>
-                        </LinearGradient>
-                    </View>
-                    <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                    <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                        <Text style={styles.textCard}>100.000.000</Text>
-                    </View>
-                    <View style={{flexDirection: 'row', margin: 3}}>
-                    <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                        <Text style={styles.textCard}>2h 20s</Text>
-                    </View>
-                </View>
-                <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                <TouchableOpacity>    
-                <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                    <Text style={styles.textbotones}>Editar</Text>
-                </LinearGradient>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                    <Text style={styles.textbotones}>Compra directa</Text>
-                </LinearGradient>
-                </TouchableOpacity>
-                </View>
-                </View>
-
-                <View style={styles.card}>
-                <LinearGradient  colors={['#D13256', '#FE5F42']}
-                style={styles.imgCard}>    
-                <View style={styles.containerPlayerName}>
-                    <Text style={styles.playerName}>Neymar Jr</Text>
-                </View>
-                <View>
-                    <Image style={styles.imagePlayer} source={JugadorBra}/>
-                </View>
-                </LinearGradient>
-                <View>    
-                    <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3}}>
-                    <Image style={{height: 20, width: 20, marginLeft: -45}} source={Bra}/>
-                        <LinearGradient  colors={['#D13256', '#FE5F42']}
-                        style={{borderRadius: 10, marginLeft:25}}>
-                        <Text style={styles.posiciontext}>DELANTERO</Text>
-                        </LinearGradient>
-                    </View>
-                    <View style={{flexDirection: 'row', justifyContent: 'center', margin: 3, paddingTop: 5}}>
-                    <Image style={{height: 22, width: 22, marginRight:3, marginLeft: 3}} source={MoneyIcon}/>
-                        <Text style={styles.textCard}>100.000.000</Text>
-                    </View>
-                    <View style={{flexDirection: 'row', margin: 3}}>
-                    <Image style={{height: 22, width: 22, marginRight:3, resizeMode: 'center', marginLeft:3}} source={Reloj}/>
-                        <Text style={styles.textCard}>2h 20s</Text>
-                    </View>
-                </View>
-                <View style={{marginLeft:10, width: 110, flexDirection: 'column', justifyContent:'space-evenly',alignItems:'center'}}>
-                <TouchableOpacity>    
-                <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                    <Text style={styles.textbotones}>Editar</Text>
-                </LinearGradient>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <LinearGradient  style={styles.editButton} colors={['#D13256', '#FE5F42']}>
-                    <Text style={styles.textbotones}>Compra directa</Text>
-                </LinearGradient>
-                </TouchableOpacity>
-                </View>
-                </View>
-
+                <PlayerCardMO/> 
+                <PlayerCardMO/> 
+                <PlayerCardMO/> 
+                <PlayerCardMO/>                    
+                
             </View>
                 
                 :null}
@@ -658,27 +244,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
-    editButton: {
-        width: 90,
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 15,
-    },
-    posiciontext: {
-        paddingLeft:3,
-        paddingRight:3,
-        fontSize: "10",
-        lineHeight: 25,
-        color: 'white',
-        fontWeight: '500'
-    },
-    textCard: {
-        fontSize: "12",
-        lineHeight: 25,
-        color: 'black',
-        fontWeight: '600'
-    },
     botonañadir:{
         width: '100%', 
         height: 40,
@@ -696,42 +261,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.22,
         shadowRadius: 2.22,
         elevation: 3,
-    },
-    containerPlayerName: {
-        transform: [{ rotate: '-90deg'}],
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        paddingTop: 10,
-        width: 100,
-        alignItems: 'center',
-        bottom: '-0.1%',
-    },
-    imagePlayer: {
-        height: 115, 
-        marginLeft: 20, 
-        resizeMode: 'contain'
-    },
-    playerName: {
-        fontWeight: 'bold',
-        fontSize: "14",
-        color: '#FFFFFF',
-    },
-    card: {
-        backgroundColor: 'white',
-        borderRadius: 10,
-        width: '93%',
-        height: 115,
-        position: 'relative',
-        flexDirection: 'row',
-        marginTop: 10
-    },
-    imgCard:{
-        height: '100%',
-        width: 100,
-        borderRadius: 10,
-        justifyContent: 'center',
-        flexDirection: 'row'
     },
     fondo: {
         flex: 1,
@@ -780,9 +309,4 @@ const styles = StyleSheet.create({
         flexWrap:'wrap',
         justifyContent: 'space-between'
     },
-    textbotones:{
-        fontSize: "10",
-        color: 'white',
-        fontWeight: 'bold'
-    }
 })
