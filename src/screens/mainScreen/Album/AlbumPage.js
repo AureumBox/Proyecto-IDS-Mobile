@@ -147,7 +147,7 @@ export default function AlbumPage() {
                           >
                             <NoStickerSlot
                               key={i}
-                              idCode={sticker?.id}
+                              idCode={sticker?.jerseyNumber}
                               nameCode={sticker?.playerName}
                             />
                           </TouchableOpacity>
