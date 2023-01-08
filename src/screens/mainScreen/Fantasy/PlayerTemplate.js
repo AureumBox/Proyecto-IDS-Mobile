@@ -43,6 +43,7 @@ export default function PlayerTemplate({ player = {} }) {
 				source={{ uri: player?.img }}
 				style={styles.cardImage}
 			>
+			<Text style={[styles.playerName, styles.specialText]}>{player?.playerName}</Text>
 				<Image
 					resizeMode="contain"
 					source={{ uri: player?.team?.badge }}
@@ -53,7 +54,6 @@ export default function PlayerTemplate({ player = {} }) {
 				<Text style={styles.playerPosition}>{getPlayerRole(player?.position)}</Text>
 				{isInLineup(player?.isInLineup)}
 
-				<Text style={styles.playerName}>{player?.playerName}</Text>
 				<Text style={styles.playerPts}>PTS</Text>
 				<Text style={styles.playerScore}>49</Text>
 			</View>
@@ -124,6 +124,13 @@ const styles = StyleSheet.create({
 		fontWeight: "400",
 		fontSize: 15,
 		color: "#000000",
-		textAlign: "center",
 	},
+	specialText: {
+		fontSize: 13,
+		position: 'absolute',
+		transform: [{rotate: '-90deg'}],
+		color: '#FFFFFF',
+		right: width * 0.13,
+		top: height * 0.055
+	}
 });
