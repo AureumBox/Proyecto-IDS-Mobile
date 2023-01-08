@@ -14,7 +14,7 @@ import Cancha from "../../../../assets/cancha.jpg";
 import { IconButton, MD3Colors } from "react-native-paper";
 import * as fantasyServices from "../../../services/fantasy.services";
 import * as fantasySlice from "../../../state/fantasySlice";
-import PlayerRow from "./PlayerRow";
+import PlayerRows from "./PlayerRows";
 import Spinner from "react-native-loading-spinner-overlay";
 
 export default function Fantasy({ navigation }) {
@@ -160,25 +160,25 @@ export default function Fantasy({ navigation }) {
         <View style={styles.containerCancha}>
           <Image source={Cancha} style={styles.canchaImg} />
           <View style={styles.contJugadoresCancha}>
-            <PlayerRow
+            <PlayerRows
               position={"goalkeeper"}
               players={arrayGoalkeepers}
               insertPlayer={insertPlayer}
               removePlayer={removePlayer}
             />
-            <PlayerRow
+            <PlayerRows
               position={"defender"}
               players={arrayDefenders}
               insertPlayer={insertPlayer}
               removePlayer={removePlayer}
             />
-            <PlayerRow
+            <PlayerRows
               position={"midfielder"}
               players={arrayMidfielders}
               insertPlayer={insertPlayer}
               removePlayer={removePlayer}
             />
-            <PlayerRow
+            <PlayerRows
               position={"forward"}
               players={arrayFowarders}
               insertPlayer={insertPlayer}

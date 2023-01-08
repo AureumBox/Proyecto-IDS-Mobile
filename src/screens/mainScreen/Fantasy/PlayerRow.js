@@ -5,31 +5,17 @@ import FantasyPlayer from "./FantasyPlayer";
 
 export default function PlayerRow({
   position = "",
-  players = [],
-  insertPlayer,
-  removePlayer,
+  player,
+  onInsert,
+  onRemove,
 }) {
   return (
-    <View style={styles.container}>
-      {players?.map((player, index) => (
-        <View key={index}>
-          {player?.emptyPlayer ? (
-            <EmptyPlayer position={position} insertPlayer={insertPlayer} />
-          ) : (
-            <FantasyPlayer player={player} removePlayer={removePlayer} />
-          )}
-        </View>
-      ))}
-    </View>
+    <>
+      {player?.emptyPlayer ? (
+        <EmptyPlayer position={position} insertPlayer={onInsert} />
+      ) : (
+        <FantasyPlayer player={player} removePlayer={onRemove} />
+      )}
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "20%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

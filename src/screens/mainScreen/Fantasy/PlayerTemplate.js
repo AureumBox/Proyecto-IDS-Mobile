@@ -1,33 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   StyleSheet,
-  Dimensions,
   Text,
   View,
-  Image,
-  TouchableOpacity,
+  Image
 } from "react-native";
 
 export default function PlayerTemplate({ player = {} }) {
-  return (
+  return ( 
     <View styles={styles.container}>
       <View>
         <Image
           resizeMode="contain"
-          source={{ uri: 'https://i.ebayimg.com/images/g/ptUAAOSwk8JdyYff/s-l1600.jpg'}}
-          // source={{ uri: player?.img }}
+          source={{ uri: player?.img }}
           style={styles.cardImage}
         />
       </View>
       <View style={styles.container}>
-        <Text style={styles.playerName}>Domo</Text>
-        {/* <Text style={styles.playerName}>{player?.playerName}</Text> */}
-        <View styles={{backgroundColor: "red"}}>
-
-        <Text style={styles.playerName}>MedioCentro</Text>
-        {/* <Text style={styles.playerName}>{player?.position}</Text> */}
+        <Text style={styles.playerName}>{player?.playerName}</Text>
+        <View styles={{ backgroundColor: "red" }}>
+          <Text style={styles.playerName}>{player?.position}</Text>
         </View>
-        <Text style={styles.playerName}>En alineacion</Text>
+        <Text style={styles.playerName}>{ player?.isInLineup ? "Alineado" : "No alineado" }</Text>
       </View>
     </View>
   );

@@ -140,9 +140,6 @@ export default function Inventorytest({ navigation }) {
       {/* Jugadores fantasy */}
       <View style={{ margin: 10 }}>
       <Spinner visible={loading} textContent={"Cargando..."} />
-      <PlayerTemplate/>
-      <PlayerTemplate/>
-
         <FlatList
           data={bench}
           keyExtractor={(_, index) => index.toString()}
