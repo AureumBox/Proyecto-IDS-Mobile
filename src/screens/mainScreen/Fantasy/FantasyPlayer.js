@@ -54,13 +54,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '18%',
     backgroundColor: "#E5464D",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     bottom: 10
   },
   idbarajita: {
     fontWeight: "bold",
-    alignSelf: 'center',
     color: "white",
     fontSize: 9
   },

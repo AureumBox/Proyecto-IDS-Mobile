@@ -54,7 +54,8 @@ export default function PlayerTemplate({ player = {} }) {
 				{isInLineup(player?.isInLineup)}
 
 				<Text style={styles.playerName}>{player?.playerName}</Text>
-				{/* <Text>PTS 49</Text> */}
+				<Text style={styles.playerPts}>PTS</Text>
+				<Text style={styles.playerScore}>49</Text>
 			</View>
 		</View>
 	);
@@ -100,9 +101,27 @@ const styles = StyleSheet.create({
 		top: height * 0.12 / 16,
 		left: width * 0.25 / 4
 	},
+	playerPts: {
+		position: 'absolute',
+		borderRadius: 50,
+		fontWeight: "400",
+		left: width * 0.52,
+		textAlign: 'center',
+		textAlignVertical: 'center',
+		fontSize: 14,
+	},
+	playerScore: {
+		position: 'absolute',
+		borderRadius: 50,
+		fontWeight: "600",
+		left: width * 0.6,
+		textAlign: 'center',
+		textAlignVertical: 'center',
+		fontSize: 24,
+	},
 	playerName: {
 		fontStyle: "normal",
-		fontWeight: "700",
+		fontWeight: "400",
 		fontSize: 15,
 		color: "#000000",
 		textAlign: "center",
