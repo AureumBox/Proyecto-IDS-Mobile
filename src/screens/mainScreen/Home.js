@@ -214,7 +214,7 @@ export default function Home({ navigation }) {
       <View style={styles.container}>
         <ScrollView>
           <Text style={styles.textSt}>Home</Text>
-          <Text style={styles.textoEvento}>Evento</Text>
+          <Text style={styles.textoEvento}>Competición</Text>
           <SelectList
             defaultOption={eventsListPicker[0]}
             setSelected={(val) => setSelected(val)}
@@ -251,18 +251,18 @@ export default function Home({ navigation }) {
               <Image source={albumImg} style={styles.sobreImg}></Image>
               <View style={styles.barraProgreso}>
                 <View style={styles.porcentaje}>
-                  <Text style={{ color: "white" }}>30%</Text>
                 </View>
               </View>
               <Text
                 style={{
-                  marginRight: 125,
-                  marginTop: 1,
+                  marginRight: 115,
+                  marginTop: 2,
                   color: "#3D405B",
                   fontSize: 12,
+                  fontWeight: '600'
                 }}
               >
-                Completado
+               50% Completado
               </Text>
             </View>
             <View style={styles.containerinfo}>

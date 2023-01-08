@@ -29,9 +29,7 @@ export default function HeaderComponent() {
 const styles = StyleSheet.create({
   header: {
     width: width,
-    backgroundColor: '#EAEAEA',
-    borderBottomWidth: 2,
-    borderBottomColor: '#BBB9B9',
+    backgroundColor: 'white',
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
