@@ -1,19 +1,23 @@
 import axios from "axios";
-import { api } from "../config";
+import Constants from "expo-constants";
 
 const BASE_URL = `${Constants.expoConfig.extra.apiUrl}/public-events/`;
 
 export const fetchAuctionsList = async (token, eventId) => {
+  console.log(`lista: ${BASE_URL}${eventId}/market`);
   try {
-    const { data } = await axios.get(BASE_URL + eventId + "/market", {
+    const { data } = await axios.get(`${BASE_URL}${eventId}/market`, {
       headers: {
         Authorization: "Bearer " + token,
       },
     });
+    console.log(data);
     if (!data?.success) throw new Error(data?.message);
     return data;
   } catch (e) {
-    throw new Error(e?.response?.data?.message || e?.message || "Error Desconocido");
+    throw new Error(
+      e?.response?.data?.message || e?.message || "Error Desconocido"
+    );
   }
 };
 
