@@ -8,7 +8,7 @@ import Header from '../components/HeaderComponent';
 // Screen Imports
 import Home from './home/Home';
 import AlbumNavigator from './album/AlbumNavigator';
-import Fantasy from './fantasy/Fantasy';
+import Fantasy from './fantasy';
 import Shop from './shop/Shop';
 
 const { height } = Dimensions.get('window')
