@@ -15,7 +15,7 @@ import PlayerRows from "./PlayerRows";
 import FantasyDrawer from "./FantasyDrawer";
 import * as fantasyServices from "../../services/fantasy.services";
 import * as fantasySlice from "../../state/fantasySlice";
-import Cancha from "../../../assets/app/cancha.jpg";
+import Cancha from "../../../assets/app/campo.png";
 
 const { width } = Dimensions.get('window')
 
@@ -158,6 +158,15 @@ export default function Fantasy() {
 						</View>
 					</View>
 
+					<View style={{...styles.containerTitulo, borderRadius: 10}}>
+						<View style={styles.containerPuntaje}>
+								<Text style={{...styles.textSt, fontSize: 26, right: '250%'}}>
+									Alineación
+								</Text>
+								<Text style={styles.textScore}>150  PTS</Text>
+						</View>
+					</View>
+
 					{/* Cancha */}
 					<View style={styles.containerCancha}>
 						<Image source={Cancha} style={styles.canchaImg} />
@@ -245,8 +254,14 @@ const styles = StyleSheet.create({
 	textBoton: {
 		color: "#3D405B",
 		fontWeight: "700",
-		fontSize: 24,
-		paddingHorizontal: "10%",
+		fontSize: 20
+	},
+	textScore: {
+		position: 'absolute',
+		color: "#3D405B",
+		fontSize: 24, 
+		fontWeight: '600',
+		left: '65%'
 	},
 	textBotonSelected: {
 		borderBottomLeftRadius: 10,
@@ -262,14 +277,14 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 		backgroundColor: "#E3E2E6",
-		marginVertical: 15,
+		marginTop: 10
 	},
 	contJugadoresCancha: {
-		width: "98%",
+		width: "107%",
 		height: "95%",
 		position: "absolute",
 		flexWrap: "wrap",
-		backgroundColor: "#ffffff90",
+		backgroundColor: "#FFFFFF50",
 	},
 	canchaImg: {
 		height: "95%",
@@ -340,15 +355,6 @@ const styles = StyleSheet.create({
 		resizeMode: "contain",
 	},
 	carruselContainer: {
-		width: "90%",
-		height: "30%",
-	},
-	carrusel: {
-		width: "100%",
-		height: "75%",
-		backgroundColor: "white",
-		borderRadius: 10,
-		marginTop: 3,
-		paddingTop: 5,
-	},
+		width: "90%"
+	}
 });

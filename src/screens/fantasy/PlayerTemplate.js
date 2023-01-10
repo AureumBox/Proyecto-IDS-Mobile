@@ -105,22 +105,22 @@ const styles = StyleSheet.create({
 		left: (width * 0.25) / 4,
 	},
 	playerPts: {
+		fontWeight: "400",
+		fontSize: 14,
 		position: "absolute",
 		borderRadius: 50,
-		fontWeight: "400",
 		left: width * 0.44,
 		textAlign: "center",
-		textAlignVertical: "center",
-		fontSize: 14,
+		textAlignVertical: "center"
 	},
 	playerScore: {
+		fontWeight: "600",
+		fontSize: 24,
 		position: "absolute",
 		borderRadius: 50,
-		fontWeight: "600",
 		left: width * 0.52,
 		textAlign: "center",
-		textAlignVertical: "center",
-		fontSize: 24,
+		textAlignVertical: "center"
 	},
 	playerName: {
 		fontWeight: "400",
