@@ -57,7 +57,6 @@ export default function AlbumPage() {
 		}
 	}, [token, eventId]);
 
-
 	const loadPageInfo = useCallback(async () => {
 		setLoading(true);
 		try {
