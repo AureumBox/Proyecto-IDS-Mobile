@@ -23,21 +23,16 @@ export default function HeaderComponent() {
 	const [sound, setSound] = useState();
 
 	async function playSound() {
-		console.log('Loading Sound');
 		const { sound } = await Audio.Sound.createAsync(require('../../assets/app/easter-egg.mp3'));
 		setSound(sound);
-
-		console.log('Playing Sound');
 		await sound.playAsync();
 	}
 
 	useEffect(() => {
-		return sound
-			? () => {
-				console.log('Unloading Sound');
-				sound.unloadAsync();
-			}
-			: undefined;
+		return sound ? () => {
+			console.log('Unloading Sound');
+			sound.unloadAsync();
+		} : undefined;
 	}, [sound]);
 	//******************************************************/
 
@@ -46,7 +41,7 @@ export default function HeaderComponent() {
 			<TouchableOpacity
 				onPress={() => {
 					setCount(count + 1)
-					if(count == 10){
+					if (count == 10) {
 						setCount(0)
 						playSound()
 					}
