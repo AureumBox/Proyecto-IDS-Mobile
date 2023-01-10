@@ -43,6 +43,8 @@ export default function Home({ navigation }) {
 		setLoading(true);
 		try {
 			setAd(await watchAd(token));
+		} catch (error) {
+			alert(error.message);
 		} finally {
 			setLoading(false);
 			setVisibleAnuncio(true);

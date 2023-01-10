@@ -50,8 +50,8 @@ export default function Album({ navigation }) {
 		setLoading(true);
 		try {
 			const data = await fetchTeamsInfo(token, eventId);
-			dispatch(setTeamList(data));
-			setTeamsInfo(data);
+			dispatch(setTeamList(data.items));
+			setTeamsInfo(data.items);
 		} catch (error) {
 			alert(error.message);
 		} finally {

@@ -85,7 +85,7 @@ export default function FantasyDrawer({ squadChange }) {
     setLoading(true);
     try {
       const data = await fetchTeamsInfo(token, eventId);
-      setTeamsList(data);
+      setTeamsList(data.items);
     } catch (error) {
       alert(error.message);
     } finally {
