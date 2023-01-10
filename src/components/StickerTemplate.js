@@ -20,11 +20,11 @@ const { width } = Dimensions.get('window');
 
 function getPlayerRoleImg(position) {
 	switch (position) {
-		case 'Arquero':
+		case 'goalkeeper':
 			return arqueroImg;
-		case 'Defensa':
+		case 'defender':
 			return defensaImg;
-		case 'MedioCentro':
+		case 'midfielder':
 			return medioCentroImg;
 	}
 	return delanteroImg;

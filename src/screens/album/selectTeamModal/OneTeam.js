@@ -3,8 +3,9 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
+
 import styles from '../styles';
 
 const OneTeam = ({ item, index, onPress }) => (

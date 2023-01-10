@@ -10,12 +10,13 @@ import {
 	View
 } from "react-native";
 import { useDispatch } from 'react-redux';
-import { logIn as logInRedux } from '../../state/authSlice.js';
 import { useForm, Controller } from "react-hook-form";
-import { login } from "../../services/auth.services";
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+
+import { login } from "../../services/auth.services";
+import { logIn as logInRedux } from '../../state/authSlice.js';
 
 export default function LogIn({ navigation }) {
 	const [loading, setLoading] = useState(false);

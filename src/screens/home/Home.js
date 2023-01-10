@@ -7,20 +7,19 @@ import {
 	Image,
 	ScrollView,
 	TouchableOpacity,
-	Linking,
+	Linking
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { LinearGradient } from 'expo-linear-gradient';
 import Spinner from 'react-native-loading-spinner-overlay';
+
 import { ModalPopup } from '../../components/ModalPopup';
-import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
-import { obtainStickers } from '../../services/sticker.services';
 import StickerTemplate from '../../components/StickerTemplate';
-import { useDispatch, useSelector } from "react-redux";
 import * as eventServices from "../../services/event.services";
+import { obtainStickers } from '../../services/sticker.services';
+import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
 import * as userServices from "../../state/authSlice";
 import * as fantasyServices from "../../state/fantasySlice";
-
-// Imagenes
 import botonXImg from '../../../assets/app/x.png';
 import sobreImg from '../../../assets/app/sobre.png';
 import albumImg from '../../../assets/app/album.png';

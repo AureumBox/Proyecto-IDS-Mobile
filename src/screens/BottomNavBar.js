@@ -1,14 +1,13 @@
 import * as React from 'react'
+import { Dimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Ionicons } from '@expo/vector-icons';
-import { Dimensions } from 'react-native';
-import Header from '../components/HeaderComponent';
 
-// Screen Imports
+import Header from '../components/HeaderComponent';
 import Home from './home/Home';
 import AlbumNavigator from './album/AlbumNavigator';
-import Fantasy from './fantasy/Fantasy';
+import Fantasy from './fantasy';
 import Shop from './shop/Shop';
 
 const { height } = Dimensions.get('window')

@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
-import SelectTeamModal from "./selectTeamModal";
-import ProgressBar from "./ProgressBar";
-import Carousel from "./Carousel";
-import NoStickerSlot from "./NoStickerSlot";
-import StickerTemplate from "../../components/StickerTemplate";
-import AlbumHeader from "./AlbumHeader";
-import Spinner from "react-native-loading-spinner-overlay";
-import styles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "react-native-loading-spinner-overlay";
+
+import Carousel from "./Carousel";
+import ProgressBar from "./ProgressBar";
+import AlbumHeader from "./AlbumHeader";
+import NoStickerSlot from "./NoStickerSlot";
+import SelectTeamModal from "./selectTeamModal";
+import StickerTemplate from "../../components/StickerTemplate";
+import styles from "./styles";
 import {
 	setCurrentTeam,
 	setStickers,

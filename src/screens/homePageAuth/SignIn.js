@@ -9,13 +9,14 @@ import {
 	Image,
 	View
 } from "react-native";
-import { signup } from "../../services/auth.services";
+import { useDispatch } from 'react-redux'
+import { Ionicons } from '@expo/vector-icons';
 import { useForm, Controller } from "react-hook-form";
 import Spinner from 'react-native-loading-spinner-overlay';
-import { useDispatch } from 'react-redux'
-import { logIn } from '../../state/authSlice.js';
-import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+
+import { logIn } from '../../state/authSlice.js';
+import { signup } from "../../services/auth.services";
 
 export default function SignIn({ navigation }) {
 	const [loading, setLoading] = useState(false);
