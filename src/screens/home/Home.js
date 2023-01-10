@@ -173,11 +173,7 @@ export default function Home({ navigation }) {
 				<TouchableOpacity onPress={onAdClick}>
 					<View style={{ alignItems: "center" }}>
 						<Image
-							source={
-								ad?.img
-									? { uri: ad?.img }
-									: require("../../../assets/ads/yummy.jpg")
-							}
+							source={{ uri: ad?.img }}
 							style={{
 								height: 175,
 								width: 320,
