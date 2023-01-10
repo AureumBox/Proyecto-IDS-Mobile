@@ -9,18 +9,19 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import Header from "../../../components/HeaderComponent";
 import { ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   MaterialIcons,
   MaterialCommunityIcons,
   Octicons,
+  Entypo
 } from "@expo/vector-icons";
-
 import { SelectList } from "react-native-dropdown-select-list";
-import { Entypo } from "@expo/vector-icons";
+
+import Header from "../../../components/HeaderComponent";
 import SearchBar from "../../../components/SearchBar";
+
 import PlayerCardOG from "../../../components/PlayerCardOG";
 import PlayerCardMS from "../../../components/PlayerCardMS";
 import PlayerCardMO from "../../../components/PlayerCardMO";
@@ -45,6 +46,7 @@ export default function Shop({ navigation }) {
   //Select
   const [selected, setSelected] = useState("");
   const [isFocus, setIsFocus] = useState(false);
+
 
   const data = [
     { key: "1", value: "Seleccione una posición", disabled: true },
