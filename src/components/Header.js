@@ -9,7 +9,7 @@ import {
 import { useSelector } from "react-redux";
 import Icon from 'react-native-remix-icon';
 
-import logoImg from '../../../assets/app/logoHorizontal.png';
+import logoImg from '../../assets/app/logoHorizontal.png';
 
 const { width } = Dimensions.get('window');
 

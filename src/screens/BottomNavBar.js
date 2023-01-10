@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import Header from '../components';
+import Header from '../components/Header';
 import Home from './home';
 import AlbumNavigator from './album/AlbumNavigator';
 import Fantasy from './fantasy';
