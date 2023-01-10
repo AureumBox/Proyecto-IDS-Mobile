@@ -128,7 +128,7 @@ export default function PlayerCardOG() {
           <Image source={MoneyIcon} style={{resizeMode: 'contain', height: 25, position: 'absolute', alignSelf: 'flex-start'}}/> 
           </View> 
           <View style={{flexDirection: 'column', width: '60%', height: '100%', alignSelf: 'flex-start', justifyContent: 'center'}}>
-          <Text style={{fontWeight: '600', position: 'absolute', marginLeft: 1}}>150</Text> 
+          <Text style={{fontWeight: '600', position: 'absolute', marginLeft: 2}}>150</Text> 
           </View>
           </View>
           </View>
