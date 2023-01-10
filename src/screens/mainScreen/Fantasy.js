@@ -3,172 +3,226 @@ import {
     StyleSheet,
     Text,
     TextComponent,
-    View
+    View,
+    ScrollView
 } from "react-native";
 import { Avatar } from 'react-native-paper';
 
 export default function Fantasy() {
     return (
         <View style={styles.fondo}>
-            <Text style={styles.titleRanking}>Ranking</Text>
-            <View style={styles.contatop}>
-                <Avatar.Text size={50} label="A" />
-                <View style={styles.containterTextTop}>
-                    <Text style={styles.textTop}>Noramisis</Text>
-                    <Text style={styles.pointTop}>1400 PTS</Text>
+          <ScrollView>
+          <View>
+                  <Text style={styles.title}>Ranking</Text>
+          </View>
+            <View style={styles.contentContainer}>
+
+              <View style={styles.myFirstCard}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.myNumberText}>2</Text>
                 </View>
-                <View style={styles.containerTop1}>
-                    <Text style={styles.numberTop}>1</Text>
+                <View style={styles.containerText}>
+                  <Text style={styles.myTextCard}>Chocopaula</Text>
+                  <Text style={styles.myTextCard}>45 pts</Text>
                 </View>
+              </View>
+
+              <View style={{marginTop: 50}}/>
+
+              <View style={styles.firstCard}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>1</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>Milo</Text>
+                  <Text style={styles.textCard}>50 pts</Text>
+                </View>
+              </View>
+              <View style={styles.myCard}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.myNumberText}>2</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.myTextCard}>Paula</Text>
+                  <Text style={styles.myTextCard}>45 pts</Text>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>3</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>Cristini</Text>
+                  <Text style={styles.textCard}>43 pts</Text>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>4</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>feredev</Text>
+                  <Text style={styles.textCard}>40 pts</Text>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>5</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>Yisus</Text>
+                  <Text style={styles.textCard}>37 pts</Text>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>6</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>Alvin</Text>
+                  <Text style={styles.textCard}>33 pts</Text>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>7</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>Simon</Text>
+                  <Text style={styles.textCard}>30 pts</Text>
+                </View>
+              </View>
+              <View style={styles.card}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>8</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>teodoro</Text>
+                  <Text style={styles.textCard}>28 pts</Text>
+                </View>
+              </View>
+              <View style={styles.lastCard}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>9</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>pan y agua</Text>
+                  <Text style={styles.textCard}>27 pts</Text>
+                </View>
+              </View>
+              <View style={styles.lastCard}>
+                <View style={styles.myNumber}>
+                  <Text style={styles.numberText}>10</Text>
+                </View>
+                <View style={styles.containerText}>
+                  <Text style={styles.textCard}>Peña</Text>
+                  <Text style={styles.textCard}>24 pts</Text>
+                </View>
+              </View>
             </View>
-            <View style={styles.contatop}>
-                <Avatar.Text size={50} label="A" />
-                <View style={styles.containterTextTop}>
-                    <Text style={styles.textTop}>Noramisis</Text>
-                    <Text style={styles.pointTop}>1400 PTS</Text>
-                </View>
-                <View style={styles.containerTop2}>
-                    <Text style={styles.numberTop}>2</Text>
-                </View>
-                
-            </View>
-            <View style={styles.contatop}>
-                <Avatar.Text size={50} label="A" />
-                <View style={styles.containterTextTop}>
-                    <Text style={styles.textTop}>Noramisis</Text>
-                    <Text style={styles.pointTop}>1400 PTS</Text>
-                </View>
-                <View style={styles.containerTop3}>
-                    <Text style={styles.numberTop}>3</Text>
-                </View>
-                
-            </View>
-            <View style={styles.contatop}>
-                <Avatar.Text size={50} label="A" />
-                <View style={styles.containterTextTop}>
-                    <Text style={styles.textTop}>Noramisis</Text>
-                    <Text style={styles.pointTop}>1400 PTS</Text>
-                </View>
-                <View style={styles.containerTop4}>
-                    <Text style={styles.numberTop}>4</Text>
-                </View>
-                
-            </View>
-            <View style={styles.contatop}>
-                <Avatar.Text size={50} label="A" />
-                <View style={styles.containterTextTop}>
-                    <Text style={styles.textTop}>Noramisis</Text>
-                    <Text style={styles.pointTop}>1400 PTS</Text>
-                </View>
-                <View style={styles.containerTop4}>
-                    <Text style={styles.numberTop}>5</Text>
-                </View>
-                
-            </View>
+          </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#70ABAF',
-    },
-    titleRanking: {
-        marginTop: 80,
-        fontSize: 40,
-        color: "#fff"
-    },
-    numberTop: {
-        fontSize: 30,
-        fontWeight: 'bold'
-    },
-    containerTop1: {
-        position: 'absolute',
-        right: 0,
-        width: 80,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '140%',
-        backgroundColor: '#FFD700',
-        borderBottomRightRadius: 20
-    },
-    containerTop2: {
-        position: 'absolute',
-        right: 0,
-        width: 80,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '140%',
-        backgroundColor: '#BEBEBE',
-        borderBottomRightRadius: 20
-    },
-    containerTop3: {
-        position: 'absolute',
-        right: 0,
-        width: 80,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '140%',
-        backgroundColor: '#8e402a',
-        borderBottomRightRadius: 20
-    },
-    containerTop4: {
-        position: 'absolute',
-        right: 0,
-        width: 80,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '140%',
-        backgroundColor: '#00aae4',
-        borderBottomRightRadius: 20
-    },
-    textTop: {
-        marginBottom: 5,
-    },
-    containterTextTop: {
-        marginLeft: 10,
-        flexDirection: 'column',
-        justifyContent: 'center'
-    },
     fondo: {
         flex: 1,
-        backgroundColor: '#70ABAF',
         alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#70ABAF',
     },
-    top1: {
-        color: '#C10001',
-        fontWeight: 'bold',
-        fontSize: 14,
-        marginLeft:80,
-        marginTop:20,
+    contentContainer: {
+      paddingHorizontal: 0,
+      marginTop: 75,
     },
-    pointop1: {
-        color: '#C10001',
-        fontWeight: 'bold',
-        fontSize: 10,
-        marginLeft:90,
-        marginTop:10,
+    myTextCard: {
+      color: '#fff',
+      marginRight: 30,
     },
-    contatop: {
-        marginTop:30,
-        backgroundColor: '#FFFF',
-        width: "80%",
-        border:3,      
-        padding: 10,  
-        flexDirection: 'row',
-        position: 'relative',
-        borderTopLeftRadius: 20,
-        borderBottomRightRadius: 20
+    textCard: {
+      marginRight: 40,
     },
-    contatop2: {
-        marginTop:10,
-        marginLeft:40,
-        backgroundColor: '#FFFF',
-        width:250,
-        height:95,
-        border:3,        
+    title: {
+      marginLeft:80,
+      marginTop:50,
+      fontSize:40,
+      color:"#FFFF",
     },
+    myCard: {
+      height: 74,
+      flexDirection: 'row',
+      backgroundColor: 'red',
+      position: 'relative',
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    card: {
+      height: 74,
+      flexDirection: 'row',
+      backgroundColor: '#fff',
+      position: 'relative',
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    firstCard: {
+      height: 74,
+      flexDirection: 'row',
+      backgroundColor: '#fff',
+      position: 'relative',
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+    },
+    myFirstCard: {
+      height: 74,
+      flexDirection: 'row',
+      backgroundColor: 'red',
+      position: 'relative',
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      borderBottomLeftRadius: 20,
+      borderBottomRightRadius: 20,
+      marginTop:-50,
+    },
+    lastCard: {
+      height: 74,
+      flexDirection: 'row',
+      backgroundColor: '#fff',
+      position: 'relative',
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius:0,
+    },
+    myNumber: {
+      position: 'absolute',
+      left: 0,
+      width: 80,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    myNumberText: {
+      fontSize: 50,
+      marginLeft: 6,
+      color: '#fff'
+    },
+    numberText: {
+      fontSize: 50,
+      marginLeft: 6,
+    },
+    containerText: {
+      marginLeft: 90,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
 })
