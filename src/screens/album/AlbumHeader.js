@@ -3,16 +3,17 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   setNextIndex,
   setPrevIndex,
   setNextPage,
   setPrevPage
 } from "../../state/albumSlice.js";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function AlbumHeader({ teamName = "", setFilter }) {
   const pages = useSelector((state) => state.album.currentTeam.pages);

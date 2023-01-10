@@ -27,4 +27,3 @@ export const watchAd = async (token) => {
 export const getAdRedirectUrl = (adId) => {
   return URL_WATCH_DETAILED_AD.replace('{adId}', adId);
 }
-

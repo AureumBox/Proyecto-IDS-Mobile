@@ -8,10 +8,11 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { LinearGradient } from 'expo-linear-gradient';
+
+import StickerTemplate from "../../components/StickerTemplate";
 import { fetchCarousel } from "../../services/inventory.services";
 import { setIdStickerSelected } from "../../state/albumSlice.js";
-import StickerTemplate from "../../components/StickerTemplate";
-import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Carousel() {
 	const [selectedId, setSelectedId] = useState(null);

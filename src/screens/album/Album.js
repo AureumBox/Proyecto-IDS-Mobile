@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
+
+import ProgressBar from "./ProgressBar";
 import { setPercentage, setTeamList } from "../../state/albumSlice.js";
 import { fetchAlbumInfo, fetchTeamsInfo } from "../../services/inventory.services";
-import ProgressBar from "./ProgressBar";
-
 import AlbumDigital from "../../../assets/app/album.png";
 
 export default function Album({ navigation }) {

@@ -9,8 +9,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function ProgressBar() {
 	const percent = useSelector((state) => state.album.percentage);
-
-
 	return (
 		<View style={styles.containerPor}>
 			<Text style={styles.texto}>{Math.trunc(percent)}%</Text>

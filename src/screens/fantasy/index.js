@@ -3,21 +3,20 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	Dimensions,
 	Image,
-	TouchableOpacity,
+	TouchableOpacity
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import FantasyDrawer from "./FantasyDrawer";
-import Cancha from "../../../assets/app/cancha.jpg";
-import { IconButton, MD3Colors } from "react-native-paper";
-import * as fantasyServices from "../../services/fantasy.services";
-import * as fantasySlice from "../../state/fantasySlice";
-import PlayerRows from "./PlayerRows";
+import { IconButton } from "react-native-paper";
 import Spinner from "react-native-loading-spinner-overlay";
 
-export default function Fantasy({ navigation }) {
-	const { height } = Dimensions.get("window");
+import PlayerRows from "./PlayerRows";
+import FantasyDrawer from "./FantasyDrawer";
+import * as fantasyServices from "../../services/fantasy.services";
+import * as fantasySlice from "../../state/fantasySlice";
+import Cancha from "../../../assets/app/cancha.jpg";
+
+export default function Fantasy() {
 	const { token } = useSelector((state) => state.auth);
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);

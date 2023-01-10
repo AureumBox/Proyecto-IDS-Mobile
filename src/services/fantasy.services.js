@@ -19,6 +19,7 @@ export const fetchBench = async (
   if (page) queryString += `&page=${page}`;
 
   try {
+		console.log('datos: ')
     const { data } = await axios.get(
       `${BASE_URL}public-events/${eventId}/squad?${queryString}`,
       {
@@ -49,8 +50,6 @@ export const fetchSquad = async (token, eventId) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-
-		console.log('Data: ', data)
 
     if (!data.item || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");

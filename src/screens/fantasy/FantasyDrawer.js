@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { TextInput } from "react-native-paper";
-// import { Picker } from "@react-native-picker/picker";
 import Spinner from "react-native-loading-spinner-overlay";
 
 import PlayerTemplate from "./PlayerTemplate";
@@ -17,9 +16,9 @@ import { fetchBench } from "../../services/fantasy.services";
 import { fetchTeamsInfo } from "../../services/inventory.services";
 import * as fantasySlice from "../../state/fantasySlice";
 
-const { height, width } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
-export default function FantasyDrawer({ navigation, squadChange}) {
+export default function FantasyDrawer({ squadChange }) {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [paginate, setPaginate] = useState({});

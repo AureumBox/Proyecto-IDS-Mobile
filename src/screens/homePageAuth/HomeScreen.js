@@ -8,12 +8,13 @@ import {
 	View,
 	Dimensions
 } from "react-native";
+import { useState } from "react";
+import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import logoVerticalImg from '../../../assets/app/logoVertical.png';
 import LlenarAlbum from '../../../assets/app/LlenarAlbum.png';
 import Participafantasy from '../../../assets/app/Participafantasy.png';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen({ navigation }) {
 	const { height } = Dimensions.get('window');

@@ -1,7 +1,6 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import EmptyPlayer from "./EmptyPlayer";
-import FantasyPlayer from "./FantasyPlayer";
+import { StyleSheet, View } from "react-native";
+
 import PlayerRow from "./PlayerRow";
 
 export default function PlayerRows({

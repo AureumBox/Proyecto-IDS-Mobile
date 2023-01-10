@@ -1,7 +1,8 @@
 import React from 'react'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
 import Album from './Album'
 import AlbumPage from './AlbumPage'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const Stack = createNativeStackNavigator();
 

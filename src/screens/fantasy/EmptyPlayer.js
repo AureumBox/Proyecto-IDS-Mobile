@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	StyleSheet,
 	Text,
-	View,
-	Dimensions,
-	TouchableOpacity,
+	TouchableOpacity
 } from "react-native";
 import { useSelector } from "react-redux";
 
-const { width } = Dimensions.get("window");
-
-export default function EmptyPlayer({ idCode = 0, nameCode = 0, position, insertPlayer }) {
+export default function EmptyPlayer({ position, insertPlayer }) {
 	const positionSpa = {
 		goalkeeper: "Arquero",
 		defender: "Defensa",

@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   View,
   Image,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
+  SafeAreaView
 } from "react-native";
-import { ModalPopup } from "../../../components/ModalPopup";
-import botonX from "../../../../assets/app/x.png";
-import styles from '../styles';
 import { useDispatch, useSelector } from "react-redux";
+
 import { setCurrentTeam, setIndex, setCurrentPage } from "../../../state/albumSlice.js";
+import { ModalPopup } from "../../../components/ModalPopup";
 import OneTeam from "./OneTeam";
+import styles from '../styles';
+import botonX from "../../../../assets/app/x.png";
 
 export default function SelectTeamModal({ isVisible, onClose }) {
   const dispatch = useDispatch();
