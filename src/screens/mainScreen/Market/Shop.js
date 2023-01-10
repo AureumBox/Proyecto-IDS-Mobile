@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../../components/HeaderComponent";
 import { ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -17,9 +18,13 @@ import {
   MaterialCommunityIcons,
   Octicons,
 } from "@expo/vector-icons";
+import Container, { Toast } from 'toastify-react-native';
 
 import { SelectList } from "react-native-dropdown-select-list";
 import { Entypo } from "@expo/vector-icons";
+import * as marketServices from "../../../services/market.services";
+import * as albumServices from "../../../services/inventory.services";
+
 import SearchBar from "../../../components/SearchBar";
 import PlayerCardOG from "../../../components/PlayerCardOG";
 import PlayerCardMS from "../../../components/PlayerCardMS";
@@ -35,12 +40,17 @@ export default function Shop({ navigation }) {
   const [visible, setVisible] = React.useState(false);
   const hideDialog = () => setVisible(false);
   const [opciones, setOpciones] = useState(1);
+  const [teams, setTeams] = useState(1);
+  const [loading, setLoading] = useState(1);
+  const [auctions, setAuctions] = useState([]);
+  const eventId = 1;
 
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
   const [searchPhrase, setSearchPhrase] = useState("");
+  const { token } = useSelector((state) => state.auth);
 
   //Select
   const [selected, setSelected] = useState("");
@@ -65,9 +75,42 @@ export default function Shop({ navigation }) {
     { key: "5", value: "Brazil" },
   ];
 
+  const loadAuctionsList = useCallback(async () => {
+    setLoading(true);
+    try {
+      console.log("en ue")
+      const data = await marketServices.fetchAuctionsList(token, eventId);
+      setAuctions(data?.items)
+      console.log(JSON.stringify(auctions))
+    } catch (error) {
+      Toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [opciones]);
+  useEffect(() => {
+    loadAuctionsList();
+  }, [loadAuctionsList]);
+
+  const loadTeams = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await albumServices.fetchTeamsInfo(token, eventId);
+      setTeams(data);
+    } catch (error) {
+      Toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [eventId]);
+  useEffect(() => {
+    loadTeams();
+  }, [loadTeams]);
+
   return (
     <View style={styles.fondo}>
       <Header />
+      <Container position="top" />
       <View style={styles.container}>
         <View style={styles.fondoMercado}>
           {/* header mercado */}
@@ -164,7 +207,7 @@ export default function Shop({ navigation }) {
             )}
             <FlatList
               showsVerticalScrollIndicator={false}
-              data={dataEquipos}
+              data={auctions}
               keyExtractor={(_, index) => index.toString()}
               ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
@@ -172,7 +215,7 @@ export default function Shop({ navigation }) {
                 console.log("hola");
               }}
               renderItem={({ item }) => {
-                if (opciones == 1) return <PlayerCardOG />;
+                if (opciones == 1) return <PlayerCardOG auctionData={item}/>;
                 if (opciones == 2) return <PlayerCardMS />;
                 if (opciones == 3) return <PlayerCardMO />;
               }}

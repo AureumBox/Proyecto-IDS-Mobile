@@ -20,17 +20,29 @@ import MoneyIcon from "../../assets/app/moneyIcon.png";
 import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
 
-export default function PlayerCardOG() {
+export default function PlayerCardOG({ auctionData = {} }) {
+  const convertTime = (finishDate) => {
+    const start = new Date(Date.now());
+    const unix = new Date(Date.parse(finishDate));
+
+    let minutes = Math.floor((unix - start) / 60000);
+    const hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+
+    return (hours + "h " + minutes + "m");
+  };
+
   const { height, width } = Dimensions.get("window");
 
   return (
     <View style={styles.card}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.imgCard}>
         <View style={styles.containerPlayerName}>
-          <Text style={styles.playerName}>Neymar Jr</Text>
+          <Text style={styles.playerName}>{auctionData?.sticker?.playerName}</Text>
         </View>
         <View>
-          <Image style={styles.imagePlayer} source={JugadorBra} />
+          {console.log(auctionData?.sticker?.img)}
+          <Image style={styles.imagePlayer} source={{ uri: auctionData?.sticker?.img }} />
         </View>
       </LinearGradient>
       <View>
@@ -60,7 +72,7 @@ export default function PlayerCardOG() {
             style={{ height: 22, width: 22, marginRight: 3, marginLeft: 3 }}
             source={MoneyIcon}
           />
-          <Text style={styles.textCard}>100.000.000</Text>
+          <Text style={styles.textCard}>{auctionData?.highestBid?.value || auctionData?.initialPurchaseValue}</Text>
         </View>
         <View style={{ flexDirection: "row", margin: 3 }}>
           <Image
@@ -73,7 +85,7 @@ export default function PlayerCardOG() {
             }}
             source={Reloj}
           />
-          <Text style={styles.textCard}>2h 20s</Text>
+          <Text style={styles.textCard}>{convertTime(auctionData?.finishDate)}</Text>
         </View>
       </View>
       <View
