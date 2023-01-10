@@ -22,7 +22,7 @@ import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
 
 
-export default function PlayerCardOG() {
+export default function AddPlayerCard() {
   const { height, width } = Dimensions.get("window");
 
   //Visible Modal Ofertas Globales - Ofertar
@@ -83,96 +83,7 @@ export default function PlayerCardOG() {
           <Text style={styles.textCard}>2h 20s</Text>
         </View>
       </View>
-      <View
-        style={{
-          marginLeft: 10,
-          width: 110,
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      >
-        <TouchableOpacity onPress={() => setVisible1(true)}>
-          <LinearGradient
-            style={styles.editButton}
-            colors={["#D13256", "#FE5F42"]}
-          >
-            <Text style={styles.textbotones}>Ofertar</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <LinearGradient
-            style={styles.editButton}
-            colors={["#D13256", "#FE5F42"]}
-          >
-            <Text style={styles.textbotones}>Compra directa</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
 
-      {/* Modal Ofertar */}
-      <ModalMercado visible={visible1}>
-         <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}> 
-         <TouchableOpacity>
-         <Ionicons name="help-circle-outline" size={26} color="black" style={{position: 'absolute', alignSelf: 'flex-end', paddingRight: 10, paddingTop: 3}}/>
-         </TouchableOpacity>
-        </LinearGradient>
-        <View style={styles.circuloBlanco}/>
-        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}> 
-        <Image source={JugadorBra} style={styles.fotocirculo}/>
-        </LinearGradient>
-        <Text style={styles.nombreJugador}>Neymar Jr</Text>  
-
-        
-        <View style={{width:'100%', height: 70, flexDirection: 'row'}}>
-          {/* Oferta actual*/}
-          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={styles.subtexto}>Oferta ganadora actual</Text>
-          <View style={styles.containerDinero}>
-          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
-           <MaterialIcons name="attach-money" size={18} color="white"/>
-           </LinearGradient>
-          <Text style={{fontWeight: '600', marginLeft: 2}}>150</Text> 
-          </View>
-          </View>
-
-        {/* Mi oferta*/}
-          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={styles.subtexto}>Mi oferta</Text>
-          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}> 
-          <TextInput style={styles.oferta}/> 
-          </LinearGradient>
-          <Text style={{fontSize: 9, color: '#00DB71', fontWeight: '700', marginTop: 3}}> (+ $100)</Text>
-          </View>
-        </View> 
-
-        {/* Saldo */}
-        <View style= {{width: '100%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={styles.subtexto}>Saldo luego de la operación</Text>
-          <View style={styles.containerDinero}>
-          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
-           <MaterialIcons name="attach-money" size={18} color="white"/>
-           </LinearGradient>
-          <Text style={{fontWeight: '600', marginLeft: 2}}>150</Text> 
-          </View>
-          </View>
-
-        {/* Botones*/}
-        <View style={styles.containerButtons}>
-        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
-        <TouchableOpacity style={styles.whitebutton}>
-            <Text style={{color: '#E6474E', fontWeight: '600'}} onPress={hideDialog}>Cancelar</Text>
-        </TouchableOpacity>
-        </LinearGradient>  
-
-        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
-        <TouchableOpacity onPress={() => {setVisible1(false)}}>
-            <Text style={{color: '#fff', fontWeight: '600'}}>Aceptar</Text> 
-        </TouchableOpacity>
-        </LinearGradient>   
-        </View>
-
-      </ModalMercado> 
     </View>
   );
 }

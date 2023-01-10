@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  TextInput
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -13,7 +14,9 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   Octicons,
+  Ionicons
 } from "@expo/vector-icons";
+import { ModalMercado } from "./ModalMercado";
 
 import JugadorBra from "../../assets/app/bra_10.png";
 import MoneyIcon from "../../assets/app/moneyIcon.png";
@@ -22,6 +25,14 @@ import Bra from "../../assets/app/bra.png";
 
 export default function PlayerCardMO() {
   const { height, width } = Dimensions.get("window");
+
+   //Visible Modal Mis Ofertas - Compra Directa
+   const [visible1, setVisible1] = useState(false);
+   const hideDialog = () => setVisible1(false);
+
+    //Visible Modal Mis Ofertas - Editar
+    const [visible2, setVisible2] = useState(false);
+    const hideDialog2 = () => setVisible2(false);
 
   return (
     <View style={styles.card}>
@@ -85,7 +96,7 @@ export default function PlayerCardMO() {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=> setVisible2(true)}>
           <LinearGradient
             style={styles.editButton}
             colors={["#D13256", "#FE5F42"]}
@@ -93,7 +104,7 @@ export default function PlayerCardMO() {
             <Text style={styles.textbotones}>Editar</Text>
           </LinearGradient>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=> setVisible1(true)}>
           <LinearGradient
             style={styles.editButton}
             colors={["#D13256", "#FE5F42"]}
@@ -102,11 +113,283 @@ export default function PlayerCardMO() {
           </LinearGradient>
         </TouchableOpacity>
       </View>
+
+      {/* Modal Compra directa*/} 
+      <ModalMercado visible={visible1}>
+
+         <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}> 
+         <TouchableOpacity>
+         <Ionicons name="help-circle-outline" size={26} color="black" style={{position: 'absolute', alignSelf: 'flex-end', paddingRight: 10, paddingTop: 3}}/>
+         </TouchableOpacity>
+        </LinearGradient>
+        <View style={styles.circuloBlanco}/>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}> 
+        <Image source={JugadorBra} style={styles.fotocirculo}/>
+        </LinearGradient>
+        <Text style={styles.nombreJugador}>Neymar Jr</Text>  
+
+        <View style={{width:'100%', height: 70, flexDirection: 'row'}}>
+          {/* Compra directa*/}
+          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.subtexto}>Compra directa</Text>
+          <View style={styles.containerDinero}>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
+           <MaterialIcons name="attach-money" size={18} color="white"/>
+           </LinearGradient>
+          <Text style={{fontWeight: '600', marginLeft: 2}}>200</Text> 
+          </View>
+          </View>
+
+        {/* Saldo restante*/}
+        <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.subtexto}>Saldo luego de la operación</Text>
+          <View style={styles.containerDinero}>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
+           <MaterialIcons name="attach-money" size={18} color="white"/>
+           </LinearGradient>
+          <Text style={{fontWeight: '600', marginLeft: 2}}>500</Text> 
+          </View>
+          </View>
+
+        </View> 
+
+
+        {/* Botones */}
+        <View style={styles.containerButtons}>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
+        <TouchableOpacity style={styles.whitebutton}>
+            <Text style={{color: '#E6474E', fontWeight: '600'}} onPress={hideDialog}>Cancelar</Text>
+        </TouchableOpacity>
+        </LinearGradient>  
+
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
+        <TouchableOpacity onPress={() => {setVisible1(false)}}>
+            <Text style={{color: '#fff', fontWeight: '600'}}>Aceptar</Text> 
+        </TouchableOpacity>
+        </LinearGradient>   
+        </View>
+
+      </ModalMercado> 
+
+      {/* Modal Editar*/} 
+      <ModalMercado visible={visible2}>
+
+         <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}> 
+         <TouchableOpacity>
+         <Ionicons name="help-circle-outline" size={26} color="black" style={{position: 'absolute', alignSelf: 'flex-end', paddingRight: 10, paddingTop: 3}}/>
+         </TouchableOpacity>
+        </LinearGradient>
+        <View style={styles.circuloBlanco}/>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}> 
+        <Image source={JugadorBra} style={styles.fotocirculo}/>
+        </LinearGradient>
+        <Text style={styles.nombreJugador}>Neymar Jr</Text>  
+
+        <View style={{width:'100%', height: 70, flexDirection: 'row'}}>
+          {/* Anterior oferta*/}
+          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.subtexto}>Mi anterior oferta</Text>
+          <View style={styles.containerDinero}>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
+           <MaterialIcons name="attach-money" size={18} color="white"/>
+           </LinearGradient>
+          <Text style={{fontWeight: '600', marginLeft: 2}}>200</Text> 
+          </View>
+          </View>
+
+        {/* Oferta actual*/}
+        <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.subtexto}>Oferta ganadora actual</Text>
+          <View style={styles.containerDinero}>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
+           <MaterialIcons name="attach-money" size={18} color="white"/>
+           </LinearGradient>
+          <Text style={{fontWeight: '600', marginLeft: 2}}>250</Text> 
+          </View>
+          </View>
+
+        </View> 
+        
+        <View style={{width:'100%', height: 70, flexDirection: 'row', marginTop: 16}}>
+          {/* Nueva oferta*/}
+          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={styles.subtexto}>Mi nueva oferta</Text>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}> 
+          <TextInput style={styles.oferta}/> 
+          </LinearGradient>
+          <Text style={{fontSize: 9, color: '#00DB71', fontWeight: '700', marginTop: 3}}> (+ $250)</Text>
+          </View>
+
+        {/* Saldo restante*/}
+        <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.subtexto}>Saldo luego de la operación</Text>
+          <View style={styles.containerDinero}>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
+           <MaterialIcons name="attach-money" size={18} color="white"/>
+           </LinearGradient>
+          <Text style={{fontWeight: '600', marginLeft: 2}}>500</Text> 
+          </View>
+          </View>
+
+        </View> 
+
+
+        {/* Botones */}
+        <View style={styles.containerButtons}>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
+        <TouchableOpacity style={styles.whitebutton}>
+            <Text style={{color: '#E6474E', fontWeight: '600'}} onPress={hideDialog2}>Cancelar</Text>
+        </TouchableOpacity>
+        </LinearGradient>  
+
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
+        <TouchableOpacity onPress={() => {setVisible2(false)}}>
+            <Text style={{color: '#fff', fontWeight: '600'}}>Aceptar</Text> 
+        </TouchableOpacity>
+        </LinearGradient>   
+        </View>
+
+      </ModalMercado> 
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  fondoModal: {
+    width: '100%',
+    height: 85,
+    alignSelf: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20
+  },
+  circuloBlanco: {
+    height: 120,
+    width: 120,
+    borderRadius: 60,
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    position: 'absolute',
+    zIndex: 1,
+    marginTop: 15
+  },
+  circuloDeg: {
+    height: 110,
+    width: 110,
+    borderRadius: 60,
+    alignSelf: 'center',
+    position: 'absolute',
+    zIndex: 1,
+    marginTop: 20
+  },
+  fotocirculo: {
+    resizeMode: 'contain',
+    height: 115,
+    alignSelf: 'center'
+  },
+  subtexto:{
+    fontSize: 14, 
+    marginBottom: 2, 
+    fontWeight: '500', 
+    color: '#3D405B',
+    textAlign: 'center'
+  },
+  containerDinero:{
+    flexDirection: 'row',
+    width: '100%', 
+    height: 30, 
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+  money:{
+    height: 25, 
+    width: 80, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    borderRadius: 20
+  },
+  oferta:{
+    width: 75, 
+    height: 20, 
+    backgroundColor: 'white', 
+    borderRadius: 20, 
+    padding: 3, 
+    paddingLeft: 4, 
+    fontWeight: '600'
+  },
+  moneyCoin:{
+    height: 20,
+    width: 20, 
+    borderRadius: 15, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    alignSelf: 'center'
+  },
+  containerButtons: {
+    flexDirection: 'row',
+    width: '80%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'center',
+    paddingBottom: 30,
+    paddingTop: 20
+  },
+  whitebutton: {
+    height: 25,
+    width: 105,
+    backgroundColor: 'white',
+    borderRadius: 30,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  saldost: {
+    padding: 10,
+    borderRadius: 20,
+    margin: 10,
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+  nombreJugador: {
+    alignSelf: 'center',
+    borderColor: '#B02419',
+    fontSize: 20,
+    marginTop: 50,
+    fontWeight: 'bold',
+    marginBottom: 20
+  },
+  infoData: {
+    borderWidth: 3,
+    borderColor: '#B02419',
+    padding: 8,
+    borderRadius: 20,
+    margin: 10,
+    width: "100%",
+  },
+  editButtonacep: {
+    backgroundColor: '#B02419',
+    width: 110,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  imagePlayerDialog: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    resizeMode: 'stretch',
+    borderWidth: 3,
+    borderColor: '#B02419',
+  },
+  editButtoncanc: {
+    backgroundColor: '#B02419',
+    width: 110,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
   editButton: {
     width: 90,
     height: 30,
@@ -151,7 +434,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "white",
     borderRadius: 10,
-    width: "93%",
+    width: "100%",
     height: 115,
     position: "relative",
     flexDirection: "row",

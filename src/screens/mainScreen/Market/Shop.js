@@ -18,6 +18,7 @@ import {
   Entypo
 } from "@expo/vector-icons";
 import { SelectList } from "react-native-dropdown-select-list";
+import AddPlayerCard from "../../../components/AddPlayerCard";
 
 import Header from "../../../components/HeaderComponent";
 import SearchBar from "../../../components/SearchBar";
@@ -25,11 +26,7 @@ import SearchBar from "../../../components/SearchBar";
 import PlayerCardOG from "../../../components/PlayerCardOG";
 import PlayerCardMS from "../../../components/PlayerCardMS";
 import PlayerCardMO from "../../../components/PlayerCardMO";
-
-import JugadorBra from "../../../../assets/app/bra_10.png";
-import MoneyIcon from "../../../../assets/app/moneyIcon.png";
-import Reloj from "../../../../assets/app/reloj.png";
-import Bra from "../../../../assets/app/bra.png";
+import { ModalBanca } from "../../../components/ModalBanca";
 
 export default function Shop({ navigation }) {
   const { height, width } = Dimensions.get("window");
@@ -66,6 +63,10 @@ export default function Shop({ navigation }) {
     { key: "4", value: "Alemania" },
     { key: "5", value: "Brazil" },
   ];
+
+   //Visible Modal Mis Ofertas - Añadir jugadores
+   const [visible2, setVisible2] = useState(false);
+   const hideDialog2 = () => setVisible2(false);
 
   return (
     <View style={styles.fondo}>
@@ -112,7 +113,7 @@ export default function Shop({ navigation }) {
               <TouchableOpacity>
                 <LinearGradient
                   colors={["#D13256", "#FE5F42"]}
-                  style={{ borderRadius: 15, padding: 3 }}
+                  style={{ borderRadius: 15, padding: 3, marginTop: 4 }}
                 >
                   <Entypo name="help" size={22} color="white" />
                 </LinearGradient>
@@ -152,7 +153,7 @@ export default function Shop({ navigation }) {
           <View style={{ paddingTop: 5, flex: 1, alignItems: "center" }}>
             {opciones == 2 && (
               <View style={styles.shadow}>
-                <TouchableOpacity style={{ alignItems: "center" }}>
+                <TouchableOpacity style={{ alignItems: "center" }} onPress={()=> setVisible2(true)}>
                   <LinearGradient
                     style={styles.botonañadir}
                     colors={["#D13256", "#FE5F42"]}
@@ -181,6 +182,64 @@ export default function Shop({ navigation }) {
             />
           </View>
         </View>
+              <ModalBanca visible={visible2}>
+                <View style={{height: '90%', width: '100%', padding: 8}}>
+                  <Text style={styles.title}>Banca</Text>
+                  <View style={{ alignItems: "center", marginBottom: 5 }}>
+            <View
+              style={{
+                flexDirection: "column",
+                width: "90%",
+                alignItems: "flex-end",
+                marginBottom: -15,
+              }}
+            >
+              <TouchableOpacity>
+                <LinearGradient
+                  colors={["#D13256", "#FE5F42"]}
+                  style={{ borderRadius: 15, padding: 3, marginTop: 1 }}
+                >
+                  <Entypo name="help" size={22} color="white" />
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+
+            <SearchBar
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+            />
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                width: "100%",
+              }}
+            >
+              <SelectList
+                setSelected={(val) => setSelectedE(val)}
+                data={dataEquipos}
+                save="value"
+                placeholder={!isFocusE ? "Equipos" : "..."}
+                onFocus={() => setIsFocusE(true)}
+              />
+              <SelectList
+                setSelected={(val) => setSelected(val)}
+                data={data}
+                save="value"
+                placeholder={!isFocus ? "Posición" : "..."}
+                onFocus={() => setIsFocus(true)}
+              />
+            </View>
+          </View>
+          <ScrollView>
+                <AddPlayerCard/>
+                <AddPlayerCard/>
+                <AddPlayerCard/>
+                <AddPlayerCard/>
+          </ScrollView>
+                </View>
+              </ModalBanca>
       </View>
     </View>
   );
