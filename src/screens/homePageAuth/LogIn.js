@@ -7,7 +7,8 @@ import {
 	Text,
 	TextInput,
 	Image,
-	View
+	View,
+	Dimensions
 } from "react-native";
 import { useDispatch } from 'react-redux';
 import { useForm, Controller } from "react-hook-form";
@@ -17,6 +18,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { login } from "../../services/auth.services";
 import { logIn as logInRedux } from '../../state/authSlice.js';
+import logoImg from '../../../assets/splash.png'
+
+const { width, height } = Dimensions.get('window');
 
 export default function LogIn({ navigation }) {
 	const [loading, setLoading] = useState(false);
@@ -30,8 +34,8 @@ export default function LogIn({ navigation }) {
 		try {
 			const result = await login(data);
 			setLoading(false);
-			if (result.data.token) {
-				dispatch(logInRedux(result.data.token));
+			if (result.data.item.token) {
+				dispatch(logInRedux(result.data.item.token));
 				navigation.navigate('BottomNavBar');
 			}
 		} catch (error) {
@@ -48,12 +52,15 @@ export default function LogIn({ navigation }) {
 	return (
 		<View style={styles.container}>
 			<ScrollView>
+				<View style={styles.imageContainer}>
+					<Image style={styles.logoSt} source={logoImg} />
+				</View>
 				<View style={styles.contentContainer}>
 					<Spinner
 						visible={loading}
 						textContent={'Cargando...'}
 					/>
-					<Text style={styles.body}>Inicia sesión en tu Cuenta</Text>
+					<Text style={styles.body}>Ingresa en tu Cuenta</Text>
 
 					{/* Email Input */}
 					<View style={styles.inputContainer}>
@@ -70,7 +77,7 @@ export default function LogIn({ navigation }) {
 								required: "Ingrese su correo electrónico",
 								pattern: { value: EMAIL_REGEX, message: "Ingrese un correo válido" }
 							}}
-							render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+							render={({ field: { value, onChange }, fieldState: { error } }) => (
 								<>
 									{error && (
 										<Text style={styles.textError}>{error.message}</Text>
@@ -100,7 +107,7 @@ export default function LogIn({ navigation }) {
 							control={control}
 							name="password"
 							rules={{ required: "Ingrese su contraseña" }}
-							render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+							render={({ field: { value, onChange }, fieldState: { error } }) => (
 								<>
 									{error && (
 										<Text style={styles.textError}>{error.message}</Text>
@@ -144,42 +151,6 @@ export default function LogIn({ navigation }) {
 							<Text style={{ color: 'white', fontWeight: 'bold' }}>Iniciar Sesión</Text>
 						</LinearGradient>
 					</TouchableOpacity>
-
-					<Text style={{ textAlign: 'center' }}>o Inicia Sesión con:</Text>
-
-					{/* Botones de Aplicaciones */}
-					<View style={styles.buttonContainer}>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('HomeScreen')}
-							style={styles.button}>
-							<Image
-								source={{
-									uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png'
-								}}
-								style={{ width: 40, height: 40 }}
-							/>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('HomeScreen')}
-							style={styles.button}>
-							<Image
-								source={{
-									uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png'
-								}}
-								style={{ width: 40, height: 40 }}
-							/>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('HomeScreen')}
-							style={styles.button}>
-							<Image
-								source={{
-									uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Twitter-logo.svg/2491px-Twitter-logo.svg.png'
-								}}
-								style={{ width: 40, height: 40 }}
-							/>
-						</TouchableOpacity>
-					</View>
 					{/* Boton Cambiar a pantalla de registro */}
 					<TouchableOpacity
 						onPress={() => navigation.navigate('SignIn')}
@@ -198,38 +169,34 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		alignItems: 'center',
+		backgroundColor: '#FFFFFF',
+	},
+	imageContainer: {
+		width: width,
+		height: height * 0.3,
+		backgroundColor: '#EAEAEA',
 		justifyContent: 'center',
-		backgroundColor: '#F2F6FF',
+		borderBottomLeftRadius: 25,
+		borderBottomRightRadius: 25
 	},
 	contentContainer: {
 		paddingHorizontal: 30,
-		marginTop: 75,
+		marginTop: 30
+	},
+	logoSt: {
+		height: '100%',
+		width: '100%',
+		alignSelf: 'center',
+		resizeMode: 'contain'
 	},
 	body: {
 		padding: 20,
 		fontSize: 30,
 		lineHeight: 35,
 		marginBottom: 20,
-		fontWeight: '400',
+		fontWeight: '700',
 		textAlign: 'center',
-		color: '#3A4159',
-	},
-	buttonContainer: {
-		flexDirection: 'row',
-		width: '100%',
-		backgroundColor: '#DFE3E630',
-		marginTop: 20,
-		marginBottom: 40,
-	},
-	button: {
-		flex: 1,
-		alignItems: 'center',
-		backgroundColor: 'FFFFFF70',
-		padding: 16,
-		borderWidth: 2,
-		borderColor: 'white',
-		borderRadius: 16,
-		marginHorizontal: 10,
+		color: '#2A555E',
 	},
 	inputContainer: {
 		width: '100%',
@@ -237,7 +204,12 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 		borderRadius: 25,
 		marginBottom: 20,
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderColor: '#E7484D',
+		borderBottomWidth: 1,
+		borderTopWidth: 0,
+		borderLeftWidth: 0,
+		borderRightWidth: 0,
 	},
 	inputIcon: {
 		position: 'absolute',

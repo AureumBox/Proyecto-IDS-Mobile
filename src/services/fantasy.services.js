@@ -19,7 +19,6 @@ export const fetchBench = async (
   if (page) queryString += `&page=${page}`;
 
   try {
-		console.log('datos: ')
     const { data } = await axios.get(
       `${BASE_URL}public-events/${eventId}/squad?${queryString}`,
       {

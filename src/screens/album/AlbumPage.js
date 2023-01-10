@@ -119,8 +119,6 @@ export default function AlbumPage() {
 					setTeamsModalOpens(false);
 				}}
 			/>
-			{/* <Header  /> */}
-
 			<View style={styles.container}>
 				<ProgressBar />
 				{/* Pagina de album */}

@@ -7,7 +7,8 @@ import {
 	Text,
 	TextInput,
 	Image,
-	View
+	View,
+	Dimensions
 } from "react-native";
 import { useDispatch } from 'react-redux'
 import { Ionicons } from '@expo/vector-icons';
@@ -17,6 +18,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { logIn } from '../../state/authSlice.js';
 import { signup } from "../../services/auth.services";
+import logoImg from '../../../assets/splash.png'
+
+const { width, height } = Dimensions.get('window');
 
 export default function SignIn({ navigation }) {
 	const [loading, setLoading] = useState(false);
@@ -50,6 +54,9 @@ export default function SignIn({ navigation }) {
 	return (
 		<View style={styles.container}>
 			<ScrollView>
+				<View style={styles.imageContainer}>
+					<Image style={styles.logoSt} source={logoImg} />
+				</View>
 				<View style={styles.contentContainer}>
 					<Spinner
 						visible={loading}
@@ -127,7 +134,7 @@ export default function SignIn({ navigation }) {
 							control={control}
 							name="password"
 							rules={{ required: "Ingrese su contraseña" }}
-							render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+							render={({ field: { value, onChange }, fieldState: { error } }) => (
 								<>
 									{error && (
 										<Text style={styles.textError}>{error.message}</Text>
@@ -168,7 +175,7 @@ export default function SignIn({ navigation }) {
 								required: "Verifique su contraseña",
 								validate: value => value === pwd ? true : "Las contraseñas no coinciden"
 							}}
-							render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
+							render={({ field: { value, onChange }, fieldState: { error } }) => (
 								<>
 									{error && (
 										<Text style={styles.textError}>{error.message}</Text>
@@ -201,41 +208,6 @@ export default function SignIn({ navigation }) {
 							<Text style={{ color: 'white', fontWeight: 'bold' }}>Registrarte</Text>
 						</LinearGradient>
 					</TouchableOpacity>
-					<Text style={{ textAlign: 'center' }}>o Regístrate con:</Text>
-
-					{/* Botones de Aplicaciones */}
-					<View style={styles.buttonContainer}>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('HomeScreen')}
-							style={styles.button}>
-							<Image
-								source={{
-									uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png'
-								}}
-								style={{ width: 40, height: 40 }}
-							/>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('HomeScreen')}
-							style={styles.button}>
-							<Image
-								source={{
-									uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png'
-								}}
-								style={{ width: 40, height: 40 }}
-							/>
-						</TouchableOpacity>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('HomeScreen')}
-							style={styles.button}>
-							<Image
-								source={{
-									uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Twitter-logo.svg/2491px-Twitter-logo.svg.png'
-								}}
-								style={{ width: 40, height: 40 }}
-							/>
-						</TouchableOpacity>
-					</View>
 					{/* Boton Cambiar a pantalla de iniciar sesion */}
 					<TouchableOpacity
 						onPress={() => navigation.navigate('LogIn')}
@@ -255,37 +227,32 @@ const styles = StyleSheet.create({
 		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#F2F6FF',
+		backgroundColor: '#FFFFFF',
+	},
+	imageContainer: {
+		width: width,
+		height: height * 0.3,
+		backgroundColor: '#EAEAEA',
+		justifyContent: 'center',
+		borderBottomLeftRadius: 25,
+		borderBottomRightRadius: 25
 	},
 	contentContainer: {
 		paddingHorizontal: 30,
-		marginTop: 30,
+	},
+	logoSt: {
+		height: '100%',
+		width: '100%',
+		alignSelf: 'center',
+		resizeMode: 'contain'
 	},
 	body: {
-		padding: 20,
 		fontSize: 30,
 		lineHeight: 35,
 		marginBottom: 20,
-		fontWeight: '400',
+		fontWeight: '700',
 		textAlign: 'center',
-		color: '#3A4159',
-	},
-	buttonContainer: {
-		flexDirection: 'row',
-		width: '100%',
-		backgroundColor: '#DFE3E630',
-		marginTop: 20,
-		marginBottom: 40,
-	},
-	button: {
-		flex: 1,
-		alignItems: 'center',
-		backgroundColor: 'FFFFFF70',
-		padding: 16,
-		borderWidth: 2,
-		borderColor: 'white',
-		borderRadius: 16,
-		marginHorizontal: 10,
+		color: '#2A555E',
 	},
 	inputContainer: {
 		width: '100%',
@@ -293,7 +260,12 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 		borderRadius: 25,
 		marginBottom: 20,
-		justifyContent: 'center'
+		justifyContent: 'center',
+		borderColor: '#E7484D',
+		borderBottomWidth: 1,
+		borderTopWidth: 0,
+		borderLeftWidth: 0,
+		borderRightWidth: 0,
 	},
 	inputIcon: {
 		position: 'absolute',
