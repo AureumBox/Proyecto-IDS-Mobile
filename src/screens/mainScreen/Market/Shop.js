@@ -8,17 +8,13 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../../components/HeaderComponent";
 import { ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  MaterialIcons,
-  MaterialCommunityIcons,
-  Octicons,
-} from "@expo/vector-icons";
-import Container, { Toast } from 'toastify-react-native';
+import Container, { Toast } from "toastify-react-native";
 
 import { SelectList } from "react-native-dropdown-select-list";
 import { Entypo } from "@expo/vector-icons";
@@ -30,23 +26,25 @@ import PlayerCardOG from "../../../components/PlayerCardOG";
 import PlayerCardMS from "../../../components/PlayerCardMS";
 import PlayerCardMO from "../../../components/PlayerCardMO";
 
-import JugadorBra from "../../../../assets/app/bra_10.png";
-import MoneyIcon from "../../../../assets/app/moneyIcon.png";
-import Reloj from "../../../../assets/app/reloj.png";
-import Bra from "../../../../assets/app/bra.png";
+import ButtonAddAuction from "./ButtonAddAuction";
+import AuctionsList from "./AuctionsList";
 
 export default function Shop({ navigation }) {
   const { height, width } = Dimensions.get("window");
   const [visible, setVisible] = React.useState(false);
   const hideDialog = () => setVisible(false);
   const [opciones, setOpciones] = useState(1);
-  const [teams, setTeams] = useState(1);
+  const [teams, setTeams] = useState([]);
+  const [paginated, setPaginated] = useState([]);
+  const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(1);
   const [auctions, setAuctions] = useState([]);
+  const [playerName, setPlayerName] = useState("");
+  const [team, setTeam] = useState("");
+  const [position, setPosition] = useState("");
   const eventId = 1;
 
   const [searchQuery, setSearchQuery] = React.useState("");
-
   const onChangeSearch = (query) => setSearchQuery(query);
 
   const [searchPhrase, setSearchPhrase] = useState("");
@@ -56,7 +54,7 @@ export default function Shop({ navigation }) {
   const [selected, setSelected] = useState("");
   const [isFocus, setIsFocus] = useState(false);
 
-  const data = [
+  const dataPosition = [
     { key: "1", value: "Seleccione una posición", disabled: true },
     { key: "2", value: "Delantero" },
     { key: "3", value: "Medio Campo" },
@@ -67,27 +65,45 @@ export default function Shop({ navigation }) {
   const [selectedE, setSelectedE] = useState("");
   const [isFocusE, setIsFocusE] = useState(false);
 
-  const dataEquipos = [
-    { key: "1", value: "Seleccione un equipo", disabled: true },
-    { key: "2", value: "España" },
-    { key: "3", value: "Argentina" },
-    { key: "4", value: "Alemania" },
-    { key: "5", value: "Brazil" },
-  ];
+  /*   const loadNextAuctionsPage = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await marketServices.fetchAuctionsList(token, eventId, playerName, team, position, page);
+      setAuctions((auctions) => auctions.concat(data.items));
+    } catch (error) {
+      alert("a "+error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [page]);
+  useEffect(() => {
+    loadNextAuctionsPage();
+  }, [loadNextAuctionsPage]); */
 
   const loadAuctionsList = useCallback(async () => {
     setLoading(true);
     try {
-      console.log("en ue")
-      const data = await marketServices.fetchAuctionsList(token, eventId);
-      setAuctions(data?.items)
-      console.log(JSON.stringify(auctions))
+      const data = await marketServices.fetchAuctionsList(
+        token,
+        eventId,
+        playerName,
+        team,
+        position,
+        page
+      );
+      if (page == 0) {
+        setAuctions(data?.items);
+      } else {
+        console.log("proxima pag");
+        setAuctions((auctions) => auctions.concat(data.items));
+      }
+      setPaginated(data?.paginated);
     } catch (error) {
       Toast.error(error.message);
     } finally {
       setLoading(false);
     }
-  }, [opciones]);
+  }, [opciones, page]);
   useEffect(() => {
     loadAuctionsList();
   }, [loadAuctionsList]);
@@ -96,7 +112,12 @@ export default function Shop({ navigation }) {
     setLoading(true);
     try {
       const data = await albumServices.fetchTeamsInfo(token, eventId);
-      setTeams(data);
+      console.log(JSON.stringify(data));
+      let newArray = data?.map((item, index) => {
+        return { key: item?.id, value: item?.name };
+      });
+      console.log(JSON.stringify(newArray));
+      setTeams(newArray);
     } catch (error) {
       Toast.error(error.message);
     } finally {
@@ -110,7 +131,7 @@ export default function Shop({ navigation }) {
   return (
     <View style={styles.fondo}>
       <Header />
-      <Container position="top" />
+      <Container position="bottom" />
       <View style={styles.container}>
         <View style={styles.fondoMercado}>
           {/* header mercado */}
@@ -174,14 +195,14 @@ export default function Shop({ navigation }) {
             >
               <SelectList
                 setSelected={(val) => setSelectedE(val)}
-                data={dataEquipos}
+                data={teams}
                 save="value"
                 placeholder={!isFocusE ? "Equipos" : "..."}
                 onFocus={() => setIsFocusE(true)}
               />
               <SelectList
                 setSelected={(val) => setSelected(val)}
-                data={data}
+                data={dataPosition}
                 save="value"
                 placeholder={!isFocus ? "Posición" : "..."}
                 onFocus={() => setIsFocus(true)}
@@ -191,34 +212,13 @@ export default function Shop({ navigation }) {
 
           {/* Lista */}
           <View style={{ paddingTop: 5, flex: 1, alignItems: "center" }}>
-            {opciones == 2 && (
-              <View style={styles.shadow}>
-                <TouchableOpacity style={{ alignItems: "center" }}>
-                  <LinearGradient
-                    style={styles.botonañadir}
-                    colors={["#D13256", "#FE5F42"]}
-                  >
-                    <Text style={styles.textAñadir}>
-                      + Añade tus jugadores al mercado
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View>
-            )}
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={auctions}
-              keyExtractor={(_, index) => index.toString()}
-              ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
-              ItemSeparatorComponent={() => <View style={styles.separator} />}
-              onEndReached={() => {
-                console.log("hola");
-              }}
-              renderItem={({ item }) => {
-                if (opciones == 1) return <PlayerCardOG auctionData={item}/>;
-                if (opciones == 2) return <PlayerCardMS />;
-                if (opciones == 3) return <PlayerCardMO />;
-              }}
+            {opciones == 2 && <ButtonAddAuction />}
+            <AuctionsList
+              auctions={auctions}
+              opciones={opciones}
+              paginated={paginated}
+              setPage={setPage}
+              nextPage={loadAuctionsList}
             />
           </View>
         </View>
@@ -250,15 +250,6 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-  },
-  botonañadir: {
-    width: "100%",
-    height: 40,
-    borderRadius: 10,
-    padding: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 15,
   },
   shadow: {
     shadowOffset: {
@@ -303,13 +294,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: "#3D405B",
     textAlign: "center",
-  },
-  textAñadir: {
-    fontWeight: "bold",
-    fontSize: 12,
-    lineHeight: 18,
-    color: "white",
-    textAlign: "left",
   },
   containerButtons: {
     flexDirection: "row",

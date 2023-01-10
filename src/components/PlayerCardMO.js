@@ -20,9 +20,7 @@ import MoneyIcon from "../../assets/app/moneyIcon.png";
 import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
 
-export default function PlayerCardMO() {
-  const { height, width } = Dimensions.get("window");
-
+export default function PlayerCardMO({ auctionData = {} }) {
   return (
     <View style={styles.card}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.imgCard}>

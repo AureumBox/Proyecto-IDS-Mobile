@@ -3,15 +3,31 @@ import Constants from "expo-constants";
 
 const BASE_URL = `${Constants.expoConfig.extra.apiUrl}/public-events/`;
 
-export const fetchAuctionsList = async (token, eventId) => {
-  console.log(`lista: ${BASE_URL}${eventId}/market`);
+export const fetchAuctionsList = async (
+  token,
+  eventId,
+  playerName,
+  team,
+  position,
+  page
+) => {
+  let queryString = "";
+
+  if (playerName) queryString += `&playername=${playerName}`;
+  if (team) queryString += `&teamname=${team}`;
+  if (position) queryString += `&position=${position}`;
+  if (page) queryString += `&page=${page}`;
+
+  console.log(`${BASE_URL}${eventId}/market?${queryString}`)
   try {
-    const { data } = await axios.get(`${BASE_URL}${eventId}/market`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
-    console.log(data);
+    const { data } = await axios.get(
+      `${BASE_URL}${eventId}/market?${queryString}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     if (!data?.success) throw new Error(data?.message);
     return data;
   } catch (e) {

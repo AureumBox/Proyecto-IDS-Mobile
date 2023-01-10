@@ -20,7 +20,7 @@ import MoneyIcon from "../../assets/app/moneyIcon.png";
 import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
 
-export default function PlayerCardMS() {
+export default function PlayerCardMS({ auctionData = {} }) {
   const { height, width } = Dimensions.get("window");
 
   return (
