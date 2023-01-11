@@ -15,7 +15,8 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   Octicons,
-  Entypo
+  Entypo,
+  AntDesign
 } from "@expo/vector-icons";
 import { SelectList } from "react-native-dropdown-select-list";
 import AddPlayerCard from "../../../components/AddPlayerCard";
@@ -185,12 +186,14 @@ export default function Shop({ navigation }) {
               <ModalBanca visible={visible2}>
                 <View style={{height: '90%', width: '100%', padding: 8}}>
                   <TouchableOpacity onPress={()=> {setVisible2(false)}}>
-                  <Text style={styles.title}>Banca</Text>
+                  
+                  <AntDesign name="closecircleo" size={20} color="black" style={{marginLeft: '92%'}}/>
+                 
                   </TouchableOpacity>
+                  <Text style={styles.title}>Banca</Text>
                   <View style={{ alignItems: "center", marginBottom: 5 }}>
             <View
               style={{
-                flexDirection: "column",
                 width: "90%",
                 alignItems: "flex-end",
                 marginBottom: -15,
@@ -235,21 +238,10 @@ export default function Shop({ navigation }) {
             </View>
           </View>
           <ScrollView>
-                <TouchableOpacity>
                 <AddPlayerCard/>
-                </TouchableOpacity>
-
-                <TouchableOpacity>
                 <AddPlayerCard/>
-                </TouchableOpacity>
-
-                <TouchableOpacity>
                 <AddPlayerCard/>
-                </TouchableOpacity>
-
-                <TouchableOpacity>
                 <AddPlayerCard/>
-                </TouchableOpacity>
           </ScrollView>
                 </View>
               </ModalBanca>

@@ -13,6 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import {
   MaterialIcons,
   Ionicons,
+  AntDesign,
 } from "@expo/vector-icons";
 import { ModalMercado } from "./ModalMercado";
 
@@ -31,7 +32,9 @@ export default function AddPlayerCard() {
 
 
   return (
-    <View style={styles.card}>
+    <View>
+    <TouchableOpacity onPress={()=> {setVisible1(true)}}>  
+    <View style={styles.card}> 
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.imgCard}>
         <View style={styles.containerPlayerName}>
           <Text style={styles.playerName}>Neymar Jr</Text>
@@ -55,6 +58,10 @@ export default function AddPlayerCard() {
             <Text style={styles.posiciontext}>DELANTERO</Text>
           </LinearGradient>
         </View>
+        <View style={{flexDirection:'row',marginLeft: 5, marginTop: 6, alignItems: 'center'}}>
+        <AntDesign name="checkcircleo" size={18} color="black"  style={{marginLeft:4}}/>   
+        <Text style={{fontSize: 12, color: '#3D405B', fontWeight: '700'}}> En alineación</Text>
+        </View>
         
         <View style={{flexDirection:'row', marginTop: 15, marginLeft: 110}}>
         <Text style={{fontSize: 18, color: '#77798C', fontWeight: '600'}}>PTS </Text>
@@ -63,6 +70,56 @@ export default function AddPlayerCard() {
       </View>
    
 
+    </View>
+    </TouchableOpacity>  
+
+    {/* Modal precio inicial y compra directa*/}
+    <ModalMercado visible={visible1}>
+    <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}> 
+         <TouchableOpacity>
+         <Ionicons name="help-circle-outline" size={26} color="black" style={{position: 'absolute', alignSelf: 'flex-end', paddingRight: 10, paddingTop: 3}}/>
+         </TouchableOpacity>
+        </LinearGradient>
+        <View style={styles.circuloBlanco}/>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}> 
+        <Image source={JugadorBra} style={styles.fotocirculo}/>
+        </LinearGradient>
+        <Text style={styles.nombreJugador}>Neymar Jr</Text>  
+
+        <View style={{width:'100%', height: 70, flexDirection: 'row'}}>
+          {/* Precio inicial */}
+          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={styles.subtexto}>Precio Inicial</Text>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}> 
+          <TextInput style={styles.oferta}/> 
+          </LinearGradient>
+          </View>
+
+        {/* Compra directa */}
+          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={styles.subtexto}>Compra directa</Text>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}> 
+          <TextInput style={styles.oferta}/> 
+          </LinearGradient>
+          </View>
+
+          </View> 
+
+        {/* Botones */}
+        <View style={styles.containerButtons}>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
+        <TouchableOpacity style={styles.whitebutton}>
+            <Text style={{color: '#E6474E', fontWeight: '600'}} onPress={hideDialog}>Cancelar</Text>
+        </TouchableOpacity>
+        </LinearGradient>  
+
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
+        <TouchableOpacity onPress={() => {setVisible1(false)}}>
+            <Text style={{color: '#fff', fontWeight: '600'}}>Aceptar</Text> 
+        </TouchableOpacity>
+        </LinearGradient>   
+        </View>
+    </ModalMercado>
     </View>
   );
 }
