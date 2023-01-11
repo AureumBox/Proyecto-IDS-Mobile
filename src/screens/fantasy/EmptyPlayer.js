@@ -2,15 +2,19 @@ import React from "react";
 import {
 	StyleSheet,
 	Text,
+	Image,
+	View,
 	TouchableOpacity
 } from "react-native";
 import { useSelector } from "react-redux";
+
+import EmptyPlayerImg from '../../../assets/app/EmptyPlayer.png'
 
 export default function EmptyPlayer({ position, insertPlayer }) {
 	const positionSpa = {
 		goalkeeper: "Arquero",
 		defender: "Defensa",
-		midfielder: "   Medio Campista", 
+		midfielder: "Medio Campista",
 		forward: "Delantero",
 	};
 
@@ -31,7 +35,7 @@ export default function EmptyPlayer({ position, insertPlayer }) {
 
 			insertPlayer(token, eventId, selectedPlayer);
 		} catch (error) {
-			alert("vacio "+error.message);
+			alert("vacio " + error.message);
 		}
 	};
 
@@ -39,7 +43,10 @@ export default function EmptyPlayer({ position, insertPlayer }) {
 
 	return (
 		<TouchableOpacity style={styles.barajita} onPress={handlePress}>
-			<Text style={styles.idbarajita}>{positionSpa[position]}</Text>
+			<Image source={EmptyPlayerImg} style={styles.imgSt} />
+			<View style={styles.contenedorTexto}>
+				<Text style={styles.idbarajita}>{positionSpa[position]}</Text>
+			</View>
 		</TouchableOpacity>
 	);
 }
@@ -52,11 +59,27 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "#E5464D60",
 		borderRadius: 10,
-		margin: 3,
+		margin: 3
+	},
+	imgSt: {
+		width: "100%",
+		height: "100%",
+		resizeMode: 'contain',
+		top: 5
+	},
+	contenedorTexto: {
+		width: "100%",
+		height: "18%",
+		backgroundColor: "#E5464D",
+		justifyContent: "center",
+		alignItems: "center",
+		borderBottomLeftRadius: 10,
+		borderBottomRightRadius: 10,
+		bottom: 10
 	},
 	idbarajita: {
 		fontWeight: "bold",
 		color: "white",
-		fontSize: 14,
-	},
+		fontSize: 9
+	}
 });

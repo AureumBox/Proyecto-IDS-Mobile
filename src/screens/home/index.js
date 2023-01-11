@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { SelectList } from "react-native-dropdown-select-list";
 import {
 	StyleSheet,
 	View,
@@ -9,6 +8,7 @@ import {
 	TouchableOpacity,
 	Linking
 } from "react-native";
+import { SelectList } from "react-native-dropdown-select-list";
 import { useDispatch, useSelector } from "react-redux";
 import { LinearGradient } from 'expo-linear-gradient';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -173,11 +173,7 @@ export default function Home({ navigation }) {
 				<TouchableOpacity onPress={onAdClick}>
 					<View style={{ alignItems: "center" }}>
 						<Image
-							source={
-								ad?.img
-									? { uri: ad?.img }
-									: require("../../../assets/ads/yummy.jpg")
-							}
+							source={{ uri: ad?.img }}
 							style={{
 								height: 175,
 								width: 320,

@@ -4,11 +4,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import Header from '../components/HeaderComponent';
-import Home from './home/Home';
+import Header from '../components/Header';
+import Home from './home';
 import AlbumNavigator from './album/AlbumNavigator';
 import Fantasy from './fantasy';
-import Shop from './shop/Shop';
+import Shop from './market';
 
 const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();

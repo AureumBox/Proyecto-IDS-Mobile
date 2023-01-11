@@ -17,7 +17,7 @@ function isInLineup(isInLineup) {
 					name="check-circle"
 					size={24}
 					color="black"
-					style={{ marginLeft: width * 0.25 }}
+					style={{ marginLeft: width * 0.15 }}
 				/>
 				<Text style={[styles.playerName, { marginLeft: 10 }]}>Alineado</Text>
 			</View>
@@ -70,16 +70,15 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	containerInfo: {
-		width: width - width * 0.28,
+		width: width - width * 0.35,
 		backgroundColor: "#F0F0F0",
-		right: 10,
 		justifyContent: "center",
 		borderTopRightRadius: 15,
 		borderBottomRightRadius: 15,
 	},
 	cardImage: {
 		width: width * 0.25,
-		height: height * 0.12,
+		height: height * 0.15,
 		backgroundColor: "#E5464D",
 		borderColor: "blue",
 		borderRadius: 15,
@@ -87,14 +86,14 @@ const styles = StyleSheet.create({
 		overflow: "hidden",
 	},
 	badgeImage: {
-		width: width * 0.055,
-		height: width * 0.055,
-		left: width * 0.25 - width * 0.08,
+		width: width * 0.05,
+		height: width * 0.05,
+		left: width * 0.25 - width * 0.075,
 		top: width * 0.015,
 		zIndex: 1,
 	},
 	playerPosition: {
-		width: width - width * 0.4,
+		width: width - width * 0.5,
 		fontWeight: "bold",
 		fontSize: 13,
 		color: "#FFFFFF",
@@ -106,22 +105,22 @@ const styles = StyleSheet.create({
 		left: (width * 0.25) / 4,
 	},
 	playerPts: {
+		fontWeight: "400",
+		fontSize: 14,
 		position: "absolute",
 		borderRadius: 50,
-		fontWeight: "400",
-		left: width * 0.52,
+		left: width * 0.44,
 		textAlign: "center",
-		textAlignVertical: "center",
-		fontSize: 14,
+		textAlignVertical: "center"
 	},
 	playerScore: {
+		fontWeight: "600",
+		fontSize: 24,
 		position: "absolute",
 		borderRadius: 50,
-		fontWeight: "600",
-		left: width * 0.6,
+		left: width * 0.52,
 		textAlign: "center",
-		textAlignVertical: "center",
-		fontSize: 24,
+		textAlignVertical: "center"
 	},
 	playerName: {
 		fontWeight: "400",
@@ -129,11 +128,12 @@ const styles = StyleSheet.create({
 		color: "#000000"
 	},
 	specialText: {
-		fontSize: 11,
+		fontSize: 12,
 		color: "#FFFFFF",
 		transform: [{ rotate: "-90deg" }],
 		textAlign: 'center',
-		right: width * 0.1,
-		top: height * 0.026,
+		right: width * 0.11,
+		top: height * 0.04,
+		fontWeight: 'bold'
 	},
 });
