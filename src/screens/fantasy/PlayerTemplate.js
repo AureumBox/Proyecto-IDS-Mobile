@@ -92,7 +92,10 @@ const styles = StyleSheet.create({
 		height: width * 0.05,
 		left: width * 0.25 - width * 0.075,
 		top: width * 0.015,
-		zIndex: 1,
+		borderWidth: 0.2,
+		borderColor: 'black',
+		borderRadius: 25,
+		zIndex: 1
 	},
 	playerPosition: {
 		width: width - width * 0.5,

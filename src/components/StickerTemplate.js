@@ -99,7 +99,10 @@ const styles = StyleSheet.create({
 		width: width / 24,
 		height: width / 24,
 		resizeMode: 'contain',
-		top: width / 32
+		top: width / 32,
+		borderWidth: 0.2,
+		borderColor: 'black',
+		borderRadius: 25
 	},
 	playerRole: {
 		width: width / 16,

@@ -48,7 +48,10 @@ export default StyleSheet.create({
   },
   listItemImage: {
     width: 55,
-    height: 55
+    height: 55,
+		borderWidth: 0.2,
+		borderColor: 'black',
+		borderRadius: 35
   },
   separator: {
     width: "100%",

@@ -122,6 +122,7 @@ export default function Fantasy() {
 	return (
 		<View style={styles.fondo}>
 			<View style={styles.container}>
+
 				{/* Drawer */}
 				<View
 					style={{
@@ -131,16 +132,11 @@ export default function Fantasy() {
 						height: open ? "100%" : 0,
 					}}
 				>
-					<IconButton
-						icon="close"
-						iconColor="#3D405B"
-						size={30}
-						onPress={() => setOpen(false)}
-					/>
-					<FantasyDrawer squadChange={squadChange} />
+					<FantasyDrawer squadChange={squadChange} onClose={setOpen} />
 				</View>
+
 				<View style={{ width: '90%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
-					<Spinner 
+					<Spinner
 						visible={loading}
 						size='large'
 						color='#E7484D'
@@ -163,13 +159,13 @@ export default function Fantasy() {
 						</View>
 					</View>
 
-					<View style={{...styles.containerTitulo, borderRadius: 10}}>
+					<View style={{ ...styles.containerTitulo, borderRadius: 10 }}>
 						<View style={styles.containerPuntaje}>
-								<Text style={{...styles.textSt, fontSize: 26, right: '250%'}}>
-									Alineación
-								</Text>
-								<Text style={styles.textScore}>150  PTS</Text>
-								<AntDesign name="questioncircle" size={24} color="#E7484D" style={styles.helpButton} />
+							<Text style={{ ...styles.textSt, fontSize: 26, right: '250%' }}>
+								Alineación
+							</Text>
+							<Text style={styles.textScore}>150  PTS</Text>
+							<AntDesign name="questioncircle" size={24} color="#E7484D" style={styles.helpButton} />
 						</View>
 					</View>
 
@@ -266,7 +262,7 @@ const styles = StyleSheet.create({
 	textScore: {
 		position: 'absolute',
 		color: "#3D405B",
-		fontSize: 24, 
+		fontSize: 24,
 		fontWeight: '600',
 		alignSelf: 'center',
 		left: width * 0.53

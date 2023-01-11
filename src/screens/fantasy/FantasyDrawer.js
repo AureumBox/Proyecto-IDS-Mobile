@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TextInput } from "react-native-paper";
 import { SelectList } from "react-native-dropdown-select-list";
 import Spinner from "react-native-loading-spinner-overlay";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 import PlayerTemplate from "./PlayerTemplate";
 import { fetchBench } from "../../services/fantasy.services";
@@ -21,7 +21,7 @@ import * as fantasySlice from "../../state/fantasySlice";
 const { width, height } = Dimensions.get("window");
 
 
-export default function FantasyDrawer({ squadChange }) {
+export default function FantasyDrawer({ squadChange, onClose }) {
 	const [loading, setLoading] = useState(false);
 	const [page, setPage] = useState(0);
 	const [paginate, setPaginate] = useState({});
@@ -126,8 +126,15 @@ export default function FantasyDrawer({ squadChange }) {
 			{/* Filtros */}
 			<View style={{ width: '93%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
 				<View style={styles.filterContainer}>
-					<Text style={styles.textSt}>Almacén de Jugadores</Text>
-					<AntDesign name="questioncircle" size={24} color="#E7484D" style={styles.helpButton} />
+					<TouchableOpacity onPress={() => onClose(false)}>
+						<Ionicons name="arrow-back-circle" size={45} color="#E7484D"
+							style={{ position: 'absolute' }}
+						/>
+					</TouchableOpacity>
+					<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+						<Text style={styles.textSt}>Almacén</Text>
+						<AntDesign name="questioncircle" size={30} color="#E7484D" style={{ alignSelf: 'center' }} />
+					</View>
 					<TextInput
 						placeholder="Buscar jugador"
 						value={playerName}
@@ -138,7 +145,7 @@ export default function FantasyDrawer({ squadChange }) {
 						underlineStyle={{ display: "none" }}
 					/>
 					<View style={{ flexDirection: 'row' }}>
-						<View style={{width: '50%'}}>
+						<View style={{ width: '50%' }}>
 							<SelectList
 								defaultOption={filterData[0]}
 								setSelected={(val) => setSelected(val)}
@@ -148,7 +155,7 @@ export default function FantasyDrawer({ squadChange }) {
 								onFocus={() => setIsFocus(true)}
 							/>
 						</View>
-						<View style={{width: '50%'}}>
+						<View style={{ width: '50%' }}>
 							<SelectList
 								placeholder='Equipo'
 								defaultOption={teamsListPicker[0]}
@@ -239,12 +246,6 @@ const styles = StyleSheet.create({
 		color: "#3D405B",
 		marginRight: 10,
 		textAlign: "center",
-	},
-	helpButton: {
-		position: 'absolute',
-		alignSelf: 'center',
-		left: width * 0.85,
-		top: width * 0.05
 	},
 	selectedItem: {
 		...StyleSheet.absoluteFillObject,
