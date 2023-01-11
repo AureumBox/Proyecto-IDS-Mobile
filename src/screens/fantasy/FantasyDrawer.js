@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TextInput } from "react-native-paper";
 import { SelectList } from "react-native-dropdown-select-list";
 import Spinner from "react-native-loading-spinner-overlay";
+import { AntDesign } from '@expo/vector-icons';
 
 import PlayerTemplate from "./PlayerTemplate";
 import { fetchBench } from "../../services/fantasy.services";
@@ -126,6 +127,7 @@ export default function FantasyDrawer({ squadChange }) {
 			<View style={{ width: '93%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
 				<View style={styles.filterContainer}>
 					<Text style={styles.textSt}>Almacén de Jugadores</Text>
+					<AntDesign name="questioncircle" size={24} color="#E7484D" style={styles.helpButton} />
 					<TextInput
 						placeholder="Buscar jugador"
 						value={playerName}
@@ -135,29 +137,36 @@ export default function FantasyDrawer({ squadChange }) {
 						theme={{ roundness: 50 }}
 						underlineStyle={{ display: "none" }}
 					/>
-					<SelectList
-						defaultOption={filterData[0]}
-						setSelected={(val) => setSelected(val)}
-						data={filterData}
-						notFoundText={<Text>No hay coincidencias</Text>}
-						onSelect={() => filterPos(selected)}
-						onFocus={() => setIsFocus(true)}
-					/>
-					<SelectList
-						defaultOption={teamsListPicker[0]}
-						setSelected={(val) => setSelected(val)}
-						data={teamsListPicker}
-						notFoundText={<Text>No hay coincidencias</Text>}
-						onSelect={() => {
-							if (selected === 'Equipo') setTeam('')
-							else setTeam(selected)
-						}}
-						onFocus={() => setIsFocus(true)}
-					/>
+					<View style={{ flexDirection: 'row' }}>
+						<View style={{width: '50%'}}>
+							<SelectList
+								defaultOption={filterData[0]}
+								setSelected={(val) => setSelected(val)}
+								data={filterData}
+								notFoundText={<Text>No hay coincidencias</Text>}
+								onSelect={() => filterPos(selected)}
+								onFocus={() => setIsFocus(true)}
+							/>
+						</View>
+						<View style={{width: '50%'}}>
+							<SelectList
+								placeholder='Equipo'
+								defaultOption={teamsListPicker[0]}
+								setSelected={(val) => setSelected(val)}
+								data={teamsListPicker}
+								notFoundText={<Text>No hay coincidencias</Text>}
+								onSelect={() => {
+									if (selected === 'Equipo') setTeam('')
+									else setTeam(selected)
+								}}
+								onFocus={() => setIsFocus(true)}
+							/>
+						</View>
+					</View>
 				</View>
 
 				{/* Jugadores fantasy */}
-				<View style={{ paddingBottom: height * 0.285, alignItems: "center" }}>
+				<View style={{ paddingBottom: height * 0.225, alignItems: "center" }}>
 					<Spinner
 						visible={loading}
 						size='large'
@@ -219,7 +228,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#F2F6FE",
 		borderRadius: 50,
 		width: width * 0.7,
-		alignSelf: 'center'
+		alignSelf: 'center',
+		marginBottom: 10
 	},
 	textSt: {
 		fontStyle: "normal",
@@ -229,6 +239,12 @@ const styles = StyleSheet.create({
 		color: "#3D405B",
 		marginRight: 10,
 		textAlign: "center",
+	},
+	helpButton: {
+		position: 'absolute',
+		alignSelf: 'center',
+		left: width * 0.85,
+		top: width * 0.05
 	},
 	selectedItem: {
 		...StyleSheet.absoluteFillObject,

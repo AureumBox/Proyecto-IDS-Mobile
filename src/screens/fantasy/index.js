@@ -8,8 +8,9 @@ import {
 	Dimensions
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { IconButton } from "react-native-paper";
 import Spinner from "react-native-loading-spinner-overlay";
+import { IconButton } from "react-native-paper";
+import { AntDesign } from '@expo/vector-icons';
 
 import PlayerRows from "./PlayerRows";
 import FantasyDrawer from "./FantasyDrawer";
@@ -168,6 +169,7 @@ export default function Fantasy() {
 									Alineación
 								</Text>
 								<Text style={styles.textScore}>150  PTS</Text>
+								<AntDesign name="questioncircle" size={24} color="#E7484D" style={styles.helpButton} />
 						</View>
 					</View>
 
@@ -266,12 +268,18 @@ const styles = StyleSheet.create({
 		color: "#3D405B",
 		fontSize: 24, 
 		fontWeight: '600',
-		left: '65%'
+		alignSelf: 'center',
+		left: width * 0.53
+	},
+	helpButton: {
+		position: 'absolute',
+		alignSelf: 'center',
+		left: width * 0.8
 	},
 	textBotonSelected: {
 		borderBottomLeftRadius: 10,
 		borderBottomRightRadius: 10,
-		borderBottomColor: "#63130B",
+		borderBottomColor: "#E7484D",
 		borderBottomWidth: 4,
 
 	},

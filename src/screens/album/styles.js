@@ -130,7 +130,6 @@ export default StyleSheet.create({
   carruselcontainer: {
     width: "90%",
     height: "25%",
-    backgroundColor: "white",
     borderRadius: 20,
     alignItems: "center"
   },

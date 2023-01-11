@@ -61,7 +61,7 @@ export default function Carousel() {
 
 	const noStickers = () => (
 		<View style={{ justifyContent: "center" }}>
-			<Text style={{ color: "gray" }}>
+			<Text style={{ color: "white", fontWeight: 'bold' }}>
 				No hay cromos disponibles para pegar
 			</Text>
 		</View>
