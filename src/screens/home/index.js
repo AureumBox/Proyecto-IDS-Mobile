@@ -6,7 +6,8 @@ import {
 	Image,
 	ScrollView,
 	TouchableOpacity,
-	Linking
+	Linking,
+	Alert
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useDispatch, useSelector } from "react-redux";
@@ -269,7 +270,12 @@ export default function Home({ navigation }) {
 							</Text>
 							<View style={styles.espacio}>
 								<View style={styles.casilla}>
-									<TouchableOpacity>
+									<TouchableOpacity onPress={() => {
+										Alert.alert(
+											'',
+											'Proximamente...',
+										)
+									}}>
 										<View style={styles.botonSecondary}>
 											<Text style={styles.textoBotonSeconday}>
 												Intercambiar cromos

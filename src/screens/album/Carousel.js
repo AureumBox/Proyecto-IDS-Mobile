@@ -4,7 +4,7 @@ import {
 	Text,
 	View,
 	StyleSheet,
-	TouchableOpacity
+	TouchableWithoutFeedback
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,14 +49,14 @@ export default function Carousel() {
 	};
 
 	const Item = ({ item, selectedId }) => (
-		<TouchableOpacity onPress={() => selectSticker(item.id)}>
+		<TouchableWithoutFeedback onPress={() => selectSticker(item.id)}>
 			<View>
 				<StickerTemplate sticker={item} />
 
 				{/* Overlay rojo cuando item es seleccionado */}
 				{item.id === selectedId && <View style={styles.selectedItem} />}
 			</View>
-		</TouchableOpacity>
+		</TouchableWithoutFeedback>
 	);
 
 	const noStickers = () => (
@@ -97,10 +97,10 @@ const styles = StyleSheet.create({
 		backgroundColor: "red",
 		flexDirection: "row",
 		width: "90%",
-		height: "25%",
+		paddingVertical: 5,
 		alignItems: "center",
 		justifyContent: "space-evenly",
-		borderRadius: 20,
+		borderRadius: 15,
 		overflow: "hidden",
 	},
 	selectedItem: {
