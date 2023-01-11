@@ -7,6 +7,7 @@ import {
 	Dimensions,
 	ImageBackground,
 } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from "@expo/vector-icons";
 
 function isInLineup(isInLineup) {
@@ -37,20 +38,22 @@ export default function PlayerTemplate({ player = {} }) {
 
 	return (
 		<View style={styles.container}>
-			<ImageBackground
-				resizeMode="contain"
-				source={{ uri: player?.img }}
-				style={styles.cardImage}
-			>
-				<Image
+			<LinearGradient colors={['#D13256', '#FE5F42']} style={styles.cardImage}>
+				<ImageBackground
 					resizeMode="contain"
-					source={{ uri: player?.team?.badge }}
-					style={styles.badgeImage}
-				/>
-				<Text style={[styles.playerName, styles.specialText]}>
-					{player?.playerName}
-				</Text>
-			</ImageBackground>
+					source={{ uri: player?.img }}
+					style={styles.cardImage}
+				>
+					<Image
+						resizeMode="contain"
+						source={{ uri: player?.team?.badge }}
+						style={styles.badgeImage}
+					/>
+					<Text style={[styles.playerName, styles.specialText]}>
+						{player?.playerName}
+					</Text>
+				</ImageBackground>
+			</LinearGradient>
 			<View style={styles.containerInfo}>
 				<Text style={styles.playerPosition}>
 					{positionSpa[player?.position]}
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
 	cardImage: {
 		width: width * 0.25,
 		height: height * 0.15,
-		backgroundColor: "#E5464D",
 		borderColor: "blue",
 		borderRadius: 15,
 		zIndex: 1,
