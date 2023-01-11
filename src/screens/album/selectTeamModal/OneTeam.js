@@ -5,11 +5,10 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-
 import styles from '../styles';
 
 const OneTeam = ({ item, index, onPress }) => (
-  <TouchableOpacity onPress={() => { onPress?.(index) }}>
+  <TouchableOpacity onPress={() => onPress?.(index)}>
     <View style={styles.listItem}>
       <View style={styles.listItemImageContainer}>
         <Image source={{ uri: item.badge }} style={styles.listItemImage} />

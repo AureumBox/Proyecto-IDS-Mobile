@@ -28,13 +28,12 @@ export default function AlbumPage() {
 	const [pageInfo, setPageInfo] = useState([]);
 	const [showAlbum, setShowAlbum] = useState(false);
 	const [eventId, setEventId] = useState(1);
-	const [change, setChange] = useState(false);
 	const [teamsModalOpens, setTeamsModalOpens] = useState(false);
 
 	const { token } = useSelector((state) => state.auth);
 	const teamName = useSelector((state) => state.album.currentTeam.name);
 	const teamList = useSelector((state) => state.album.teamList);
-	const index = useSelector((state) => state.album.currentTeam.index);
+	const teamIndex = useSelector((state) => state.album.currentTeam.index);
 	const stickerSelected = useSelector((state) => state.album.idStickerSelected);
 	const currentPage = useSelector(
 		(state) => state.album.currentTeam.currentPage
@@ -56,23 +55,19 @@ export default function AlbumPage() {
 		} finally {
 			setLoading(false);
 		}
-	}, [token, eventId, change]);
+	}, [token, eventId]);
 
-	useEffect(() => {
-		loadAlbumInfo();
-	}, [loadAlbumInfo]);
-
-	const loadPageInfo = async () => {
+	const loadPageInfo = useCallback(async () => {
 		setLoading(true);
 		try {
 			dispatch(
 				setCurrentTeam({
-					id: teamList[index].id,
-					name: teamList[index].name,
-					obtainedCount: teamList[index].stickers.length,
+					id: teamList[teamIndex].id,
+					name: teamList[teamIndex].name,
+					obtainedCount: teamList[teamIndex].stickers.length,
 				})
 			);
-			const teamId = teamList[index].id;
+			const teamId = teamList[teamIndex].id;
 
 			const data = await fetchPageInfo(token, eventId, teamId);
 			setPageInfo(data.item.stickers);
@@ -83,29 +78,32 @@ export default function AlbumPage() {
 		} finally {
 			setLoading(false);
 		}
-	};
+	}, [token, eventId, teamIndex]);
 
 	useEffect(() => {
-		(async () => {
-			await loadPageInfo();
-			setChange(false);
-		})();
-	}, [token, index, change]);
+    loadAlbumInfo();
+		loadPageInfo();
+	}, [loadAlbumInfo, loadPageInfo]);
 
 	async function putSticker(idSlot = 0) {
 		if (stickerSelected == 0) {
 			return 0;
 		}
+
 		try {
 			if (idSlot != stickerSelected) {
 				throw new Error("Esta no es la casilla del sticker");
 			}
+      setLoading(true);
 			const data = await claimSticker(token, eventId, stickerSelected);
 			dispatch(setIdStickerSelected(0));
-			setChange(true);
+      await loadAlbumInfo();
+      await loadPageInfo();
 		} catch (error) {
 			alert(error.message);
-		}
+		} finally {
+      setLoading(false);
+    }
 	}
 
 	return (
