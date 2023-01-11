@@ -8,14 +8,17 @@ import {
 	Dimensions
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { IconButton } from "react-native-paper";
 import Spinner from "react-native-loading-spinner-overlay";
+import { IconButton } from "react-native-paper";
+import { AntDesign } from '@expo/vector-icons';
 
 import PlayerRows from "./PlayerRows";
 import FantasyDrawer from "./FantasyDrawer";
 import * as fantasyServices from "../../services/fantasy.services";
 import * as fantasySlice from "../../state/fantasySlice";
 import Cancha from "../../../assets/app/campo.png";
+import HelpSlider from "../../components/helpSlider/HelpSlider";
+import infoLineup from '../../../assets/app/helpLineup'
 
 const { width } = Dimensions.get('window')
 
@@ -28,6 +31,7 @@ export default function Fantasy() {
 	const [arrayDefenders, setArrayDefenders] = useState([]);
 	const [arrayFowarders, setArrayFowarders] = useState([]);
 	const [arrayGoalkeepers, setArrayGoalkeepers] = useState([]);
+	const [helpLineup, setHelpLineup] = useState(false);
 	const dispatch = useDispatch();
 	const eventId = 1;
 
@@ -120,6 +124,20 @@ export default function Fantasy() {
 
 	return (
 		<View style={styles.fondo}>
+			<Spinner
+				visible={loading}
+				size='large'
+				color='#E7484D'
+				overlayColor='#FFFFFF50'
+			/>
+			<HelpSlider
+				sliderContent={infoLineup}
+				isVisible={helpLineup}
+				onClose={() => {
+					setHelpLineup(false);
+				}}
+			/>
+
 			<View style={styles.container}>
 				{/* Drawer */}
 				<View
@@ -130,21 +148,10 @@ export default function Fantasy() {
 						height: open ? "100%" : 0,
 					}}
 				>
-					<IconButton
-						icon="close"
-						iconColor="#3D405B"
-						size={30}
-						onPress={() => setOpen(false)}
-					/>
-					<FantasyDrawer squadChange={squadChange} />
+					<FantasyDrawer squadChange={squadChange} onClose={setOpen} />
 				</View>
+
 				<View style={{ width: '90%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
-					<Spinner 
-						visible={loading}
-						size='large'
-						color='#E7484D'
-						overlayColor='#FFFFFF50'
-					/>
 					{/* Titulo */}
 					<View style={styles.containerTitulo}>
 						<View style={styles.containerPuntaje}>
@@ -162,12 +169,18 @@ export default function Fantasy() {
 						</View>
 					</View>
 
-					<View style={{...styles.containerTitulo, borderRadius: 10}}>
+					<View style={{ ...styles.containerTitulo, borderRadius: 10 }}>
 						<View style={styles.containerPuntaje}>
-								<Text style={{...styles.textSt, fontSize: 26, right: '250%'}}>
-									Alineación
-								</Text>
-								<Text style={styles.textScore}>150  PTS</Text>
+							<Text style={{ ...styles.textSt, fontSize: 26, right: '250%' }}>
+								Alineación
+							</Text>
+							<Text style={styles.textScore}>150  PTS</Text>
+							<TouchableOpacity
+								onPress={() => setHelpLineup(true)}
+								style={styles.helpButton}
+							>
+								<AntDesign name="questioncircle" size={24} color="#E7484D" />
+							</TouchableOpacity>
 						</View>
 					</View>
 
@@ -206,14 +219,15 @@ export default function Fantasy() {
 					<View style={styles.carruselContainer}>
 						<View style={styles.cont}>
 							<Text style={styles.texto}>¡Arma tu equipo!</Text>
-							<Text style={styles.bancas}>Almacen</Text>
-							<IconButton
-								style={styles.opciones}
-								iconColor='#E7484D'
-								icon="dots-horizontal-circle"
-								size={35}
-								onPress={() => setOpen(true)}
-							/>
+							<View style={{ flexDirection: 'row', height: '100%', alignItems: 'center' }}>
+								<Text style={styles.bancas}>Almacen</Text>
+								<IconButton
+									iconColor='#E7484D'
+									icon="dots-horizontal-circle"
+									size={35}
+									onPress={() => setOpen(true)}
+								/>
+							</View>
 						</View>
 					</View>
 				</View>
@@ -264,14 +278,20 @@ const styles = StyleSheet.create({
 	textScore: {
 		position: 'absolute',
 		color: "#3D405B",
-		fontSize: 24, 
+		fontSize: 24,
 		fontWeight: '600',
-		left: '65%'
+		alignSelf: 'center',
+		left: width * 0.53
+	},
+	helpButton: {
+		position: 'absolute',
+		alignSelf: 'center',
+		left: width * 0.8
 	},
 	textBotonSelected: {
 		borderBottomLeftRadius: 10,
 		borderBottomRightRadius: 10,
-		borderBottomColor: "#63130B",
+		borderBottomColor: "#E7484D",
 		borderBottomWidth: 4,
 
 	},
@@ -306,19 +326,15 @@ const styles = StyleSheet.create({
 	},
 	cont: {
 		height: "20%",
-		width: "100%",
-		justifyContent: "space-evenly",
+		width: width * 0.9,
+		justifyContent: "space-around",
 		flexDirection: "row",
-		alignItems: "center",
-	},
-	opciones: {
-		position: "absolute",
-		right: 0,
+		alignItems: "center"
 	},
 	bancas: {
 		color: "#3D405B",
 		fontWeight: "bold",
-		fontSize: 18,
+		fontSize: 18
 	},
 	puntajeBoton: {
 		width: 90,

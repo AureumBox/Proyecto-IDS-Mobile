@@ -7,6 +7,7 @@ import {
 	Dimensions,
 	ImageBackground,
 } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from "@expo/vector-icons";
 
 function isInLineup(isInLineup) {
@@ -37,24 +38,28 @@ export default function PlayerTemplate({ player = {} }) {
 
 	return (
 		<View style={styles.container}>
-			<ImageBackground
-				resizeMode="contain"
-				source={{ uri: player?.img }}
-				style={styles.cardImage}
-			>
-				<Image
+			<LinearGradient colors={['#D13256', '#FE5F42']} style={styles.cardImage}>
+				<ImageBackground
 					resizeMode="contain"
-					source={{ uri: player?.team?.badge }}
-					style={styles.badgeImage}
-				/>
-				<Text style={[styles.playerName, styles.specialText]}>
-					{player?.playerName}
-				</Text>
-			</ImageBackground>
+					source={{ uri: player?.img }}
+					style={styles.cardImage}
+				>
+					<Image
+						resizeMode="contain"
+						source={{ uri: player?.team?.badge }}
+						style={styles.badgeImage}
+					/>
+					<Text style={[styles.playerName, styles.specialText]}>
+						{player?.playerName}
+					</Text>
+				</ImageBackground>
+			</LinearGradient>
 			<View style={styles.containerInfo}>
-				<Text style={styles.playerPosition}>
-					{positionSpa[player?.position]}
-				</Text>
+				<LinearGradient colors={['#D13256', '#FE5F42']} style={styles.playerPosition}>
+					<Text style={styles.playerPositionText}>
+						{positionSpa[player?.position]}
+					</Text>
+				</LinearGradient>
 				{isInLineup(player?.isInLineup)}
 
 				<Text style={styles.playerPts}>PTS</Text>
@@ -70,8 +75,9 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	containerInfo: {
-		width: width - width * 0.35,
-		backgroundColor: "#F0F0F0",
+		width: width * 0.65,
+		right: width * 0.01,
+		backgroundColor: "#FFFFFF",
 		justifyContent: "center",
 		borderTopRightRadius: 15,
 		borderBottomRightRadius: 15,
@@ -79,30 +85,34 @@ const styles = StyleSheet.create({
 	cardImage: {
 		width: width * 0.25,
 		height: height * 0.15,
-		backgroundColor: "#E5464D",
+		left: width * 0.01,
 		borderColor: "blue",
 		borderRadius: 15,
 		zIndex: 1,
-		overflow: "hidden",
+		overflow: "hidden"
 	},
 	badgeImage: {
 		width: width * 0.05,
 		height: width * 0.05,
 		left: width * 0.25 - width * 0.075,
 		top: width * 0.015,
-		zIndex: 1,
+		borderWidth: 0.2,
+		borderColor: 'black',
+		borderRadius: 25,
+		zIndex: 1
 	},
 	playerPosition: {
-		width: width - width * 0.5,
-		fontWeight: "bold",
-		fontSize: 13,
-		color: "#FFFFFF",
-		backgroundColor: "#E5464D",
+		width: width * 0.55,
 		borderRadius: 15,
-		textAlign: "center",
 		position: "absolute",
 		top: (height * 0.12) / 16,
 		left: (width * 0.25) / 4,
+	},
+	playerPositionText: {
+		color: '#FFFFFF',
+		fontWeight: "bold",
+		fontSize: 13,
+		alignSelf: 'center'
 	},
 	playerPts: {
 		fontWeight: "400",

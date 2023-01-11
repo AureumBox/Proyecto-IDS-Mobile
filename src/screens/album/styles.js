@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	fondo: {
@@ -13,14 +15,8 @@ export default StyleSheet.create({
   },
   modalHeader: {
     width: "100%",
-    height: 40,
-    alignItems: "flex-end",
-    justifyContent: "center"
-  },
-  listHeader: {
-    height: 55,
-    alignItems: "center",
-    justifyContent: "center"
+    paddingVertical: '10%',
+    alignItems: "center"
   },
   listHeadLine: {
     color: "#333",
@@ -48,7 +44,10 @@ export default StyleSheet.create({
   },
   listItemImage: {
     width: 55,
-    height: 55
+    height: 55,
+		borderWidth: 0.2,
+		borderColor: 'black',
+		borderRadius: 35
   },
   separator: {
     width: "100%",
@@ -130,7 +129,6 @@ export default StyleSheet.create({
   carruselcontainer: {
     width: "90%",
     height: "25%",
-    backgroundColor: "white",
     borderRadius: 20,
     alignItems: "center"
   },
@@ -146,5 +144,11 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 26,
     marginBottom: 3
-  }
+  },
+	helpButton: {
+		position: 'absolute',
+		alignSelf: 'flex-end',
+		top: height * 0.035,
+		right: width * 0.1
+	}
 });

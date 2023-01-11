@@ -18,7 +18,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { logIn } from '../../state/authSlice.js';
 import { signup } from "../../services/auth.services";
-import logoImg from '../../../assets/splash.png'
+import logoImg from '../../../assets/app/logoVertical.png'
 
 const { width, height } = Dimensions.get('window');
 
@@ -36,8 +36,8 @@ export default function SignIn({ navigation }) {
 		try {
 			const result = await signup(data);
 			setLoading(false);
-			if (result.data.token) {
-				dispatch(logIn(result.data.token));
+			if (result.data.item.token) {
+				dispatch(logIn(result.data.item.token));
 				navigation.navigate('HomeScreen');
 			}
 		} catch (error) {

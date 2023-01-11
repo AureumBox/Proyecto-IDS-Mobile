@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import logoImg from '../../../assets/splash.png'
+import logoImg from '../../../assets/app/logoVertical.png'
 
 const { width, height } = Dimensions.get('window');
 

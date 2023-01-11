@@ -30,9 +30,9 @@ function getPlayerRoleImg(position) {
 	return delanteroImg;
 }
 
-export default function StickerTemplate({ sticker, onModal }) {
+export default function StickerTemplate({ sticker }) {
 	return (
-		<View style={[styles.container, { flex: onModal ? 1 : -1, margin: onModal ? 5 : 0 }]}>
+		<View style={styles.container}>
 			<ImageBackground
 				source={fondoImg}
 				style={styles.marco}
@@ -99,7 +99,10 @@ const styles = StyleSheet.create({
 		width: width / 24,
 		height: width / 24,
 		resizeMode: 'contain',
-		top: width / 32
+		top: width / 32,
+		borderWidth: 0.2,
+		borderColor: 'black',
+		borderRadius: 25
 	},
 	playerRole: {
 		width: width / 16,
