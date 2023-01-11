@@ -48,11 +48,10 @@ export default function Shop({ navigation }) {
   const [isFocus, setIsFocus] = useState(false);
 
   const dataPosition = [
-    { key: "1", value: "Seleccione una posición", disabled: true },
-    { key: "2", value: "Delantero" },
-    { key: "3", value: "Medio Campo" },
-    { key: "4", value: "Defensa" },
-    { key: "5", value: "Arquero" },
+    { key: "1", value: "Delantero" },
+    { key: "2", value: "Medio Campo" },
+    { key: "3", value: "Defensa" },
+    { key: "4", value: "Arquero" },
   ];
 
   const [selectedE, setSelectedE] = useState("");
@@ -187,7 +186,7 @@ export default function Shop({ navigation }) {
           </View>
 
           {/* Lista */}
-          <View style={{ paddingTop: 5, flex: 1, alignItems: "center" }}>
+          <View style={{ paddingTop: 5, flex: 1, alignSelf: "center", width: "90%" }}>
             {opciones == 2 && <ButtonAddAuction />}
             <AuctionsList
               auctions={auctions}

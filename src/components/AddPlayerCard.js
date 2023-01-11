@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,21 +11,24 @@ import {
 
 import { LinearGradient } from "expo-linear-gradient";
 import {
-  Ionicons
+  MaterialIcons,
+  Ionicons,
 } from "@expo/vector-icons";
+import { ModalMercado } from "./ModalMercado";
 
 import JugadorBra from "../../assets/app/bra_10.png";
 import MoneyIcon from "../../assets/app/moneyIcon.png";
 import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
-import { ModalMercado } from "./ModalMercado";
 
-export default function PlayerCardMS({ auctionData = {} }) {
+
+export default function AddPlayerCard() {
   const { height, width } = Dimensions.get("window");
 
-    //Visible Modal Mis Ofertas - Info
-    const [visible1, setVisible1] = useState(false);
-    const hideDialog = () => setVisible1(false);
+  //Visible Modal Ofertas Globales - Ofertar
+  const [visible1, setVisible1] = useState(false);
+  const hideDialog = () => setVisible1(false);
+
 
   return (
     <View style={styles.card}>
@@ -39,7 +42,7 @@ export default function PlayerCardMS({ auctionData = {} }) {
       </LinearGradient>
       <View>
         <View
-          style={{ flexDirection: "row", justifyContent: "center", margin: 3 }}
+          style={{ flexDirection: "row", justifyContent: "center", width: 100, margin: 3 }}
         >
           <Image
             style={{ height: 20, width: 20, marginLeft: -45 }}
@@ -52,92 +55,13 @@ export default function PlayerCardMS({ auctionData = {} }) {
             <Text style={styles.posiciontext}>DELANTERO</Text>
           </LinearGradient>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            margin: 3,
-            paddingTop: 5,
-          }}
-        >
-          <Image
-            style={{ height: 22, width: 22, marginRight: 3, marginLeft: 3 }}
-            source={MoneyIcon}
-          />
-          <Text style={styles.textCard}>100.000.000</Text>
-        </View>
-        <View style={{ flexDirection: "row", margin: 3 }}>
-          <Ionicons name={"time-outline"} color={"black"} size={22} /> 
-          <Text style={styles.textCard}>2h 20s</Text>
+        
+        <View style={{flexDirection:'row', marginTop: 15, marginLeft: 110}}>
+        <Text style={{fontSize: 18, color: '#77798C', fontWeight: '600'}}>PTS </Text>
+        <Text style={{fontSize: 28, color: '#3D405B', fontWeight: '800'}}>49</Text>
         </View>
       </View>
-      <View
-        style={{
-          marginLeft: 10,
-          width: 110,
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      >
-        <TouchableOpacity onPress={()=> setVisible1(true)}>
-          <LinearGradient
-            style={styles.editButton}
-            colors={["#D13256", "#FE5F42"]}
-          >
-            <Text style={styles.textbotones}>Ver información</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
-
-{/* Modal Ver información */} 
-      <ModalMercado visible={visible1}>
-         <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}> 
-         <TouchableOpacity>
-         <Ionicons name="help-circle-outline" size={26} color="black" style={{position: 'absolute', alignSelf: 'flex-end', paddingRight: 10, paddingTop: 3}}/>
-         </TouchableOpacity>
-        </LinearGradient>
-        <View style={styles.circuloBlanco}/>
-        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}> 
-        <Image source={JugadorBra} style={styles.fotocirculo}/>
-        </LinearGradient>
-        <Text style={styles.nombreJugador}>Neymar Jr</Text>  
-
-        <View style={{width:'100%', height: 70, flexDirection: 'row'}}>
-          {/* Precio inicial */}
-          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={styles.subtexto}>Precio Inicial</Text>
-          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}> 
-          <TextInput style={styles.oferta}/> 
-          </LinearGradient>
-          </View>
-
-        {/* Compra directa */}
-          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={styles.subtexto}>Compra directa</Text>
-          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}> 
-          <TextInput style={styles.oferta}/> 
-          </LinearGradient>
-          </View>
-
-          </View> 
-
-        {/* Botones */}
-        <View style={styles.containerButtons}>
-        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
-        <TouchableOpacity style={styles.whitebutton}>
-            <Text style={{color: '#E6474E', fontWeight: '600'}} onPress={hideDialog}>Cancelar</Text>
-        </TouchableOpacity>
-        </LinearGradient>  
-
-        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
-        <TouchableOpacity onPress={() => {setVisible1(false)}}>
-            <Text style={{color: '#fff', fontWeight: '600'}}>Aceptar</Text> 
-        </TouchableOpacity>
-        </LinearGradient>   
-        </View>
-
-      </ModalMercado> 
+   
 
     </View>
   );
@@ -176,7 +100,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   subtexto:{
-    fontSize: 14, 
+    fontSize: 11, 
     marginBottom: 2, 
     fontWeight: '500', 
     color: '#3D405B'
@@ -323,7 +247,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "100%",
     height: 115,
-    position: "relative",
     flexDirection: "row",
     marginTop: 10,
   },
@@ -333,6 +256,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     flexDirection: "row",
+    position: 'relative'
   },
   textbotones: {
     fontSize: 10,
