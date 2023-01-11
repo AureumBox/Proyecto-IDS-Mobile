@@ -4,7 +4,8 @@ import {
 	StatusBar,
 	StyleSheet,
 	Text,
-	View
+	View,
+	SafeAreaView
 } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -13,7 +14,7 @@ import Slider from './Slider'
 export default function HomeScreen({ navigation }) {
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<Slider />
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
@@ -30,7 +31,7 @@ export default function HomeScreen({ navigation }) {
 				</TouchableOpacity>
 			</View>
 			<StatusBar style="auto" />
-		</View>
+		</SafeAreaView>
 	);
 };
 

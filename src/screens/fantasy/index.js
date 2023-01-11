@@ -130,7 +130,7 @@ export default function Fantasy() {
 				color='#E7484D'
 				overlayColor='#FFFFFF50'
 			/>
-			<HelpSlider 
+			<HelpSlider
 				sliderContent={infoLineup}
 				isVisible={helpLineup}
 				onClose={() => {
@@ -219,14 +219,15 @@ export default function Fantasy() {
 					<View style={styles.carruselContainer}>
 						<View style={styles.cont}>
 							<Text style={styles.texto}>¡Arma tu equipo!</Text>
-							<Text style={styles.bancas}>Almacen</Text>
-							<IconButton
-								style={styles.opciones}
-								iconColor='#E7484D'
-								icon="dots-horizontal-circle"
-								size={35}
-								onPress={() => setOpen(true)}
-							/>
+							<View style={{ flexDirection: 'row', height: '100%', alignItems: 'center' }}>
+								<Text style={styles.bancas}>Almacen</Text>
+								<IconButton
+									iconColor='#E7484D'
+									icon="dots-horizontal-circle"
+									size={35}
+									onPress={() => setOpen(true)}
+								/>
+							</View>
 						</View>
 					</View>
 				</View>
@@ -325,19 +326,15 @@ const styles = StyleSheet.create({
 	},
 	cont: {
 		height: "20%",
-		width: "100%",
-		justifyContent: "space-evenly",
+		width: width * 0.9,
+		justifyContent: "space-around",
 		flexDirection: "row",
-		alignItems: "center",
-	},
-	opciones: {
-		position: "absolute",
-		right: 0,
+		alignItems: "center"
 	},
 	bancas: {
 		color: "#3D405B",
 		fontWeight: "bold",
-		fontSize: 18,
+		fontSize: 18
 	},
 	puntajeBoton: {
 		width: 90,

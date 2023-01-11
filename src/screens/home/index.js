@@ -21,7 +21,6 @@ import { obtainStickers } from '../../services/sticker.services';
 import { watchAd, getAdRedirectUrl } from '../../services/ad.services';
 import * as userServices from "../../state/authSlice";
 import * as fantasyServices from "../../state/fantasySlice";
-import botonXImg from '../../../assets/app/x.png';
 import sobreImg from '../../../assets/app/sobre.png';
 import albumImg from '../../../assets/app/album.png';
 import fantasyImg from '../../../assets/app/fantasy.png';

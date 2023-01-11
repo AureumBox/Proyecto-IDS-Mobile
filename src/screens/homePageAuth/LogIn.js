@@ -18,7 +18,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { login } from "../../services/auth.services";
 import { logIn as logInRedux } from '../../state/authSlice.js';
-import logoImg from '../../../assets/splash.png'
+import logoImg from '../../../assets/app/logoVertical.png'
 
 const { width, height } = Dimensions.get('window');
 

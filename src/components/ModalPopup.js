@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 	modalContainer: {
 		width: '80%',
 		backgroundColor: 'white',
-		borderRadius: 20,
+		borderRadius: 25,
 		elevation: 20,
 	},
 	modalBackground: {

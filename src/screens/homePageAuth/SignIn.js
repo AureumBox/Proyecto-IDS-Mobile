@@ -18,7 +18,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { logIn } from '../../state/authSlice.js';
 import { signup } from "../../services/auth.services";
-import logoImg from '../../../assets/splash.png'
+import logoImg from '../../../assets/app/logoVertical.png'
 
 const { width, height } = Dimensions.get('window');
 
