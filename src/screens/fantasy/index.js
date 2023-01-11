@@ -17,6 +17,8 @@ import FantasyDrawer from "./FantasyDrawer";
 import * as fantasyServices from "../../services/fantasy.services";
 import * as fantasySlice from "../../state/fantasySlice";
 import Cancha from "../../../assets/app/campo.png";
+import HelpSlider from "../../components/helpSlider/HelpSlider";
+import infoLineup from '../../../assets/app/helpLineup'
 
 const { width } = Dimensions.get('window')
 
@@ -29,6 +31,7 @@ export default function Fantasy() {
 	const [arrayDefenders, setArrayDefenders] = useState([]);
 	const [arrayFowarders, setArrayFowarders] = useState([]);
 	const [arrayGoalkeepers, setArrayGoalkeepers] = useState([]);
+	const [helpLineup, setHelpLineup] = useState(false);
 	const dispatch = useDispatch();
 	const eventId = 1;
 
@@ -121,8 +124,21 @@ export default function Fantasy() {
 
 	return (
 		<View style={styles.fondo}>
-			<View style={styles.container}>
+			<Spinner
+				visible={loading}
+				size='large'
+				color='#E7484D'
+				overlayColor='#FFFFFF50'
+			/>
+			<HelpSlider 
+				sliderContent={infoLineup}
+				isVisible={helpLineup}
+				onClose={() => {
+					setHelpLineup(false);
+				}}
+			/>
 
+			<View style={styles.container}>
 				{/* Drawer */}
 				<View
 					style={{
@@ -136,12 +152,6 @@ export default function Fantasy() {
 				</View>
 
 				<View style={{ width: '90%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
-					<Spinner
-						visible={loading}
-						size='large'
-						color='#E7484D'
-						overlayColor='#FFFFFF50'
-					/>
 					{/* Titulo */}
 					<View style={styles.containerTitulo}>
 						<View style={styles.containerPuntaje}>
@@ -165,7 +175,12 @@ export default function Fantasy() {
 								Alineación
 							</Text>
 							<Text style={styles.textScore}>150  PTS</Text>
-							<AntDesign name="questioncircle" size={24} color="#E7484D" style={styles.helpButton} />
+							<TouchableOpacity
+								onPress={() => setHelpLineup(true)}
+								style={styles.helpButton}
+							>
+								<AntDesign name="questioncircle" size={24} color="#E7484D" />
+							</TouchableOpacity>
 						</View>
 					</View>
 

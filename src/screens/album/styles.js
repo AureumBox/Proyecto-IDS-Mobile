@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
 	fondo: {
@@ -142,5 +144,11 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 26,
     marginBottom: 3
-  }
+  },
+	helpButton: {
+		position: 'absolute',
+		alignSelf: 'flex-end',
+		top: height * 0.035,
+		right: width * 0.1
+	}
 });

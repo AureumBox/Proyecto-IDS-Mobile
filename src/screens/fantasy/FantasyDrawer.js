@@ -17,6 +17,8 @@ import PlayerTemplate from "./PlayerTemplate";
 import { fetchBench } from "../../services/fantasy.services";
 import { fetchTeamsInfo } from "../../services/inventory.services";
 import * as fantasySlice from "../../state/fantasySlice";
+import HelpSlider from "../../components/helpSlider/HelpSlider";
+import infoBench from '../../../assets/app/helpBench'
 
 const { width, height } = Dimensions.get("window");
 
@@ -28,6 +30,8 @@ export default function FantasyDrawer({ squadChange, onClose }) {
 	const [bench, setBench] = useState([]);
 	const [selected, setSelected] = useState("");
 	const [teamsListPicker, setTeamsListPicker] = useState([]);
+	const [helpBench, setHelpBench] = useState(false);
+
 	const filterData = [
 		{ key: '0', value: 'Posición' },
 		{ key: '1', value: 'Arquero' },
@@ -124,6 +128,13 @@ export default function FantasyDrawer({ squadChange, onClose }) {
 	return (
 		<View style={styles.fondo}>
 			{/* Filtros */}
+			<HelpSlider 
+				sliderContent={infoBench}
+				isVisible={helpBench}
+				onClose={() => {
+					setHelpBench(false);
+				}}
+			/>
 			<View style={{ width: '93%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
 				<View style={styles.filterContainer}>
 					<TouchableOpacity onPress={() => onClose(false)}>
@@ -131,7 +142,12 @@ export default function FantasyDrawer({ squadChange, onClose }) {
 					</TouchableOpacity>
 					<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 						<Text style={styles.textSt}>Almacén</Text>
-						<AntDesign name="questioncircle" size={30} color="#E7484D" style={{ alignSelf: 'center' }} />
+						<TouchableOpacity
+							onPress={() => setHelpBench(true)}
+							style={{ alignSelf: 'center' }}
+						>
+							<AntDesign name="questioncircle" size={30} color="#E7484D" />
+						</TouchableOpacity>
 					</View>
 					<TextInput
 						placeholder="Buscar jugador"

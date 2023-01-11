@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { View, TouchableOpacity, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
+import { AntDesign } from '@expo/vector-icons';
 
 import Carousel from "./Carousel";
 import ProgressBar from "./ProgressBar";
@@ -9,6 +10,7 @@ import AlbumHeader from "./AlbumHeader";
 import NoStickerSlot from "./NoStickerSlot";
 import SelectTeamModal from "./selectTeamModal";
 import StickerTemplate from "../../components/StickerTemplate";
+import infoAlbum from '../../../assets/app/helpAlbum'
 import styles from "./styles";
 import {
 	setCurrentTeam,
@@ -21,6 +23,7 @@ import {
 	claimSticker,
 	fetchAlbumInfo,
 } from "../../services/inventory.services";
+import HelpSlider from "../../components/helpSlider/HelpSlider";
 
 export default function AlbumPage() {
 	const dispatch = useDispatch();
@@ -29,6 +32,7 @@ export default function AlbumPage() {
 	const [showAlbum, setShowAlbum] = useState(false);
 	const [eventId, setEventId] = useState(1);
 	const [teamsModalOpens, setTeamsModalOpens] = useState(false);
+	const [helpAlbum, setHelpAlbum] = useState(false);
 
 	const { token } = useSelector((state) => state.auth);
 	const teamName = useSelector((state) => state.album.currentTeam.name);
@@ -115,6 +119,13 @@ export default function AlbumPage() {
 				overlayColor='#FFFFFF50'
 			/>
 
+			<HelpSlider 
+				isVisible={helpAlbum}
+				onClose={() => {
+					setHelpAlbum(false)
+				}}
+				sliderContent={infoAlbum}
+			/>
 			{/* mostrar seleccion de equipo */}
 			<SelectTeamModal
 				isVisible={teamsModalOpens}
@@ -123,6 +134,12 @@ export default function AlbumPage() {
 				}}
 			/>
 			<View style={styles.container}>
+				<TouchableOpacity
+					onPress={() => setHelpAlbum(true)}
+					style={styles.helpButton}
+				>
+					<AntDesign name="questioncircle" size={35} color="#E7484D" />
+				</TouchableOpacity>
 				<ProgressBar />
 				{/* Pagina de album */}
 				<View style={styles.albumfondo}>
