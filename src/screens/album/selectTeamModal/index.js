@@ -3,8 +3,7 @@ import {
 	Text,
 	View,
 	TouchableOpacity,
-	FlatList,
-	SafeAreaView
+	FlatList
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from '@expo/vector-icons';
