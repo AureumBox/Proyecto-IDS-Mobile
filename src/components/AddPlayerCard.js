@@ -42,7 +42,7 @@ export default function AddPlayerCard() {
       </LinearGradient>
       <View>
         <View
-          style={{ flexDirection: "row", justifyContent: "center", margin: 3 }}
+          style={{ flexDirection: "row", justifyContent: "center", width: 100, margin: 3 }}
         >
           <Image
             style={{ height: 20, width: 20, marginLeft: -45 }}
@@ -55,34 +55,13 @@ export default function AddPlayerCard() {
             <Text style={styles.posiciontext}>DELANTERO</Text>
           </LinearGradient>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            margin: 3,
-            paddingTop: 5,
-          }}
-        >
-          <Image
-            style={{ height: 22, width: 22, marginRight: 3, marginLeft: 3 }}
-            source={MoneyIcon}
-          />
-          <Text style={styles.textCard}>100.000.000</Text>
-        </View>
-        <View style={{ flexDirection: "row", margin: 3 }}>
-          <Image
-            style={{
-              height: 22,
-              width: 22,
-              marginRight: 3,
-              resizeMode: "center",
-              marginLeft: 3,
-            }}
-            source={Reloj}
-          />
-          <Text style={styles.textCard}>2h 20s</Text>
+        
+        <View style={{flexDirection:'row', marginTop: 15, marginLeft: 110}}>
+        <Text style={{fontSize: 18, color: '#77798C', fontWeight: '600'}}>PTS </Text>
+        <Text style={{fontSize: 28, color: '#3D405B', fontWeight: '800'}}>49</Text>
         </View>
       </View>
+   
 
     </View>
   );
@@ -268,7 +247,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "100%",
     height: 115,
-    position: "relative",
     flexDirection: "row",
     marginTop: 10,
   },
@@ -278,6 +256,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     flexDirection: "row",
+    position: 'relative'
   },
   textbotones: {
     fontSize: 10,
