@@ -37,6 +37,7 @@ export default function Shop({ navigation }) {
   const [playerName, setPlayerName] = useState("");
   const [teamQuery, setTeamQuery] = useState("");
   const [positionQuery, setPositionQuery] = useState("");
+  const [myAuctionQuery, setMyAuctionQuery] = useState(false);
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
@@ -60,14 +61,33 @@ export default function Shop({ navigation }) {
   const loadAuctionsList = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await marketServices.fetchAuctionsList(
-        token,
-        eventId,
-        playerName,
-        teamQuery,
-        positionQuery,
-        page
-      );
+      let data;
+      if (opciones == 1) {
+        data = await marketServices.fetchAuctionsList(
+          token,
+          eventId,
+          playerName,
+          teamQuery,
+          positionQuery,
+          false,
+          page
+        );
+      } else if (opciones == 2) {
+        console.log("mis subastas unu");
+        data = await marketServices.fetchMyBidsList(token, eventId, page);
+      } else {
+        console.log("mis ofertas unu");
+        data = await marketServices.fetchAuctionsList(
+          token,
+          eventId,
+          playerName,
+          teamQuery,
+          positionQuery,
+          true,
+          page
+        );
+      }
+
       if (page != 0) {
         setAuctions((auctions) => auctions.concat(data?.items));
       } else {
@@ -75,7 +95,8 @@ export default function Shop({ navigation }) {
       }
       setPaginate(data?.paginate);
     } catch (error) {
-      Toast.error(error.message);
+      // Toast.error(error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -94,7 +115,7 @@ export default function Shop({ navigation }) {
       setTeams(newArray);
     } catch (error) {
       // Toast.error(error.message);
-      alert(error.message)
+      alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -186,7 +207,14 @@ export default function Shop({ navigation }) {
           </View>
 
           {/* Lista */}
-          <View style={{ paddingTop: 5, flex: 1, alignSelf: "center", width: "90%" }}>
+          <View
+            style={{
+              paddingTop: 5,
+              flex: 1,
+              alignSelf: "center",
+              width: "90%",
+            }}
+          >
             {opciones == 2 && <ButtonAddAuction />}
             <AuctionsList
               auctions={auctions}

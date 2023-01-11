@@ -9,6 +9,7 @@ export const fetchAuctionsList = async (
   playerName,
   team,
   position,
+  myAuction,
   page
 ) => {
   let queryString = "";
@@ -18,7 +19,7 @@ export const fetchAuctionsList = async (
   if (position) queryString += `&position=${position}`;
   if (page) queryString += `&page=${page}`;
 
-  console.log(`${BASE_URL}${eventId}/market?${queryString}`)
+  console.log(`${BASE_URL}${eventId}/market?${queryString}`);
   try {
     const { data } = await axios.get(
       `${BASE_URL}${eventId}/market?${queryString}`,
@@ -29,7 +30,31 @@ export const fetchAuctionsList = async (
       }
     );
     if (!data?.success) throw new Error(data?.message);
-    console.log(data)
+    console.log(data);
+    return data;
+  } catch (e) {
+    throw new Error(
+      e?.response?.data?.message || e?.message || "Error Desconocido"
+    );
+  }
+};
+
+export const fetchMyBidsList = async (token, eventId, page) => {
+  let queryString = "";
+  if (page) queryString += `&page=${page}`;
+
+  console.log(`${BASE_URL}${eventId}/market/myBids?${queryString}`);
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}${eventId}/market/myBids?${queryString}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    console.log(data);
+    if (!data?.success) throw new Error(data?.message);
     return data;
   } catch (e) {
     throw new Error(

@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import SearchBar from "../../../components/SearchBar";
 import { SelectList } from "react-native-dropdown-select-list";
+import Bench from "./Bench";
 import AddPlayerCard from "../../../components/AddPlayerCard";
 
 const data = [
@@ -43,76 +44,7 @@ export default function ButtonAddAuction({ onClick }) {
     <View style={styles.shadow}>
       {/* ni bro */}
       <ModalBanca visible={visible}>
-        <View style={{ height: "90%", width: "100%", padding: 8 }}>
-          <TouchableOpacity
-            onPress={() => {
-              setVisible(false);
-            }}
-          >
-            <Text style={styles.title}>Banca</Text>
-          </TouchableOpacity>
-          <View style={{ alignItems: "center", marginBottom: 5 }}>
-            <View
-              style={{
-                flexDirection: "column",
-                width: "90%",
-                alignItems: "flex-end",
-                marginBottom: -15,
-              }}
-            >
-              <TouchableOpacity>
-                <LinearGradient
-                  colors={["#D13256", "#FE5F42"]}
-                  style={{ borderRadius: 15, padding: 3, marginTop: 1 }}
-                >
-                  <Entypo name="help" size={22} color="white" />
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-
-            <SearchBar searchPhrase={""} setSearchPhrase={""} />
-
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                width: "100%",
-              }}
-            >
-              <SelectList
-                setSelected={(val) => setSelectedE(val)}
-                data={dataEquipos}
-                save="value"
-                placeholder={!isFocusE ? "Equipos" : "..."}
-                onFocus={() => setIsFocusE(true)}
-              />
-              <SelectList
-                setSelected={(val) => setSelected(val)}
-                data={data}
-                save="value"
-                placeholder={!isFocus ? "Posición" : "..."}
-                onFocus={() => setIsFocus(true)}
-              />
-            </View>
-          </View>
-          <ScrollView>
-            <TouchableOpacity>
-              <AddPlayerCard />
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              <AddPlayerCard />
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              <AddPlayerCard />
-            </TouchableOpacity>
-
-            <TouchableOpacity>
-              <AddPlayerCard />
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
+        <Bench/>
       </ModalBanca>
 
       <TouchableOpacity

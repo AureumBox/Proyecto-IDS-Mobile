@@ -6,153 +6,178 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  MaterialIcons,
-  Ionicons,
-} from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { ModalMercado } from "./ModalMercado";
 
 import JugadorBra from "../../assets/app/bra_10.png";
 import MoneyIcon from "../../assets/app/moneyIcon.png";
 import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
+import CreateAuction from "../screens/mainScreen/Market/CreateAuction";
 
-
-export default function AddPlayerCard() {
+export default function AddPlayerCard({ player = {} }) {
   const { height, width } = Dimensions.get("window");
 
   //Visible Modal Ofertas Globales - Ofertar
-  const [visible1, setVisible1] = useState(false);
-  const hideDialog = () => setVisible1(false);
-
+  const [visible, setVisible] = useState(false);
+  const hideDialog = () => setVisible(false);
 
   return (
-    <View style={styles.card}>
-      <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.imgCard}>
-        <View style={styles.containerPlayerName}>
-          <Text style={styles.playerName}>Neymar Jr</Text>
-        </View>
-        <View>
-          <Image style={styles.imagePlayer} source={JugadorBra} />
-        </View>
-      </LinearGradient>
-      <View>
-        <View
-          style={{ flexDirection: "row", justifyContent: "center", width: 100, margin: 3 }}
-        >
-          <Image
-            style={{ height: 20, width: 20, marginLeft: -45 }}
-            source={Bra}
-          />
+    <>
+      <TouchableOpacity
+        onPress={() => {
+          setVisible(true);
+        }}
+      >
+        <View style={styles.card}>
           <LinearGradient
             colors={["#D13256", "#FE5F42"]}
-            style={{ borderRadius: 10, marginLeft: 25 }}
+            style={styles.imgCard}
           >
-            <Text style={styles.posiciontext}>DELANTERO</Text>
+            <View style={styles.containerPlayerName}>
+              <Text style={styles.playerName}>Neymar Jr</Text>
+            </View>
+            <View>
+              <Image style={styles.imagePlayer} source={JugadorBra} />
+            </View>
           </LinearGradient>
-        </View>
-        
-        <View style={{flexDirection:'row', marginTop: 15, marginLeft: 110}}>
-        <Text style={{fontSize: 18, color: '#77798C', fontWeight: '600'}}>PTS </Text>
-        <Text style={{fontSize: 28, color: '#3D405B', fontWeight: '800'}}>49</Text>
-        </View>
-      </View>
-   
+          <View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                width: 100,
+                margin: 3,
+              }}
+            >
+              <Image
+                style={{ height: 20, width: 20, marginLeft: -45 }}
+                source={Bra}
+              />
+              <LinearGradient
+                colors={["#D13256", "#FE5F42"]}
+                style={{ borderRadius: 10, marginLeft: 25 }}
+              >
+                <Text style={styles.posiciontext}>DELANTERO</Text>
+              </LinearGradient>
+            </View>
 
-    </View>
+            <View
+              style={{ flexDirection: "row", marginTop: 15, marginLeft: 110 }}
+            >
+              <Text
+                style={{ fontSize: 18, color: "#77798C", fontWeight: "600" }}
+              >
+                PTS{" "}
+              </Text>
+              <Text
+                style={{ fontSize: 28, color: "#3D405B", fontWeight: "800" }}
+              >
+                49
+              </Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+
+      {/* Modal Compra directa*/}
+      <ModalMercado visible={visible}>
+        <CreateAuction player={player} setVisible={setVisible} />
+      </ModalMercado>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   fondoModal: {
-    width: '100%',
+    width: "100%",
     height: 85,
-    alignSelf: 'center',
+    alignSelf: "center",
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20
+    borderTopRightRadius: 20,
   },
   circuloBlanco: {
     height: 120,
     width: 120,
     borderRadius: 60,
-    backgroundColor: 'white',
-    alignSelf: 'center',
-    position: 'absolute',
+    backgroundColor: "white",
+    alignSelf: "center",
+    position: "absolute",
     zIndex: 1,
-    marginTop: 15
+    marginTop: 15,
   },
   circuloDeg: {
     height: 110,
     width: 110,
     borderRadius: 60,
-    alignSelf: 'center',
-    position: 'absolute',
+    alignSelf: "center",
+    position: "absolute",
     zIndex: 1,
-    marginTop: 20
+    marginTop: 20,
   },
   fotocirculo: {
-    resizeMode: 'contain',
+    resizeMode: "contain",
     height: 115,
-    alignSelf: 'center'
+    alignSelf: "center",
   },
-  subtexto:{
-    fontSize: 11, 
-    marginBottom: 2, 
-    fontWeight: '500', 
-    color: '#3D405B'
+  subtexto: {
+    fontSize: 11,
+    marginBottom: 2,
+    fontWeight: "500",
+    color: "#3D405B",
   },
-  containerDinero:{
-    flexDirection: 'row',
-    width: '100%', 
-    height: 30, 
-    alignItems: 'center', 
-    justifyContent: 'center'
+  containerDinero: {
+    flexDirection: "row",
+    width: "100%",
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  money:{
-    height: 25, 
-    width: 80, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    borderRadius: 20
+  money: {
+    height: 25,
+    width: 80,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
   },
-  oferta:{
-    width: 75, 
-    height: 20, 
-    backgroundColor: 'white', 
-    borderRadius: 20, 
-    padding: 3, 
-    paddingLeft: 4, 
-    fontWeight: '600'
-  },
-  moneyCoin:{
+  oferta: {
+    width: 75,
     height: 20,
-    width: 20, 
-    borderRadius: 15, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    alignSelf: 'center'
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 3,
+    paddingLeft: 4,
+    fontWeight: "600",
+  },
+  moneyCoin: {
+    height: 20,
+    width: 20,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
   containerButtons: {
-    flexDirection: 'row',
-    width: '80%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'center',
+    flexDirection: "row",
+    width: "80%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignSelf: "center",
     paddingBottom: 30,
-    paddingTop: 20
+    paddingTop: 20,
   },
   whitebutton: {
     height: 25,
     width: 105,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 30,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
   saldost: {
     padding: 10,
@@ -162,43 +187,43 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   nombreJugador: {
-    alignSelf: 'center',
-    borderColor: '#B02419',
+    alignSelf: "center",
+    borderColor: "#B02419",
     fontSize: 20,
     marginTop: 50,
-    fontWeight: 'bold',
-    marginBottom: 20
+    fontWeight: "bold",
+    marginBottom: 20,
   },
   infoData: {
     borderWidth: 3,
-    borderColor: '#B02419',
+    borderColor: "#B02419",
     padding: 8,
     borderRadius: 20,
     margin: 10,
     width: "100%",
   },
   editButtonacep: {
-    backgroundColor: '#B02419',
+    backgroundColor: "#B02419",
     width: 110,
     height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 30,
   },
   imagePlayerDialog: {
     width: 100,
     height: 100,
     borderRadius: 100,
-    resizeMode: 'stretch',
+    resizeMode: "stretch",
     borderWidth: 3,
-    borderColor: '#B02419',
+    borderColor: "#B02419",
   },
   editButtoncanc: {
-    backgroundColor: '#B02419',
+    backgroundColor: "#B02419",
     width: 110,
     height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 30,
   },
   editButton: {
@@ -256,7 +281,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     flexDirection: "row",
-    position: 'relative'
+    position: "relative",
   },
   textbotones: {
     fontSize: 10,

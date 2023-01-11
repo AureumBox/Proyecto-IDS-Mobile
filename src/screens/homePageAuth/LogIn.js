@@ -21,7 +21,7 @@ export default function LogIn({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(true);
     const { control, handleSubmit, formState: { errors } } = useForm();
-    const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{1,4}$/
     const dispatch = useDispatch();
 
     const sendLoginData = async (data) => {
