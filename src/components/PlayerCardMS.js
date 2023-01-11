@@ -11,7 +11,8 @@ import {
 
 import { LinearGradient } from "expo-linear-gradient";
 import {
-  Ionicons
+  Ionicons,
+  MaterialIcons
 } from "@expo/vector-icons";
 
 import JugadorBra from "../../assets/app/bra_10.png";
@@ -23,9 +24,13 @@ import { ModalMercado } from "./ModalMercado";
 export default function PlayerCardMS() {
   const { height, width } = Dimensions.get("window");
 
-    //Visible Modal Mis Ofertas - Info
+    //Visible Modal Mis Ofertas - Ofertar jugador
     const [visible1, setVisible1] = useState(false);
     const hideDialog = () => setVisible1(false);
+
+    //Visible Modal Mis Ofertas - Info
+    const [visible2, setVisible2] = useState(false);
+    const hideDialog2 = () => setVisible2(false);
 
   return (
     <View style={styles.card}>
@@ -89,7 +94,7 @@ export default function PlayerCardMS() {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={()=> setVisible1(true)}>
+        <TouchableOpacity onPress={()=> setVisible2(true)}>
           <LinearGradient
             style={styles.editButton}
             colors={["#D13256", "#FE5F42"]}
@@ -99,7 +104,7 @@ export default function PlayerCardMS() {
         </TouchableOpacity>
       </View>
 
-{/* Modal Ver información */} 
+{/* Modal subastar jugador */} 
       <ModalMercado visible={visible1}>
          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}> 
          <TouchableOpacity>
@@ -148,6 +153,70 @@ export default function PlayerCardMS() {
 
       </ModalMercado> 
 
+      {/* Modal ver información*/}
+      <ModalMercado visible={visible2}>
+         <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}> 
+         <TouchableOpacity>
+         <Ionicons name="help-circle-outline" size={26} color="black" style={{position: 'absolute', alignSelf: 'flex-end', paddingRight: 10, paddingTop: 3}}/>
+         </TouchableOpacity>
+        </LinearGradient>
+        <View style={styles.circuloBlanco}/>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}> 
+        <Image source={JugadorBra} style={styles.fotocirculo}/>
+        </LinearGradient>
+        <Text style={styles.nombreJugador}>Neymar Jr</Text>  
+
+        <View style={{width:'100%', height: 70, flexDirection: 'row'}}>
+          {/* Precio inicial*/}
+          <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.subtexto}>Precio inicial</Text>
+          <View style={styles.containerDinero}>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
+           <MaterialIcons name="attach-money" size={18} color="white"/>
+           </LinearGradient>
+          <Text style={{fontWeight: '600', marginLeft: 2}}>200</Text> 
+          </View>
+          </View>
+
+        {/* Compra directa*/}
+        <View style= {{width: '50%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.subtexto}>Precio de compra directa</Text>
+          <View style={styles.containerDinero}>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
+           <MaterialIcons name="attach-money" size={18} color="white"/>
+           </LinearGradient>
+          <Text style={{fontWeight: '600', marginLeft: 2}}>750</Text> 
+          </View>
+          </View> 
+          </View>
+
+        {/* Oferta actual */}
+        <View style= {{width: '100%', height: 70, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={styles.subtexto}>Oferta ganadora actual</Text>
+          <View style={styles.containerDinero}>
+          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.moneyCoin}>  
+           <MaterialIcons name="attach-money" size={18} color="white"/>
+           </LinearGradient>
+          <Text style={{fontWeight: '600', marginLeft: 2}}>500</Text> 
+          </View>
+          </View>
+
+        {/* Botones*/}
+        <View style={styles.containerButtons}>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
+        <TouchableOpacity style={styles.whitebutton}>
+            <Text style={{color: '#E6474E', fontWeight: '600'}} onPress={hideDialog2}>Cancelar</Text>
+        </TouchableOpacity>
+        </LinearGradient>  
+
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.editButtonacep}>
+        <TouchableOpacity onPress={() => {setVisible2(false)}}>
+            <Text style={{color: '#fff', fontWeight: '600'}}>Aceptar</Text> 
+        </TouchableOpacity>
+        </LinearGradient>   
+        </View>
+      </ModalMercado> 
+
     </View>
   );
 }
@@ -188,7 +257,8 @@ const styles = StyleSheet.create({
     fontSize: 14, 
     marginBottom: 2, 
     fontWeight: '500', 
-    color: '#3D405B'
+    color: '#3D405B',
+    textAlign: 'center'
   },
   containerDinero:{
     flexDirection: 'row',
