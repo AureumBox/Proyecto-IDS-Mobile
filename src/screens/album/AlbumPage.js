@@ -155,7 +155,7 @@ export default function AlbumPage() {
 													</TouchableOpacity>
 												)}
 												{sticker?.isAttached && (
-													<StickerTemplate key={i} sticker={sticker} onModal={false} />
+													<StickerTemplate key={i} sticker={sticker} />
 												)}
 											</View>
 										</View>

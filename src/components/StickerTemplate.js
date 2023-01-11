@@ -30,9 +30,9 @@ function getPlayerRoleImg(position) {
 	return delanteroImg;
 }
 
-export default function StickerTemplate({ sticker, onModal }) {
+export default function StickerTemplate({ sticker }) {
 	return (
-		<View style={[styles.container, { flex: onModal ? 1 : -1, margin: onModal ? 5 : 0 }]}>
+		<View style={styles.container}>
 			<ImageBackground
 				source={fondoImg}
 				style={styles.marco}

@@ -128,23 +128,19 @@ export default function Home({ navigation }) {
 			{/* Ventana Emergente de drop de Stickers */}
 			<ModalPopup visible={visibleStickers}>
 				<View style={{ alignItems: "center" }}>
-					<View style={styles.modalHeader}>
-						<TouchableOpacity onPress={() => setVisibleStickers(false)}>
-							<Image source={botonXImg} style={{ height: 30, width: 30 }} />
-						</TouchableOpacity>
-					</View>
+					<View style={styles.modalHeader} />
 				</View>
 				<View
 					style={{
 						justifyContent: "center",
 						flexDirection: "row",
-						flexWrap: "wrap",
+						flexWrap: "wrap"
 					}}
 				>
 					{obtainedStickers ? (
 						obtainedStickers.map((sticker, i) => (
-							<View key={i} style={{ marginVertical: 78 }}>
-								<StickerTemplate sticker={sticker} onModal={true} />
+							<View key={i} style={{ margin: 5 }}>
+								<StickerTemplate sticker={sticker} onModal={false} />
 							</View>
 						))
 					) : (
@@ -159,21 +155,18 @@ export default function Home({ navigation }) {
 						</Text>
 					)}
 				</View>
-				<Text
-					style={{
-						marginVertical: 30,
-						fontSize: 20,
-						textAlign: "center",
-					}}
-				>
-					¡Felicidades! Has obtenido un sobre
-				</Text>
+				<TouchableOpacity
+					onPress={() => setVisibleStickers(false)} >
+					<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
+						<Text style={{ color: "white", fontWeight: "bold" }}>Continuar</Text>
+					</LinearGradient>
+				</TouchableOpacity>
 			</ModalPopup>
 
 			{/* Ventana Emergente de Anuncio */}
 			<ModalPopup visible={visibleAnuncio}>
 				<View style={{ alignItems: "center" }}>
-					<View style={styles.modalHeader}></View>
+					<View style={styles.modalHeader} />
 				</View>
 				<TouchableOpacity onPress={onAdClick}>
 					<View style={{ alignItems: "center" }}>
@@ -344,9 +337,9 @@ const styles = StyleSheet.create({
 	},
 	modalHeader: {
 		width: "100%",
-		height: 40,
-		alignItems: "flex-end",
-		justifyContent: "center",
+		paddingVertical: 20,
+		// alignItems: "flex-end",
+		// justifyContent: "center",
 	},
 	logInButton: {
 		backgroundColor: "#70ABAF",

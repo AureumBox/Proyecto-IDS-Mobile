@@ -13,14 +13,8 @@ export default StyleSheet.create({
   },
   modalHeader: {
     width: "100%",
-    height: 40,
-    alignItems: "flex-end",
-    justifyContent: "center"
-  },
-  listHeader: {
-    height: 55,
-    alignItems: "center",
-    justifyContent: "center"
+    paddingVertical: '10%',
+    alignItems: "center"
   },
   listHeadLine: {
     color: "#333",
