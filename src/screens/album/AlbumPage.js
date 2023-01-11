@@ -81,7 +81,7 @@ export default function AlbumPage() {
 	}, [token, eventId, teamIndex]);
 
 	useEffect(() => {
-    loadAlbumInfo();
+		loadAlbumInfo();
 		loadPageInfo();
 	}, [loadAlbumInfo, loadPageInfo]);
 
@@ -94,21 +94,26 @@ export default function AlbumPage() {
 			if (idSlot != stickerSelected) {
 				throw new Error("Esta no es la casilla del sticker");
 			}
-      setLoading(true);
+			setLoading(true);
 			const data = await claimSticker(token, eventId, stickerSelected);
 			dispatch(setIdStickerSelected(0));
-      await loadAlbumInfo();
-      await loadPageInfo();
+			await loadAlbumInfo();
+			await loadPageInfo();
 		} catch (error) {
 			alert(error.message);
 		} finally {
-      setLoading(false);
-    }
+			setLoading(false);
+		}
 	}
 
 	return (
 		<View style={styles.fondo}>
-			<Spinner visible={loading} textContent={"Cargando..."} />
+			<Spinner
+				visible={loading}
+				size='large'
+				color='#E7484D'
+				overlayColor='#FFFFFF50'
+			/>
 
 			{/* mostrar seleccion de equipo */}
 			<SelectTeamModal

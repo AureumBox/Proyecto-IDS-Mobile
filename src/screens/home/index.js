@@ -118,8 +118,12 @@ export default function Home({ navigation }) {
 
 	return (
 		<View style={styles.fondo}>
-			<Spinner visible={loading} textContent={"Cargando..."} />
-
+			<Spinner
+				visible={loading}
+				size='large'
+				color='#E7484D'
+				overlayColor='#FFFFFF50'
+			/>
 			{/* Ventana Emergente de drop de Stickers */}
 			<ModalPopup visible={visibleStickers}>
 				<View style={{ alignItems: "center" }}>

@@ -149,7 +149,7 @@ export default function FantasyDrawer({ squadChange }) {
 						data={teamsListPicker}
 						notFoundText={<Text>No hay coincidencias</Text>}
 						onSelect={() => {
-							if(selected === 'Equipo') setTeam('')
+							if (selected === 'Equipo') setTeam('')
 							else setTeam(selected)
 						}}
 						onFocus={() => setIsFocus(true)}
@@ -158,7 +158,12 @@ export default function FantasyDrawer({ squadChange }) {
 
 				{/* Jugadores fantasy */}
 				<View style={{ paddingBottom: height * 0.285, alignItems: "center" }}>
-					<Spinner visible={loading} textContent={"Cargando..."} />
+					<Spinner
+						visible={loading}
+						size='large'
+						color='#E7484D'
+						overlayColor='#FFFFFF50'
+					/>
 
 					<FlatList
 						data={bench}

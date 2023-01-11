@@ -61,8 +61,12 @@ export default function Album({ navigation }) {
 
 	return (
 		<View style={styles.fondo}>
-			<Spinner visible={loading} textContent={"Cargando..."} />
-
+			<Spinner
+				visible={loading}
+				size='large'
+				color='#E7484D'
+				overlayColor='#FFFFFF50'
+			/>
 			<View style={styles.container}>
 				<ProgressBar />
 				<TouchableOpacity style={styles.rectangulo} onPress={() => navigation.navigate('AlbumPage')}>

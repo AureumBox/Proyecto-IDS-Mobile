@@ -60,7 +60,9 @@ export default function SignIn({ navigation }) {
 				<View style={styles.contentContainer}>
 					<Spinner
 						visible={loading}
-						textContent={'Cargando...'}
+						size='large'
+						color='#E7484D'
+						overlayColor='#FFFFFF50'
 					/>
 					<Text />
 					<Text style={styles.body}>Crea una Cuenta</Text>

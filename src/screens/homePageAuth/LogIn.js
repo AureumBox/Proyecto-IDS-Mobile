@@ -58,7 +58,9 @@ export default function LogIn({ navigation }) {
 				<View style={styles.contentContainer}>
 					<Spinner
 						visible={loading}
-						textContent={'Cargando...'}
+						size='large'
+						color='#E7484D'
+						overlayColor='#FFFFFF50'
 					/>
 					<Text style={styles.body}>Ingresa en tu Cuenta</Text>
 

@@ -139,8 +139,12 @@ export default function Fantasy() {
 					<FantasyDrawer squadChange={squadChange} />
 				</View>
 				<View style={{ width: '90%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
-					<Spinner visible={loading} textContent={"Cargando..."} />
-
+					<Spinner 
+						visible={loading}
+						size='large'
+						color='#E7484D'
+						overlayColor='#FFFFFF50'
+					/>
 					{/* Titulo */}
 					<View style={styles.containerTitulo}>
 						<View style={styles.containerPuntaje}>
