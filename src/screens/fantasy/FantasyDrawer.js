@@ -127,9 +127,7 @@ export default function FantasyDrawer({ squadChange, onClose }) {
 			<View style={{ width: '93%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
 				<View style={styles.filterContainer}>
 					<TouchableOpacity onPress={() => onClose(false)}>
-						<Ionicons name="arrow-back-circle" size={45} color="#E7484D"
-							style={{ position: 'absolute' }}
-						/>
+						<Ionicons name="arrow-back-circle" size={45} color="#E7484D" style={{ position: 'absolute' }} />
 					</TouchableOpacity>
 					<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
 						<Text style={styles.textSt}>Almacén</Text>

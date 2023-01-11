@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
 		zIndex: 1
 	},
 	playerPosition: {
-		width: width - width * 0.5,
+		width: width * 0.55,
 		fontWeight: "bold",
 		fontSize: 13,
 		color: "#FFFFFF",
