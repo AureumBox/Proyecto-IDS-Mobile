@@ -16,8 +16,7 @@ export default function AuctionsList({
   auctions = [],
   opciones = 1,
   paginate = {},
-  setPage,
-  nextPage,
+  setPage = 0
 }) {
   return (
     <FlatList
@@ -29,9 +28,7 @@ export default function AuctionsList({
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       onEndReached={() => {
         if (paginate?.page < paginate?.pages) {
-          console.log("avanzamos");
           setPage(paginate?.page + 1);
-          nextPage;
         }
       }}
       renderItem={({ item }) => {
@@ -44,24 +41,6 @@ export default function AuctionsList({
 }
 
 const styles = StyleSheet.create({
-  shadow: {
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-  },
-  botonañadir: {
-    width: "100%",
-    height: 40,
-    borderRadius: 10,
-    padding: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 15,
-  },
   textAñadir: {
     fontWeight: "bold",
     fontSize: 12,

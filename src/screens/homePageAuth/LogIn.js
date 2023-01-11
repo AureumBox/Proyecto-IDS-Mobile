@@ -29,8 +29,8 @@ export default function LogIn({ navigation }) {
         try {
             const result = await login(data);
             setLoading(false);
-            if (result.data.token) {
-                dispatch(logInRedux(result.data.token));
+            if (result?.data?.item?.token) {
+                dispatch(logInRedux(result?.data?.item?.token));
                 navigation.navigate(HPANavigation.BNB);
             }
         } catch (error) {

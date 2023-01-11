@@ -2,14 +2,10 @@ import React from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 
-const SearchBar = ({searchPhrase, setSearchPhrase}) => {
+const SearchBar = ({ searchPhrase, setSearchPhrase }) => {
   return (
     <View style={styles.container}>
-      <View
-        style={
-          styles.searchBar__unclicked
-        }
-      >
+      <View style={styles.searchBar__unclicked}>
         {/* search Icon */}
         <Feather
           name="search"
@@ -24,9 +20,7 @@ const SearchBar = ({searchPhrase, setSearchPhrase}) => {
           value={searchPhrase}
           onChangeText={setSearchPhrase}
         />
-
       </View>
-      
     </View>
   );
 };
@@ -50,14 +44,14 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     alignItems: "center",
     marginLeft: 30,
-    shadowColor: 'black',
-        shadowOffset: {
-            width: 0,
-            height: 1,
-        },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   input: {
     fontSize: 20,

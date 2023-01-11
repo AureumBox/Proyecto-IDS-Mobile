@@ -31,8 +31,8 @@ export default function SignIn({ navigation }) {
         try {
             const result = await signup(data);
             setLoading(false);
-            if (result.data.token) {
-                dispatch(logIn(result.data.token));
+            if (result?.data?.item?.token) {
+                dispatch(logIn(result?.data?.item?.token));
                 navigation.navigate(HPANavigation.HOME);
             }
         } catch (error) {

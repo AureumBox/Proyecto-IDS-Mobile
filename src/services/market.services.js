@@ -29,6 +29,7 @@ export const fetchAuctionsList = async (
       }
     );
     if (!data?.success) throw new Error(data?.message);
+    console.log(data)
     return data;
   } catch (e) {
     throw new Error(

@@ -4,50 +4,43 @@ import {
   Text,
   View,
   Dimensions,
-  Image,
-  FlatList,
   TouchableOpacity,
-  ActivityIndicator,
-  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../../../components/HeaderComponent";
-import { ScrollView } from "react-native";
+
 import { LinearGradient } from "expo-linear-gradient";
 import Container, { Toast } from "toastify-react-native";
-
 import { SelectList } from "react-native-dropdown-select-list";
 import { Entypo } from "@expo/vector-icons";
-import * as marketServices from "../../../services/market.services";
-import * as albumServices from "../../../services/inventory.services";
 
+import Header from "../../../components/HeaderComponent";
 import SearchBar from "../../../components/SearchBar";
-import PlayerCardOG from "../../../components/PlayerCardOG";
-import PlayerCardMS from "../../../components/PlayerCardMS";
-import PlayerCardMO from "../../../components/PlayerCardMO";
-
 import ButtonAddAuction from "./ButtonAddAuction";
 import AuctionsList from "./AuctionsList";
+import * as marketServices from "../../../services/market.services";
+import * as albumServices from "../../../services/inventory.services";
 
 export default function Shop({ navigation }) {
   const { height, width } = Dimensions.get("window");
   const [visible, setVisible] = React.useState(false);
   const hideDialog = () => setVisible(false);
   const [opciones, setOpciones] = useState(1);
-  const [teams, setTeams] = useState([]);
-  const [paginated, setPaginated] = useState([]);
-  const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(1);
-  const [auctions, setAuctions] = useState([]);
-  const [playerName, setPlayerName] = useState("");
-  const [team, setTeam] = useState("");
-  const [position, setPosition] = useState("");
-  const eventId = 1;
 
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
+  const [loading, setLoading] = useState(1);
+  const [teams, setTeams] = useState([]);
+  const [paginate, setPaginate] = useState({});
+  const [page, setPage] = useState(0);
+  const [auctions, setAuctions] = useState([]);
 
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [playerName, setPlayerName] = useState("");
+  const [teamQuery, setTeamQuery] = useState("");
+  const [positionQuery, setPositionQuery] = useState("");
+
+  const onChangeSearch = (query) => setSearchQuery(query);
+
+  const eventId = 1;
   const { token } = useSelector((state) => state.auth);
 
   //Select
@@ -65,21 +58,6 @@ export default function Shop({ navigation }) {
   const [selectedE, setSelectedE] = useState("");
   const [isFocusE, setIsFocusE] = useState(false);
 
-  /*   const loadNextAuctionsPage = useCallback(async () => {
-    setLoading(true);
-    try {
-      const data = await marketServices.fetchAuctionsList(token, eventId, playerName, team, position, page);
-      setAuctions((auctions) => auctions.concat(data.items));
-    } catch (error) {
-      alert("a "+error.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [page]);
-  useEffect(() => {
-    loadNextAuctionsPage();
-  }, [loadNextAuctionsPage]); */
-
   const loadAuctionsList = useCallback(async () => {
     setLoading(true);
     try {
@@ -87,23 +65,22 @@ export default function Shop({ navigation }) {
         token,
         eventId,
         playerName,
-        team,
-        position,
+        teamQuery,
+        positionQuery,
         page
       );
-      if (page == 0) {
-        setAuctions(data?.items);
+      if (page != 0) {
+        setAuctions((auctions) => auctions.concat(data?.items));
       } else {
-        console.log("proxima pag");
-        setAuctions((auctions) => auctions.concat(data.items));
+        setAuctions(data?.items);
       }
-      setPaginated(data?.paginated);
+      setPaginate(data?.paginate);
     } catch (error) {
       Toast.error(error.message);
     } finally {
       setLoading(false);
     }
-  }, [opciones, page]);
+  }, [opciones, page, teamQuery, positionQuery, playerName]);
   useEffect(() => {
     loadAuctionsList();
   }, [loadAuctionsList]);
@@ -112,14 +89,13 @@ export default function Shop({ navigation }) {
     setLoading(true);
     try {
       const data = await albumServices.fetchTeamsInfo(token, eventId);
-      console.log(JSON.stringify(data));
-      let newArray = data?.map((item, index) => {
+      let newArray = data?.items?.map((item, index) => {
         return { key: item?.id, value: item?.name };
       });
-      console.log(JSON.stringify(newArray));
       setTeams(newArray);
     } catch (error) {
-      Toast.error(error.message);
+      // Toast.error(error.message);
+      alert(error.message)
     } finally {
       setLoading(false);
     }
@@ -131,7 +107,7 @@ export default function Shop({ navigation }) {
   return (
     <View style={styles.fondo}>
       <Header />
-      <Container position="bottom" />
+      <Container position="top" />
       <View style={styles.container}>
         <View style={styles.fondoMercado}>
           {/* header mercado */}
@@ -216,7 +192,7 @@ export default function Shop({ navigation }) {
             <AuctionsList
               auctions={auctions}
               opciones={opciones}
-              paginated={paginated}
+              paginate={paginate}
               setPage={setPage}
               nextPage={loadAuctionsList}
             />
