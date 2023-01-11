@@ -8,7 +8,7 @@ export default function SliderItem({ item }) {
 	return (
 		<View style={[styles.container, { width }]}>
 			<Image source={item.image} style={[styles.image, { width, resizeMode: 'contain' }]} />
-			<View style={{ flex: 0.3 }}>
+			<View style={{ flex: 0.5 }}>
 				<Text style={styles.title}>{item.title}</Text>
 				<Text style={styles.body}>{item.description}</Text>
 			</View>

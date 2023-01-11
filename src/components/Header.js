@@ -5,7 +5,7 @@ import {
 	Image,
 	Dimensions,
 	Text,
-	TouchableOpacity
+	TouchableWithoutFeedback
 } from 'react-native';
 import { useSelector } from "react-redux";
 import Icon from 'react-native-remix-icon';
@@ -15,12 +15,20 @@ import logoImg from '../../assets/app/logoHorizontal.png';
 
 const { width } = Dimensions.get('window');
 
-export default function HeaderComponent() {
+export default function Header() {
 	const { money } = useSelector((state) => state.auth);
 
 	// Easter Egg
 	const [count, setCount] = useState(0);
 	const [sound, setSound] = useState();
+
+	const onPress = () => {
+		setCount(count + 1);
+		if (count == 10) {
+			setCount(0)
+			playSound()
+		}
+	};
 
 	async function playSound() {
 		const { sound } = await Audio.Sound.createAsync(require('../../assets/app/easter-egg.mp3'));
@@ -30,7 +38,6 @@ export default function HeaderComponent() {
 
 	useEffect(() => {
 		return sound ? () => {
-			console.log('Unloading Sound');
 			sound.unloadAsync();
 		} : undefined;
 	}, [sound]);
@@ -38,17 +45,9 @@ export default function HeaderComponent() {
 
 	return (
 		<View style={styles.header}>
-			<TouchableOpacity
-				onPress={() => {
-					setCount(count + 1)
-					if (count == 10) {
-						setCount(0)
-						playSound()
-					}
-				}}
-			>
+			<TouchableWithoutFeedback onPress={onPress} >
 				<Image source={logoImg} style={styles.logo} />
-			</TouchableOpacity>
+			</TouchableWithoutFeedback>
 			<View style={styles.coins}>
 				<Icon name="money-dollar-circle-fill" size="30" color="#E7484D" />
 				<Text style={styles.coinsText}>{money}</Text>

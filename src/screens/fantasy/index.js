@@ -205,8 +205,9 @@ export default function Fantasy() {
 							<Text style={styles.bancas}>Almacen</Text>
 							<IconButton
 								style={styles.opciones}
-								icon="dots-horizontal"
-								size={20}
+								iconColor='#E7484D'
+								icon="dots-horizontal-circle"
+								size={35}
 								onPress={() => setOpen(true)}
 							/>
 						</View>
@@ -271,24 +272,24 @@ const styles = StyleSheet.create({
 
 	},
 	containerCancha: {
-		width: "90%",
-		height: "75%",
+		width: "85%",
+		height: "70%",
 		alignSelf: "center",
 		alignItems: "center",
-		justifyContent: "center",
-		backgroundColor: "#E3E2E6",
-		marginTop: 10
+		justifyContent: 'center',
+		marginTop: '5%',
+		marginBottom: '3%'
 	},
 	contJugadoresCancha: {
-		width: "107%",
-		height: "95%",
+		width: "112%",
+		height: "100%",
 		position: "absolute",
 		flexWrap: "wrap",
 		backgroundColor: "#FFFFFF50",
 	},
 	canchaImg: {
-		height: "95%",
-		resizeMode: "contain",
+		height: "100%",
+		resizeMode: "contain"
 	},
 	inputStyle: {
 		backgroundColor: "#F2F6FE",
@@ -299,12 +300,6 @@ const styles = StyleSheet.create({
 		zIndex: 999,
 		backgroundColor: "#E2DDDD",
 	},
-	bancaImg: {
-		width: 100,
-		height: 130,
-		marginLeft: 2.5,
-		marginRight: 2.5,
-	},
 	cont: {
 		height: "20%",
 		width: "100%",
@@ -313,10 +308,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	opciones: {
-		height: 30,
-		width: 30,
-		borderRadius: 15,
-		backgroundColor: "#E7484D",
 		position: "absolute",
 		right: 0,
 	},

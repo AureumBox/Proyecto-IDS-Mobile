@@ -107,7 +107,7 @@ export default function FantasyDrawer({ squadChange }) {
 			let newArray = data.items.map((item) => {
 				return { value: item.name };
 			});
-			newArray.unshift('')
+			newArray.unshift('Equipo')
 			setTeamsListPicker(newArray)
 		} catch (error) {
 			alert(error.message);
@@ -148,7 +148,10 @@ export default function FantasyDrawer({ squadChange }) {
 						setSelected={(val) => setSelected(val)}
 						data={teamsListPicker}
 						notFoundText={<Text>No hay coincidencias</Text>}
-						onSelect={() => setTeam(selected)}
+						onSelect={() => {
+							if(selected === 'Equipo') setTeam('')
+							else setTeam(selected)
+						}}
 						onFocus={() => setIsFocus(true)}
 					/>
 				</View>
