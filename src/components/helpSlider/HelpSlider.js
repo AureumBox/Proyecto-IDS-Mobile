@@ -59,7 +59,7 @@ export default function HelpSlider({ isVisible, onClose, sliderContent }) {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 0.9,
+		flex: 0.95,
 		justifyContent: 'center',
 		alignItems: 'center'
 	}

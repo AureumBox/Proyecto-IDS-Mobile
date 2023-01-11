@@ -5,7 +5,7 @@ const { width } = Dimensions.get('window');
 
 export default function HelpPaginator({ data, scrollX }) {
 	return(
-		<View style={{ flexDirection: 'row', height: 24 }}>
+		<View style={{ flexDirection: 'row' }}>
 			{data.map((_, i) => {
 				const inputRange = [(i - 1) * (width * 0.8), i * (width * 0.8), (i + 1) * (width * 0.8)];
 
