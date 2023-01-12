@@ -23,6 +23,7 @@ import * as userServices from "../../state/authSlice";
 import * as fantasyServices from "../../state/fantasySlice";
 import sobreImg from "../../../assets/app/sobre.png";
 import TextTimer from "./TextTimer";
+import SobreBlocked from "../../../assets/app/sobreBlocked.png";
 
 export default function cardSticker({
   onClaimClick,
@@ -38,7 +39,12 @@ export default function cardSticker({
       }
     >
       <View style={styles.containerImg}>
-        <Image source={sobreImg} style={styles.sobreImg}></Image>
+        {isAvailable? (
+          <Image source={sobreImg} style={styles.sobreImg}></Image>
+        ): (
+          <Image source={SobreBlocked} style={styles.sobreImg}></Image>
+        )}
+        
       </View>
       <View style={styles.containerinfo}>
         <Text style={styles.textoFeature}>Sobre diario</Text>
@@ -70,7 +76,7 @@ export default function cardSticker({
           </TouchableOpacity>
         ) : (
           <View style={styles.botonSobre}>
-            <Text style={styles.textoBoton}>Reclamar</Text>
+            <Text style={styles.textoBotonBlocked}>Reclamar</Text>
           </View>
         )}
       </View>
@@ -185,7 +191,7 @@ const styles = StyleSheet.create({
     marginLeft: 210,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#808080",
+    backgroundColor: "#D6D7DC",
   },
   containerImg: {
     width: "100%",
@@ -248,6 +254,11 @@ const styles = StyleSheet.create({
   },
   textoBoton: {
     color: "white",
+    fontWeight: "bold",
+    fontSize: 14,
+  },
+  textoBotonBlocked: {
+    color: "#9E9FAD",
     fontWeight: "bold",
     fontSize: 14,
   },

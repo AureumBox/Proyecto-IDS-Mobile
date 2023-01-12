@@ -31,7 +31,7 @@ export default function TextTimer({ setIsAvailable }) {
   const { hours, minutes, seconds } = useTimer();
 
   useEffect(() => {
-    if (/*  hours == 0 &&  minutes == 0 && */seconds == 0) setIsAvailable(true);
+    if (  hours == 0 &&  minutes == 0 && seconds == 0) setIsAvailable(true);
   }, [seconds]);
 
   return (
