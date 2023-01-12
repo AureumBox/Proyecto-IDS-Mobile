@@ -140,7 +140,6 @@ export default function Home({ navigation }) {
   }, [token]);
 
   const stickerStatus = useCallback(async () => {
-    console.log("unu");
     setLoading(true);
     try {
       const data = await stickerServices.fetchStickerStatus(
