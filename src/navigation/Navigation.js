@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Rutas
-import Home from '../screens/homePageAuth/HomeScreen';
+import Home from '../screens/homePageAuth/landingPage/HomeScreen';
 import LogIn from '../screens/homePageAuth/LogIn';
 import SignIn from '../screens/homePageAuth/SignIn';
 import PWRecovery from '../screens/homePageAuth/PWRecovery';

@@ -10,11 +10,11 @@ export const obtainStickers = async (token) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    if (!data.stickers || !data.success) {
+    if (!data.items || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
 
-    return data.stickers;
+    return data.items;
   } catch (error) {
     if (error.response) {
       throw new Error(

@@ -6,10 +6,16 @@ import {
 	StyleSheet,
 	Text,
 	TextInput,
-	View
+	View,
+	Image,
+	Dimensions
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+
+import logoImg from '../../../assets/app/logoVertical.png'
+
+const { width, height } = Dimensions.get('window');
 
 export default function PWReset({ navigation }) {
 	const [showPass, setShowPass] = useState(true);
@@ -17,6 +23,9 @@ export default function PWReset({ navigation }) {
 	return (
 		<View style={styles.container}>
 			<ScrollView>
+				<View style={styles.imageContainer}>
+					<Image style={styles.logoSt} source={logoImg} />
+				</View>
 				<View style={styles.contentContainer}>
 					<Text style={styles.body}>Reiniciar Contraseña</Text>
 					<Text style={styles.text}>
@@ -26,7 +35,7 @@ export default function PWReset({ navigation }) {
 						<Ionicons
 							name="lock-closed-outline"
 							size={24}
-							color="black"
+							color="#E7484D"
 							style={styles.inputIcon}
 						/>
 						<TextInput
@@ -42,7 +51,7 @@ export default function PWReset({ navigation }) {
 							<Ionicons
 								name={showPass === false ? 'eye-outline' : 'eye-off-outline'}
 								size={26}
-								color='black'
+								color='#E7484D'
 							/>
 						</TouchableOpacity>
 					</View>
@@ -50,7 +59,7 @@ export default function PWReset({ navigation }) {
 						<Ionicons
 							name="lock-closed-outline"
 							size={24}
-							color="black"
+							color="#E7484D"
 							style={styles.inputIcon}
 						/>
 						<TextInput
@@ -66,18 +75,18 @@ export default function PWReset({ navigation }) {
 							<Ionicons
 								name={showConf === false ? 'eye-outline' : 'eye-off-outline'}
 								size={26}
-								color='black'
+								color='#E7484D'
 							/>
 						</TouchableOpacity>
 					</View>
 					{/* Boton Iniciar Sesión */}
-					<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
-						<TouchableOpacity
-							onPress={() => navigation.navigate('PWReset')}
-						>
+					<TouchableOpacity
+						onPress={() => navigation.navigate('HomeScreen')}
+					>
+						<LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.logInButton}>
 							<Text style={{ color: 'white', fontWeight: 'bold' }}>Reiniciar Contraseña</Text>
-						</TouchableOpacity>
-					</LinearGradient>
+						</LinearGradient>
+					</TouchableOpacity>
 				</View>
 			</ScrollView>
 			<StatusBar style="auto" />
@@ -91,20 +100,25 @@ const styles = StyleSheet.create({
 		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#F2F6FF',
+		backgroundColor: '#FFFFFF'
+	},
+	imageContainer: {
+		width: width,
+		height: height * 0.3,
+		backgroundColor: '#EAEAEA',
+		justifyContent: 'center',
+		borderBottomLeftRadius: 25,
+		borderBottomRightRadius: 25
 	},
 	contentContainer: {
 		paddingHorizontal: 30,
-		marginTop: 50,
+		marginTop: 30
 	},
-	body: {
-		padding: 20,
-		fontSize: 30,
-		lineHeight: 35,
-		marginBottom: 20,
-		fontWeight: '400',
-		textAlign: 'center',
-		color: '#353147',
+	logoSt: {
+		height: '100%',
+		width: '100%',
+		alignSelf: 'center',
+		resizeMode: 'contain'
 	},
 	text: {
 		paddingBottom: 50,
@@ -112,33 +126,29 @@ const styles = StyleSheet.create({
 		lineHeight: 23,
 		fontWeight: '400',
 		textAlign: 'center',
-		color: '#353147',
+		color: '#353147'
 	},
-	buttonContainer: {
-		flexDirection: 'row',
-		width: '100%',
-		backgroundColor: '#DFE3E630',
-		marginTop: 20,
-		marginBottom: 40,
-	},
-	button: {
-		flex: 1,
-		alignItems: 'center',
-		backgroundColor: 'FFFFFF70',
-		padding: 16,
-		borderRadius: 6,
-		borderWidth: 2,
-		borderColor: 'white',
-		borderRadius: 16,
-		marginHorizontal: 10,
+	body: {
+		padding: 20,
+		fontSize: 30,
+		lineHeight: 35,
+		marginBottom: 20,
+		fontWeight: '700',
+		textAlign: 'center',
+		color: '#2A555E',
 	},
 	inputContainer: {
 		width: '100%',
+		height: 60,
 		backgroundColor: 'white',
 		borderRadius: 25,
 		marginBottom: 20,
 		justifyContent: 'center',
-		padding: 20
+		borderColor: '#E7484D',
+		borderBottomWidth: 1,
+		borderTopWidth: 0,
+		borderLeftWidth: 0,
+		borderRightWidth: 0,
 	},
 	inputIcon: {
 		position: 'absolute',
@@ -146,7 +156,7 @@ const styles = StyleSheet.create({
 		left: 25
 	},
 	inputText: {
-		paddingLeft: 20,
+		paddingLeft: 40,
 		marginHorizontal: 20
 	},
 	buttonEye: {
@@ -156,16 +166,8 @@ const styles = StyleSheet.create({
 	logInButton: {
 		backgroundColor: '#70ABAF',
 		padding: 20,
-		borderRadius: 16,
+		borderRadius: 25,
 		alignItems: 'center',
-		marginVertical: 60,
-	},
-	forgotPW: {
-		fontSize: 17,
-		lineHeight: 30,
-		color: 'gray',
-		fontWeight: 'bold',
-		textAlign: 'center',
-		marginTop: 60,
+		marginVertical: 60
 	}
 })
