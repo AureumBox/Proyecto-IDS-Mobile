@@ -34,6 +34,7 @@ export default function Fantasy() {
 	const [helpLineup, setHelpLineup] = useState(false);
 	const dispatch = useDispatch();
 	const eventId = 1;
+	const [opciones, setOpciones] = useState(1);
 
 	function createArray(players, MAX_PLAYERS) {
 		let finalArray = [];
@@ -153,22 +154,34 @@ export default function Fantasy() {
 
 				<View style={{ width: '90%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
 					{/* Titulo */}
-					<View style={styles.containerTitulo}>
-						<View style={styles.containerPuntaje}>
-							<Text style={styles.textSt}>FANTASY</Text>
-						</View>
-						<View style={styles.containerPuntaje}>
-							<TouchableOpacity>
-								<Text style={[styles.textBoton, styles.textBotonSelected]}>
-									Equipo
-								</Text>
-							</TouchableOpacity>
-							<TouchableOpacity>
-								<Text style={[styles.textBoton]}>Ranking</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
+					<View style={styles.rectanguloFantasy}>
+            <Text style={styles.title}>Fantasy</Text>
+            <View style={{ width: "100%", alignItems: "center" }}>
+              <View style={styles.containerButtons}>
+                <TouchableOpacity
+                  style={opciones === 1 ? styles.buttonSelected : styles.button}
+                  onPress={() => setOpciones(1)}
+                >
+                  <Text style={styles.textButton}>Alineación</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={opciones === 2 ? styles.buttonSelected : styles.button}
+                  onPress={() => setOpciones(2)}
+                >
+                  <Text style={styles.textButton}>Plantilla</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={opciones === 3 ? styles.buttonSelected : styles.button}
+                  onPress={() => setOpciones(3)}
+                >
+                  <Text style={styles.textButton}>Ranking</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
 
+		{opciones ==1 ? (
+			<View>
 					<View style={{ ...styles.containerTitulo, borderRadius: 10 }}>
 						<View style={styles.containerPuntaje}>
 							<Text style={{ ...styles.textSt, fontSize: 26, right: '250%' }}>
@@ -216,6 +229,17 @@ export default function Fantasy() {
 
 						{/*  */}
 					</View>
+					</View>
+					) : null }
+
+					{opciones == 2 ? (
+						<Text> Insertar plantilla</Text>
+					): null}
+
+					{opciones == 3 ? (
+						<Text> Insertar Ranking</Text>
+					): null}	
+					{/*
 					<View style={styles.carruselContainer}>
 						<View style={styles.cont}>
 							<Text style={styles.texto}>¡Arma tu equipo!</Text>
@@ -230,6 +254,7 @@ export default function Fantasy() {
 							</View>
 						</View>
 					</View>
+					*/}
 				</View>
 			</View>
 		</View>
@@ -367,5 +392,50 @@ const styles = StyleSheet.create({
 	},
 	carruselContainer: {
 		width: "90%"
-	}
+	},
+	rectanguloFantasy: {
+		backgroundColor: "#D7D3DA",
+		height: 86,
+		width: "100%",
+		borderRadius: 10,
+		paddingLeft: 10,
+		paddingRight: 10,
+		marginTop: 3
+	  },
+	title: {
+		marginTop: 2,
+		fontWeight: "bold",
+		fontSize: 26,
+		color: "#3D405B",
+	  },
+	containerButtons: {
+		flexDirection: "row",
+		flexWrap: "wrap",
+		justifyContent: "space-between",
+	},
+	buttonSelected: {
+		textAlign: "center",
+		margin: "1.60%",
+		padding: 10,
+		borderBottomWidth: 2,
+		borderBottomColor: "#D13256",
+		width: "30%",
+		alignItems: "center",
+		justifyContent: "center",
+	  },
+	  button: {
+		textAlign: "center",
+		margin: "1.60%",
+		padding: 8,
+		width: "30%",
+		alignItems: "center",
+		justifyContent: "center",
+	  },
+	  textButton: {
+		fontWeight: "bold",
+		fontSize: 14,
+		lineHeight: 18,
+		color: "#3D405B",
+		textAlign: "center",
+	  }
 });
