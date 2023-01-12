@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
 import { IconButton } from "react-native-paper";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import PlayerRows from "./PlayerRows";
 import FantasyDrawer from "./FantasyDrawer";
@@ -18,7 +18,12 @@ import * as fantasyServices from "../../services/fantasy.services";
 import * as fantasySlice from "../../state/fantasySlice";
 import Cancha from "../../../assets/app/campo.png";
 import HelpSlider from "../../components/helpSlider/HelpSlider";
-import infoLineup from '../../../assets/app/helpLineup'
+import infoLineup from '../../../assets/app/helpLineup';
+import RankingYou from "./RankingYou";
+import RankingFirstP from "./RankingFirstP";
+import RankingSecondP from "./RankingSecondP";
+import RankingThirdP from "./RankingThirdP";
+import RankingCard from "./RankingCard";
 
 const { width } = Dimensions.get('window')
 
@@ -35,6 +40,10 @@ export default function Fantasy() {
 	const dispatch = useDispatch();
 	const eventId = 1;
 	const [opciones, setOpciones] = useState(1);
+
+	const positionRanking = 4; //Colocar aquí la posición del usuario en el ranking
+	const userRanking = 'Cristinini'; //Colocar aquí el nombre del usuario
+	const userPoints = 1500; //Colocar aquí el puntaje del usuario
 
 	function createArray(players, MAX_PLAYERS) {
 		let finalArray = [];
@@ -237,7 +246,22 @@ export default function Fantasy() {
 					): null}
 
 					{opciones == 3 ? (
-						<Text> Insertar Ranking</Text>
+						<View style={{alignItems: 'center'}}>
+							<RankingYou positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints}/>
+
+							<View style={styles.containerRanking}/>
+
+							<RankingFirstP/>
+
+							<RankingSecondP/>
+
+							<RankingThirdP/>
+
+							<RankingCard/>
+
+							<RankingCard/>
+
+						</View>
 					): null}	
 					{/*
 					<View style={styles.carruselContainer}>
@@ -437,5 +461,12 @@ const styles = StyleSheet.create({
 		lineHeight: 18,
 		color: "#3D405B",
 		textAlign: "center",
+	  },
+	  containerRanking:{
+		backgroundColor: 'black', 
+		width: '90%', 
+		height: 2, 
+		marginTop: 15, 
+		marginBottom: 15
 	  }
 });
