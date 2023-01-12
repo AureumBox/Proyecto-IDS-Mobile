@@ -5,14 +5,22 @@ export const authSlice = createSlice({
     initialState: {
         logged: false,
         token: null,
+        currentEventId: 1,
+        money: 999,
     },
     reducers: {
         'logIn': (state, { payload }) => {
             state.token = payload;
             state.logged = true;
         },
+        'setCurrentEventId': (state, { payload }) => {
+            state.currentEventId = payload;
+        },
+        'setMoney': (state, { payload }) => {
+            state.money = payload;
+        }
     },
 })
 
-export const { logIn } = authSlice.actions
+export const { logIn, setCurrentEventId, setMoney } = authSlice.actions
 export default authSlice.reducer;

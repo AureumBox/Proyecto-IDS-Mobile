@@ -19,88 +19,109 @@ import JugadorBra from "../../assets/app/bra_10.png";
 import MoneyIcon from "../../assets/app/moneyIcon.png";
 import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
+import { ModalMercado } from "./ModalMercado";
+import EditBid from "../screens/mainScreen/Market/EditBid";
+import DirectBuy from "../screens/mainScreen/Market/DirectBuy";
 
 export default function PlayerCardMO({ auctionData = {} }) {
+  const [visibleEdit, setVisibleEdit] = React.useState(false);
+  const [visibleBuy, setVisibleBuy] = React.useState(false);
+
   return (
-    <View style={styles.card}>
-      <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.imgCard}>
-        <View style={styles.containerPlayerName}>
-          <Text style={styles.playerName}>Neymar Jr</Text>
-        </View>
+    <>
+      <View style={styles.card}>
+        <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.imgCard}>
+          <View style={styles.containerPlayerName}>
+            <Text style={styles.playerName}>Neymar Jr</Text>
+          </View>
+          <View>
+            <Image style={styles.imagePlayer} source={JugadorBra} />
+          </View>
+        </LinearGradient>
         <View>
-          <Image style={styles.imagePlayer} source={JugadorBra} />
-        </View>
-      </LinearGradient>
-      <View>
-        <View
-          style={{ flexDirection: "row", justifyContent: "center", margin: 3 }}
-        >
-          <Image
-            style={{ height: 20, width: 20, marginLeft: -45 }}
-            source={Bra}
-          />
-          <LinearGradient
-            colors={["#D13256", "#FE5F42"]}
-            style={{ borderRadius: 10, marginLeft: 25 }}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              margin: 3,
+            }}
           >
-            <Text style={styles.posiciontext}>DELANTERO</Text>
-          </LinearGradient>
+            <Image
+              style={{ height: 20, width: 20, marginLeft: -45 }}
+              source={Bra}
+            />
+            <LinearGradient
+              colors={["#D13256", "#FE5F42"]}
+              style={{ borderRadius: 10, marginLeft: 25 }}
+            >
+              <Text style={styles.posiciontext}>DELANTERO</Text>
+            </LinearGradient>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              margin: 3,
+              paddingTop: 5,
+            }}
+          >
+            <Image
+              style={{ height: 22, width: 22, marginRight: 3, marginLeft: 3 }}
+              source={MoneyIcon}
+            />
+            <Text style={styles.textCard}>100.000.000</Text>
+          </View>
+          <View style={{ flexDirection: "row", margin: 3 }}>
+            <Image
+              style={{
+                height: 22,
+                width: 22,
+                marginRight: 3,
+                resizeMode: "center",
+                marginLeft: 3,
+              }}
+              source={Reloj}
+            />
+            <Text style={styles.textCard}>2h 20s</Text>
+          </View>
         </View>
         <View
           style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            margin: 3,
-            paddingTop: 5,
+            marginLeft: 10,
+            width: 110,
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            alignItems: "center",
           }}
         >
-          <Image
-            style={{ height: 22, width: 22, marginRight: 3, marginLeft: 3 }}
-            source={MoneyIcon}
-          />
-          <Text style={styles.textCard}>100.000.000</Text>
-        </View>
-        <View style={{ flexDirection: "row", margin: 3 }}>
-          <Image
-            style={{
-              height: 22,
-              width: 22,
-              marginRight: 3,
-              resizeMode: "center",
-              marginLeft: 3,
-            }}
-            source={Reloj}
-          />
-          <Text style={styles.textCard}>2h 20s</Text>
+          <TouchableOpacity onPress={() => setVisibleEdit(true)}>
+            <LinearGradient
+              style={styles.editButton}
+              colors={["#D13256", "#FE5F42"]}
+            >
+              <Text style={styles.textbotones}>Editar</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => setVisibleBuy(true)}>
+            <LinearGradient
+              style={styles.editButton}
+              colors={["#D13256", "#FE5F42"]}
+            >
+              <Text style={styles.textbotones}>Compra directa</Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
       </View>
-      <View
-        style={{
-          marginLeft: 10,
-          width: 110,
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      >
-        <TouchableOpacity>
-          <LinearGradient
-            style={styles.editButton}
-            colors={["#D13256", "#FE5F42"]}
-          >
-            <Text style={styles.textbotones}>Editar</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <LinearGradient
-            style={styles.editButton}
-            colors={["#D13256", "#FE5F42"]}
-          >
-            <Text style={styles.textbotones}>Compra directa</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
-    </View>
+
+      <ModalMercado visible={visibleEdit}>
+        <EditBid setVisible={setVisibleEdit} />
+      </ModalMercado>
+
+      <ModalMercado visible={visibleBuy}>
+        <DirectBuy setVisible={setVisibleBuy}/>
+      </ModalMercado>
+    </>
   );
 }
 

@@ -10,19 +10,17 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { ModalBanca } from "../../../components/ModalBanca";
 import { useState } from "react";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, AntDesign } from "@expo/vector-icons";
 import SearchBar from "../../../components/SearchBar";
 import { SelectList } from "react-native-dropdown-select-list";
 import AddPlayerCard from "../../../components/AddPlayerCard";
 import PlayersList from "./PlayersList";
 import AuctionsList from "./AuctionsList";
 
-
-
-export default function Bench({ onClick }) {
-  const [visible, setVisible] = useState(false);
+export default function Bench({ onClick, setVisible }) {
 
   const [selected, setSelected] = useState("");
+  const [searchPhrase, setSearchPhrase] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [selectedE, setSelectedE] = useState("");
   const [isFocusE, setIsFocusE] = useState(false);
@@ -41,7 +39,6 @@ export default function Bench({ onClick }) {
     { key: "5", value: "Arquero" },
   ];
 
-  
   return (
     <View style={{ height: "90%", width: "100%", padding: 8 }}>
       <TouchableOpacity
@@ -49,12 +46,17 @@ export default function Bench({ onClick }) {
           setVisible(false);
         }}
       >
-        <Text style={styles.title}>Banca</Text>
+        <AntDesign
+          name="closecircleo"
+          size={20}
+          color="black"
+          style={{ marginLeft: "92%" }}
+        />
       </TouchableOpacity>
+      <Text style={styles.title}>Banca</Text>
       <View style={{ alignItems: "center", marginBottom: 5 }}>
         <View
           style={{
-            flexDirection: "column",
             width: "90%",
             alignItems: "flex-end",
             marginBottom: -15,
@@ -70,7 +72,10 @@ export default function Bench({ onClick }) {
           </TouchableOpacity>
         </View>
 
-        <SearchBar searchPhrase={""} setSearchPhrase={""} />
+        <SearchBar
+          searchPhrase={searchPhrase}
+          setSearchPhrase={setSearchPhrase}
+        />
 
         <View
           style={{
@@ -95,12 +100,8 @@ export default function Bench({ onClick }) {
           />
         </View>
       </View>
-      <PlayersList players={data} />
-      <View
-        style={{ paddingTop: 5, flex: 1, alignSelf: "center", width: "90%" }}
-      >
-        <PlayersList players={data} paginate={{}} setPage={0} nextPage={{}} />
-      </View>
+      <PlayersList players={data} paginate={{}} setPage={{}}/>
+     
     </View>
   );
 }

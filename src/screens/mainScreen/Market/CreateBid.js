@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,20 +11,75 @@ import {
 
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import Icon from "react-native-remix-icon";
+import { ModalMercado } from "../../../components/ModalMercado";
+import * as marketServices from "../../../services/market.services";
+import { useDispatch, useSelector } from "react-redux";
+
+{
+  /* <Ionicons name={"time-outline"} color={"black"} size={22} /> */
+}
 
 import JugadorBra from "../../../../assets/app/bra_10.png";
-import MoneyIcon from "../../../../assets/app/moneyIcon.png";
-import Reloj from "../../../../assets/app/reloj.png";
-import Bra from "../../../../assets/app/bra.png";
-import { ModalMercado } from "../../../components/ModalMercado";
 
-export default function CreateAuction({ players = {}, setVisible }) {
+const convertTime = (finishDate) => {
+  const actual = new Date(Date.now());
+  const end = new Date(Date.parse(finishDate));
+
+  let minutes = Math.floor((end - actual) / 60000);
+  const hours = Math.floor(minutes / 60);
+  minutes = minutes % 60;
+
+  return hours + "h " + minutes + "m";
+};
+
+export default function CreateBid({ auctionData = {}, visible, setVisible }) {
   const { height, width } = Dimensions.get("window");
-  const hideDialog = () => setVisible(false);
-  const [text, setText] = useState("");
+  const { token } = useSelector((state) => state.auth);
+  const { money } = useSelector((state) => state.auth);
+  const { currentEventId } = useSelector((state) => state.auth);
+  const [auctionInfo, setAuctionInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [bid, setBid] = useState(0);
+
+  const postBid = async () => {
+    setLoading(true);
+    console.log("efect bid");
+    try {
+      const data = await marketServices.postBid(token, currentEventId, bid + auctionInfo?.highestBid?.value, auctionData?.id, false);
+      alert(data.message)
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadAuctionsInfo = useCallback(async () => {
+    setLoading(true);
+    console.log("efect info");
+    try {
+      const data = await marketServices.fetchAuctionInfo(
+        token,
+        currentEventId,
+        auctionData.id
+      );
+
+      setAuctionInfo(data.item);
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  useEffect(() => {
+    loadAuctionsInfo();
+  }, [loadAuctionsInfo]);
+
   return (
-    <>
-      {/* Modal precio inicial y compra directa*/}
+    <ModalMercado visible={visible}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}>
         <TouchableOpacity>
           <Ionicons
@@ -42,12 +97,17 @@ export default function CreateAuction({ players = {}, setVisible }) {
       </LinearGradient>
       <View style={styles.circuloBlanco} />
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}>
-        <Image source={JugadorBra} style={styles.fotocirculo} />
+        <Image
+          source={{ uri: auctionData?.sticker?.img }}
+          style={styles.fotocirculo}
+        />
       </LinearGradient>
-      <Text style={styles.nombreJugador}>Neymar Jr</Text>
+      <Text style={styles.nombreJugador}>
+        {auctionData?.sticker?.playerName}
+      </Text>
 
       <View style={{ width: "100%", height: 70, flexDirection: "row" }}>
-        {/* Precio inicial */}
+        {/* Oferta actual*/}
         <View
           style={{
             width: "50%",
@@ -57,13 +117,21 @@ export default function CreateAuction({ players = {}, setVisible }) {
             justifyContent: "center",
           }}
         >
-          <Text style={styles.subtexto}>Precio Inicial</Text>
-          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}>
-            <TextInput style={styles.oferta} keyboardType={"numeric"} />
-          </LinearGradient>
+          <Text style={styles.subtexto}>Oferta ganadora actual</Text>
+          <View style={styles.containerDinero}>
+            <LinearGradient
+              colors={["#D13256", "#FE5F42"]}
+              style={styles.moneyCoin}
+            >
+              <MaterialIcons name="attach-money" size={18} color="white" />
+            </LinearGradient>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
+              {auctionInfo?.highestBid?.value}
+            </Text>
+          </View>
         </View>
 
-        {/* Compra directa */}
+        {/* Mi oferta*/}
         <View
           style={{
             width: "50%",
@@ -73,14 +141,54 @@ export default function CreateAuction({ players = {}, setVisible }) {
             justifyContent: "center",
           }}
         >
-          <Text style={styles.subtexto}>Compra directa</Text>
+          <Text style={styles.subtexto}>Mi oferta</Text>
           <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}>
-            <TextInput style={styles.oferta} keyboardType={"numeric"} />
+            <TextInput
+              style={styles.oferta}
+              keyboardType={"numeric"}
+              value={bid}
+              onChangeText={(text) => setBid(text)}
+            />
           </LinearGradient>
+          <Text
+            style={{
+              fontSize: 9,
+              color: "#00DB71",
+              fontWeight: "700",
+              marginTop: 3,
+            }}
+          >
+            {" "}
+            (+ ${auctionInfo?.highestBid?.value})
+          </Text>
         </View>
       </View>
 
-      {/* Botones */}
+      {/* Saldo */}
+      <View
+        style={{
+          width: "100%",
+          height: 70,
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={styles.subtexto}>Saldo luego de la operación</Text>
+        <View style={styles.containerDinero}>
+          <LinearGradient
+            colors={["#D13256", "#FE5F42"]}
+            style={styles.moneyCoin}
+          >
+            <MaterialIcons name="attach-money" size={18} color="white" />
+          </LinearGradient>
+          <Text style={{ fontWeight: "600", marginLeft: 2 }}>
+            {money - bid - auctionInfo?.highestBid?.value}
+          </Text>
+        </View>
+      </View>
+
+      {/* Botones*/}
       <View style={styles.containerButtons}>
         <LinearGradient
           colors={["#D13256", "#FE5F42"]}
@@ -89,7 +197,9 @@ export default function CreateAuction({ players = {}, setVisible }) {
           <TouchableOpacity style={styles.whitebutton}>
             <Text
               style={{ color: "#E6474E", fontWeight: "600" }}
-              onPress={hideDialog}
+              onPress={() => {
+                setVisible(false);
+              }}
             >
               Cancelar
             </Text>
@@ -100,16 +210,12 @@ export default function CreateAuction({ players = {}, setVisible }) {
           colors={["#D13256", "#FE5F42"]}
           style={styles.editButtonacep}
         >
-          <TouchableOpacity
-            onPress={() => {
-              setVisible(false);
-            }}
-          >
+          <TouchableOpacity onPress={postBid}>
             <Text style={{ color: "#fff", fontWeight: "600" }}>Aceptar</Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>
-    </>
+    </ModalMercado>
   );
 }
 
@@ -293,6 +399,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "100%",
     height: 115,
+    position: "relative",
     flexDirection: "row",
     marginTop: 10,
   },
@@ -302,7 +409,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     flexDirection: "row",
-    position: "relative",
   },
   textbotones: {
     fontSize: 10,

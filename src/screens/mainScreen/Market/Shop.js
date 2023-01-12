@@ -19,6 +19,7 @@ import ButtonAddAuction from "./ButtonAddAuction";
 import AuctionsList from "./AuctionsList";
 import * as marketServices from "../../../services/market.services";
 import * as albumServices from "../../../services/inventory.services";
+import PlayerCardMS from "../../../components/PlayerCardMS";
 
 export default function Shop({ navigation }) {
   const { height, width } = Dimensions.get("window");
@@ -60,6 +61,7 @@ export default function Shop({ navigation }) {
 
   const loadAuctionsList = useCallback(async () => {
     setLoading(true);
+    console.log("efect fetc")
     try {
       let data;
       if (opciones == 1) {

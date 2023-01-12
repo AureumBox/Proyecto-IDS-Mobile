@@ -44,7 +44,7 @@ export default function ButtonAddAuction({ onClick }) {
     <View style={styles.shadow}>
       {/* ni bro */}
       <ModalBanca visible={visible}>
-        <Bench/>
+        <Bench setVisible={setVisible}/>
       </ModalBanca>
 
       <TouchableOpacity

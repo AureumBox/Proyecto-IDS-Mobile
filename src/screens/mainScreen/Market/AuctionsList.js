@@ -16,27 +16,30 @@ export default function AuctionsList({
   auctions = [],
   opciones = 1,
   paginate = {},
-  setPage = 0
+  setPage = 0,
 }) {
   return (
-    <FlatList
-      showsVerticalScrollIndicator={false}
-      styles={{ width: "100%" }}
-      data={auctions}
-      keyExtractor={(_, index) => index.toString()}
-      ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
-      ItemSeparatorComponent={() => <View style={styles.separator} />}
-      onEndReached={() => {
-        if (paginate?.page < paginate?.pages) {
-          setPage(paginate?.page + 1);
-        }
-      }}
-      renderItem={({ item }) => {
-        if (opciones == 1) return <PlayerCardOG auctionData={item} />;
-        if (opciones == 2) return <PlayerCardMS auctionData={item} />;
-        if (opciones == 3) return <PlayerCardMO auctionData={item} />;
-      }}
-    />
+    <>
+      <FlatList
+      removeClippedSubviews={false}
+        showsVerticalScrollIndicator={false}
+        styles={{ width: "100%" }}
+        data={auctions}
+        keyExtractor={(_, index) => index.toString()}
+        ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        onEndReached={() => {
+          if (paginate?.page < paginate?.pages) {
+            setPage(paginate?.page + 1);
+          }
+        }}
+        renderItem={({ item }) => {
+          if (opciones == 1) return <PlayerCardOG auctionData={item} />;
+          if (opciones == 2) return <PlayerCardMS auctionData={item} />;
+          if (opciones == 3) return <PlayerCardMO auctionData={item} />;
+        }}
+      />
+    </>
   );
 }
 
