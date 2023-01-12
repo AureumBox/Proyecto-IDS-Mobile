@@ -19,8 +19,8 @@ export default function Album({ navigation }) {
 	const [albumInfo, setAlbumInfo] = useState({});
 	const [teamsInfo, setTeamsInfo] = useState({});
 
-	const eventId = 1;
 	const { token } = useSelector((state) => state.auth);
+	const { currentEventId } = useSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
 
@@ -35,9 +35,10 @@ export default function Album({ navigation }) {
 		//percentage
 		setLoading(true);
 		try {
-			const data = await fetchAlbumInfo(token, eventId);
+			const data = await fetchAlbumInfo(token, currentEventId);
 			setAlbumInfo(data);
 			dispatch(setPercentage(data.actualProgressPercentage));
+			console.log("en album unu "+data.actualProgressPercentage)
 		} catch (error) {
 			alert(error.message);
 		} finally {
@@ -49,7 +50,7 @@ export default function Album({ navigation }) {
 		//teamList
 		setLoading(true);
 		try {
-			const data = await fetchTeamsInfo(token, eventId);
+			const data = await fetchTeamsInfo(token, currentEventId);
 			dispatch(setTeamList(data.items));
 			setTeamsInfo(data.items);
 		} catch (error) {

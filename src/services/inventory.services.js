@@ -29,13 +29,13 @@ export const fetchPageInfo = async (token, eventId, teamId) => {
 };
 
 export const fetchTeamsInfo = async (token, eventId) => {
-  try{
+  try {
     const { data } = await axios.get(`${BASE_URL}/teams/all/${eventId}`, {
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
-  return data;
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    return data;
   } catch (e) {
     throw new Error(e);
   }
@@ -59,11 +59,14 @@ export const fetchInventory = async (token, eventId, page) => {
 
 export const fetchCarousel = async (token, eventId) => {
   try {
-    const { data } = await axios.get(`${URL_INV}/public-events/${eventId}/carousel`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
+    const { data } = await axios.get(
+      `${URL_INV}/public-events/${eventId}/carousel`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     return data;
   } catch (e) {
     throw new Error(e);
@@ -75,7 +78,7 @@ export const claimSticker = async (token, eventId, stickerId) => {
     const data = await axios.post(
       `${URL_INV}/public-events/${eventId}/claim-sticker`,
       {
-        stickerId: stickerId
+        stickerId: stickerId,
       },
       {
         headers: {
