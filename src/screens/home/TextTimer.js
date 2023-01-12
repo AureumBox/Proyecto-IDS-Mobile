@@ -27,12 +27,16 @@ import albumImg from "../../../assets/app/album.png";
 import fantasyImg from "../../../assets/app/fantasy.png";
 import useTimer from "../../components/useTimer";
 
-export default function TextTimer() {
+export default function TextTimer({ setIsAvailable }) {
   const { hours, minutes, seconds } = useTimer();
+
+  useEffect(() => {
+    if (/*  hours == 0 &&  minutes == 0 && */seconds == 0) setIsAvailable(true);
+  }, [seconds]);
 
   return (
     <Text style={styles.textoSecondary}>
-      {hours}:{minutes}:{seconds}
+      {(hours < 10 && "0")}{hours}:{(minutes < 10 && "0")}{minutes}:{(seconds < 10 && "0")}{seconds}
     </Text>
   );
 }

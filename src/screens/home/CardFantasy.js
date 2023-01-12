@@ -28,8 +28,6 @@ import fantasyImg from "../../../assets/app/fantasy.png";
 import TextTimer from "./TextTimer";
 
 export default function CardFantasy({ navigation }) {
-  console.log("card");
-
   return (
     <View style={styles.containerCuadro}>
       <View style={styles.containerImg}>

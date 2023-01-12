@@ -9,8 +9,10 @@ export const obtainStickers = async (token, eventId) => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
+    console.log(data)
+    
     if (!data.items || !data.success) {
-      throw new Error("No se han recibido bien los datos del servidor :(");
+      throw new Error(data.message || "No se han recibido bien los datos del servidor :(");
     }
 
     return data.items;
@@ -26,15 +28,15 @@ export const obtainStickers = async (token, eventId) => {
 
 export const fetchStickerStatus = async (token, eventId) => {
   try {
-    const { data } = await axios.get(`${BASE_URL}/stickers/get-diary-status/${eventId}`, {
+    const { data } = await axios.get(`${BASE_URL}/stickers/get-diary-status/`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    if (!data.items || !data.success) {
-      throw new Error("No se han recibido bien los datos del servidor :(");
-    }
+    /* if (!data.success) {
+      throw new Error(data.message || "No se han recibido bien los datos del servidor :(");
+    } */
 
-    return data.items;
+    return data;
   } catch (error) {
     if (error.response) {
       throw new Error(

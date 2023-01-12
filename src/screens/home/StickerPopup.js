@@ -3,16 +3,18 @@ import {
   StyleSheet,
   View,
   Text,
-  Image,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import StickerTemplate from "../../components/StickerTemplate";
 import { ModalPopup } from "../../components/ModalPopup";
 
-
-export default function StickerPopup({ visible, obtainedStickers, setVisibleStickers }) {
+export default function StickerPopup({
+  visible,
+  obtainedStickers,
+  setVisibleStickers,
+  setIsAvailable,
+}) {
   return (
     <ModalPopup visible={visible}>
       <View style={{ alignItems: "center" }}>
@@ -43,7 +45,12 @@ export default function StickerPopup({ visible, obtainedStickers, setVisibleStic
           </Text>
         )}
       </View>
-      <TouchableOpacity onPress={() => setVisibleStickers(false)}>
+      <TouchableOpacity
+        onPress={() => {
+          setVisibleStickers(false);
+          setIsAvailable(false);
+        }}
+      >
         <LinearGradient
           colors={["#D13256", "#FE5F42"]}
           style={styles.logInButton}

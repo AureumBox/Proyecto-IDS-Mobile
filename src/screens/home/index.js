@@ -11,16 +11,15 @@ import {
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useDispatch, useSelector } from "react-redux";
-import { LinearGradient } from "expo-linear-gradient";
 import Spinner from "react-native-loading-spinner-overlay";
 
-import { ModalPopup } from "../../components/ModalPopup";
-import StickerTemplate from "../../components/StickerTemplate";
 import * as eventServices from "../../services/event.services";
 import * as stickerServices from "../../services/sticker.services";
+import * as albumServices from "../../services/inventory.services";
 import { watchAd, getAdRedirectUrl } from "../../services/ad.services";
 import * as userServices from "../../state/authSlice";
 import * as fantasyServices from "../../state/fantasySlice";
+import * as albumSlice from "../../state/albumSlice";
 import CardSticker from "./CardSticker";
 import CardAlbum from "./CardAlbum";
 import CardFantasy from "./CardFantasy";
@@ -37,20 +36,22 @@ export default function Home({ navigation }) {
   const [joinedEvent, setJoinedEvent] = useState(false);
   const [obtainedStickers, setObtainedStickers] = useState([]);
   const [eventsListPicker, setEventsListPicker] = useState([]);
+  const [isAvailable, setIsAvailable] = useState([]);
   const [eventsList, setEventsList] = useState([]);
   const { token } = useSelector((state) => state.auth);
   const { currentEventId } = useSelector((state) => state.auth);
+  const { percentage } = useSelector((state) => state.album);
   const dispatch = useDispatch();
 
   const onClaimClick = async () => {
     setLoading(true);
     try {
       setAd(await watchAd(token));
+      setVisibleAnuncio(true);
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
-      setVisibleAnuncio(true);
     }
   };
 
@@ -60,11 +61,11 @@ export default function Home({ navigation }) {
       setObtainedStickers(
         await stickerServices.obtainStickers(token, currentEventId)
       );
+      setVisibleStickers(true);
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
-      setVisibleStickers(true);
     }
   };
 
@@ -86,7 +87,7 @@ export default function Home({ navigation }) {
       dispatch(userServices.setCurrentEventId(event?.id));
       dispatch(fantasyServices.setPoints(data?.points));
     } catch (error) {
-      alert(error);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -97,6 +98,7 @@ export default function Home({ navigation }) {
 
     /* Bienvenida al evento */
     alert(join.message);
+
     setJoinedEvent(true);
   };
 
@@ -121,20 +123,40 @@ export default function Home({ navigation }) {
     loadEventList();
   }, [loadEventList]);
 
-  /*   useEffect(async () => {
+  const loadAlbumPercentage = async () => {
+    setLoading(true);
+    if (currentEventId == 0) return;
+    try {
+      const data = await albumServices.fetchAlbumInfo(token, currentEventId);
+      dispatch(albumSlice.setPercentage(data.actualProgressPercentage));
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    loadAlbumPercentage();
+  }, [token]);
+
+  const stickerStatus = useCallback(async () => {
+    console.log("unu");
     setLoading(true);
     try {
       const data = await stickerServices.fetchStickerStatus(
         token,
         currentEventId
       );
-      setStickerStatus(data);
+      setIsAvailable(data?.success);
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
     }
-  }, [token, currentEventId]); */
+  }, [token, joinedEvent]);
+  useEffect(() => {
+    stickerStatus();
+  }, [stickerStatus]);
 
   return (
     <View style={styles.fondo}>
@@ -149,6 +171,7 @@ export default function Home({ navigation }) {
         visible={visibleStickers}
         obtainedStickers={obtainedStickers}
         setVisibleStickers={setVisibleStickers}
+        setIsAvailable={setIsAvailable}
       />
 
       {/* Ventana Emergente de Anuncio */}
@@ -161,8 +184,9 @@ export default function Home({ navigation }) {
       />
 
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.textSt}>Home</Text>
+          {/* Seleccion de competencia */}
           <View>
             <Text style={styles.textoEvento}>Competición</Text>
             <SelectList
@@ -175,12 +199,15 @@ export default function Home({ navigation }) {
             />
           </View>
 
+          {/* cards */}
           <CardSticker
             onClaimClick={onClaimClick}
             setVisibleAnuncio={setVisibleAnuncio}
             setVisibleStickers={setVisibleStickers}
+            isAvailable={isAvailable}
+            setIsAvailable={setIsAvailable}
           />
-          <CardAlbum navigation={navigation} />
+          <CardAlbum navigation={navigation} percentage={percentage} />
           <CardFantasy navigation={navigation} />
         </ScrollView>
       </View>

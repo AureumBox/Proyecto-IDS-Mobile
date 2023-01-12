@@ -24,31 +24,55 @@ import * as fantasyServices from "../../state/fantasySlice";
 import sobreImg from "../../../assets/app/sobre.png";
 import TextTimer from "./TextTimer";
 
-export default function cardSticker({ onClaimClick, setVisibleAnuncio, setVisibleStickers }) {
+export default function cardSticker({
+  onClaimClick,
+  setVisibleAnuncio,
+  setVisibleStickers,
+  isAvailable,
+  setIsAvailable,
+}) {
   return (
-    <View style={styles.containerCuadro}>
+    <View
+      style={
+        isAvailable ? styles.containerCuadro : styles.containerCuadroDesactivado
+      }
+    >
       <View style={styles.containerImg}>
         <Image source={sobreImg} style={styles.sobreImg}></Image>
       </View>
       <View style={styles.containerinfo}>
         <Text style={styles.textoFeature}>Sobre diario</Text>
         <Text style={styles.textoSecondary}>
-          Disponible en <TextTimer />
+          {isAvailable ? (
+            <> ¡Sobre disponible! </>
+          ) : (
+            <>
+              {" "}
+              Disponible en <TextTimer setIsAvailable={setIsAvailable} />{" "}
+            </>
+          )}
         </Text>
-        <TouchableOpacity
-          onPress={() => {
-            onClaimClick();
-            setVisibleAnuncio(false);
-            setVisibleStickers(false);
-          }}
-        >
-          <LinearGradient
-            colors={["#D13256", "#FE5F42"]}
-            style={styles.botonSobre}
+
+        {isAvailable ? (
+          <TouchableOpacity
+            onPress={() => {
+              onClaimClick();
+              setVisibleAnuncio(false);
+              setVisibleStickers(false);
+            }}
           >
+            <LinearGradient
+              colors={["#D13256", "#FE5F42"]}
+              style={styles.botonSobre}
+            >
+              <Text style={styles.textoBoton}>Reclamar</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.botonSobre}>
             <Text style={styles.textoBoton}>Reclamar</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -110,6 +134,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  containerCuadroDesactivado: {
+    backgroundColor: "#808080",
+    marginTop: 10,
+    borderRadius: 12,
+    height: 200,
+    resizeMode: "contain",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   containerinfo: {
     backgroundColor: "white",
     width: "100%",
@@ -143,6 +176,16 @@ const styles = StyleSheet.create({
     marginLeft: 210,
     justifyContent: "center",
     alignItems: "center",
+  },
+  botonSobre: {
+    height: 30,
+    width: 100,
+    borderRadius: 20,
+    marginTop: 7,
+    marginLeft: 210,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#808080",
   },
   containerImg: {
     width: "100%",

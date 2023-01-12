@@ -10,13 +10,13 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import albumImg from "../../../assets/app/album.png";
 
-export default function CardAlbum({ navigation }) {
+export default function CardAlbum({ navigation, percentage = 0 }) {
   return (
     <View style={styles.containerCuadro}>
       <View style={styles.containerImgAlbum}>
         <Image source={albumImg} style={styles.sobreImg}></Image>
         <View style={styles.barraProgreso}>
-          <View style={styles.porcentaje}></View>
+          <View style={{...styles.porcentaje, width: `${percentage}%`}}></View>
         </View>
         <Text
           style={{
@@ -27,7 +27,7 @@ export default function CardAlbum({ navigation }) {
             fontWeight: "600",
           }}
         >
-          50% Completado
+          {Math.trunc(percentage)}% Completado
         </Text>
       </View>
       <View style={styles.containerinfo}>
@@ -149,10 +149,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: -125,
     marginRight: 60,
+    overflow: "hidden",
   },
   porcentaje: {
     height: "100%",
-    width: "50%", //Colocar porcentaje de llenado
     backgroundColor: "#3A4159",
     borderRadius: 20,
     alignItems: "center",
