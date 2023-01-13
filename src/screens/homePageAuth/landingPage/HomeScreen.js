@@ -57,14 +57,15 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
-		borderRadius: 25,
+		borderRadius: 25
 	},
 	button2: {
 		backgroundColor: '#FFFFFF',
-		width: '98%',
-		height: '90%',
+		width: '97%',
+		height: '86%',
 		justifyContent: 'center',
-		borderRadius: 25,
+		alignSelf: 'center',
+		borderRadius: 25
 	},
 	buttonText: {
 		fontWeight: '16',

@@ -161,7 +161,6 @@ export default function LogIn({ navigation }) {
 					</TouchableOpacity>
 				</View>
 			</ScrollView>
-			<StatusBar style="auto" />
 		</View>
 	);
 };
@@ -171,22 +170,23 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		alignItems: 'center',
-		backgroundColor: '#FFFFFF',
+		backgroundColor: '#FFFFFF'
 	},
 	imageContainer: {
-		width: width,
 		height: height * 0.3,
+		width: width,
 		backgroundColor: '#EAEAEA',
 		justifyContent: 'center',
 		borderBottomLeftRadius: 25,
 		borderBottomRightRadius: 25
 	},
 	contentContainer: {
-		paddingHorizontal: 30,
-		marginTop: 30
+		flex: 0.7,
+		width: '100%',
+		paddingHorizontal: 30
 	},
 	logoSt: {
-		height: '100%',
+		height: height * 0.3,
 		width: '100%',
 		alignSelf: 'center',
 		resizeMode: 'contain'

@@ -8,7 +8,7 @@ export default function HelpSliderItem({ item }) {
 	return (
 		<View style={[styles.container, { width: (width * 0.8) }]}>
 			<Image source={item.image} style={[styles.image, { width: (width * 0.8), resizeMode: 'contain' }]} />
-			<View style={{ flex: 0.7 }}>
+			<View style={{ flex: 0.7, justifyContent: 'center' }}>
 				<Text style={styles.body}>{item.description}</Text>
 			</View>
 		</View>
