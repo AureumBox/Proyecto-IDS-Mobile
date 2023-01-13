@@ -27,10 +27,10 @@ import RankingCard from "./ranking/RankingCard";
 // 💀💀💀💀💀💀💀💀💀💀💀💀💀
 
 export default function Fantasy() {
+	const { token } = useSelector((state) => state.auth);
 	const [loading, setLoading] = useState(false);
 	const [squadChange, setSquadChange] = useState(false);
 
-	const { token } = useSelector((state) => state.auth);
 	const [arrayGoalkeepers, setArrayGoalkeepers] = useState([]);
 	const [arrayDefenders, setArrayDefenders] = useState([]);
 	const [arrayMidfielders, setArrayMidfielders] = useState([]);
@@ -221,7 +221,9 @@ export default function Fantasy() {
 				) : null}
 
 				{opciones == 2 ? (
-					<><Squad squadChange={squadChange} /> </>
+					<>
+						<Squad squadChange={squadChange} />
+					</>
 				) : null}
 
 				{opciones == 3 ? (
