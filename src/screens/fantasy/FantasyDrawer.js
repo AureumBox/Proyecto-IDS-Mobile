@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TextInput } from "react-native-paper";
 import { SelectList } from "react-native-dropdown-select-list";
 import Spinner from "react-native-loading-spinner-overlay";
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import PlayerTemplate from "./PlayerTemplate";
 import { fetchBench } from "../../services/fantasy.services";
@@ -128,98 +128,93 @@ export default function FantasyDrawer({ squadChange, onClose }) {
 	return (
 		<View style={styles.fondo}>
 			{/* Filtros */}
-			<HelpSlider 
+			<HelpSlider
 				sliderContent={infoBench}
 				isVisible={helpBench}
 				onClose={() => {
 					setHelpBench(false);
 				}}
 			/>
-			<View style={{ width: '93%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
-				<View style={styles.filterContainer}>
-					<TouchableOpacity onPress={() => onClose(false)}>
-						<Ionicons name="arrow-back-circle" size={45} color="#E7484D" style={{ position: 'absolute' }} />
+			<View style={styles.filterContainer}>
+				<View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+					<TouchableOpacity onPress={() => setHelpBench(true)} >
+						<AntDesign name="questioncircle" size={30} color="#E7484D" />
 					</TouchableOpacity>
-					<View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-						<Text style={styles.textSt}>Almacén</Text>
-						<TouchableOpacity
-							onPress={() => setHelpBench(true)}
-							style={{ alignSelf: 'center' }}
-						>
-							<AntDesign name="questioncircle" size={30} color="#E7484D" />
-						</TouchableOpacity>
+				</View>
+				<TextInput
+					placeholder="Buscar..."
+					value={playerName}
+					onChangeText={(playerName) => setPlayerName(playerName)}
+					left={<TextInput.Icon icon="magnify" />}
+					style={styles.inputStyle}
+					theme={{ roundness: 50 }}
+					underlineStyle={{ display: "none" }}
+				/>
+				<View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+					<View style={{ width: '40%' }}>
+						<SelectList
+							defaultOption={filterData[0]}
+							setSelected={(val) => setSelected(val)}
+							data={filterData}
+							notFoundText={<Text>No hay coincidencias</Text>}
+							onSelect={() => filterPos(selected)}
+							onFocus={() => setIsFocus(true)}
+							boxStyles={{ borderColor: '#E7484D', marginBottom: 10 }}
+							inputStyles={{ color: "#3D405B", fontWeight: 'bold' }}
+						/>
 					</View>
-					<TextInput
-						placeholder="Buscar jugador"
-						value={playerName}
-						onChangeText={(playerName) => setPlayerName(playerName)}
-						left={<TextInput.Icon icon="magnify" />}
-						style={styles.inputStyle}
-						theme={{ roundness: 50 }}
-						underlineStyle={{ display: "none" }}
-					/>
-					<View style={{ flexDirection: 'row' }}>
-						<View style={{ width: '50%' }}>
-							<SelectList
-								defaultOption={filterData[0]}
-								setSelected={(val) => setSelected(val)}
-								data={filterData}
-								notFoundText={<Text>No hay coincidencias</Text>}
-								onSelect={() => filterPos(selected)}
-								onFocus={() => setIsFocus(true)}
-							/>
-						</View>
-						<View style={{ width: '50%' }}>
-							<SelectList
-								placeholder='Equipo'
-								defaultOption={teamsListPicker[0]}
-								setSelected={(val) => setSelected(val)}
-								data={teamsListPicker}
-								notFoundText={<Text>No hay coincidencias</Text>}
-								onSelect={() => {
-									if (selected === 'Equipo') setTeam('')
-									else setTeam(selected)
+					<View style={{ width: '40%' }}>
+						<SelectList
+							placeholder='Equipo'
+							defaultOption={teamsListPicker[0]}
+							setSelected={(val) => setSelected(val)}
+							data={teamsListPicker}
+							notFoundText={<Text>No hay coincidencias</Text>}
+							onSelect={() => {
+								if (selected === 'Equipo') setTeam('')
+								else setTeam(selected)
+							}}
+							onFocus={() => setIsFocus(true)}
+							boxStyles={{ borderColor: '#E7484D', marginBottom: 10 }}
+							inputStyles={{ color: "#3D405B", fontWeight: 'bold' }}
+						/>
+					</View>
+				</View>
+			</View>
+
+			{/* Jugadores fantasy */}
+			<View style={{ flex: 1 }}>
+				<Spinner
+					visible={loading}
+					size='large'
+					color='#E7484D'
+					overlayColor='#FFFFFF50'
+				/>
+
+				<FlatList
+					data={bench}
+					keyExtractor={(_, index) => index.toString()}
+					ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
+					onEndReached={() => {
+						if (page < paginate?.pages - 1) setPage(page + 1);
+					}}
+					renderItem={({ item }) => {
+						return (
+							<TouchableOpacity
+								onPress={() => {
+									selectPlayer(item);
 								}}
-								onFocus={() => setIsFocus(true)}
-							/>
-						</View>
-					</View>
-				</View>
-
-				{/* Jugadores fantasy */}
-				<View style={{ paddingBottom: height * 0.225, alignItems: "center" }}>
-					<Spinner
-						visible={loading}
-						size='large'
-						color='#E7484D'
-						overlayColor='#FFFFFF50'
-					/>
-
-					<FlatList
-						data={bench}
-						keyExtractor={(_, index) => index.toString()}
-						ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
-						onEndReached={() => {
-							if (page < paginate?.pages - 1) setPage(page + 1);
-						}}
-						renderItem={({ item }) => {
-							return (
-								<TouchableOpacity
-									onPress={() => {
-										selectPlayer(item);
-									}}
-								>
-									<View styles={{ backgroundColor: "red" }}>
-										<PlayerTemplate player={item} key={item.id} />
-										{item.id === selectedPlayer.id && (
-											<View style={styles.selectedItem} />
-										)}
-									</View>
-								</TouchableOpacity>
-							);
-						}}
-					/>
-				</View>
+							>
+								<View styles={{ backgroundColor: "red" }}>
+									<PlayerTemplate player={item} key={item.id} />
+									{item.id === selectedPlayer.id && (
+										<View style={styles.selectedItem} />
+									)}
+								</View>
+							</TouchableOpacity>
+						);
+					}}
+				/>
 			</View>
 		</View>
 	);
@@ -227,15 +222,19 @@ export default function FantasyDrawer({ squadChange, onClose }) {
 
 const styles = StyleSheet.create({
 	fondo: {
-		flex: 1,
+		flex: 0.85,
 		backgroundColor: "#EAEAEA"
 	},
 	filterContainer: {
 		backgroundColor: "#E3E2E6",
-		width: '100%',
+		width: '100%'
+	},
+	inputStyle: {
+		backgroundColor: "#F2F6FE",
+		borderRadius: 50,
+		width: width * 0.7,
 		alignSelf: 'center',
-		margin: 15,
-		borderRadius: 15,
+		marginBottom: 10,
 		shadowColor: "#000",
 		shadowOffset: {
 			width: 0,
@@ -243,14 +242,7 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.25,
 		shadowRadius: 3.84,
-		elevation: 5,
-	},
-	inputStyle: {
-		backgroundColor: "#F2F6FE",
-		borderRadius: 50,
-		width: width * 0.7,
-		alignSelf: 'center',
-		marginBottom: 10
+		elevation: 5
 	},
 	textSt: {
 		fontStyle: "normal",

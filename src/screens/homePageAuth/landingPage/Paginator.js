@@ -5,13 +5,13 @@ const { width } = Dimensions.get('window');
 
 export default function Paginator({ data, scrollX }) {
 	return(
-		<View style={{ flexDirection: 'row', height: 64 }}>
+		<View style={{ flexDirection: 'row' }}>
 			{data.map((_, i) => {
 				const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
 
 				const dotWidth = scrollX.interpolate({
 					inputRange,
-					outputRange: [40, 100, 40],
+					outputRange: [20, 40, 20],
 					extrapolate: 'clamp',
 				})
 				const opacity = scrollX.interpolate({
@@ -31,6 +31,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#E7484D',
 		height: 10,
 		borderRadius: 7,
-		marginHorizontal: 8,
+		marginHorizontal: 10,
 	},
 })

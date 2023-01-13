@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList, Animated } from 'react-native';
 
 import SliderItem from './SliderItem'
 import Paginator from './Paginator'
-import SliderContent from './SliderContent';
+import SliderContent from '../../../../assets/app/landingPage';
 
 export default function Slider() {
 	const [currentIndex, setCurrentIndex] = useState(0)
@@ -43,7 +43,7 @@ export default function Slider() {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 0.9,
+		flex: 0.85,
 		justifyContent: 'center',
 		alignItems: 'center'
 	}

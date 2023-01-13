@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
-import { IconButton } from "react-native-paper";
 import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import PlayerRows from "./PlayerRows";
@@ -25,7 +24,7 @@ import RankingSecondP from "./RankingSecondP";
 import RankingThirdP from "./RankingThirdP";
 import RankingCard from "./RankingCard";
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 export default function Fantasy() {
 	const { token } = useSelector((state) => state.auth);
@@ -158,112 +157,101 @@ export default function Fantasy() {
 						height: open ? "100%" : 0,
 					}}
 				>
-					<FantasyDrawer squadChange={squadChange} onClose={setOpen} />
+					{/* <FantasyDrawer squadChange={squadChange} onClose={setOpen} /> */}
 				</View>
 
-				<View style={{ width: '90%', height: '100%', backgroundColor: '#E2DDDD', alignSelf: 'center' }}>
-					{/* Titulo */}
-					<View style={styles.rectanguloFantasy}>
-            <Text style={styles.title}>Fantasy</Text>
-            <View style={{ width: "100%", alignItems: "center" }}>
-              <View style={styles.containerButtons}>
-                <TouchableOpacity
-                  style={opciones === 1 ? styles.buttonSelected : styles.button}
-                  onPress={() => setOpciones(1)}
-                >
-                  <Text style={styles.textButton}>Alineación</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={opciones === 2 ? styles.buttonSelected : styles.button}
-                  onPress={() => setOpciones(2)}
-                >
-                  <Text style={styles.textButton}>Plantilla</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={opciones === 3 ? styles.buttonSelected : styles.button}
-                  onPress={() => setOpciones(3)}
-                >
-                  <Text style={styles.textButton}>Ranking</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-
-		{opciones ==1 ? (
-			<View>
-					<View style={{ ...styles.containerTitulo, borderRadius: 10 }}>
-						<View style={styles.containerPuntaje}>
-							<Text style={{ ...styles.textSt, fontSize: 26, right: '250%' }}>
-								Alineación
-							</Text>
-							<Text style={styles.textScore}>150  PTS</Text>
+				{/* Titulo */}
+				<View style={styles.containerHeader}>
+					<Text style={styles.title}>Fantasy</Text>
+					<View style={{ flex: 1, justifyContent: 'flex-end' }}>
+						<View style={styles.containerButtons}>
 							<TouchableOpacity
-								onPress={() => setHelpLineup(true)}
-								style={styles.helpButton}
+								style={opciones === 1 ? styles.buttonSelected : styles.button}
+								onPress={() => setOpciones(1)}
 							>
-								<AntDesign name="questioncircle" size={24} color="#E7484D" />
+								<Text style={styles.textButton}>Alineación</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								style={opciones === 2 ? styles.buttonSelected : styles.button}
+								onPress={() => setOpciones(2)}
+							>
+								<Text style={styles.textButton}>Plantilla</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								style={opciones === 3 ? styles.buttonSelected : styles.button}
+								onPress={() => setOpciones(3)}
+							>
+								<Text style={styles.textButton}>Ranking</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
+				</View>
 
-					{/* Cancha */}
-					<View style={styles.containerCancha}>
-						<Image source={Cancha} style={styles.canchaImg} />
-						<View style={styles.contJugadoresCancha}>
-							<PlayerRows
-								position={"goalkeeper"}
-								players={arrayGoalkeepers}
-								insertPlayer={insertPlayer}
-								removePlayer={removePlayer}
-							/>
-							<PlayerRows
-								position={"defender"}
-								players={arrayDefenders}
-								insertPlayer={insertPlayer}
-								removePlayer={removePlayer}
-							/>
-							<PlayerRows
-								position={"midfielder"}
-								players={arrayMidfielders}
-								insertPlayer={insertPlayer}
-								removePlayer={removePlayer}
-							/>
-							<PlayerRows
-								position={"forward"}
-								players={arrayFowarders}
-								insertPlayer={insertPlayer}
-								removePlayer={removePlayer}
-							/>
+				{opciones == 1 ? (
+					<>
+						<View style={styles.containerScore}>
+							<View style={{ justifyContent: 'center' }}>
+								<Text style={styles.textScore}>150  PTS</Text>
+								<TouchableOpacity
+									onPress={() => setHelpLineup(true)}
+									style={styles.helpButton}
+								>
+									<AntDesign name="questioncircle" size={25} color="#E7484D" />
+								</TouchableOpacity>
+							</View>
 						</View>
 
-						{/*  */}
-					</View>
-					</View>
-					) : null }
-
-					{opciones == 2 ? (
-						<Text> Insertar plantilla</Text>
-					): null}
-
-					{opciones == 3 ? (
-						<View style={{alignItems: 'center'}}>
-							<RankingYou positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints}/>
-
-							<View style={styles.containerRanking}/>
-
-							<RankingFirstP/>
-
-							<RankingSecondP/>
-
-							<RankingThirdP/>
-
-							<RankingCard/>
-
-							<RankingCard/>
-
+						{/* Cancha */}
+						<View style={styles.containerCancha}>
+							<Image source={Cancha} style={styles.canchaImg} />
+							<View style={styles.contJugadoresCancha}>
+								<PlayerRows
+									position={"goalkeeper"}
+									players={arrayGoalkeepers}
+									insertPlayer={insertPlayer}
+									removePlayer={removePlayer}
+								/>
+								<PlayerRows
+									position={"defender"}
+									players={arrayDefenders}
+									insertPlayer={insertPlayer}
+									removePlayer={removePlayer}
+								/>
+								<PlayerRows
+									position={"midfielder"}
+									players={arrayMidfielders}
+									insertPlayer={insertPlayer}
+									removePlayer={removePlayer}
+								/>
+								<PlayerRows
+									position={"forward"}
+									players={arrayFowarders}
+									insertPlayer={insertPlayer}
+									removePlayer={removePlayer}
+								/>
+							</View>
 						</View>
-					): null}	
-					{/*
+					</>
+				) : null}
+
+				{opciones == 2 ? (
+					<>
+						<FantasyDrawer squadChange={squadChange} />
+					</>
+				) : null}
+
+				{opciones == 3 ? (
+					<View style={{ alignItems: 'center' }}>
+						{/* <RankingYou positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
+						<View style={styles.containerRanking} />
+						<RankingFirstP />
+						<RankingSecondP />
+						<RankingThirdP />
+						<RankingCard />
+						<RankingCard /> */}
+					</View>
+				) : null}
+				{/*
 					<View style={styles.carruselContainer}>
 						<View style={styles.cont}>
 							<Text style={styles.texto}>¡Arma tu equipo!</Text>
@@ -279,7 +267,6 @@ export default function Fantasy() {
 						</View>
 					</View>
 					*/}
-				</View>
 			</View>
 		</View>
 	);
@@ -289,80 +276,61 @@ const styles = StyleSheet.create({
 	fondo: {
 		flex: 1,
 		backgroundColor: "#EAEAEA",
+		justifyContent: 'center'
 	},
 	container: {
-		flex: 1,
-		justifyContent: "space-between",
-	},
-	containerTitulo: {
-		backgroundColor: "#E3E2E6",
-		borderBottomColor: "black",
-		borderRadius: 25,
-		width: width - (width * 0.1),
+		flex: 0.97,
+		width: '90%',
+		backgroundColor: '#E2DCDC',
 		alignSelf: 'center',
-		marginTop: 10,
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
+		justifyContent: 'space-between'
 	},
-	containerPuntaje: {
+	containerHeader: {
+		flex: 0.15,
+		width: "100%",
+		backgroundColor: "#D5CED6",
+		borderRadius: 10,
+		paddingHorizontal: 10
+	},
+	containerButtons: {
 		flexDirection: "row",
-		justifyContent: "space-evenly",
+		flexWrap: "wrap",
+		justifyContent: "space-around"
 	},
-	textSt: {
-		color: "#3D405B",
-		fontWeight: "bold",
-		fontSize: 32,
-	},
-	textBoton: {
-		color: "#3D405B",
-		fontWeight: "700",
-		fontSize: 20
+	containerScore: {
+		flex: 0.1,
+		width: '100%',
+		backgroundColor: "#D5CED6",
+		borderRadius: 10,
+		alignSelf: 'center',
+		justifyContent: 'center'
 	},
 	textScore: {
-		position: 'absolute',
 		color: "#3D405B",
-		fontSize: 24,
-		fontWeight: '600',
+		fontSize: 20,
+		fontWeight: '700',
 		alignSelf: 'center',
-		left: width * 0.53
 	},
 	helpButton: {
 		position: 'absolute',
-		alignSelf: 'center',
-		left: width * 0.8
-	},
-	textBotonSelected: {
-		borderBottomLeftRadius: 10,
-		borderBottomRightRadius: 10,
-		borderBottomColor: "#E7484D",
-		borderBottomWidth: 4,
-
+		alignSelf: 'flex-end',
+		right: '5%'
 	},
 	containerCancha: {
-		width: "85%",
-		height: "70%",
-		alignSelf: "center",
+		flex: 0.7,
 		alignItems: "center",
-		justifyContent: 'center',
-		marginTop: '5%',
-		marginBottom: '3%'
+	},
+	canchaImg: {
+		width: '100%',
+		height: '100%',
+		resizeMode: 'contain'
 	},
 	contJugadoresCancha: {
-		width: "112%",
+		width: "92%",
 		height: "100%",
 		position: "absolute",
 		flexWrap: "wrap",
-		backgroundColor: "#FFFFFF50",
-	},
-	canchaImg: {
-		height: "100%",
-		resizeMode: "contain"
+		backgroundColor: "#FFFFFF50"
 	},
 	inputStyle: {
 		backgroundColor: "#F2F6FE",
@@ -417,56 +385,35 @@ const styles = StyleSheet.create({
 	carruselContainer: {
 		width: "90%"
 	},
-	rectanguloFantasy: {
-		backgroundColor: "#D7D3DA",
-		height: 86,
-		width: "100%",
-		borderRadius: 10,
-		paddingLeft: 10,
-		paddingRight: 10,
-		marginTop: 3
-	  },
 	title: {
-		marginTop: 2,
 		fontWeight: "bold",
-		fontSize: 26,
+		fontSize: 34,
 		color: "#3D405B",
-	  },
-	containerButtons: {
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "space-between",
+		marginLeft: '2%'
 	},
 	buttonSelected: {
 		textAlign: "center",
-		margin: "1.60%",
 		padding: 10,
-		borderBottomWidth: 2,
-		borderBottomColor: "#D13256",
-		width: "30%",
+		borderBottomWidth: 2.5,
+		borderBottomColor: "#E7484D",
 		alignItems: "center",
-		justifyContent: "center",
-	  },
-	  button: {
-		textAlign: "center",
-		margin: "1.60%",
+		justifyContent: "center"
+	},
+	button: {
 		padding: 8,
-		width: "30%",
-		alignItems: "center",
-		justifyContent: "center",
-	  },
-	  textButton: {
+		justifyContent: "center"
+	},
+	textButton: {
 		fontWeight: "bold",
-		fontSize: 14,
-		lineHeight: 18,
+		fontSize: 16,
 		color: "#3D405B",
-		textAlign: "center",
-	  },
-	  containerRanking:{
-		backgroundColor: 'black', 
-		width: '90%', 
-		height: 2, 
-		marginTop: 15, 
+		textAlign: "center"
+	},
+	containerRanking: {
+		backgroundColor: 'black',
+		width: '90%',
+		height: 2,
+		marginTop: 15,
 		marginBottom: 15
-	  }
+	}
 });

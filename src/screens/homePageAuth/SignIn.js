@@ -70,7 +70,7 @@ export default function SignIn({ navigation }) {
 						<Ionicons
 							name="person-outline"
 							size={24}
-							color="#E7484D"
+							color="#808080"
 							style={styles.inputIcon}
 						/>
 						<Controller
@@ -98,7 +98,7 @@ export default function SignIn({ navigation }) {
 						<Ionicons
 							name="mail-outline"
 							size={24}
-							color="#E7484D"
+							color="#808080"
 							style={styles.inputIcon}
 						/>
 						<Controller
@@ -129,7 +129,7 @@ export default function SignIn({ navigation }) {
 						<Ionicons
 							name="lock-closed-outline"
 							size={24}
-							color="#E7484D"
+							color="#808080"
 							style={styles.inputIcon}
 						/>
 						<Controller
@@ -159,7 +159,7 @@ export default function SignIn({ navigation }) {
 							<Ionicons
 								name={showPass === false ? 'eye-outline' : 'eye-off-outline'}
 								size={26}
-								color='#E7484D'
+								color='#808080'
 							/>
 						</TouchableOpacity>
 					</View>
@@ -167,7 +167,7 @@ export default function SignIn({ navigation }) {
 						<Ionicons
 							name="lock-closed-outline"
 							size={24}
-							color="#E7484D"
+							color="#808080"
 							style={styles.inputIcon}
 						/>
 						<Controller
@@ -200,7 +200,7 @@ export default function SignIn({ navigation }) {
 							<Ionicons
 								name={showConf === false ? 'eye-outline' : 'eye-off-outline'}
 								size={26}
-								color='#E7484D'
+								color='#808080'
 							/>
 						</TouchableOpacity>
 					</View>
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		marginBottom: 20,
 		justifyContent: 'center',
-		borderColor: '#E7484D',
+		borderColor: '#808080',
 		borderBottomWidth: 1,
 		borderTopWidth: 0,
 		borderLeftWidth: 0,
