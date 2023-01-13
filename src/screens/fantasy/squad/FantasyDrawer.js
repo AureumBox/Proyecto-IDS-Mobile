@@ -14,11 +14,11 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { AntDesign } from '@expo/vector-icons';
 
 import PlayerTemplate from "./PlayerTemplate";
-import { fetchBench } from "../../services/fantasy.services";
-import { fetchTeamsInfo } from "../../services/inventory.services";
-import * as fantasySlice from "../../state/fantasySlice";
-import HelpSlider from "../../components/helpSlider/HelpSlider";
-import infoBench from '../../../assets/app/helpBench'
+import { fetchBench } from "../../../services/fantasy.services";
+import { fetchTeamsInfo } from "../../../services/inventory.services";
+import * as fantasySlice from "../../../state/fantasySlice";
+import HelpSlider from "../../../components/helpSlider/HelpSlider";
+import infoBench from '../../../../assets/app/helpBench'
 
 const { width, height } = Dimensions.get("window");
 

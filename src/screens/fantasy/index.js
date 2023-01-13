@@ -12,17 +12,20 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { AntDesign } from '@expo/vector-icons';
 
 import PlayerRows from "./PlayerRows";
-import FantasyDrawer from "./FantasyDrawer";
+import FantasyDrawer from "./squad/FantasyDrawer";
 import * as fantasyServices from "../../services/fantasy.services";
 import * as fantasySlice from "../../state/fantasySlice";
 import Cancha from "../../../assets/app/campo.png";
 import HelpSlider from "../../components/helpSlider/HelpSlider";
 import infoLineup from '../../../assets/app/helpLineup';
-import RankingYou from "./RankingYou";
-import RankingFirstP from "./RankingFirstP";
-import RankingSecondP from "./RankingSecondP";
-import RankingThirdP from "./RankingThirdP";
-import RankingCard from "./RankingCard";
+
+// 💀💀💀💀💀💀💀💀💀💀💀💀💀
+import RankingYou from "./ranking/RankingYou";
+import RankingFirstP from "./ranking/RankingFirstP";
+import RankingSecondP from "./ranking/RankingSecondP";
+import RankingThirdP from "./ranking/RankingThirdP";
+import RankingCard from "./ranking/RankingCard";
+// 💀💀💀💀💀💀💀💀💀💀💀💀💀
 
 const { width, height } = Dimensions.get('window')
 
@@ -227,14 +230,14 @@ export default function Fantasy() {
 				) : null}
 
 				{opciones == 3 ? (
-					<View style={{ alignItems: 'center' }}>
-						{/* <RankingYou positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
+					<View style={{ flex: 0.85, alignItems: 'center' }}>
+						<RankingYou positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
 						<View style={styles.containerRanking} />
 						<RankingFirstP />
 						<RankingSecondP />
 						<RankingThirdP />
 						<RankingCard />
-						<RankingCard /> */}
+						<RankingCard />
 					</View>
 				) : null}
 			</View>
