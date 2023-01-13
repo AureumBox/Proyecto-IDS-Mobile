@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
-import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import PlayerRows from "./PlayerRows";
 import FantasyDrawer from "./FantasyDrawer";
@@ -146,21 +146,7 @@ export default function Fantasy() {
 					setHelpLineup(false);
 				}}
 			/>
-
 			<View style={styles.container}>
-				{/* Drawer */}
-				<View
-					style={{
-						...styles.drawer,
-						overflow: "hidden",
-						width: open ? "100%" : 0,
-						height: open ? "100%" : 0,
-					}}
-				>
-					{/* <FantasyDrawer squadChange={squadChange} onClose={setOpen} /> */}
-				</View>
-
-				{/* Titulo */}
 				<View style={styles.containerHeader}>
 					<Text style={styles.title}>Fantasy</Text>
 					<View style={{ flex: 1, justifyContent: 'flex-end' }}>
@@ -251,22 +237,6 @@ export default function Fantasy() {
 						<RankingCard /> */}
 					</View>
 				) : null}
-				{/*
-					<View style={styles.carruselContainer}>
-						<View style={styles.cont}>
-							<Text style={styles.texto}>¡Arma tu equipo!</Text>
-							<View style={{ flexDirection: 'row', height: '100%', alignItems: 'center' }}>
-								<Text style={styles.bancas}>Almacen</Text>
-								<IconButton
-									iconColor='#E7484D'
-									icon="dots-horizontal-circle"
-									size={35}
-									onPress={() => setOpen(true)}
-								/>
-							</View>
-						</View>
-					</View>
-					*/}
 			</View>
 		</View>
 	);
@@ -332,58 +302,11 @@ const styles = StyleSheet.create({
 		flexWrap: "wrap",
 		backgroundColor: "#FFFFFF50"
 	},
-	inputStyle: {
-		backgroundColor: "#F2F6FE",
-		margin: 10,
-	},
-	drawer: {
-		position: "absolute",
-		zIndex: 999,
-		backgroundColor: "#E2DDDD",
-	},
-	cont: {
-		height: "20%",
-		width: width * 0.9,
-		justifyContent: "space-around",
-		flexDirection: "row",
-		alignItems: "center"
-	},
-	bancas: {
-		color: "#3D405B",
-		fontWeight: "bold",
-		fontSize: 18
-	},
-	puntajeBoton: {
-		width: 90,
-		height: 20,
-		backgroundColor: "#B02419",
-		borderRadius: 5,
-		alignItems: "center",
-		justifyContent: "center",
-	},
 	containerpuntaje: {
 		flexDirection: "row",
 		justifyContent: "space-evenly",
 		alignItems: "center",
 		width: "100%",
-	},
-	textoBoton: {
-		color: "white",
-		fontWeight: "bold",
-		fontSize: 12,
-	},
-	texto: {
-		color: "#3D405B",
-		fontWeight: "bold",
-		fontSize: 14,
-	},
-	imCancha: {
-		height: "62%",
-		justifyContent: "space-evenly",
-		resizeMode: "contain",
-	},
-	carruselContainer: {
-		width: "90%"
 	},
 	title: {
 		fontWeight: "bold",

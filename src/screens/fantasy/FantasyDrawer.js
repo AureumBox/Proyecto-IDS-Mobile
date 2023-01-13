@@ -127,14 +127,15 @@ export default function FantasyDrawer({ squadChange, onClose }) {
 
 	return (
 		<View style={styles.fondo}>
-			{/* Filtros */}
 			<HelpSlider
 				sliderContent={infoBench}
 				isVisible={helpBench}
 				onClose={() => {
 					setHelpBench(false);
 				}}
-			/>
+				/>
+				
+				{/* Filtros */}
 			<View style={styles.filterContainer}>
 				<View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
 					<TouchableOpacity onPress={() => setHelpBench(true)} >
@@ -243,15 +244,6 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.25,
 		shadowRadius: 3.84,
 		elevation: 5
-	},
-	textSt: {
-		fontStyle: "normal",
-		fontWeight: "bold",
-		fontSize: 30,
-		lineHeight: 50,
-		color: "#3D405B",
-		marginRight: 10,
-		textAlign: "center",
 	},
 	selectedItem: {
 		...StyleSheet.absoluteFillObject,
