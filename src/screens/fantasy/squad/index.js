@@ -23,7 +23,7 @@ import infoBench from '../../../../assets/app/helpBench'
 const { width, height } = Dimensions.get("window");
 
 
-export default function FantasyDrawer({ squadChange, onClose }) {
+export default function Squad({ squadChange }) {
 	const [loading, setLoading] = useState(false);
 	const [page, setPage] = useState(0);
 	const [paginate, setPaginate] = useState({});

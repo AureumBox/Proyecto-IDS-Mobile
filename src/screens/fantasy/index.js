@@ -4,20 +4,19 @@ import {
 	Text,
 	View,
 	Image,
-	TouchableOpacity,
-	Dimensions
+	TouchableOpacity
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
 import { AntDesign } from '@expo/vector-icons';
 
-import PlayerRows from "./PlayerRows";
-import FantasyDrawer from "./squad/FantasyDrawer";
-import * as fantasyServices from "../../services/fantasy.services";
+import Squad from "./squad";
+import PlayerRows from "./lineup/PlayerRows";
 import * as fantasySlice from "../../state/fantasySlice";
+import * as fantasyServices from "../../services/fantasy.services";
 import Cancha from "../../../assets/app/campo.png";
-import HelpSlider from "../../components/helpSlider/HelpSlider";
 import infoLineup from '../../../assets/app/helpLineup';
+import HelpSlider from "../../components/helpSlider/HelpSlider";
 
 // 💀💀💀💀💀💀💀💀💀💀💀💀💀
 import RankingYou from "./ranking/RankingYou";
@@ -27,20 +26,20 @@ import RankingThirdP from "./ranking/RankingThirdP";
 import RankingCard from "./ranking/RankingCard";
 // 💀💀💀💀💀💀💀💀💀💀💀💀💀
 
-const { width, height } = Dimensions.get('window')
-
 export default function Fantasy() {
-	const { token } = useSelector((state) => state.auth);
-	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [squadChange, setSquadChange] = useState(false);
-	const [arrayMidfielders, setArrayMidfielders] = useState([]);
-	const [arrayDefenders, setArrayDefenders] = useState([]);
-	const [arrayFowarders, setArrayFowarders] = useState([]);
+
+	const { token } = useSelector((state) => state.auth);
 	const [arrayGoalkeepers, setArrayGoalkeepers] = useState([]);
+	const [arrayDefenders, setArrayDefenders] = useState([]);
+	const [arrayMidfielders, setArrayMidfielders] = useState([]);
+	const [arrayFowarders, setArrayFowarders] = useState([]);
 	const [helpLineup, setHelpLineup] = useState(false);
+
 	const dispatch = useDispatch();
 	const eventId = 1;
+
 	const [opciones, setOpciones] = useState(1);
 
 	const positionRanking = 4; //Colocar aquí la posición del usuario en el ranking
@@ -189,8 +188,6 @@ export default function Fantasy() {
 								</TouchableOpacity>
 							</View>
 						</View>
-
-						{/* Cancha */}
 						<View style={styles.containerCancha}>
 							<Image source={Cancha} style={styles.canchaImg} />
 							<View style={styles.contJugadoresCancha}>
@@ -224,21 +221,21 @@ export default function Fantasy() {
 				) : null}
 
 				{opciones == 2 ? (
-					<>
-						<FantasyDrawer squadChange={squadChange} />
-					</>
+					<><Squad squadChange={squadChange} /> </>
 				) : null}
 
 				{opciones == 3 ? (
-					<View style={{ flex: 0.85, alignItems: 'center' }}>
-						<RankingYou positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
-						<View style={styles.containerRanking} />
-						<RankingFirstP />
-						<RankingSecondP />
-						<RankingThirdP />
-						<RankingCard />
-						<RankingCard />
-					</View>
+					<>
+						<View style={{ flex: 0.85, alignItems: 'center' }}>
+							<RankingYou positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
+							<View style={styles.containerRanking} />
+							<RankingFirstP />
+							<RankingSecondP />
+							<RankingThirdP />
+							<RankingCard />
+							<RankingCard />
+						</View>
+					</>
 				) : null}
 			</View>
 		</View>
