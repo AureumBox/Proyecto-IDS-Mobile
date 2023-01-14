@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 		marginBottom: '2%',
 		flexDirection: 'row',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	texto: {
 		fontWeight: 'bold',
@@ -38,11 +38,12 @@ const styles = StyleSheet.create({
 		width: '55%',
 		height: '50%',
 		backgroundColor: 'white',
-		borderRadius: 10
+		borderRadius: 10,
+		overflow: "hidden"
 	},
 	completedBar: {
 		height: '100%',
 		borderRadius: 10,
-		flexDirection: 'row'
+		flexDirection: 'row',
 	}
 })
