@@ -38,7 +38,6 @@ export default function Album({ navigation }) {
 			const data = await fetchAlbumInfo(token, currentEventId);
 			setAlbumInfo(data);
 			dispatch(setPercentage(data.actualProgressPercentage));
-			console.log("en album unu "+data.actualProgressPercentage)
 		} catch (error) {
 			alert(error.message);
 		} finally {
