@@ -19,14 +19,11 @@ import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
 import CreateAuction from "../screens/mainScreen/Market/CreateAuction";
 
-export default function AddPlayerCard({ player = {} }) {
+export default function AddPlayerCard({ player = {}, postAuction }) {
   const { height, width } = Dimensions.get("window");
 
   //Visible Modal Ofertas Globales - Ofertar
   const [visible, setVisible] = useState(false);
-  const hideDialog = () => setVisible(false);
-
-  console.log ("add"+player);
 
   const positionSpa = {
     goalkeeper: "Arquero",
@@ -102,6 +99,7 @@ export default function AddPlayerCard({ player = {} }) {
           player={player}
           visible={visible}
           setVisible={setVisible}
+          postAuction={postAuction}
         />
       )}
     </>

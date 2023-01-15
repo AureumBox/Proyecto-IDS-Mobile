@@ -14,6 +14,7 @@ export default function PlayersList({
   players = [],
   paginate = {},
   setPage = 0,
+  postAuction
 }) {
   return (
     <FlatList
@@ -29,7 +30,7 @@ export default function PlayersList({
         }
       }}
       renderItem={({ item }) => {
-        if (!item?.isInLineup) return <AddPlayerCard player={item} />;
+        if (!item?.isInLineup) return <AddPlayerCard player={item} postAuction={postAuction}/>;
       }}
     />
   );

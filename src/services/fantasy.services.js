@@ -31,7 +31,6 @@ export const fetchBench = async (
     if (!data.items || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
-
     return data;
   } catch (error) {
     if (error.response) {

@@ -18,6 +18,7 @@ import PlayersList from "./PlayersList";
 import AuctionsList from "./AuctionsList";
 import * as fantasyServices from "../../../services/fantasy.services";
 import * as albumServices from "../../../services/inventory.services";
+import * as marketServices from "../../../services/market.services";
 
 export default function Bench({ onClick, setVisible }) {
   const [searchPhrase, setSearchPhrase] = useState("");
@@ -93,6 +94,33 @@ export default function Bench({ onClick, setVisible }) {
     loadBench();
   }, [loadBench]);
 
+  const postAuction = async (
+    initialValue,
+    directPurchase,
+    playerId,
+    setLoading,
+    setVisible
+  ) => {
+    setLoading(true);
+    try {
+      const data = await marketServices.postAuction(
+        token,
+        currentEventId,
+        initialValue,
+        directPurchase,
+        playerId
+      );
+      alert(data.message);
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      loadBench();
+      setLoading(false);
+      setVisible(false);
+    }
+  };
+
   return (
     <View style={{ height: "90%", width: "100%", padding: 8 }}>
       <TouchableOpacity
@@ -160,7 +188,12 @@ export default function Bench({ onClick, setVisible }) {
           />
         </View>
       </View>
-      <PlayersList players={bench} paginate={paginate} setPage={setPage} />
+      <PlayersList
+        players={bench}
+        paginate={paginate}
+        setPage={setPage}
+        postAuction={postAuction}
+      />
     </View>
   );
 }

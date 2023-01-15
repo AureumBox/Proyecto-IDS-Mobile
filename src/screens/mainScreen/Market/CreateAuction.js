@@ -19,11 +19,15 @@ import JugadorBra from "../../../../assets/app/bra_10.png";
 import * as marketServices from "../../../services/market.services";
 import { ModalMercado } from "../../../components/ModalMercado";
 
-export default function CreateAuction({ player = {}, visible, setVisible }) {
+export default function CreateAuction({
+  player = {},
+  visible,
+  setVisible,
+  postAuction,
+}) {
   const { height, width } = Dimensions.get("window");
   const hideDialog = () => setVisible(false);
   const [text, setText] = useState("");
-
 
   const { token } = useSelector((state) => state.auth);
   const { currentEventId } = useSelector((state) => state.auth);
@@ -31,7 +35,7 @@ export default function CreateAuction({ player = {}, visible, setVisible }) {
   const [loading, setLoading] = useState(true);
   const [initialValue, setInitialValue] = useState(0);
 
-  const postAuction = async () => {
+  /* const postAuction = async () => {
     setLoading(true);
     try {
       const data = await marketServices.postAuction(
@@ -49,7 +53,7 @@ export default function CreateAuction({ player = {}, visible, setVisible }) {
       setLoading(false);
       setVisible(false)
     }
-  };
+  }; */
 
   return (
     <ModalMercado visible={visible}>
@@ -147,7 +151,13 @@ export default function CreateAuction({ player = {}, visible, setVisible }) {
         >
           <TouchableOpacity
             onPress={() => {
-              postAuction();
+              postAuction(
+                initialValue,
+                directPurchase,
+                player?.id,
+                setLoading,
+                setVisible
+              );
             }}
           >
             <Text style={{ color: "#fff", fontWeight: "600" }}>Aceptar</Text>
