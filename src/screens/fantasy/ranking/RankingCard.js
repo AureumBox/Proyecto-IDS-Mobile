@@ -1,28 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	StyleSheet,
 	Text,
 	View,
 } from "react-native";
+import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
-//Componente para los puestos fuera de los primeros tres lugares
-export default function RankingCard(){
+function colorMedalla (positionRanking){
+    switch (positionRanking){
+        case 1:
+            return '#D8B062';
+        case 2:
+            return '#9E9E9E';
+        case 3:
+            return '#947014';        
+    }
+    return '#3D405B';
+}
+
+export default function RankingCard({positionRanking, userRanking, userPoints}){
 
     return(
+    <View>
         <View style={styles.containerPosition}>
-								<View style={styles.containerUser}>
-								<View style={styles.containerIcon}>
-								
-								</View>	
-								<View style={styles.infoUser}>
-									<Text style={styles.text}>Noramisis</Text>
-									<Text style={styles.text}>1400 pts</Text>
-								</View>	
-								</View>	
-								<View style={styles.containerPos}>
-								<Text style={styles.pos}>4</Text>
-								</View>	
-							</View>
+            <View style={styles.containerUser}>
+                <View style={styles.containerIcon}>
+                    {positionRanking == 1 ? ( <MaterialCommunityIcons name="medal-outline" size={35} color={colorMedalla(positionRanking)} /> ): null}   
+                    {positionRanking == 2 ? ( <MaterialCommunityIcons name="medal-outline" size={35} color={colorMedalla(positionRanking)} /> ): null}    
+                    {positionRanking == 3 ? ( <MaterialCommunityIcons name="medal-outline" size={35} color={colorMedalla(positionRanking)} /> ): null}    
+                    {positionRanking > 3 ? ( <Entypo name="star" size={35} color={colorMedalla(positionRanking)} /> ): null}     
+                </View>	
+                <View style={styles.infoUser}>
+                    <Text style={styles.text}>{userRanking}</Text>
+                    <Text style={styles.text}>{userPoints}</Text>
+                </View>	
+            </View>	
+                {positionRanking == 1 ? ( 
+                <View style={styles.containerPos1}>
+                    <Text style={styles.pos1}>{positionRanking}</Text>
+                </View>	 ): null}   
+                {positionRanking == 2 ? ( 
+                <View style={styles.containerPos2}>
+                    <Text style={styles.pos2}>{positionRanking}</Text>
+                </View> ): null}    
+                {positionRanking == 3 ? ( 
+                <View style={styles.containerPos3}>
+                    <Text style={styles.pos3}>{positionRanking}</Text>
+                </View>	 ): null}    
+                {positionRanking > 3 ? ( 
+                <View style={styles.containerPos}>
+                    <Text style={styles.pos}>{positionRanking}</Text>
+                </View>	 ): null}     
+        </View> 
+        
+    </View>                       
     );
 }
 const styles = StyleSheet.create({
@@ -56,6 +87,20 @@ const styles = StyleSheet.create({
         fontWeight: '500', 
         color: "#3D405B"
     },
+    containerPos1:{
+        width: '25%', 
+        height: 60, 
+        backgroundColor: '#FFE9BE', 
+        borderBottomRightRadius: 15, 
+        alignSelf: 'flex-end', 
+        justifyContent: 'center', 
+        alignItems:'center'
+    },
+    pos1:{
+        fontSize: 26, 
+        color: '#D8B062', 
+        fontWeight: '500'
+    },
     containerPos:{
         width: '25%', 
         height: 60, 
@@ -65,9 +110,37 @@ const styles = StyleSheet.create({
         justifyContent: 'center', 
         alignItems:'center'
     },
+    containerPos2:{
+        width: '25%', 
+        height: 60, 
+        backgroundColor: '#D9D9D9', 
+        borderBottomRightRadius: 15, 
+        alignSelf: 'flex-end', 
+        justifyContent: 'center', 
+        alignItems:'center'
+    },
     pos:{
         fontSize: 26, 
         color: '#3D405B', 
+        fontWeight: '500'
+    },
+    pos2:{
+        fontSize: 26, 
+        color: '#9E9E9E', 
+        fontWeight: '500'
+    },
+    containerPos3:{
+        width: '25%', 
+        height: 60, 
+        backgroundColor: '#DCD3BD', 
+        borderBottomRightRadius: 15, 
+        alignSelf: 'flex-end', 
+        justifyContent: 'center', 
+        alignItems:'center'
+    },
+    pos3:{
+        fontSize: 26, 
+        color: '#947014', 
         fontWeight: '500'
     }
 })

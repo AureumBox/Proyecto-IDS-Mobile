@@ -4,7 +4,9 @@ import {
 	Text,
 	View,
 	Image,
-	TouchableOpacity
+	TouchableOpacity,
+	ScrollView,
+	FlatList
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -17,14 +19,8 @@ import * as fantasyServices from "../../services/fantasy.services";
 import Cancha from "../../../assets/app/campo.png";
 import infoLineup from '../../../assets/app/helpLineup';
 import HelpSlider from "../../components/helpSlider/HelpSlider";
-
-// 💀💀💀💀💀💀💀💀💀💀💀💀💀
-import RankingYou from "./ranking/RankingYou";
-import RankingFirstP from "./ranking/RankingFirstP";
-import RankingSecondP from "./ranking/RankingSecondP";
-import RankingThirdP from "./ranking/RankingThirdP";
 import RankingCard from "./ranking/RankingCard";
-// 💀💀💀💀💀💀💀💀💀💀💀💀💀
+
 
 export default function Fantasy() {
 	const { token } = useSelector((state) => state.auth);
@@ -228,14 +224,18 @@ export default function Fantasy() {
 
 				{opciones == 3 ? (
 					<>
-						<View style={{ flex: 0.85, alignItems: 'center' }}>
-							<RankingYou positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
+						<View style={{flex: 0.85, flexDirection: 'column', alignItems: 'center', marginLeft: '8%'}}>
+						<ScrollView>
+							<RankingCard positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
 							<View style={styles.containerRanking} />
-							<RankingFirstP />
-							<RankingSecondP />
-							<RankingThirdP />
-							<RankingCard />
-							<RankingCard />
+							<RankingCard positionRanking={1} userRanking={'michi'} userPoints={1700} />
+							<RankingCard positionRanking={2} userRanking={'prueba'} userPoints={1500} />
+							<RankingCard positionRanking={3} userRanking={'Enzo'} userPoints={1400} />
+							<RankingCard positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
+							<RankingCard positionRanking={5} userRanking={'Panda'} userPoints={900} />
+							<RankingCard positionRanking={6} userRanking={'Delfin'} userPoints={800} />
+							<RankingCard positionRanking={7} userRanking={'León'} userPoints={700} />
+						</ScrollView>
 						</View>
 					</>
 				) : null}
