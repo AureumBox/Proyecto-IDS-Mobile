@@ -9,17 +9,14 @@ export const fetchAuctionsList = async (
   playerName,
   team,
   position,
-  myAuction,
-  page
+  page = 0
 ) => {
   let queryString = "";
-
   if (playerName) queryString += `&playername=${playerName}`;
   if (team) queryString += `&teamname=${team}`;
   if (position) queryString += `&position=${position}`;
   if (page) queryString += `&page=${page}`;
 
-  console.log(`${BASE_URL}${eventId}/market?${queryString}`);
   try {
     const { data } = await axios.get(
       `${BASE_URL}${eventId}/market?${queryString}`,
@@ -30,7 +27,6 @@ export const fetchAuctionsList = async (
       }
     );
     if (!data?.success) throw new Error(data?.message);
-    console.log(data);
     return data;
   } catch (e) {
     throw new Error(
@@ -39,11 +35,43 @@ export const fetchAuctionsList = async (
   }
 };
 
-export const fetchMyBidsList = async (token, eventId, page) => {
+
+export const fetchMyAuctionsList = async (
+  token,
+  eventId,
+  teamId,
+  position,
+  playerName,
+  page = 0
+) => {
+  try {
+    let queryString = "";
+    if (teamId) queryString += `&teamId=${teamId}`;
+    if (position) queryString += `&position=${position}`;
+    if (playerName) queryString += `&playername=${playerName}`;
+
+    const { data } = await axios.get(
+      `${BASE_URL}${eventId}/market?myAuction=true&page=${page}${queryString}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+
+    if (!data?.success) throw new Error(data?.message);
+    return data;
+  } catch (e) {
+    throw new Error(
+      e?.response?.data?.message || e?.message || "Error Desconocido"
+    );
+  }
+};
+
+export const fetchMyBidsList = async (token, eventId, page = 0) => {
   let queryString = "";
   if (page) queryString += `&page=${page}`;
 
-  console.log(`${BASE_URL}${eventId}/market/myBids?${queryString}`);
   try {
     const { data } = await axios.get(
       `${BASE_URL}${eventId}/market/myBids?${queryString}`,
@@ -53,7 +81,7 @@ export const fetchMyBidsList = async (token, eventId, page) => {
         },
       }
     );
-    console.log(data);
+    
     if (!data?.success) throw new Error(data?.message);
     return data;
   } catch (e) {
@@ -74,7 +102,6 @@ export const fetchAuctionInfo = async (token, eventId, auctionId) => {
       }
     );
     if (!data?.success) throw new Error(data?.message);
-    console.log(data);
     return data;
   } catch (e) {
     throw new Error(
@@ -83,12 +110,21 @@ export const fetchAuctionInfo = async (token, eventId, auctionId) => {
   }
 };
 
-export const postAuction = (token, eventId) => {
+export const postAuction = async (
+  token,
+  eventId,
+  initialValue,
+  directPurchase,
+  playerId
+) => {
   try {
-    const { data } = axios.post(
+    const {data} = await axios.post(
       BASE_URL + eventId + "/market/add",
       {
-        /* TODO */
+        initialValue,
+        directPurchase,
+        eventId,
+        playerId,
       },
       {
         headers: {
@@ -102,9 +138,13 @@ export const postAuction = (token, eventId) => {
   }
 };
 
-export const postBid = async (token, eventId, bid, marketId, isDirectPurchase) => {
-  console.log(token, eventId, bid, marketId, isDirectPurchase)
-  console.log(`${BASE_URL}${eventId}/market/bid`)
+export const postBid = async (
+  token,
+  eventId,
+  bid,
+  marketId,
+  isDirectPurchase
+) => {
   try {
     const { data } = await axios.post(
       `${BASE_URL}${eventId}/market/bid`,
@@ -125,12 +165,14 @@ export const postBid = async (token, eventId, bid, marketId, isDirectPurchase) =
   }
 };
 
-export const updateBid = (token, eventId, bidId) => {
+export const updateBid = async (token, eventId, marketId, value, bidId) => {
   try {
-    const { data } = axios.put(
+    const { data } = await axios.put(
       BASE_URL + eventId + "/market/update/" + bidId,
       {
-        /* TODO */
+        value: value,
+        marketId: marketId,
+        isDirectPurchase: false,
       },
       {
         headers: {

@@ -8,14 +8,10 @@ import {
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
-import PlayerCardOG from "../../../components/PlayerCardOG";
-import PlayerCardMS from "../../../components/PlayerCardMS";
-import PlayerCardMO from "../../../components/PlayerCardMO";
 import AddPlayerCard from "../../../components/AddPlayerCard";
 
 export default function PlayersList({
   players = [],
-  opciones = 1,
   paginate = {},
   setPage = 0,
 }) {
@@ -33,8 +29,7 @@ export default function PlayersList({
         }
       }}
       renderItem={({ item }) => {
-        console.log(JSON.stringify(item))
-        return <AddPlayerCard player={item} />;
+        if (!item?.isInLineup) return <AddPlayerCard player={item} />;
       }}
     />
   );

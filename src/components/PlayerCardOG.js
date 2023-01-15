@@ -139,7 +139,7 @@ export default function PlayerCardOG({ auctionData = {} }) {
       {visible && <CreateBid visible={visible} setVisible={setVisible} auctionData={auctionData}/>}
       {visibleBuy && (
         <ModalMercado visible={visibleBuy}>
-          <DirectBuy setVisible={setVisibleBuy} auctiondata={auctionData}/>
+          <DirectBuy setVisible={setVisibleBuy} auctionData={auctionData}/>
         </ModalMercado>
       )}
     </>

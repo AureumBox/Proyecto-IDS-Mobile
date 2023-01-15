@@ -13,12 +13,10 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
   Octicons,
+  Ionicons,
 } from "@expo/vector-icons";
 
-import JugadorBra from "../../assets/app/bra_10.png";
 import MoneyIcon from "../../assets/app/moneyIcon.png";
-import Reloj from "../../assets/app/reloj.png";
-import Bra from "../../assets/app/bra.png";
 import { ModalMercado } from "./ModalMercado";
 import EditBid from "../screens/mainScreen/Market/EditBid";
 import DirectBuy from "../screens/mainScreen/Market/DirectBuy";
@@ -27,15 +25,38 @@ export default function PlayerCardMO({ auctionData = {} }) {
   const [visibleEdit, setVisibleEdit] = React.useState(false);
   const [visibleBuy, setVisibleBuy] = React.useState(false);
 
+  const positionSpa = {
+    goalkeeper: "Arquero",
+    defender: "Defensa",
+    midfielder: "Medioc",
+    forward: "Delantero",
+  };
+
+  const convertTime = (finishDate) => {
+    const actual = new Date(Date.now());
+    const end = new Date(Date.parse(finishDate));
+
+    let minutes = Math.floor((end - actual) / 60000);
+    const hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+
+    return hours + "h " + minutes + "m";
+  };
+
   return (
     <>
       <View style={styles.card}>
         <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.imgCard}>
           <View style={styles.containerPlayerName}>
-            <Text style={styles.playerName}>Neymar Jr</Text>
+            <Text style={styles.playerName}>
+              {auctionData?.market?.sticker?.playerName}
+            </Text>
           </View>
           <View>
-            <Image style={styles.imagePlayer} source={JugadorBra} />
+            <Image
+              style={styles.imagePlayer}
+              source={{ uri: auctionData?.market?.sticker?.img }}
+            />
           </View>
         </LinearGradient>
         <View>
@@ -48,13 +69,15 @@ export default function PlayerCardMO({ auctionData = {} }) {
           >
             <Image
               style={{ height: 20, width: 20, marginLeft: -45 }}
-              source={Bra}
+              source={{ uri: auctionData?.market?.sticker?.team?.badge }}
             />
             <LinearGradient
               colors={["#D13256", "#FE5F42"]}
               style={{ borderRadius: 10, marginLeft: 25 }}
             >
-              <Text style={styles.posiciontext}>DELANTERO</Text>
+              <Text style={styles.posiciontext}>
+                {positionSpa[auctionData?.market?.sticker?.position]}
+              </Text>
             </LinearGradient>
           </View>
           <View
@@ -69,20 +92,15 @@ export default function PlayerCardMO({ auctionData = {} }) {
               style={{ height: 22, width: 22, marginRight: 3, marginLeft: 3 }}
               source={MoneyIcon}
             />
-            <Text style={styles.textCard}>100.000.000</Text>
+            <Text style={styles.textCard}>
+              {auctionData?.market?.initialPurchaseValue}
+            </Text>
           </View>
           <View style={{ flexDirection: "row", margin: 3 }}>
-            <Image
-              style={{
-                height: 22,
-                width: 22,
-                marginRight: 3,
-                resizeMode: "center",
-                marginLeft: 3,
-              }}
-              source={Reloj}
-            />
-            <Text style={styles.textCard}>2h 20s</Text>
+            <Ionicons name={"time-outline"} color={"black"} size={22} />
+            <Text style={styles.textCard}>
+              {convertTime(auctionData?.market?.finishDate)}
+            </Text>
           </View>
         </View>
         <View
@@ -115,11 +133,11 @@ export default function PlayerCardMO({ auctionData = {} }) {
       </View>
 
       <ModalMercado visible={visibleEdit}>
-        <EditBid setVisible={setVisibleEdit} />
+        <EditBid setVisible={setVisibleEdit} auctionData={auctionData} />
       </ModalMercado>
 
       <ModalMercado visible={visibleBuy}>
-        <DirectBuy setVisible={setVisibleBuy}/>
+        <DirectBuy setVisible={setVisibleBuy} auctionData={auctionData} />
       </ModalMercado>
     </>
   );

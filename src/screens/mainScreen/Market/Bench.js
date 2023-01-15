@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,38 +6,92 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { ModalBanca } from "../../../components/ModalBanca";
-import { useState } from "react";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import SearchBar from "../../../components/SearchBar";
 import { SelectList } from "react-native-dropdown-select-list";
 import AddPlayerCard from "../../../components/AddPlayerCard";
 import PlayersList from "./PlayersList";
 import AuctionsList from "./AuctionsList";
+import * as fantasyServices from "../../../services/fantasy.services";
+import * as albumServices from "../../../services/inventory.services";
 
 export default function Bench({ onClick, setVisible }) {
-
-  const [selected, setSelected] = useState("");
   const [searchPhrase, setSearchPhrase] = useState("");
   const [isFocus, setIsFocus] = useState(false);
-  const [selectedE, setSelectedE] = useState("");
   const [isFocusE, setIsFocusE] = useState(false);
+  const [bench, setBench] = useState([]);
+  const [teams, setTeams] = useState([]);
 
-  const dataEquipos = [
-    { key: "2", value: "España" },
-    { key: "3", value: "Argentina" },
-    { key: "4", value: "Alemania" },
-    { key: "5", value: "Brazil" },
+  const [playerNameQuery, setPlayerNameQuery] = useState("");
+  const [teamQuery, setTeamQuery] = useState("");
+  const [positionQuery, setPositionQuery] = useState("");
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [paginate, setPaginate] = useState({});
+
+  const { token } = useSelector((state) => state.auth);
+  const { currentEventId } = useSelector((state) => state.auth);
+
+  const dataPosicion = [
+    { key: "", value: "Posición" },
+    { key: "forward", value: "Delantero" },
+    { key: "midfielder", value: "Mediocampista" },
+    { key: "defender", value: "Defensa" },
+    { key: "goalkeeper", value: "Arquero" },
   ];
 
-  const data = [
-    { key: "2", value: "Delantero" },
-    { key: "3", value: "Medio Campo" },
-    { key: "4", value: "Defensa" },
-    { key: "5", value: "Arquero" },
-  ];
+  const loadTeams = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await albumServices.fetchTeamsInfo(token, currentEventId);
+      let newArray = data?.items?.map((item, index) => {
+        return { key: item?.name, value: item?.name };
+      });
+      newArray.unshift({ key: "", value: "Equipos" });
+      setTeams(newArray);
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [currentEventId]);
+  useEffect(() => {
+    loadTeams();
+  }, [loadTeams]);
+
+  const loadBench = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await fantasyServices.fetchBench(
+        token,
+        currentEventId,
+        playerNameQuery,
+        teamQuery,
+        positionQuery,
+        page
+      );
+
+      if (page != 0) {
+        setBench((bench) => bench.concat(data?.items));
+      } else {
+        setBench(data?.items);
+      }
+      setPaginate(data?.paginate);
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [currentEventId, playerNameQuery, teamQuery, positionQuery, page]);
+  useEffect(() => {
+    loadBench();
+  }, [loadBench]);
 
   return (
     <View style={{ height: "90%", width: "100%", padding: 8 }}>
@@ -73,8 +127,8 @@ export default function Bench({ onClick, setVisible }) {
         </View>
 
         <SearchBar
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
+          searchPhrase={playerNameQuery}
+          setSearchPhrase={setPlayerNameQuery}
         />
 
         <View
@@ -85,23 +139,28 @@ export default function Bench({ onClick, setVisible }) {
           }}
         >
           <SelectList
-            setSelected={(val) => setSelectedE(val)}
-            data={dataEquipos}
-            save="value"
+            setSelected={(val) => {
+              setTeamQuery(val);
+              setPage(0);
+            }}
+            data={teams}
+            save="key"
             placeholder={!isFocusE ? "Equipos" : "..."}
             onFocus={() => setIsFocusE(true)}
           />
           <SelectList
-            setSelected={(val) => setSelected(val)}
-            data={data}
-            save="value"
+            setSelected={(val) => {
+              setPositionQuery(val);
+              setPage(0);
+            }}
+            data={dataPosicion}
+            save="key"
             placeholder={!isFocus ? "Posición" : "..."}
             onFocus={() => setIsFocus(true)}
           />
         </View>
       </View>
-      <PlayersList players={data} paginate={{}} setPage={{}}/>
-     
+      <PlayersList players={bench} paginate={paginate} setPage={setPage} />
     </View>
   );
 }

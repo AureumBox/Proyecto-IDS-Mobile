@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import axios from "axios";
 import {
   StyleSheet,
   Text,
@@ -12,6 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Container, { Toast } from "toastify-react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { Entypo } from "@expo/vector-icons";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import Header from "../../../components/HeaderComponent";
 import SearchBar from "../../../components/SearchBar";
@@ -25,7 +27,7 @@ export default function Shop({ navigation }) {
   const { height, width } = Dimensions.get("window");
   const [visible, setVisible] = React.useState(false);
   const hideDialog = () => setVisible(false);
-  const [opciones, setOpciones] = useState(1);
+  const [opciones, setOpciones] = useState(3);
 
   const [loading, setLoading] = useState(1);
   const [teams, setTeams] = useState([]);
@@ -35,10 +37,9 @@ export default function Shop({ navigation }) {
 
   const [searchPhrase, setSearchPhrase] = useState("");
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [playerName, setPlayerName] = useState("");
+  const [playerNameQuery, setPlayerNameQuery] = useState("");
   const [teamQuery, setTeamQuery] = useState("");
   const [positionQuery, setPositionQuery] = useState("");
-  const [myAuctionQuery, setMyAuctionQuery] = useState(false);
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
@@ -50,10 +51,11 @@ export default function Shop({ navigation }) {
   const [isFocus, setIsFocus] = useState(false);
 
   const dataPosition = [
-    { key: "1", value: "Delantero" },
-    { key: "2", value: "Medio Campo" },
-    { key: "3", value: "Defensa" },
-    { key: "4", value: "Arquero" },
+    { key: "", value: "Posición" },
+    { key: "forward", value: "Delantero" },
+    { key: "midfielder", value: "Mediocampista" },
+    { key: "defender", value: "Defensa" },
+    { key: "goalkeeper", value: "Arquero" },
   ];
 
   const [selectedE, setSelectedE] = useState("");
@@ -61,31 +63,33 @@ export default function Shop({ navigation }) {
 
   const loadAuctionsList = useCallback(async () => {
     setLoading(true);
-    console.log("efect fetc")
     try {
       let data;
       if (opciones == 1) {
         data = await marketServices.fetchAuctionsList(
           token,
           eventId,
-          playerName,
+          playerNameQuery,
           teamQuery,
           positionQuery,
-          false,
           page
         );
       } else if (opciones == 2) {
-        console.log("mis subastas unu");
-        data = await marketServices.fetchMyBidsList(token, eventId, page);
-      } else {
-        console.log("mis ofertas unu");
-        data = await marketServices.fetchAuctionsList(
+        data = await marketServices.fetchMyAuctionsList(
           token,
           eventId,
-          playerName,
           teamQuery,
           positionQuery,
-          true,
+          playerNameQuery,
+          page
+        );
+      } else {
+        data = await marketServices.fetchMyBidsList(
+          token,
+          eventId,
+          /* playerNameQuery,
+          teamQuery,
+          positionQuery, */
           page
         );
       }
@@ -102,7 +106,7 @@ export default function Shop({ navigation }) {
     } finally {
       setLoading(false);
     }
-  }, [opciones, page, teamQuery, positionQuery, playerName]);
+  }, [opciones, page, teamQuery, positionQuery, playerNameQuery]);
   useEffect(() => {
     loadAuctionsList();
   }, [loadAuctionsList]);
@@ -112,8 +116,9 @@ export default function Shop({ navigation }) {
     try {
       const data = await albumServices.fetchTeamsInfo(token, eventId);
       let newArray = data?.items?.map((item, index) => {
-        return { key: item?.id, value: item?.name };
+        return { key: item?.name, value: item?.name };
       });
+      newArray.unshift({ key: "", value: "Equipos" });
       setTeams(newArray);
     } catch (error) {
       // Toast.error(error.message);
@@ -128,6 +133,12 @@ export default function Shop({ navigation }) {
 
   return (
     <View style={styles.fondo}>
+      <Spinner
+        visible={loading}
+        size="large"
+        color="#E7484D"
+        overlayColor="#FFFFFF50"
+      />
       <Header />
       <Container position="top" />
       <View style={styles.container}>
@@ -139,19 +150,29 @@ export default function Shop({ navigation }) {
               <View style={styles.containerButtons}>
                 <TouchableOpacity
                   style={opciones === 1 ? styles.buttonSelected : styles.button}
-                  onPress={() => setOpciones(1)}
+                  onPress={() => {
+                    setOpciones(1);
+                    setPage(0);
+                    setAuctions([]);
+                  }}
                 >
                   <Text style={styles.textButton}>Ofertas globales</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={opciones === 2 ? styles.buttonSelected : styles.button}
-                  onPress={() => setOpciones(2)}
+                  onPress={() => {
+                    setOpciones(2);
+                    setPage(0);
+                    setAuctions([]);
+                  }}
                 >
                   <Text style={styles.textButton}>Mis subastas</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={opciones === 3 ? styles.buttonSelected : styles.button}
-                  onPress={() => setOpciones(3)}
+                  onPress={() => {
+                    setOpciones(3);
+                  }}
                 >
                   <Text style={styles.textButton}>Mis ofertas</Text>
                 </TouchableOpacity>
@@ -192,16 +213,16 @@ export default function Shop({ navigation }) {
               }}
             >
               <SelectList
-                setSelected={(val) => setSelectedE(val)}
+                setSelected={(val) => setTeamQuery(val)}
                 data={teams}
-                save="value"
+                save="key"
                 placeholder={!isFocusE ? "Equipos" : "..."}
                 onFocus={() => setIsFocusE(true)}
               />
               <SelectList
-                setSelected={(val) => setSelected(val)}
+                setSelected={(val) => setPositionQuery(val)}
                 data={dataPosition}
-                save="value"
+                save="key"
                 placeholder={!isFocus ? "Posición" : "..."}
                 onFocus={() => setIsFocus(true)}
               />

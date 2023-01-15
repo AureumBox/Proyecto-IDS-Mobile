@@ -44,7 +44,6 @@ export default function CreateBid({ auctionData = {}, visible, setVisible }) {
 
   const postBid = async () => {
     setLoading(true);
-    console.log("efect bid");
     try {
       const data = await marketServices.postBid(token, currentEventId, bid + auctionInfo?.highestBid?.value, auctionData?.id, false);
       alert(data.message)
@@ -53,12 +52,12 @@ export default function CreateBid({ auctionData = {}, visible, setVisible }) {
       alert(error.message);
     } finally {
       setLoading(false);
+      setVisible(false)
     }
   };
 
   const loadAuctionsInfo = useCallback(async () => {
     setLoading(true);
-    console.log("efect info");
     try {
       const data = await marketServices.fetchAuctionInfo(
         token,

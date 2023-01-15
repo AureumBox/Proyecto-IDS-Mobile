@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,38 +16,56 @@ import { ModalMercado } from "../../../components/ModalMercado";
 import * as marketServices from "../../../services/market.services";
 import { useDispatch, useSelector } from "react-redux";
 
-{
-  /* <Ionicons name={"time-outline"} color={"black"} size={22} /> */
-}
-
 import JugadorBra from "../../../../assets/app/bra_10.png";
 
-export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
-  
-  const [auctionInfo, setAuctionInfo] = useState({});
-  const [loading, setLoading] = useState(true);
-  
+const convertTime = (finishDate) => {
+  const actual = new Date(Date.now());
+  const end = new Date(Date.parse(finishDate));
+
+  let minutes = Math.floor((end - actual) / 60000);
+  const hours = Math.floor(minutes / 60);
+  minutes = minutes % 60;
+
+  return hours + "h " + minutes + "m";
+};
+
+export default function InfoMyAuction({
+  auctionData = {},
+  setVisible,
+  visible,
+}) {
+  const { height, width } = Dimensions.get("window");
   const { token } = useSelector((state) => state.auth);
   const { money } = useSelector((state) => state.auth);
   const { currentEventId } = useSelector((state) => state.auth);
+  const [auctionInfo, setAuctionInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [bid, setBid] = useState(0);
 
-  const postBuy = async () => {
+  const positionSpa = {
+    goalkeeper: "Arquero",
+    defender: "Defensa",
+    midfielder: "Mediocam",
+    forward: "Delantero",
+  };
+
+  const editBid = async () => {
     setLoading(true);
     try {
-      const data = await marketServices.postBid(
+      const data = await marketServices.updateBid(
         token,
         currentEventId,
-        auctionInfo?.market?.immediatePurchaseValue,
-        auctionData?.id,
-        true
+        auctionInfo?.market?.id,
+        bid,
+        auctionInfo?.myLastBid?.id
       );
       alert(data.message);
+      setVisible(false);
     } catch (error) {
       // Toast.error(error.message);
       alert(error.message);
     } finally {
       setLoading(false);
-      setVisible(false)
     }
   };
 
@@ -57,7 +75,7 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
       const data = await marketServices.fetchAuctionInfo(
         token,
         currentEventId,
-        auctionData.id
+        auctionData?.id
       );
 
       setAuctionInfo(data.item);
@@ -73,7 +91,7 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
   }, [loadAuctionInfo]);
 
   return (
-    <>
+    <ModalMercado visible={visible}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}>
         <TouchableOpacity>
           <Ionicons
@@ -91,11 +109,35 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
       </LinearGradient>
       <View style={styles.circuloBlanco} />
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}>
-        <Image source={JugadorBra} style={styles.fotocirculo} />
+        <Image source={{uri: auctionData?.sticker?.img}} style={styles.fotocirculo} />
       </LinearGradient>
-      <Text style={styles.nombreJugador}>{auctionData?.sticker?.playerName}</Text>
+      <Text style={styles.nombreJugador}>
+        {auctionData?.sticker?.playerName}
+      </Text>
 
       <View style={{ width: "100%", height: 70, flexDirection: "row" }}>
+        {/* Precio inicial*/}
+        <View
+          style={{
+            width: "50%",
+            height: 70,
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={styles.subtexto}>Precio inicial</Text>
+          <View style={styles.containerDinero}>
+            <LinearGradient
+              colors={["#D13256", "#FE5F42"]}
+              style={styles.moneyCoin}
+            >
+              <MaterialIcons name="attach-money" size={18} color="white" />
+            </LinearGradient>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.market?.initialPurchaseValue}</Text>
+          </View>
+        </View>
+
         {/* Compra directa*/}
         <View
           style={{
@@ -106,7 +148,7 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
             justifyContent: "center",
           }}
         >
-          <Text style={styles.subtexto2}>Compra directa</Text>
+          <Text style={styles.subtexto}>Precio de compra directa</Text>
           <View style={styles.containerDinero}>
             <LinearGradient
               colors={["#D13256", "#FE5F42"]}
@@ -117,31 +159,31 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
             <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.market?.immediatePurchaseValue}</Text>
           </View>
         </View>
+      </View>
 
-        {/* Saldo restante*/}
-        <View
-          style={{
-            width: "50%",
-            height: 70,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={styles.subtexto2}>Saldo luego de la operación</Text>
-          <View style={styles.containerDinero}>
-            <LinearGradient
-              colors={["#D13256", "#FE5F42"]}
-              style={styles.moneyCoin}
-            >
-              <MaterialIcons name="attach-money" size={18} color="white" />
-            </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>{money - auctionInfo?.market?.immediatePurchaseValue}</Text>
-          </View>
+      {/* Oferta actual */}
+      <View
+        style={{
+          width: "100%",
+          height: 70,
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={styles.subtexto}>Oferta ganadora actual</Text>
+        <View style={styles.containerDinero}>
+          <LinearGradient
+            colors={["#D13256", "#FE5F42"]}
+            style={styles.moneyCoin}
+          >
+            <MaterialIcons name="attach-money" size={18} color="white" />
+          </LinearGradient>
+          <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.highestBid || "-"}</Text>
         </View>
       </View>
 
-      {/* Botones */}
+      {/* Botones*/}
       <View style={styles.containerButtons}>
         <LinearGradient
           colors={["#D13256", "#FE5F42"]}
@@ -162,13 +204,15 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
           style={styles.editButtonacep}
         >
           <TouchableOpacity
-            onPress={postBuy}
+            onPress={() => {
+              setVisible(false);
+            }}
           >
             <Text style={{ color: "#fff", fontWeight: "600" }}>Aceptar</Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>
-    </>
+    </ModalMercado>
   );
 }
 

@@ -29,12 +29,14 @@ export const fetchPageInfo = async (token, eventId, teamId) => {
 };
 
 export const fetchTeamsInfo = async (token, eventId) => {
+
   try{
     const { data } = await axios.get(`${BASE_URL}/teams/all/${eventId}`, {
     headers: {
       Authorization: "Bearer " + token,
     },
   });
+  
   return data;
   } catch (e) {
     throw new Error(e);

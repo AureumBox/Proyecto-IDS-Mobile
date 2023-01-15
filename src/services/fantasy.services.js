@@ -18,13 +18,15 @@ export const fetchBench = async (
   if (position) queryString += `&position=${position}`;
   if (page) queryString += `&page=${page}`;
 
+
   try {
     const { data } = await axios.get(
-      `${BASE_URL}public-events/${eventId}/squad?${queryString}`,
+      `${BASE_URL}/public-events/${eventId}/squad?${queryString}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+
 
     if (!data.items || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
@@ -44,7 +46,7 @@ export const fetchBench = async (
 export const fetchSquad = async (token, eventId) => {
   try {
     const { data } = await axios.get(
-      `${BASE_URL}public-events/${eventId}/squad/players`,
+      `${BASE_URL}/public-events/${eventId}/squad/players`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -68,7 +70,7 @@ export const fetchSquad = async (token, eventId) => {
 export const insertPlayer = async (token, eventId, player) => {
   try {
     const { data } = await axios.post(
-      `${BASE_URL}public-events/${eventId}/squad/player`,
+      `${BASE_URL}/public-events/${eventId}/squad/player`,
       {
         playerId: player.id,
       },
@@ -95,7 +97,7 @@ export const insertPlayer = async (token, eventId, player) => {
 export const removePlayer = async (token, eventId, playerId) => {
   try {
     const { data } = await axios.delete(
-      `${BASE_URL}public-events/${eventId}/squad/player/${playerId}`,
+      `${BASE_URL}/public-events/${eventId}/squad/player/${playerId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

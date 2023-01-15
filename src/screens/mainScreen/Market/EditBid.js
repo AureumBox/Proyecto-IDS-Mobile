@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,6 +12,9 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { ModalMercado } from "../../../components/ModalMercado";
+
+import * as marketServices from "../../../services/market.services";
+import { useDispatch, useSelector } from "react-redux";
 
 {
   /* <Ionicons name={"time-outline"} color={"black"} size={22} /> */
@@ -30,8 +33,14 @@ const convertTime = (finishDate) => {
   return hours + "h " + minutes + "m";
 };
 
-export default function EditBid({ auctiondata = {}, setVisible }) {
+export default function EditBid({ auctionData = {}, setVisible }) {
   const { height, width } = Dimensions.get("window");
+  const { token } = useSelector((state) => state.auth);
+  const { money } = useSelector((state) => state.auth);
+  const { currentEventId } = useSelector((state) => state.auth);
+  const [auctionInfo, setAuctionInfo] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [bid, setBid] = useState(0);
 
   const positionSpa = {
     goalkeeper: "Arquero",
@@ -39,6 +48,47 @@ export default function EditBid({ auctiondata = {}, setVisible }) {
     midfielder: "Mediocam",
     forward: "Delantero",
   };
+
+  const editBid = async () => {
+    setLoading(true);
+    try {
+      const data = await marketServices.updateBid(
+        token,
+        currentEventId,
+        auctionInfo?.market?.id,
+        bid,
+        auctionInfo?.myLastBid?.id,
+      );
+      alert(data.message);
+      setVisible(false);
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadAuctionInfo = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await marketServices.fetchAuctionInfo(
+        token,
+        currentEventId,
+        auctionData?.market?.id
+      );
+
+      setAuctionInfo(data.item);
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  useEffect(() => {
+    loadAuctionInfo();
+  }, [loadAuctionInfo]);
 
   return (
     <>
@@ -59,9 +109,14 @@ export default function EditBid({ auctiondata = {}, setVisible }) {
       </LinearGradient>
       <View style={styles.circuloBlanco} />
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}>
-        <Image source={JugadorBra} style={styles.fotocirculo} />
+        <Image
+          source={{ uri: auctionData?.market?.sticker?.img }}
+          style={styles.fotocirculo}
+        />
       </LinearGradient>
-      <Text style={styles.nombreJugador}>Neymar Jr</Text>
+      <Text style={styles.nombreJugador}>
+        {auctionData?.market?.sticker?.playerName}
+      </Text>
 
       <View style={{ width: "100%", height: 70, flexDirection: "row" }}>
         {/* Anterior oferta*/}
@@ -82,7 +137,9 @@ export default function EditBid({ auctiondata = {}, setVisible }) {
             >
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>200</Text>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
+              {auctionInfo?.myLastBid?.value}
+            </Text>
           </View>
         </View>
 
@@ -104,7 +161,9 @@ export default function EditBid({ auctiondata = {}, setVisible }) {
             >
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>250</Text>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
+              {auctionInfo?.highestBid?.value}
+            </Text>
           </View>
         </View>
       </View>
@@ -129,7 +188,12 @@ export default function EditBid({ auctiondata = {}, setVisible }) {
         >
           <Text style={styles.subtexto}>Mi nueva oferta</Text>
           <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}>
-            <TextInput style={styles.oferta} keyboardType={"numeric"}/>
+            <TextInput
+              style={styles.oferta}
+              keyboardType={"numeric"}
+              value={bid}
+              onChangeText={(text) => setBid(text)}
+            />
           </LinearGradient>
           <Text
             style={{
@@ -140,7 +204,7 @@ export default function EditBid({ auctiondata = {}, setVisible }) {
             }}
           >
             {" "}
-            (+ $250)
+            (+ ${auctionInfo?.highestBid?.value})
           </Text>
         </View>
 
@@ -162,7 +226,9 @@ export default function EditBid({ auctiondata = {}, setVisible }) {
             >
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>500</Text>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
+              {money - auctionInfo?.highestBid?.value - bid}
+            </Text>
           </View>
         </View>
       </View>
@@ -189,7 +255,7 @@ export default function EditBid({ auctiondata = {}, setVisible }) {
         >
           <TouchableOpacity
             onPress={() => {
-              setVisible(false);
+              editBid(false);
             }}
           >
             <Text style={{ color: "#fff", fontWeight: "600" }}>Aceptar</Text>

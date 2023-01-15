@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,22 +8,57 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+
+import Spinner from "react-native-loading-spinner-overlay";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 import JugadorBra from "../../../../assets/app/bra_10.png";
-import MoneyIcon from "../../../../assets/app/moneyIcon.png";
-import Reloj from "../../../../assets/app/reloj.png";
-import Bra from "../../../../assets/app/bra.png";
+import * as marketServices from "../../../services/market.services";
 import { ModalMercado } from "../../../components/ModalMercado";
 
-export default function CreateAuction({ players = {}, setVisible }) {
+export default function CreateAuction({ player = {}, visible, setVisible }) {
   const { height, width } = Dimensions.get("window");
   const hideDialog = () => setVisible(false);
   const [text, setText] = useState("");
+
+
+  const { token } = useSelector((state) => state.auth);
+  const { currentEventId } = useSelector((state) => state.auth);
+  const [directPurchase, setDirectPurchase] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [initialValue, setInitialValue] = useState(0);
+
+  const postAuction = async () => {
+    setLoading(true);
+    try {
+      const data = await marketServices.postAuction(
+        token,
+        currentEventId,
+        initialValue,
+        directPurchase,
+        player?.id
+      );
+      alert(data.message);
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+      setVisible(false)
+    }
+  };
+
   return (
-    <>
+    <ModalMercado visible={visible}>
+      <Spinner
+        visible={loading}
+        size="large"
+        color="#E7484D"
+        overlayColor="#FFFFFF50"
+      />
       {/* Modal precio inicial y compra directa*/}
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}>
         <TouchableOpacity>
@@ -42,9 +77,9 @@ export default function CreateAuction({ players = {}, setVisible }) {
       </LinearGradient>
       <View style={styles.circuloBlanco} />
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}>
-        <Image source={JugadorBra} style={styles.fotocirculo} />
+        <Image source={{ uri: player?.img }} style={styles.fotocirculo} />
       </LinearGradient>
-      <Text style={styles.nombreJugador}>Neymar Jr</Text>
+      <Text style={styles.nombreJugador}>{player?.playerName}</Text>
 
       <View style={{ width: "100%", height: 70, flexDirection: "row" }}>
         {/* Precio inicial */}
@@ -59,7 +94,12 @@ export default function CreateAuction({ players = {}, setVisible }) {
         >
           <Text style={styles.subtexto}>Precio Inicial</Text>
           <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}>
-            <TextInput style={styles.oferta} keyboardType={"numeric"} />
+            <TextInput
+              style={styles.oferta}
+              keyboardType={"numeric"}
+              value={initialValue}
+              onChangeText={(text) => setInitialValue(text)}
+            />
           </LinearGradient>
         </View>
 
@@ -75,7 +115,12 @@ export default function CreateAuction({ players = {}, setVisible }) {
         >
           <Text style={styles.subtexto}>Compra directa</Text>
           <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}>
-            <TextInput style={styles.oferta} keyboardType={"numeric"} />
+            <TextInput
+              style={styles.oferta}
+              keyboardType={"numeric"}
+              value={directPurchase}
+              onChangeText={(text) => setDirectPurchase(text)}
+            />
           </LinearGradient>
         </View>
       </View>
@@ -102,14 +147,14 @@ export default function CreateAuction({ players = {}, setVisible }) {
         >
           <TouchableOpacity
             onPress={() => {
-              setVisible(false);
+              postAuction();
             }}
           >
             <Text style={{ color: "#fff", fontWeight: "600" }}>Aceptar</Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>
-    </>
+    </ModalMercado>
   );
 }
 

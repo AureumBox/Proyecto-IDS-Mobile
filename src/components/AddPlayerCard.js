@@ -26,6 +26,15 @@ export default function AddPlayerCard({ player = {} }) {
   const [visible, setVisible] = useState(false);
   const hideDialog = () => setVisible(false);
 
+  console.log ("add"+player);
+
+  const positionSpa = {
+    goalkeeper: "Arquero",
+    defender: "Defensa",
+    midfielder: "Mediocampista",
+    forward: "Delantero",
+  };
+
   return (
     <>
       <TouchableOpacity
@@ -39,10 +48,10 @@ export default function AddPlayerCard({ player = {} }) {
             style={styles.imgCard}
           >
             <View style={styles.containerPlayerName}>
-              <Text style={styles.playerName}>Neymar Jr</Text>
+              <Text style={styles.playerName}>{player?.playerName}</Text>
             </View>
             <View>
-              <Image style={styles.imagePlayer} source={JugadorBra} />
+              <Image style={styles.imagePlayer} source={{ uri: player?.img }} />
             </View>
           </LinearGradient>
           <View>
@@ -56,13 +65,15 @@ export default function AddPlayerCard({ player = {} }) {
             >
               <Image
                 style={{ height: 20, width: 20, marginLeft: -45 }}
-                source={Bra}
+                source={{ uri: player?.team?.badge }}
               />
               <LinearGradient
                 colors={["#D13256", "#FE5F42"]}
                 style={{ borderRadius: 10, marginLeft: 25 }}
               >
-                <Text style={styles.posiciontext}>DELANTERO</Text>
+                <Text style={styles.posiciontext}>
+                  {positionSpa[player?.position]}
+                </Text>
               </LinearGradient>
             </View>
 
@@ -85,9 +96,14 @@ export default function AddPlayerCard({ player = {} }) {
       </TouchableOpacity>
 
       {/* Modal Compra directa*/}
-      <ModalMercado visible={visible}>
-        <CreateAuction player={player} setVisible={setVisible} />
-      </ModalMercado>
+
+      {visible && (
+        <CreateAuction
+          player={player}
+          visible={visible}
+          setVisible={setVisible}
+        />
+      )}
     </>
   );
 }

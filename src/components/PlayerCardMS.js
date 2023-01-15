@@ -16,14 +16,32 @@ import JugadorBra from "../../assets/app/bra_10.png";
 import MoneyIcon from "../../assets/app/moneyIcon.png";
 import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
+import InfoMyAuction from "../screens/mainScreen/Market/InfoMyAuction"
 import { ModalMercado } from "./ModalMercado";
 
 export default function PlayerCardMS({ auctionData = {} }) {
   const { height, width } = Dimensions.get("window");
 
   //Visible Modal Mis Ofertas - Info
-  const [visible1, setVisible1] = useState(false);
-  const hideDialog = () => setVisible1(false);
+  const [visible, setVisible] = useState(false);
+
+  const convertTime = (finishDate) => {
+    const actual = new Date(Date.now());
+    const end = new Date(Date.parse(finishDate));
+  
+    let minutes = Math.floor((end - actual) / 60000);
+    const hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+  
+    return hours + "h " + minutes + "m";
+  };
+
+  const positionSpa = {
+    goalkeeper: "Arquero",
+    defender: "Defensa",
+    midfielder: "Mediocam",
+    forward: "Delantero",
+  };
 
   return (
     <View style={styles.card}>
@@ -32,7 +50,7 @@ export default function PlayerCardMS({ auctionData = {} }) {
           <Text style={styles.playerName}>Neymar Jr</Text>
         </View>
         <View>
-          <Image style={styles.imagePlayer} source={JugadorBra} />
+          <Image style={styles.imagePlayer} source={{ uri: auctionData?.sticker?.img }} />
         </View>
       </LinearGradient>
       <View>
@@ -41,13 +59,13 @@ export default function PlayerCardMS({ auctionData = {} }) {
         >
           <Image
             style={{ height: 20, width: 20, marginLeft: -45 }}
-            source={Bra}
+            source={{ uri: auctionData?.sticker?.team?.badge }}
           />
           <LinearGradient
             colors={["#D13256", "#FE5F42"]}
             style={{ borderRadius: 10, marginLeft: 25 }}
           >
-            <Text style={styles.posiciontext}>DELANTERO</Text>
+            <Text style={styles.posiciontext}>{positionSpa[auctionData?.sticker?.position]}</Text>
           </LinearGradient>
         </View>
         <View
@@ -62,11 +80,11 @@ export default function PlayerCardMS({ auctionData = {} }) {
             style={{ height: 22, width: 22, marginRight: 3, marginLeft: 3 }}
             source={MoneyIcon}
           />
-          <Text style={styles.textCard}>100.000.000</Text>
+          <Text style={styles.textCard}>{auctionData?.initialPurchaseValue}</Text>
         </View>
         <View style={{ flexDirection: "row", margin: 3 }}>
           <Ionicons name={"time-outline"} color={"black"} size={22} />
-          <Text style={styles.textCard}>2h 20s</Text>
+          <Text style={styles.textCard}>{convertTime(auctionData?.finishDate)}</Text>
         </View>
       </View>
       <View
@@ -78,7 +96,7 @@ export default function PlayerCardMS({ auctionData = {} }) {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => setVisible1(true)}>
+        <TouchableOpacity onPress={() => setVisible(true)}>
           <LinearGradient
             style={styles.editButton}
             colors={["#D13256", "#FE5F42"]}
@@ -89,132 +107,7 @@ export default function PlayerCardMS({ auctionData = {} }) {
       </View>
 
       {/* Modal ver información*/}
-      <ModalMercado visible={visible1}>
-        <LinearGradient
-          colors={["#D13256", "#FE5F42"]}
-          style={styles.fondoModal}
-        >
-          <TouchableOpacity>
-            <Ionicons
-              name="help-circle-outline"
-              size={26}
-              color="black"
-              style={{
-                position: "absolute",
-                alignSelf: "flex-end",
-                paddingRight: 10,
-                paddingTop: 3,
-              }}
-            />
-          </TouchableOpacity>
-        </LinearGradient>
-        <View style={styles.circuloBlanco} />
-        <LinearGradient
-          colors={["#D13256", "#FE5F42"]}
-          style={styles.circuloDeg}
-        >
-          <Image source={JugadorBra} style={styles.fotocirculo} />
-        </LinearGradient>
-        <Text style={styles.nombreJugador}>Neymar Jr</Text>
-
-        <View style={{ width: "100%", height: 70, flexDirection: "row" }}>
-          {/* Precio inicial*/}
-          <View
-            style={{
-              width: "50%",
-              height: 70,
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={styles.subtexto}>Precio inicial</Text>
-            <View style={styles.containerDinero}>
-              <LinearGradient
-                colors={["#D13256", "#FE5F42"]}
-                style={styles.moneyCoin}
-              >
-                <MaterialIcons name="attach-money" size={18} color="white" />
-              </LinearGradient>
-              <Text style={{ fontWeight: "600", marginLeft: 2 }}>200</Text>
-            </View>
-          </View>
-
-          {/* Compra directa*/}
-          <View
-            style={{
-              width: "50%",
-              height: 70,
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={styles.subtexto}>Precio de compra directa</Text>
-            <View style={styles.containerDinero}>
-              <LinearGradient
-                colors={["#D13256", "#FE5F42"]}
-                style={styles.moneyCoin}
-              >
-                <MaterialIcons name="attach-money" size={18} color="white" />
-              </LinearGradient>
-              <Text style={{ fontWeight: "600", marginLeft: 2 }}>750</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Oferta actual */}
-        <View
-          style={{
-            width: "100%",
-            height: 70,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={styles.subtexto}>Oferta ganadora actual</Text>
-          <View style={styles.containerDinero}>
-            <LinearGradient
-              colors={["#D13256", "#FE5F42"]}
-              style={styles.moneyCoin}
-            >
-              <MaterialIcons name="attach-money" size={18} color="white" />
-            </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>500</Text>
-          </View>
-        </View>
-
-        {/* Botones*/}
-        <View style={styles.containerButtons}>
-          <LinearGradient
-            colors={["#D13256", "#FE5F42"]}
-            style={styles.editButtonacep}
-          >
-            <TouchableOpacity style={styles.whitebutton}>
-              <Text
-                style={{ color: "#E6474E", fontWeight: "600" }}
-                onPress={hideDialog}
-              >
-                Cancelar
-              </Text>
-            </TouchableOpacity>
-          </LinearGradient>
-
-          <LinearGradient
-            colors={["#D13256", "#FE5F42"]}
-            style={styles.editButtonacep}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                setVisible1(false);
-              }}
-            >
-              <Text style={{ color: "#fff", fontWeight: "600" }}>Aceptar</Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        </View>
-      </ModalMercado>
+      {(visible) && <InfoMyAuction auctionData={auctionData} setVisible={setVisible} visible={visible}></InfoMyAuction>}
     </View>
   );
 }
