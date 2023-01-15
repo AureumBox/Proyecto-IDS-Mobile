@@ -22,11 +22,11 @@ import AuctionsList from "./AuctionsList";
 import * as marketServices from "../../../services/market.services";
 import * as albumServices from "../../../services/inventory.services";
 import PlayerCardMS from "../../../components/PlayerCardMS";
+import { ActivityIndicator } from "react-native-paper";
+
+const { height, width } = Dimensions.get("window");
 
 export default function Shop({ navigation }) {
-  const { height, width } = Dimensions.get("window");
-  const [visible, setVisible] = React.useState(false);
-  const hideDialog = () => setVisible(false);
   const [opciones, setOpciones] = useState(1);
 
   const [loading, setLoading] = useState(1);
@@ -36,13 +36,9 @@ export default function Shop({ navigation }) {
   const [page, setPage] = useState(0);
   const [auctions, setAuctions] = useState([]);
 
-  const [searchPhrase, setSearchPhrase] = useState("");
-  const [searchQuery, setSearchQuery] = React.useState("");
   const [playerNameQuery, setPlayerNameQuery] = useState("");
   const [teamQuery, setTeamQuery] = useState("");
   const [positionQuery, setPositionQuery] = useState("");
-
-  const onChangeSearch = (query) => setSearchQuery(query);
 
   const { token } = useSelector((state) => state.auth);
   const { currentEventId } = useSelector((state) => state.auth);
@@ -50,12 +46,10 @@ export default function Shop({ navigation }) {
   //Select
   const [isFocus, setIsFocus] = useState(false);
 
-  
-
   const dataPosition = [
     { key: "", value: "Posición" },
     { key: "forward", value: "Delantero" },
-    { key: "midfielder", value: "Mediocampista" },
+    { key: "midfielder", value: "Medio Campo" },
     { key: "defender", value: "Defensa" },
     { key: "goalkeeper", value: "Arquero" },
   ];
@@ -121,7 +115,7 @@ export default function Shop({ navigation }) {
     try {
       const data = await albumServices.fetchTeamsInfo(token, currentEventId);
       let newArray = data?.items?.map((item, index) => {
-        return { key: item?.name, value: item?.name };
+        return { key: item?.id, value: item?.name };
       });
       newArray.unshift({ key: "", value: "Equipos" });
       setTeams(newArray);
@@ -136,16 +130,14 @@ export default function Shop({ navigation }) {
     loadTeams();
   }, [loadTeams]);
 
- 
-
   return (
     <View style={styles.fondo}>
-      <Spinner
+      {/* <Spinner
         visible={loading}
         size="large"
         color="#E7484D"
         overlayColor="#FFFFFF50"
-      />
+      /> */}
       <Header />
       <Container position="top" />
       <View style={styles.container}>
@@ -158,9 +150,9 @@ export default function Shop({ navigation }) {
                 <TouchableOpacity
                   style={opciones === 1 ? styles.buttonSelected : styles.button}
                   onPress={() => {
-                    setOpciones(1);
-                    setPage(0);
                     setAuctions([]);
+                    setPage(0);
+                    setOpciones(1);
                   }}
                 >
                   <Text style={styles.textButton}>Ofertas globales</Text>
@@ -168,9 +160,9 @@ export default function Shop({ navigation }) {
                 <TouchableOpacity
                   style={opciones === 2 ? styles.buttonSelected : styles.button}
                   onPress={() => {
-                    setOpciones(2);
-                    setPage(0);
                     setAuctions([]);
+                    setPage(0);
+                    setOpciones(2);
                   }}
                 >
                   <Text style={styles.textButton}>Mis subastas</Text>
@@ -178,6 +170,8 @@ export default function Shop({ navigation }) {
                 <TouchableOpacity
                   style={opciones === 3 ? styles.buttonSelected : styles.button}
                   onPress={() => {
+                    setAuctions([]);
+                    setPage(0);
                     setOpciones(3);
                   }}
                 >
@@ -208,8 +202,8 @@ export default function Shop({ navigation }) {
             </View>
 
             <SearchBar
-              searchPhrase={searchPhrase}
-              setSearchPhrase={setSearchPhrase}
+              searchPhrase={playerNameQuery}
+              setSearchPhrase={setPlayerNameQuery}
             />
 
             <View
@@ -245,15 +239,20 @@ export default function Shop({ navigation }) {
               width: "90%",
             }}
           >
-            {opciones == 2 && <ButtonAddAuction triggerReload={triggerReload}/>}
-            <AuctionsList
-              auctions={auctions}
-              opciones={opciones}
-              paginate={paginate}
-              setPage={setPage}
-              nextPage={loadAuctionsList}
-              triggerReload={triggerReload}
-            />
+            {opciones == 2 && (
+              <ButtonAddAuction triggerReload={triggerReload} />
+            )}
+            {loading && <ActivityIndicator size="small" color="#E7484D" />}
+            {!loading && (
+              <AuctionsList
+                auctions={auctions}
+                opciones={opciones}
+                paginate={paginate}
+                setPage={setPage}
+                nextPage={loadAuctionsList}
+                triggerReload={triggerReload}
+              />
+            )}
           </View>
         </View>
       </View>

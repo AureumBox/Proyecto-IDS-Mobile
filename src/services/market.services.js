@@ -12,8 +12,8 @@ export const fetchAuctionsList = async (
   page = 0
 ) => {
   let queryString = "";
-  if (playerName) queryString += `&playername=${playerName}`;
-  if (team) queryString += `&teamname=${team}`;
+  if (playerName) queryString += `&playerName=${playerName}`;
+  if (team) queryString += `&teamId=${team}`;
   if (position) queryString += `&position=${position}`;
   if (page) queryString += `&page=${page}`;
 
@@ -27,6 +27,8 @@ export const fetchAuctionsList = async (
       }
     );
     if (!data?.success) throw new Error(data?.message);
+    console.log(`${BASE_URL}${eventId}/market?${queryString}`)
+    console.log(data)
     return data;
   } catch (e) {
     throw new Error(

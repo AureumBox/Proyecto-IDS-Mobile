@@ -25,7 +25,7 @@ export default function PlayersList({
       ListEmptyComponent={<Text>No se encontraron coincidencias</Text>}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       onEndReached={() => {
-        if (paginate?.page < paginate?.pages) {
+        if (paginate?.page < paginate?.pages -1) {
           setPage(paginate?.page + 1);
         }
       }}

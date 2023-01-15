@@ -39,7 +39,7 @@ export default function PlayerCardOG({ auctionData = {}, triggerReload }) {
   const positionSpa = {
     goalkeeper: "Arquero",
     defender: "Defensa",
-    midfielder: "Mediocam",
+    midfielder: "Medio Campo",
     forward: "Delantero",
   };
 

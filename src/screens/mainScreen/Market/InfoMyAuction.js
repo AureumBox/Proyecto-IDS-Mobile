@@ -45,7 +45,7 @@ export default function InfoMyAuction({
   const positionSpa = {
     goalkeeper: "Arquero",
     defender: "Defensa",
-    midfielder: "Mediocam",
+    midfielder: "Medio Campo",
     forward: "Delantero",
   };
 

@@ -19,6 +19,7 @@ import AuctionsList from "./AuctionsList";
 import * as fantasyServices from "../../../services/fantasy.services";
 import * as albumServices from "../../../services/inventory.services";
 import * as marketServices from "../../../services/market.services";
+import { ActivityIndicator } from "react-native-paper";
 
 export default function Bench({ onClick, setVisible, triggerReload }) {
   const [searchPhrase, setSearchPhrase] = useState("");
@@ -40,7 +41,7 @@ export default function Bench({ onClick, setVisible, triggerReload }) {
   const dataPosicion = [
     { key: "", value: "Posición" },
     { key: "forward", value: "Delantero" },
-    { key: "midfielder", value: "Mediocampista" },
+    { key: "midfielder", value: "Medio Campo" },
     { key: "defender", value: "Defensa" },
     { key: "goalkeeper", value: "Arquero" },
   ];
@@ -189,12 +190,15 @@ export default function Bench({ onClick, setVisible, triggerReload }) {
           />
         </View>
       </View>
-      <PlayersList
-        players={bench}
-        paginate={paginate}
-        setPage={setPage}
-        postAuction={postAuction}
-      />
+      {loading && <ActivityIndicator size="small" color="#E7484D" />}
+      {!loading && (
+        <PlayersList
+          players={bench}
+          paginate={paginate}
+          setPage={setPage}
+          postAuction={postAuction}
+        />
+      )}
     </View>
   );
 }

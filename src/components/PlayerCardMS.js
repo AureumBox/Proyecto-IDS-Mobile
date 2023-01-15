@@ -39,7 +39,7 @@ export default function PlayerCardMS({ auctionData = {} }) {
   const positionSpa = {
     goalkeeper: "Arquero",
     defender: "Defensa",
-    midfielder: "Mediocampista",
+    midfielder: "Medio Campo",
     forward: "Delantero",
   };
 
