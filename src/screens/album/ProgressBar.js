@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 		height: '50%',
 		backgroundColor: 'white',
 		borderRadius: 10,
-		overflow: "hidden"
+		overflow: 'hidden'
 	},
 	completedBar: {
 		height: '100%',
