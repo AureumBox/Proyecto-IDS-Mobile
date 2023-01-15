@@ -22,11 +22,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 import JugadorBra from "../../../../assets/app/bra_10.png";
 
-export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
-  
+export default function DirectBuy({
+  auctionData = {},
+  visible,
+  setVisible,
+  triggerReload,
+}) {
   const [auctionInfo, setAuctionInfo] = useState({});
   const [loading, setLoading] = useState(true);
-  
+
   const { token } = useSelector((state) => state.auth);
   const { money } = useSelector((state) => state.auth);
   const { currentEventId } = useSelector((state) => state.auth);
@@ -42,12 +46,13 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
         true
       );
       alert(data.message);
+      triggerReload();
     } catch (error) {
       // Toast.error(error.message);
       alert(error.message);
     } finally {
       setLoading(false);
-      setVisible(false)
+      setVisible(false);
     }
   };
 
@@ -73,7 +78,7 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
   }, [loadAuctionInfo]);
 
   return (
-    <>
+    <ModalMercado visible={visible}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}>
         <TouchableOpacity>
           <Ionicons
@@ -91,9 +96,14 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
       </LinearGradient>
       <View style={styles.circuloBlanco} />
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}>
-        <Image source={JugadorBra} style={styles.fotocirculo} />
+        <Image
+          source={{ uri: auctionData?.sticker?.img }}
+          style={styles.fotocirculo}
+        />
       </LinearGradient>
-      <Text style={styles.nombreJugador}>{auctionData?.sticker?.playerName}</Text>
+      <Text style={styles.nombreJugador}>
+        {auctionData?.sticker?.playerName}
+      </Text>
 
       <View style={{ width: "100%", height: 70, flexDirection: "row" }}>
         {/* Compra directa*/}
@@ -114,7 +124,9 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
             >
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.market?.immediatePurchaseValue}</Text>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
+              {auctionInfo?.market?.immediatePurchaseValue || "..."}
+            </Text>
           </View>
         </View>
 
@@ -136,7 +148,9 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
             >
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>{money - auctionInfo?.market?.immediatePurchaseValue}</Text>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
+              {money - auctionInfo?.market?.immediatePurchaseValue || "..."}
+            </Text>
           </View>
         </View>
       </View>
@@ -161,14 +175,12 @@ export default function DirectBuy({ auctionData = {}, visible, setVisible }) {
           colors={["#D13256", "#FE5F42"]}
           style={styles.editButtonacep}
         >
-          <TouchableOpacity
-            onPress={postBuy}
-          >
+          <TouchableOpacity onPress={postBuy}>
             <Text style={{ color: "#fff", fontWeight: "600" }}>Aceptar</Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>
-    </>
+    </ModalMercado>
   );
 }
 

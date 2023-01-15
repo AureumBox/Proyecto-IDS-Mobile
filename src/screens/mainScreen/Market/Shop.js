@@ -27,9 +27,10 @@ export default function Shop({ navigation }) {
   const { height, width } = Dimensions.get("window");
   const [visible, setVisible] = React.useState(false);
   const hideDialog = () => setVisible(false);
-  const [opciones, setOpciones] = useState(3);
+  const [opciones, setOpciones] = useState(1);
 
   const [loading, setLoading] = useState(1);
+  const [reload, setReload] = useState(false);
   const [teams, setTeams] = useState([]);
   const [paginate, setPaginate] = useState({});
   const [page, setPage] = useState(0);
@@ -43,12 +44,13 @@ export default function Shop({ navigation }) {
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
-  const eventId = 1;
   const { token } = useSelector((state) => state.auth);
+  const { currentEventId } = useSelector((state) => state.auth);
 
   //Select
-  const [selected, setSelected] = useState("");
   const [isFocus, setIsFocus] = useState(false);
+
+  
 
   const dataPosition = [
     { key: "", value: "Posición" },
@@ -58,8 +60,11 @@ export default function Shop({ navigation }) {
     { key: "goalkeeper", value: "Arquero" },
   ];
 
-  const [selectedE, setSelectedE] = useState("");
   const [isFocusE, setIsFocusE] = useState(false);
+
+  const triggerReload = () => {
+    setReload(!reload);
+  };
 
   const loadAuctionsList = useCallback(async () => {
     setLoading(true);
@@ -68,7 +73,7 @@ export default function Shop({ navigation }) {
       if (opciones == 1) {
         data = await marketServices.fetchAuctionsList(
           token,
-          eventId,
+          currentEventId,
           playerNameQuery,
           teamQuery,
           positionQuery,
@@ -77,7 +82,7 @@ export default function Shop({ navigation }) {
       } else if (opciones == 2) {
         data = await marketServices.fetchMyAuctionsList(
           token,
-          eventId,
+          currentEventId,
           teamQuery,
           positionQuery,
           playerNameQuery,
@@ -86,7 +91,7 @@ export default function Shop({ navigation }) {
       } else {
         data = await marketServices.fetchMyBidsList(
           token,
-          eventId,
+          currentEventId,
           /* playerNameQuery,
           teamQuery,
           positionQuery, */
@@ -106,7 +111,7 @@ export default function Shop({ navigation }) {
     } finally {
       setLoading(false);
     }
-  }, [opciones, page, teamQuery, positionQuery, playerNameQuery]);
+  }, [opciones, page, teamQuery, positionQuery, playerNameQuery, reload]);
   useEffect(() => {
     loadAuctionsList();
   }, [loadAuctionsList]);
@@ -114,7 +119,7 @@ export default function Shop({ navigation }) {
   const loadTeams = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await albumServices.fetchTeamsInfo(token, eventId);
+      const data = await albumServices.fetchTeamsInfo(token, currentEventId);
       let newArray = data?.items?.map((item, index) => {
         return { key: item?.name, value: item?.name };
       });
@@ -126,10 +131,12 @@ export default function Shop({ navigation }) {
     } finally {
       setLoading(false);
     }
-  }, [eventId]);
+  }, [currentEventId]);
   useEffect(() => {
     loadTeams();
   }, [loadTeams]);
+
+ 
 
   return (
     <View style={styles.fondo}>
@@ -238,13 +245,14 @@ export default function Shop({ navigation }) {
               width: "90%",
             }}
           >
-            {opciones == 2 && <ButtonAddAuction />}
+            {opciones == 2 && <ButtonAddAuction triggerReload={triggerReload}/>}
             <AuctionsList
               auctions={auctions}
               opciones={opciones}
               paginate={paginate}
               setPage={setPage}
               nextPage={loadAuctionsList}
+              triggerReload={triggerReload}
             />
           </View>
         </View>

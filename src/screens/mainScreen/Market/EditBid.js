@@ -33,7 +33,7 @@ const convertTime = (finishDate) => {
   return hours + "h " + minutes + "m";
 };
 
-export default function EditBid({ auctionData = {}, setVisible }) {
+export default function EditBid({ auctionData = {}, setVisible, visible }) {
   const { height, width } = Dimensions.get("window");
   const { token } = useSelector((state) => state.auth);
   const { money } = useSelector((state) => state.auth);
@@ -57,7 +57,7 @@ export default function EditBid({ auctionData = {}, setVisible }) {
         currentEventId,
         auctionInfo?.market?.id,
         bid,
-        auctionInfo?.myLastBid?.id,
+        auctionInfo?.myLastBid?.id
       );
       alert(data.message);
       setVisible(false);
@@ -91,7 +91,7 @@ export default function EditBid({ auctionData = {}, setVisible }) {
   }, [loadAuctionInfo]);
 
   return (
-    <>
+    <ModalMercado visible={visible}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}>
         <TouchableOpacity>
           <Ionicons
@@ -262,7 +262,7 @@ export default function EditBid({ auctionData = {}, setVisible }) {
           </TouchableOpacity>
         </LinearGradient>
       </View>
-    </>
+    </ModalMercado>
   );
 }
 

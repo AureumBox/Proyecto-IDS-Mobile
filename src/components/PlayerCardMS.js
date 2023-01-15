@@ -16,7 +16,7 @@ import JugadorBra from "../../assets/app/bra_10.png";
 import MoneyIcon from "../../assets/app/moneyIcon.png";
 import Reloj from "../../assets/app/reloj.png";
 import Bra from "../../assets/app/bra.png";
-import InfoMyAuction from "../screens/mainScreen/Market/InfoMyAuction"
+import InfoMyAuction from "../screens/mainScreen/Market/InfoMyAuction";
 import { ModalMercado } from "./ModalMercado";
 
 export default function PlayerCardMS({ auctionData = {} }) {
@@ -28,18 +28,18 @@ export default function PlayerCardMS({ auctionData = {} }) {
   const convertTime = (finishDate) => {
     const actual = new Date(Date.now());
     const end = new Date(Date.parse(finishDate));
-  
+
     let minutes = Math.floor((end - actual) / 60000);
     const hours = Math.floor(minutes / 60);
     minutes = minutes % 60;
-  
+
     return hours + "h " + minutes + "m";
   };
 
   const positionSpa = {
     goalkeeper: "Arquero",
     defender: "Defensa",
-    midfielder: "Mediocam",
+    midfielder: "Mediocampista",
     forward: "Delantero",
   };
 
@@ -47,10 +47,15 @@ export default function PlayerCardMS({ auctionData = {} }) {
     <View style={styles.card}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.imgCard}>
         <View style={styles.containerPlayerName}>
-          <Text style={styles.playerName}>Neymar Jr</Text>
+          <Text style={styles.playerName}>
+            {auctionData?.sticker?.playerName}
+          </Text>
         </View>
         <View>
-          <Image style={styles.imagePlayer} source={{ uri: auctionData?.sticker?.img }} />
+          <Image
+            style={styles.imagePlayer}
+            source={{ uri: auctionData?.sticker?.img }}
+          />
         </View>
       </LinearGradient>
       <View>
@@ -65,7 +70,9 @@ export default function PlayerCardMS({ auctionData = {} }) {
             colors={["#D13256", "#FE5F42"]}
             style={{ borderRadius: 10, marginLeft: 25 }}
           >
-            <Text style={styles.posiciontext}>{positionSpa[auctionData?.sticker?.position]}</Text>
+            <Text style={styles.posiciontext}>
+              {positionSpa[auctionData?.sticker?.position]}
+            </Text>
           </LinearGradient>
         </View>
         <View
@@ -80,11 +87,15 @@ export default function PlayerCardMS({ auctionData = {} }) {
             style={{ height: 22, width: 22, marginRight: 3, marginLeft: 3 }}
             source={MoneyIcon}
           />
-          <Text style={styles.textCard}>{auctionData?.initialPurchaseValue}</Text>
+          <Text style={styles.textCard}>
+            {auctionData?.initialPurchaseValue}
+          </Text>
         </View>
         <View style={{ flexDirection: "row", margin: 3 }}>
           <Ionicons name={"time-outline"} color={"black"} size={22} />
-          <Text style={styles.textCard}>{convertTime(auctionData?.finishDate)}</Text>
+          <Text style={styles.textCard}>
+            {convertTime(auctionData?.finishDate)}
+          </Text>
         </View>
       </View>
       <View
@@ -107,7 +118,13 @@ export default function PlayerCardMS({ auctionData = {} }) {
       </View>
 
       {/* Modal ver información*/}
-      {(visible) && <InfoMyAuction auctionData={auctionData} setVisible={setVisible} visible={visible}></InfoMyAuction>}
+      {visible && (
+        <InfoMyAuction
+          auctionData={auctionData}
+          setVisible={setVisible}
+          visible={visible}
+        />
+      )}
     </View>
   );
 }

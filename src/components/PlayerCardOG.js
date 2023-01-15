@@ -28,7 +28,7 @@ const convertTime = (finishDate) => {
   return hours + "h " + minutes + "m";
 };
 
-export default function PlayerCardOG({ auctionData = {} }) {
+export default function PlayerCardOG({ auctionData = {}, triggerReload }) {
   const { height, width } = Dimensions.get("window");
 
   //Visible Modal Ofertas Globales - Ofertar
@@ -136,11 +136,21 @@ export default function PlayerCardOG({ auctionData = {} }) {
         </View>
       </View>
 
-      {visible && <CreateBid visible={visible} setVisible={setVisible} auctionData={auctionData}/>}
+      {visible && (
+        <CreateBid
+          visible={visible}
+          setVisible={setVisible}
+          auctionData={auctionData}
+          triggerReload={triggerReload}
+        />
+      )}
       {visibleBuy && (
-        <ModalMercado visible={visibleBuy}>
-          <DirectBuy setVisible={setVisibleBuy} auctionData={auctionData}/>
-        </ModalMercado>
+        <DirectBuy
+          setVisible={setVisibleBuy}
+          visible={visibleBuy}
+          auctionData={auctionData}
+          triggerReload={triggerReload}
+        />
       )}
     </>
   );

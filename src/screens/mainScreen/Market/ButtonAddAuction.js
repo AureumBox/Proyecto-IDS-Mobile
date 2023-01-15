@@ -32,7 +32,7 @@ const dataEquipos = [
   { key: "5", value: "Brazil" },
 ];
 
-export default function ButtonAddAuction({ onClick }) {
+export default function ButtonAddAuction({ triggerReload }) {
   const [visible, setVisible] = useState(false);
 
   const [selected, setSelected] = useState("");
@@ -44,7 +44,7 @@ export default function ButtonAddAuction({ onClick }) {
     <View style={styles.shadow}>
       {/* ni bro */}
       <ModalBanca visible={visible}>
-        <Bench setVisible={setVisible}/>
+        <Bench setVisible={setVisible} triggerReload={triggerReload}/>
       </ModalBanca>
 
       <TouchableOpacity

@@ -33,7 +33,12 @@ const convertTime = (finishDate) => {
   return hours + "h " + minutes + "m";
 };
 
-export default function CreateBid({ auctionData = {}, visible, setVisible }) {
+export default function CreateBid({
+  auctionData = {},
+  visible,
+  setVisible,
+  triggerReload,
+}) {
   const { height, width } = Dimensions.get("window");
   const { token } = useSelector((state) => state.auth);
   const { money } = useSelector((state) => state.auth);
@@ -45,14 +50,21 @@ export default function CreateBid({ auctionData = {}, visible, setVisible }) {
   const postBid = async () => {
     setLoading(true);
     try {
-      const data = await marketServices.postBid(token, currentEventId, bid + auctionInfo?.highestBid?.value, auctionData?.id, false);
-      alert(data.message)
+      const data = await marketServices.postBid(
+        token,
+        currentEventId,
+        bid + auctionInfo?.highestBid?.value,
+        auctionData?.id,
+        false
+      );
+      alert(data.message);
+      triggerReload();
     } catch (error) {
       // Toast.error(error.message);
       alert(error.message);
     } finally {
       setLoading(false);
-      setVisible(false)
+      setVisible(false);
     }
   };
 
@@ -125,7 +137,9 @@ export default function CreateBid({ auctionData = {}, visible, setVisible }) {
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
             <Text style={{ fontWeight: "600", marginLeft: 2 }}>
-              {auctionInfo?.highestBid?.value}
+              {auctionInfo?.highestBid?.value ||
+                auctionInfo?.market?.initialPurchaseValue ||
+                "..."}
             </Text>
           </View>
         </View>
@@ -158,7 +172,11 @@ export default function CreateBid({ auctionData = {}, visible, setVisible }) {
             }}
           >
             {" "}
-            (+ ${auctionInfo?.highestBid?.value})
+            (+ $
+            {auctionInfo?.highestBid?.value ||
+              auctionInfo?.market?.initialPurchaseValue ||
+              "..."}
+            )
           </Text>
         </View>
       </View>
@@ -182,7 +200,7 @@ export default function CreateBid({ auctionData = {}, visible, setVisible }) {
             <MaterialIcons name="attach-money" size={18} color="white" />
           </LinearGradient>
           <Text style={{ fontWeight: "600", marginLeft: 2 }}>
-            {money - bid - auctionInfo?.highestBid?.value}
+            {bid ? money - bid - auctionData?.initialPurchaseValue : money}
           </Text>
         </View>
       </View>

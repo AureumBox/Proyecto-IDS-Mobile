@@ -17,6 +17,7 @@ export default function AuctionsList({
   opciones = 1,
   paginate = {},
   setPage = 0,
+  triggerReload,
 }) {
   return (
     <>
@@ -34,9 +35,9 @@ export default function AuctionsList({
           }
         }}
         renderItem={({ item }) => {
-          if (opciones == 1) return <PlayerCardOG auctionData={item} />;
+          if (opciones == 1) return <PlayerCardOG auctionData={item} triggerReload={triggerReload} />;
           if (opciones == 2) return <PlayerCardMS auctionData={item} />;
-          if (opciones == 3) return <PlayerCardMO auctionData={item} />;
+          if (opciones == 3) return <PlayerCardMO auctionData={item} triggerReload={triggerReload}/>;
         }}
       />
     </>

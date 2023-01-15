@@ -20,7 +20,7 @@ import * as fantasyServices from "../../../services/fantasy.services";
 import * as albumServices from "../../../services/inventory.services";
 import * as marketServices from "../../../services/market.services";
 
-export default function Bench({ onClick, setVisible }) {
+export default function Bench({ onClick, setVisible, triggerReload }) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [isFocus, setIsFocus] = useState(false);
   const [isFocusE, setIsFocusE] = useState(false);
@@ -111,11 +111,12 @@ export default function Bench({ onClick, setVisible }) {
         playerId
       );
       alert(data.message);
+      triggerReload();
+      loadBench();
     } catch (error) {
       // Toast.error(error.message);
       alert(error.message);
     } finally {
-      loadBench();
       setLoading(false);
       setVisible(false);
     }

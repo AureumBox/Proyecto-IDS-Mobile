@@ -132,13 +132,21 @@ export default function PlayerCardMO({ auctionData = {} }) {
         </View>
       </View>
 
-      <ModalMercado visible={visibleEdit}>
-        <EditBid setVisible={setVisibleEdit} auctionData={auctionData} />
-      </ModalMercado>
+      {visibleEdit && (
+        <EditBid
+          setVisible={setVisibleEdit}
+          visible={visibleEdit}
+          auctionData={auctionData}
+        />
+      )}
 
-      <ModalMercado visible={visibleBuy}>
-        <DirectBuy setVisible={setVisibleBuy} auctionData={auctionData} />
-      </ModalMercado>
+      {visibleBuy && (
+        <DirectBuy
+          setVisible={setVisibleBuy}
+          visible={visibleBuy}
+          auctionData={auctionData}
+        />
+      )}
     </>
   );
 }
