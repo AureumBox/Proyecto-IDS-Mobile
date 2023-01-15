@@ -224,10 +224,12 @@ export default function Fantasy() {
 
 				{opciones == 3 ? (
 					<>
-						<View style={{flex: 0.85, flexDirection: 'column', alignItems: 'center', marginLeft: '8%'}}>
-						<ScrollView>
+						<View style={styles.Ranking}>
+						
 							<RankingCard positionRanking={positionRanking} userRanking={userRanking} userPoints={userPoints} />
 							<View style={styles.containerRanking} />
+							<ScrollView>
+							<View style={{marginLeft: '8%'}}>
 							<RankingCard positionRanking={1} userRanking={'michi'} userPoints={1700} />
 							<RankingCard positionRanking={2} userRanking={'prueba'} userPoints={1500} />
 							<RankingCard positionRanking={3} userRanking={'Enzo'} userPoints={1400} />
@@ -235,6 +237,7 @@ export default function Fantasy() {
 							<RankingCard positionRanking={5} userRanking={'Panda'} userPoints={900} />
 							<RankingCard positionRanking={6} userRanking={'Delfin'} userPoints={800} />
 							<RankingCard positionRanking={7} userRanking={'León'} userPoints={700} />
+							</View>	
 						</ScrollView>
 						</View>
 					</>
@@ -340,5 +343,10 @@ const styles = StyleSheet.create({
 		height: 2,
 		marginTop: 15,
 		marginBottom: 15
+	},
+	Ranking:{
+		flex: 0.85, 
+		flexDirection: 'column', 
+		alignItems: 'center'
 	}
 });
