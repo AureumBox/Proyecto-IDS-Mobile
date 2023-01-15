@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
-import EmptyPlayerImg from '../../../assets/app/EmptyPlayer.png'
+import EmptyPlayerImg from '../../../../assets/app/EmptyPlayer.png'
 
 export default function EmptyPlayer({ position, insertPlayer }) {
 	const positionSpa = {

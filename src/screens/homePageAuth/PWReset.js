@@ -35,7 +35,7 @@ export default function PWReset({ navigation }) {
 						<Ionicons
 							name="lock-closed-outline"
 							size={24}
-							color="#E7484D"
+							color="#808080"
 							style={styles.inputIcon}
 						/>
 						<TextInput
@@ -51,7 +51,7 @@ export default function PWReset({ navigation }) {
 							<Ionicons
 								name={showPass === false ? 'eye-outline' : 'eye-off-outline'}
 								size={26}
-								color='#E7484D'
+								color='#808080'
 							/>
 						</TouchableOpacity>
 					</View>
@@ -59,7 +59,7 @@ export default function PWReset({ navigation }) {
 						<Ionicons
 							name="lock-closed-outline"
 							size={24}
-							color="#E7484D"
+							color="#808080"
 							style={styles.inputIcon}
 						/>
 						<TextInput
@@ -75,7 +75,7 @@ export default function PWReset({ navigation }) {
 							<Ionicons
 								name={showConf === false ? 'eye-outline' : 'eye-off-outline'}
 								size={26}
-								color='#E7484D'
+								color='#808080'
 							/>
 						</TouchableOpacity>
 					</View>
@@ -99,23 +99,23 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: '100%',
 		alignItems: 'center',
-		justifyContent: 'center',
 		backgroundColor: '#FFFFFF'
 	},
 	imageContainer: {
-		width: width,
 		height: height * 0.3,
+		width: width,
 		backgroundColor: '#EAEAEA',
 		justifyContent: 'center',
 		borderBottomLeftRadius: 25,
 		borderBottomRightRadius: 25
 	},
 	contentContainer: {
-		paddingHorizontal: 30,
-		marginTop: 30
+		flex: 0.7,
+		width: '100%',
+		paddingHorizontal: 30
 	},
 	logoSt: {
-		height: '100%',
+		height: height * 0.3,
 		width: '100%',
 		alignSelf: 'center',
 		resizeMode: 'contain'
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		marginBottom: 20,
 		justifyContent: 'center',
-		borderColor: '#E7484D',
+		borderColor: '#808080',
 		borderBottomWidth: 1,
 		borderTopWidth: 0,
 		borderLeftWidth: 0,

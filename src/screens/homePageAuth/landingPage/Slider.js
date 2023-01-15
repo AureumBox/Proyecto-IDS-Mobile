@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, FlatList, Animated } from 'react-native';
+import { View, StyleSheet, FlatList, Animated, SafeAreaView } from 'react-native';
 
 import SliderItem from './SliderItem'
 import Paginator from './Paginator'
-import SliderContent from './SliderContent';
+import SliderContent from '../../../../assets/app/landingPage';
 
 export default function Slider() {
 	const [currentIndex, setCurrentIndex] = useState(0)
@@ -17,8 +17,8 @@ export default function Slider() {
 	const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
 	return (
-		<View style={styles.container}>
-			<View style={{ flex: 3 }}>
+		<SafeAreaView style={styles.container}>
+			<View style={{ flex: 1 }}>
 				<FlatList
 					data={SliderContent}
 					renderItem={({ item }) => <SliderItem item={item} />}
@@ -37,13 +37,13 @@ export default function Slider() {
 				/>
 			</View>
 			<Paginator data={SliderContent} scrollX={scrollX} />
-		</View>
+		</SafeAreaView>
 	)
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 0.9,
+		flex: 0.75,
 		justifyContent: 'center',
 		alignItems: 'center'
 	}

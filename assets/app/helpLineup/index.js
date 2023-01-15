@@ -1,7 +1,7 @@
 export default [
 	{
 		id: '1',
-		description: 'Para agregar a un jugador a tu alineación deberás entrar en el Almacén desde el botón de abajo',
+		description: 'Para agregar a un jugador a tu alineación deberás entrar en la plantilla desde el botón en la cabecera',
 		image: require('./h1.png')
 	},
 	{

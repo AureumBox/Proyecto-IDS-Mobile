@@ -1,7 +1,7 @@
 export default [
 	{
 		id: '1',
-		description: 'En tu almacén verás los jugadores que están en tu alineación y en tu banca',
+		description: 'En tu plantilla verás los jugadores que están en tu alineación y en tu banca',
 		image: require('./h1.png')
 	},
 	{
