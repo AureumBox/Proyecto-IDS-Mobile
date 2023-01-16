@@ -19,7 +19,6 @@ function colorMedalla (positionRanking){
 }
 
 export default function RankingCard({positionRanking, userRanking, userPoints, isUser = false}){
-console.log(positionRanking)
     return(
     <View>
         <View style={styles.containerPosition}>

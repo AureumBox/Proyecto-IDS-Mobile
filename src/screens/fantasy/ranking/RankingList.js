@@ -120,7 +120,7 @@ export default function RankingList({
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
-      data={data}
+      data={ranking}
       keyExtractor={(_, index) => index.toString()}
       ListEmptyComponent={<Text>Ranking vacio</Text>}
       contentContainerStyle={{ width: "100%", alignSelf: "center" }}

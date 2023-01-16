@@ -116,56 +116,6 @@ export const removePlayer = async (token, eventId, playerId) => {
   }
 };
 
-/* const loadAuctionsList = useCallback(async () => {
-    setLoading(true);
-    try {
-      let data;
-      if (opciones == 1) {
-        data = await marketServices.fetchAuctionsList(
-          token,
-          currentEventId,
-          playerNameQuery,
-          teamQuery,
-          positionQuery,
-          page
-        );
-      } else if (opciones == 2) {
-        data = await marketServices.fetchMyAuctionsList(
-          token,
-          currentEventId,
-          teamQuery,
-          positionQuery,
-          playerNameQuery,
-          page
-        );
-      } else {
-        data = await marketServices.fetchMyBidsList(
-          token,
-          currentEventId,
-          /* playerNameQuery,
-          teamQuery,
-          positionQuery, 
-          page
-        );
-      }
-
-      if (page != 0) {
-        setAuctions((auctions) => auctions.concat(data?.items));
-      } else {
-        setAuctions(data?.items);
-      }
-      setPaginate(data?.paginate);
-    } catch (error) {
-      // Toast.error(error.message);
-      alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [opciones, page, teamQuery, positionQuery, playerNameQuery, reload]);
-  useEffect(() => {
-    loadAuctionsList();
-  }, [loadAuctionsList]); */
-
 export const fetchRanking = async (token, eventId, page = 0) => {
   let queryString = "";
   if (page) queryString += `&page=${page}`;
@@ -181,8 +131,6 @@ export const fetchRanking = async (token, eventId, page = 0) => {
     if (!data.items || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
-
-    console.log(data) 
     
     return data;
   } catch (error) {
