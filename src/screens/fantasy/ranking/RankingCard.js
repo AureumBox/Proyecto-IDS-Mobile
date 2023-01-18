@@ -18,8 +18,7 @@ function colorMedalla (positionRanking){
     return '#3D405B';
 }
 
-export default function RankingCard({positionRanking, userRanking, userPoints}){
-
+export default function RankingCard({positionRanking, userRanking, userPoints, isUser = false}){
     return(
     <View>
         <View style={styles.containerPosition}>
@@ -28,7 +27,7 @@ export default function RankingCard({positionRanking, userRanking, userPoints}){
                     {positionRanking == 1 ? ( <MaterialCommunityIcons name="medal-outline" size={35} color={colorMedalla(positionRanking)} /> ): null}   
                     {positionRanking == 2 ? ( <MaterialCommunityIcons name="medal-outline" size={35} color={colorMedalla(positionRanking)} /> ): null}    
                     {positionRanking == 3 ? ( <MaterialCommunityIcons name="medal-outline" size={35} color={colorMedalla(positionRanking)} /> ): null}    
-                    {positionRanking > 3 ? ( <Entypo name="star" size={35} color={colorMedalla(positionRanking)} /> ): null}     
+                    {(isUser) ? ( <Entypo name="star" size={35} color={colorMedalla(positionRanking)} /> ): null}     
                 </View>	
                 <View style={styles.infoUser}>
                     <Text style={styles.text}>{userRanking}</Text>

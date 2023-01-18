@@ -18,6 +18,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { login } from "../../services/auth.services";
 import { logIn as logInRedux } from '../../state/authSlice.js';
+import { setUsername } from '../../state/authSlice.js';
 import logoImg from '../../../assets/app/logoVertical.png'
 
 const { width, height } = Dimensions.get('window');
@@ -36,6 +37,7 @@ export default function LogIn({ navigation }) {
 			setLoading(false);
 			if (result.data.item.token) {
 				dispatch(logInRedux(result.data.item.token));
+				dispatch(setUsername(result.data.item.user.name));
 				navigation.navigate('BottomNavBar');
 			}
 		} catch (error) {

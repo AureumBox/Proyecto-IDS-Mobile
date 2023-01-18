@@ -115,3 +115,30 @@ export const removePlayer = async (token, eventId, playerId) => {
     throw error;
   }
 };
+
+export const fetchRanking = async (token, eventId, page = 0) => {
+  let queryString = "";
+  if (page) queryString += `&page=${page}`;
+
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}public-events/${eventId}/ranking?${queryString}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    if (!data.items || !data.success) {
+      throw new Error("No se han recibido bien los datos del servidor :(");
+    }
+    
+    return data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data?.message || "Error desconocido del servidor"
+      );
+    }
+    throw error;
+  }
+};
