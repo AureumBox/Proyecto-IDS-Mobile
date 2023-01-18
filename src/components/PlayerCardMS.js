@@ -130,6 +130,15 @@ export default function PlayerCardMS({ auctionData = {} }) {
 }
 
 const styles = StyleSheet.create({
+	card: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    width: "100%",
+    height: 115,
+    position: "relative",
+    flexDirection: "row",
+    marginTop: 10,
+  },
   fondoModal: {
     width: "100%",
     height: 85,
@@ -303,15 +312,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 14,
     color: "#FFFFFF",
-  },
-  card: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: "100%",
-    height: 115,
-    position: "relative",
-    flexDirection: "row",
-    marginTop: 10,
   },
   imgCard: {
     height: "100%",

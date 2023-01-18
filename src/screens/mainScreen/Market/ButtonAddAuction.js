@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   textAñadir: {
     fontWeight: "bold",
-    fontSize: 12,
+    fontSize: 14,
     lineHeight: 18,
     color: "white",
     textAlign: "left",

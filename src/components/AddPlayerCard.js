@@ -21,7 +21,7 @@ export default function AddPlayerCard({ player = {}, postAuction }) {
   const positionSpa = {
     goalkeeper: "Arquero",
     defender: "Defensa",
-    midfielder: "Medio Campo",
+    midfielder: "Medio Campista",
     forward: "Delantero",
   };
 

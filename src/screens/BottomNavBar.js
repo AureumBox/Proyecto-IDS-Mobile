@@ -8,8 +8,9 @@ import { Dimensions } from 'react-native';
 import Home from './mainScreen/Home';
 import AlbumNavigator from './mainScreen/Album/AlbumNavigator';
 import Fantasy from './mainScreen/Fantasy';
-import Shop from './mainScreen/Market/Shop';
-import Profile from './mainScreen/Profile';
+import Shop from './mainScreen/Market';
+
+import Header from '../components/HeaderComponent'
 
 const { height } = Dimensions.get('window')
 const Tab = createBottomTabNavigator();
@@ -31,15 +32,15 @@ export default function BottomNavBar({ navigation }) {
                             iconName = focused ? 'football' : 'football-outline'
                         } else if (rn === 'Shop') {
                             iconName = focused ? 'basket' : 'basket-outline'
-                        } else if (rn === 'Profile') {
-                            iconName = focused ? 'person' : 'person-outline'
                         }
 
                         return <Ionicons name={iconName} color={color} size={45} />
                     },
-                    headerShown: false,
+                    headerTitle: () => <Header/>,
+                    headerBackVisible: false,
+                    headerBackTitleVisible: false,
                     tabBarShowLabel: false,
-                    tabBarActiveTintColor: '#C10001',
+                    tabBarActiveTintColor: '#E7484D',
                     tabBarInactiveTintColor: 'grey',
                     tabBarStyle: { padding: 0, height: height / 10 }
                 })}>
@@ -47,7 +48,6 @@ export default function BottomNavBar({ navigation }) {
                 <Tab.Screen name='AlbumNavigator' component={AlbumNavigator} />
                 <Tab.Screen name='Fantasy' component={Fantasy} />
                 <Tab.Screen name='Shop' component={Shop} />
-                <Tab.Screen name='Profile' component={Profile} />
             </Tab.Navigator>
         </NavigationContainer>
     )
