@@ -11,16 +11,10 @@ import {
 
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { ModalMercado } from "../../../components/ModalMercado";
+import { ModalMercado } from "../../../../components/ModalMercado";
 
-import * as marketServices from "../../../services/market.services";
+import * as marketServices from "../../../../services/market.services";
 import { useDispatch, useSelector } from "react-redux";
-
-{
-  /* <Ionicons name={"time-outline"} color={"black"} size={22} /> */
-}
-
-import JugadorBra from "../../../../assets/app/bra_10.png";
 
 const convertTime = (finishDate) => {
   const actual = new Date(Date.now());
@@ -33,7 +27,11 @@ const convertTime = (finishDate) => {
   return hours + "h " + minutes + "m";
 };
 
-export default function EditBid({ auctionData = {}, setVisible, visible }) {
+export default function InfoMyAuction({
+  auctionData = {},
+  setVisible,
+  visible,
+}) {
   const { height, width } = Dimensions.get("window");
   const { token } = useSelector((state) => state.auth);
   const { money } = useSelector((state) => state.auth);
@@ -75,7 +73,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
       const data = await marketServices.fetchAuctionInfo(
         token,
         currentEventId,
-        auctionData?.market?.id
+        auctionData?.id
       );
 
       setAuctionInfo(data.item);
@@ -109,17 +107,14 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
       </LinearGradient>
       <View style={styles.circuloBlanco} />
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}>
-        <Image
-          source={{ uri: auctionData?.market?.sticker?.img }}
-          style={styles.fotocirculo}
-        />
+        <Image source={{uri: auctionData?.sticker?.img}} style={styles.fotocirculo} />
       </LinearGradient>
       <Text style={styles.nombreJugador}>
-        {auctionData?.market?.sticker?.playerName}
+        {auctionData?.sticker?.playerName}
       </Text>
 
       <View style={{ width: "100%", height: 70, flexDirection: "row" }}>
-        {/* Anterior oferta*/}
+        {/* Precio inicial*/}
         <View
           style={{
             width: "50%",
@@ -129,7 +124,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
             justifyContent: "center",
           }}
         >
-          <Text style={styles.subtexto}>Mi anterior oferta</Text>
+          <Text style={styles.subtexto}>Precio inicial</Text>
           <View style={styles.containerDinero}>
             <LinearGradient
               colors={["#D13256", "#FE5F42"]}
@@ -137,13 +132,11 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
             >
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
-              {auctionInfo?.myLastBid?.value}
-            </Text>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.market?.initialPurchaseValue}</Text>
           </View>
         </View>
 
-        {/* Oferta actual*/}
+        {/* Compra directa*/}
         <View
           style={{
             width: "50%",
@@ -153,7 +146,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
             justifyContent: "center",
           }}
         >
-          <Text style={styles.subtexto}>Oferta ganadora actual</Text>
+          <Text style={styles.subtexto}>Precio de compra directa</Text>
           <View style={styles.containerDinero}>
             <LinearGradient
               colors={["#D13256", "#FE5F42"]}
@@ -161,79 +154,34 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
             >
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
-              {auctionInfo?.highestBid?.value}
-            </Text>
+            <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.market?.immediatePurchaseValue}</Text>
           </View>
         </View>
       </View>
 
+      {/* Oferta actual */}
       <View
         style={{
           width: "100%",
           height: 70,
-          flexDirection: "row",
-          marginTop: 16,
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {/* Nueva oferta*/}
-        <View
-          style={{
-            width: "50%",
-            height: 70,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={styles.subtexto}>Mi nueva oferta</Text>
-          <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.money}>
-            <TextInput
-              style={styles.oferta}
-              keyboardType={"numeric"}
-              value={bid}
-              onChangeText={(text) => setBid(text)}
-            />
-          </LinearGradient>
-          <Text
-            style={{
-              fontSize: 9,
-              color: "#00DB71",
-              fontWeight: "700",
-              marginTop: 3,
-            }}
+        <Text style={styles.subtexto}>Oferta ganadora actual</Text>
+        <View style={styles.containerDinero}>
+          <LinearGradient
+            colors={["#D13256", "#FE5F42"]}
+            style={styles.moneyCoin}
           >
-            {" "}
-            (+ ${auctionInfo?.highestBid?.value})
-          </Text>
-        </View>
-
-        {/* Saldo restante*/}
-        <View
-          style={{
-            width: "50%",
-            height: 70,
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={styles.subtexto}>Saldo luego de la operación</Text>
-          <View style={styles.containerDinero}>
-            <LinearGradient
-              colors={["#D13256", "#FE5F42"]}
-              style={styles.moneyCoin}
-            >
-              <MaterialIcons name="attach-money" size={18} color="white" />
-            </LinearGradient>
-            <Text style={{ fontWeight: "600", marginLeft: 2 }}>
-              {money - auctionInfo?.highestBid?.value - bid}
-            </Text>
-          </View>
+            <MaterialIcons name="attach-money" size={18} color="white" />
+          </LinearGradient>
+          <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.highestBid || "-"}</Text>
         </View>
       </View>
 
-      {/* Botones */}
+      {/* Botones*/}
       <View style={styles.containerButtons}>
         <LinearGradient
           colors={["#D13256", "#FE5F42"]}
@@ -255,7 +203,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
         >
           <TouchableOpacity
             onPress={() => {
-              editBid(false);
+              setVisible(false);
             }}
           >
             <Text style={{ color: "#fff", fontWeight: "600" }}>Aceptar</Text>
@@ -275,28 +223,30 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   circuloBlanco: {
-    height: 120,
     width: 120,
+    height: 120,
     borderRadius: 60,
-    backgroundColor: "white",
     alignSelf: "center",
     position: "absolute",
-    zIndex: 1,
+		borderWidth: 7,
+		borderColor: 'white',
+		zIndex: 999,
     marginTop: 15,
   },
   circuloDeg: {
-    height: 110,
     width: 110,
+    height: 110,
     borderRadius: 60,
     alignSelf: "center",
     position: "absolute",
-    zIndex: 1,
     marginTop: 20,
   },
   fotocirculo: {
+		width: '99%',
+		height: '99%',
     resizeMode: "contain",
-    height: 115,
     alignSelf: "center",
+		overflow: 'hidden'
   },
   subtexto: {
     fontSize: 11,

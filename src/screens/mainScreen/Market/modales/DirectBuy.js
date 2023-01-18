@@ -11,16 +11,14 @@ import {
 
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import { ModalMercado } from "../../../components/ModalMercado";
+import { ModalMercado } from "../../../../components/ModalMercado";
 
-import * as marketServices from "../../../services/market.services";
+import * as marketServices from "../../../../services/market.services";
 import { useDispatch, useSelector } from "react-redux";
 
 {
   /* <Ionicons name={"time-outline"} color={"black"} size={22} /> */
 }
-
-import JugadorBra from "../../../../assets/app/bra_10.png";
 
 export default function DirectBuy({
   auctionData = {},
@@ -94,15 +92,17 @@ export default function DirectBuy({
           />
         </TouchableOpacity>
       </LinearGradient>
+
       <View style={styles.circuloBlanco} />
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}>
         <Image
-          source={{ uri: auctionData?.sticker?.img }}
+          source={{ uri: auctionData?.market?.sticker?.img }}
           style={styles.fotocirculo}
         />
       </LinearGradient>
+
       <Text style={styles.nombreJugador}>
-        {auctionData?.sticker?.playerName}
+        {auctionData?.market?.sticker?.playerName}
       </Text>
 
       <View style={{ width: "100%", height: 70, flexDirection: "row" }}>
@@ -193,28 +193,30 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   circuloBlanco: {
-    height: 120,
     width: 120,
+    height: 120,
     borderRadius: 60,
-    backgroundColor: "white",
     alignSelf: "center",
     position: "absolute",
-    zIndex: 1,
+		borderWidth: 7,
+		borderColor: 'white',
+		zIndex: 999,
     marginTop: 15,
   },
   circuloDeg: {
-    height: 110,
     width: 110,
+    height: 110,
     borderRadius: 60,
     alignSelf: "center",
     position: "absolute",
-    zIndex: 1,
     marginTop: 20,
   },
   fotocirculo: {
+		width: '99%',
+		height: '99%',
     resizeMode: "contain",
-    height: 115,
     alignSelf: "center",
+		overflow: 'hidden'
   },
   subtexto: {
     fontSize: 11,

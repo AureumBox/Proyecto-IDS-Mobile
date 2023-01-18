@@ -7,20 +7,14 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+	ImageBackground,
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import Icon from "react-native-remix-icon";
-import { ModalMercado } from "../../../components/ModalMercado";
-import * as marketServices from "../../../services/market.services";
+import { ModalPopup } from "../../../../components/ModalPopup";
+import * as marketServices from "../../../../services/market.services";
 import { useDispatch, useSelector } from "react-redux";
-
-{
-  /* <Ionicons name={"time-outline"} color={"black"} size={22} /> */
-}
-
-import JugadorBra from "../../../../assets/app/bra_10.png";
 
 const convertTime = (finishDate) => {
   const actual = new Date(Date.now());
@@ -90,7 +84,7 @@ export default function CreateBid({
   }, [loadAuctionsInfo]);
 
   return (
-    <ModalMercado visible={visible}>
+    <ModalPopup visible={visible}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}>
         <TouchableOpacity>
           <Ionicons
@@ -232,7 +226,7 @@ export default function CreateBid({
           </TouchableOpacity>
         </LinearGradient>
       </View>
-    </ModalMercado>
+    </ModalPopup>
   );
 }
 
@@ -242,31 +236,33 @@ const styles = StyleSheet.create({
     height: 85,
     alignSelf: "center",
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopRightRadius: 20
   },
   circuloBlanco: {
-    height: 120,
     width: 120,
+    height: 120,
     borderRadius: 60,
-    backgroundColor: "white",
     alignSelf: "center",
     position: "absolute",
-    zIndex: 1,
+		borderWidth: 7,
+		borderColor: 'white',
+		zIndex: 999,
     marginTop: 15,
   },
   circuloDeg: {
-    height: 110,
     width: 110,
+    height: 110,
     borderRadius: 60,
     alignSelf: "center",
     position: "absolute",
-    zIndex: 1,
     marginTop: 20,
   },
   fotocirculo: {
+		width: '99%',
+		height: '99%',
     resizeMode: "contain",
-    height: 115,
     alignSelf: "center",
+		overflow: 'hidden'
   },
   subtexto: {
     fontSize: 11,

@@ -1,12 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react";
-import axios from "axios";
 import {
 	StyleSheet,
 	Text,
 	View,
 	Dimensions,
-	TouchableOpacity,
-	ScrollView,
+	TouchableOpacity
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,14 +12,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import Container, { Toast } from "toastify-react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { Entypo } from "@expo/vector-icons";
-import Spinner from "react-native-loading-spinner-overlay";
 
 import SearchBar from "../../../components/SearchBar";
-import ButtonAddAuction from "./ButtonAddAuction";
+import ButtonAddAuction from "./modales/ButtonAddAuction";
 import AuctionsList from "./AuctionsList";
 import * as marketServices from "../../../services/market.services";
 import * as albumServices from "../../../services/inventory.services";
-import PlayerCardMS from "../../../components/PlayerCardMS";
 import { ActivityIndicator } from "react-native-paper";
 
 const { height, width } = Dimensions.get("window");
@@ -48,10 +44,10 @@ export default function Shop({ navigation }) {
 
 	const dataPosition = [
 		{ key: "", value: "Posición" },
-		{ key: "forward", value: "Delantero" },
-		{ key: "midfielder", value: "Medio Campo" },
-		{ key: "defender", value: "Defensa" },
 		{ key: "goalkeeper", value: "Arquero" },
+		{ key: "defender", value: "Defensa" },
+		{ key: "midfielder", value: "Medio Campista" },
+		{ key: "forward", value: "Delantero" },
 	];
 
 	const [isFocusE, setIsFocusE] = useState(false);
@@ -172,66 +168,64 @@ export default function Shop({ navigation }) {
 					</View>
 				</View>
 
-				<View style={{ flex: 0.85 }}>
-					<View style={styles.filterContainer}>
-						<View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
-							<TouchableOpacity>
-								<LinearGradient
-									colors={["#D13256", "#FE5F42"]}
-									style={{ borderRadius: 15, padding: 3 }}
-								>
-									<Entypo name="help" size={22} color="white" />
-								</LinearGradient>
-							</TouchableOpacity>
+				<View style={{ flex: 0.85, width: '100%' }}>
+					<View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
+						<TouchableOpacity>
+							<LinearGradient
+								colors={["#D13256", "#FE5F42"]}
+								style={{ borderRadius: 15, padding: 3 }}
+							>
+								<Entypo name="help" size={22} color="white" />
+							</LinearGradient>
+						</TouchableOpacity>
+					</View>
+
+					<SearchBar
+						searchPhrase={playerNameQuery}
+						setSearchPhrase={setPlayerNameQuery}
+					/>
+
+					<View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+						<View style={{ width: '40%' }}>
+							<SelectList
+								setSelected={(val) => setTeamQuery(val)}
+								data={teams}
+								save="key"
+								placeholder={!isFocusE ? "Equipos" : "..."}
+								onFocus={() => setIsFocusE(true)}
+								boxStyles={{ borderColor: '#E7484D', marginVertical: 10 }}
+								inputStyles={{ color: "#3D405B", fontWeight: 'bold' }}
+							/>
 						</View>
-
-						<SearchBar
-							searchPhrase={playerNameQuery}
-							setSearchPhrase={setPlayerNameQuery}
-						/>
-
-						<View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-							<View style={{ width: '40%' }}>
-								<SelectList
-									setSelected={(val) => setTeamQuery(val)}
-									data={teams}
-									save="key"
-									placeholder={!isFocusE ? "Equipos" : "..."}
-									onFocus={() => setIsFocusE(true)}
-									boxStyles={{ borderColor: '#E7484D', marginVertical: 10 }}
-									inputStyles={{ color: "#3D405B", fontWeight: 'bold' }}
-								/>
-							</View>
-							<View style={{ width: '40%' }}>
-								<SelectList
-									setSelected={(val) => setPositionQuery(val)}
-									data={dataPosition}
-									save="key"
-									placeholder={!isFocus ? "Posición" : "..."}
-									onFocus={() => setIsFocus(true)}
-									boxStyles={{ borderColor: '#E7484D', marginVertical: 10 }}
-									inputStyles={{ color: "#3D405B", fontWeight: 'bold' }}
-								/>
-							</View>
+						<View style={{ width: '40%' }}>
+							<SelectList
+								setSelected={(val) => setPositionQuery(val)}
+								data={dataPosition}
+								save="key"
+								placeholder={!isFocus ? "Posición" : "..."}
+								onFocus={() => setIsFocus(true)}
+								boxStyles={{ borderColor: '#E7484D', marginVertical: 10 }}
+								inputStyles={{ color: "#3D405B", fontWeight: 'bold' }}
+							/>
 						</View>
 					</View>
-				{/* Lista */}
-				<View style={styles.containerList} >
-					{opciones == 2 && (
-						<ButtonAddAuction triggerReload={triggerReload} />
-					)}
-					{loading && <ActivityIndicator size="small" color="#E7484D" />}
-					{!loading && (
-						<AuctionsList
-							auctions={auctions}
-							opciones={opciones}
-							paginate={paginate}
-							setPage={setPage}
-							nextPage={loadAuctionsList}
-							triggerReload={triggerReload}
-						/>
-					)}
-				</View>
+					{/* Lista */}
+					<View style={styles.containerList} >
+						{opciones == 2 && (
+							<ButtonAddAuction triggerReload={triggerReload} />
+						)}
+						{loading && <ActivityIndicator size="small" color="#E7484D" />}
+						{!loading && (
+							<AuctionsList
+								auctions={auctions}
+								opciones={opciones}
+								paginate={paginate}
+								setPage={setPage}
+								nextPage={loadAuctionsList}
+								triggerReload={triggerReload}
+							/>
+						)}
+					</View>
 				</View>
 
 
@@ -290,9 +284,6 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		color: "#3D405B",
 		textAlign: "center"
-	},
-	filterContainer: {
-		width: '100%',
 	},
 	containerList: {
 		flex: 1,
