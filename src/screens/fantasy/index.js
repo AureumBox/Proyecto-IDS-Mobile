@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   fondo: {
     flex: 1,
     backgroundColor: "#EAEAEA",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   container: {
     flex: 0.97,
@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E2DCDC",
     alignSelf: "center",
     justifyContent: "space-between",
+		borderRadius: 10
   },
   containerHeader: {
     flex: 0.15,
