@@ -6,11 +6,12 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import setInputNumber from "../../../utils/setInputNumber";
 
 import { ModalPopup } from "../../../components/ModalPopup";
 import * as marketServices from "../../../services/market.services";
@@ -43,6 +44,7 @@ export default function CreateBid({
   const postBid = async () => {
     setLoading(true);
     try {
+      console.log(bid)
       const data = await marketServices.postBid(
         token,
         currentEventId,
@@ -153,7 +155,7 @@ export default function CreateBid({
               style={styles.oferta}
               keyboardType={"numeric"}
               value={bid}
-              onChangeText={(text) => setBid(text)}
+              onChangeText={(text) => setInputNumber(text, setBid)}
             />
           </LinearGradient>
           <Text
@@ -193,7 +195,7 @@ export default function CreateBid({
             <MaterialIcons name="attach-money" size={18} color="white" />
           </LinearGradient>
           <Text style={{ fontWeight: "600", marginLeft: 2 }}>
-            {bid ? money - bid - auctionData?.initialPurchaseValue : money}
+            {money - bid - auctionData?.initialPurchaseValue}
           </Text>
         </View>
       </View>
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
     height: 85,
     alignSelf: "center",
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20
+    borderTopRightRadius: 20,
   },
   circuloBlanco: {
     width: 120,
@@ -243,9 +245,9 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     alignSelf: "center",
     position: "absolute",
-		borderWidth: 7,
-		borderColor: 'white',
-		zIndex: 999,
+    borderWidth: 7,
+    borderColor: "white",
+    zIndex: 999,
     marginTop: 15,
   },
   circuloDeg: {
@@ -257,11 +259,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   fotocirculo: {
-		width: '99%',
-		height: '99%',
+    width: "99%",
+    height: "99%",
     resizeMode: "contain",
     alignSelf: "center",
-		overflow: 'hidden'
+    overflow: "hidden",
   },
   subtexto: {
     fontSize: 11,

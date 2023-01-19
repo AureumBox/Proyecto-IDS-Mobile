@@ -5,13 +5,14 @@ import {
   View,
   Image,
   TouchableOpacity,
-  TextInput
+  TextInput,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 import { ModalPopup } from "../../../components/ModalPopup";
+import setInputNumber from "../../../utils/setInputNumber";
 import * as marketServices from "../../../services/market.services";
 
 export default function EditBid({ auctionData = {}, setVisible, visible }) {
@@ -89,7 +90,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
           style={styles.fotocirculo}
         />
       </LinearGradient>
-			
+
       <Text style={styles.nombreJugador}>
         {auctionData?.market?.sticker?.playerName}
       </Text>
@@ -168,7 +169,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
               style={styles.oferta}
               keyboardType={"numeric"}
               value={bid}
-              onChangeText={(text) => setBid(text)}
+              onChangeText={(text) => setInputNumber(text, setBid)}
             />
           </LinearGradient>
           <Text
@@ -256,9 +257,9 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     alignSelf: "center",
     position: "absolute",
-		borderWidth: 7,
-		borderColor: 'white',
-		zIndex: 999,
+    borderWidth: 7,
+    borderColor: "white",
+    zIndex: 999,
     marginTop: 15,
   },
   circuloDeg: {
@@ -270,11 +271,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   fotocirculo: {
-		width: '99%',
-		height: '99%',
+    width: "99%",
+    height: "99%",
     resizeMode: "contain",
     alignSelf: "center",
-		overflow: 'hidden'
+    overflow: "hidden",
   },
   subtexto: {
     fontSize: 11,

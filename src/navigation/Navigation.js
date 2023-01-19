@@ -7,6 +7,7 @@ import Home from '../screens/homePageAuth/landingPage/HomeScreen';
 import LogIn from '../screens/homePageAuth/LogIn';
 import SignIn from '../screens/homePageAuth/SignIn';
 import PWRecovery from '../screens/homePageAuth/PWRecovery';
+import PWCode from '../screens/homePageAuth/PWCode';
 import PWReset from '../screens/homePageAuth/PWReset';
 import BottomNavBar from '../screens/BottomNavBar';
 
@@ -23,6 +24,7 @@ export default function Navigation() {
                 <Stack.Screen name={'LogIn'} component={LogIn} />
                 <Stack.Screen name={'SignIn'} component={SignIn} />
                 <Stack.Screen name={'PWRecovery'} component={PWRecovery} />
+                <Stack.Screen name={'PWCode'} component={PWCode} />
                 <Stack.Screen name={'PWReset'} component={PWReset} />
                 <Stack.Screen name={'BottomNavBar'} component={BottomNavBar} />
             </Stack.Navigator>

@@ -146,6 +146,7 @@ export const postBid = async (
 	isDirectPurchase
 ) => {
 	try {
+		console.log(bid)
 		const { data } = await axios.post(
 			`${BASE_URL}${eventId}/market/bid`,
 			{
@@ -159,6 +160,7 @@ export const postBid = async (
 				},
 			}
 		);
+		console.log(data)
 		return data;
 	} catch (e) {
 		throw new Error(e?.response?.data?.message || "Error Desconocido");

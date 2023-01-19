@@ -8,11 +8,10 @@ import {
 	TouchableOpacity,
 	TextInput,
 } from "react-native";
-import { useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-
+import setInputNumber from "../../../utils/setInputNumber";
 import { ModalPopup } from "../../../components/ModalPopup";
 
 export default function CreateAuction({
@@ -23,33 +22,10 @@ export default function CreateAuction({
 }) {
 	const { height, width } = Dimensions.get("window");
 	const hideDialog = () => setVisible(false);
-	const [text, setText] = useState("");
 
-	const { token } = useSelector((state) => state.auth);
-	const { currentEventId } = useSelector((state) => state.auth);
 	const [directPurchase, setDirectPurchase] = useState({});
 	const [loading, setLoading] = useState(true);
 	const [initialValue, setInitialValue] = useState(0);
-
-	/* const postAuction = async () => {
-		setLoading(true);
-		try {
-			const data = await marketServices.postAuction(
-				token,
-				currentEventId,
-				initialValue,
-				directPurchase,
-				player?.id
-			);
-			alert(data.message);
-		} catch (error) {
-			// Toast.error(error.message);
-			alert(error.message);
-		} finally {
-			setLoading(false);
-			setVisible(false)
-		}
-	}; */
 
 	return (
 		<ModalPopup visible={visible}>
@@ -119,7 +95,7 @@ export default function CreateAuction({
 							style={styles.oferta}
 							keyboardType={"numeric"}
 							value={directPurchase}
-							onChangeText={(text) => setDirectPurchase(text)}
+							onChangeText={(text) => setInputNumber(text, setDirectPurchase)}
 						/>
 					</LinearGradient>
 				</View>

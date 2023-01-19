@@ -10,29 +10,31 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
-import Spinner from "react-native-loading-spinner-overlay";
 import Container, { Toast } from "toastify-react-native";
-
-import { forgotPasswordEmail } from "../../services/auth.services";
+import { LinearGradient } from "expo-linear-gradient";
 import logoImg from "../../../assets/app/logoVertical.png";
+import { forgotPasswordCode } from "../../services/auth.services";
+import { setCode } from "../../state/authSlice.js";
 
 const { width, height } = Dimensions.get("window");
 
-export default function PWRecovery({ navigation }) {
+export default function PWCode({ navigation }) {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
+  const dispatch = useDispatch();
 
-  const sendEmail = async (email) => {
+  const sendCode = async (code) => {
     try {
-      if (email == "") throw new Error("Ingrese un correo");
+      if (code == "") throw new Error("Ingrese un código");
 
       setLoading(true);
-      const response = await forgotPasswordEmail(email);
+      const response = await forgotPasswordCode(code);
       alert(response.message);
       // Toast.error(response.message);
-      navigation.navigate("PWCode");
+      navigation.navigate("PWReset");
     } catch (error) {
       // Toast.error(error.message);
       alert(error.message);
@@ -43,23 +45,16 @@ export default function PWRecovery({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Spinner
-        visible={loading}
-        size="large"
-        color="#E7484D"
-        overlayColor="#FFFFFF50"
-      />
-	  <Container position="top" />
+      <Container position="top" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <Image style={styles.logoSt} source={logoImg} />
         </View>
         <View style={styles.contentContainer}>
-          <Text style={styles.body}>¿Olvidaste tu contraseña?</Text>
+          <Text style={styles.body}>Recuperar contraseña</Text>
           <Text style={styles.text}>
-            No te preocupes, puede suceder. Por favor ingresa tu Correo
-            Electrónico. Estaremos enviandote un correo para reiniciar tu
-            contraseña
+            No te preocupes, puede suceder. Por favor ingresa tu Código.
+            Estaremos enviandote un correo para reiniciar tu contraseña
           </Text>
           <View style={styles.inputContainer}>
             <Ionicons
@@ -70,14 +65,18 @@ export default function PWRecovery({ navigation }) {
             />
             <TextInput
               style={styles.inputText}
-              placeholder="Correo Electrónico"
+              placeholder="Código"
               autoCorrect={false}
-			  keyboardType="email-address"
-			  onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => setCode(text)}
             />
           </View>
           {/* Boton Reiniciar Contraseña */}
-          <TouchableOpacity onPress={() => sendEmail(email)}>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(setCode(code));
+              sendCode(code);
+            }}
+          >
             <LinearGradient
               colors={["#D13256", "#FE5F42"]}
               style={styles.logInButton}

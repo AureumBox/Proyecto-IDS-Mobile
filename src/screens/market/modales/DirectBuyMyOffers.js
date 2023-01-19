@@ -8,16 +8,13 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { ModalPopup } from "../../../components/ModalPopup";
 import * as marketServices from "../../../services/market.services";
-
-{
-  /* <Ionicons name={"time-outline"} color={"black"} size={22} /> */
-}
+import { setMoney } from "../../../state/authSlice";
 
 export default function DirectBuy({
   auctionData = {},
@@ -31,6 +28,8 @@ export default function DirectBuy({
   const { token } = useSelector((state) => state.auth);
   const { money } = useSelector((state) => state.auth);
   const { currentEventId } = useSelector((state) => state.auth);
+  
+  const dispatch = useDispatch()
 
   const postBuy = async () => {
     setLoading(true);
@@ -42,6 +41,7 @@ export default function DirectBuy({
         auctionData?.id,
         true
       );
+      dispatch(setMoney(money - auctionData?.market?.immediatePurchaseValue))
       alert(data.message);
       triggerReload();
     } catch (error) {
