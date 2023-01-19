@@ -45,7 +45,6 @@ export default function CreateBid({
   const postBid = async () => {
     setLoading(true);
     try {
-      console.log(bid + auctionInfo?.highestBid?.value)
       const data = await marketServices.postBid(
         token,
         currentEventId,

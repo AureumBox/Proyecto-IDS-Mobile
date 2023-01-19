@@ -37,15 +37,6 @@ export default function DirectBuy({
   const postBuy = async () => {
     setLoading(true);
     try {
-      console.log("sad");
-      console.log(
-        token,
-        currentEventId,
-        auctionInfo?.market?.immediatePurchaseValue,
-        auctionData?.market?.id,
-        auctionInfo?.myLastBid?.id,
-        true
-      );
       const data = await marketServices.updateBid(
         token,
         currentEventId,

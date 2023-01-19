@@ -100,7 +100,6 @@ export const fetchAuctionInfo = async (token, eventId, auctionId) => {
         },
       }
     );
-    console.log(data);
     if (!data?.success) throw new Error(data?.message);
     return data;
   } catch (e) {
@@ -146,7 +145,6 @@ export const postBid = async (
   isDirectPurchase
 ) => {
   try {
-    console.log(isDirectPurchase);
     const { data } = await axios.post(
       `${BASE_URL}${eventId}/market/bid`,
       {
@@ -175,13 +173,6 @@ export const updateBid = async (
   isDirectPurchase = false
 ) => {
   try {
-    console.log(isDirectPurchase);
-    console.log(token,
-		eventId,
-		marketId,
-		value,
-		bidId,
-		isDirectPurchase);
     const { data } = await axios.put(
       BASE_URL + eventId + "/market/update/" + bidId,
       {
@@ -195,7 +186,6 @@ export const updateBid = async (
         },
       }
     );
-    console.log(data);
     return data;
   } catch (e) {
     throw new Error(e?.response?.data?.message || "Error Desconocido");
