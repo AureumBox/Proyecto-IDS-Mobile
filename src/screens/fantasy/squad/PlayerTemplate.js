@@ -63,7 +63,7 @@ export default function PlayerTemplate({ player = {} }) {
 				{isInLineup(player?.isInLineup)}
 
 				<Text style={styles.playerPts}>PTS</Text>
-				<Text style={styles.playerScore}>150</Text>
+				<Text style={styles.playerScore}>{player?.latestPoints}</Text>
 			</View>
 		</View>
 	);

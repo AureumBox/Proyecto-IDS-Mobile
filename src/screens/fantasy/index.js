@@ -28,6 +28,7 @@ export default function Fantasy() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [squadChange, setSquadChange] = useState(false);
+  const [points, setPoints] = useState(false);
 
   const [arrayGoalkeepers, setArrayGoalkeepers] = useState([]);
   const [arrayDefenders, setArrayDefenders] = useState([]);
@@ -130,6 +131,26 @@ export default function Fantasy() {
     }
   };
 
+  const loadRanking = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await fantasyServices.fetchRanking(
+        token,
+        currentEventId,
+        0
+      );
+      setPoints(data?.myPosition?.points);
+    } catch (error) {
+      // Toast.error(error.message);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  useEffect(() => {
+    loadRanking();
+  }, [loadRanking]);
+
   return (
     <View style={styles.fondo}>
       <Spinner
@@ -176,7 +197,7 @@ export default function Fantasy() {
           <>
             <View style={styles.containerScore}>
               <View style={{ justifyContent: "center" }}>
-                <Text style={styles.textScore}>150 PTS</Text>
+                <Text style={styles.textScore}>{points} PTS</Text>
                 <TouchableOpacity
                   onPress={() => setHelpLineup(true)}
                   style={styles.helpButton}
@@ -233,7 +254,7 @@ const styles = StyleSheet.create({
   fondo: {
     flex: 1,
     backgroundColor: "#EAEAEA",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   container: {
     flex: 0.97,
@@ -241,14 +262,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#E3E2E6",
     alignSelf: "center",
     justifyContent: "space-between",
-		borderRadius: 10
+    borderRadius: 10,
   },
   containerHeader: {
     flex: 0.15,
     width: "100%",
     backgroundColor: "#D7D3DA",
     borderRadius: 10,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   containerButtons: {
     flexDirection: "row",

@@ -68,7 +68,7 @@ export default function AddPlayerCard({ player = {}, postAuction }) {
 							<Text
 								style={{ fontSize: 28, color: "#3D405B", fontWeight: "800" }}
 							>
-								49
+								{player?.latestPoints}
 							</Text>
 						</View>
 					</View>
