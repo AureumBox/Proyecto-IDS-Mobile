@@ -17,6 +17,8 @@ import ButtonAddAuction from "./modales/ButtonAddAuction";
 import AuctionsList from "./AuctionsList";
 import * as marketServices from "../../services/market.services";
 import * as albumServices from "../../services/inventory.services";
+import infoMarket from "../../../assets/app/helpMarket";
+import HelpSlider from "../../components/helpSlider/HelpSlider";
 import { ActivityIndicator } from "react-native-paper";
 
 export default function Market() {
@@ -28,6 +30,7 @@ export default function Market() {
 	const [paginate, setPaginate] = useState({});
 	const [page, setPage] = useState(0);
 	const [auctions, setAuctions] = useState([]);
+	const [helpMarket, setHelpMarket] = useState(false);
 
 	const [playerNameQuery, setPlayerNameQuery] = useState("");
 	const [teamQuery, setTeamQuery] = useState("");
@@ -125,6 +128,13 @@ export default function Market() {
 
 	return (
 		<View style={styles.fondo}>
+			<HelpSlider
+				sliderContent={infoMarket}
+				isVisible={helpMarket}
+				onClose={() => {
+					setHelpMarket(false);
+				}}
+			/>
 			<Container position="top" />
 			<View style={styles.container}>
 				<View style={styles.containerHeader}>
@@ -167,7 +177,9 @@ export default function Market() {
 
 				<View style={{ flex: 0.85, width: '100%' }}>
 					<View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => setHelpMarket(true)}
+						>
 							<LinearGradient
 								colors={["#D13256", "#FE5F42"]}
 								style={{ borderRadius: 15, padding: 3 }}
