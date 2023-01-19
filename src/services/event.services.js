@@ -4,10 +4,10 @@ import Constants from "expo-constants";
 const BASE_URL = Constants.expoConfig.extra.apiUrl;
 
 export const joinGame = async (token, eventId) => {
-
   try {
     const data = await axios.post(
-      `${BASE_URL}/public-events/${eventId}/join-game`,{},
+      `${BASE_URL}/public-events/${eventId}/join-game`,
+      {},
       {
         headers: {
           Authorization: "Bearer " + token,
@@ -56,8 +56,6 @@ export const fetchEventInfo = async (token, eventId) => {
         Authorization: "Bearer " + token,
       },
     });
-
-    console.log(data)
 
     if (!data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
