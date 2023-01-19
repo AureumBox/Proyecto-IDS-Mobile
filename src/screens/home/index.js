@@ -137,7 +137,7 @@ export default function Home({ navigation }) {
   };
   useEffect(() => {
     loadAlbumPercentage();
-  }, [token]);
+  }, [token, currentEventId]);
 
   const stickerStatus = useCallback(async () => {
     setLoading(true);
