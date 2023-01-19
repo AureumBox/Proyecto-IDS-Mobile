@@ -22,7 +22,9 @@ export default function PWReset({ navigation }) {
 	const [showConf, setShowConf] = useState(true);
 	return (
 		<View style={styles.container}>
-			<ScrollView>
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+			>
 				<View style={styles.imageContainer}>
 					<Image style={styles.logoSt} source={logoImg} />
 				</View>

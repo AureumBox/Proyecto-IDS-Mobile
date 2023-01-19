@@ -5,7 +5,7 @@ import {
 	View,
 	TouchableOpacity
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { SelectList } from "react-native-dropdown-select-list";
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo, AntDesign } from "@expo/vector-icons";

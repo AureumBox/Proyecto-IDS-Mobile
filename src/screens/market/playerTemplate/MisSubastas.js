@@ -39,8 +39,6 @@ export default function PlayerCardMS({ auctionData = {} }) {
 		forward: "Delantero",
 	};
 
-	console.table('Auction', auctionData)
-
 	return (
 		<>
 			<View style={styles.container}>

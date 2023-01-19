@@ -95,13 +95,13 @@ export default function DirectBuy({
       <View style={styles.circuloBlanco} />
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.circuloDeg}>
         <Image
-          source={{ uri: auctionData?.market?.sticker?.img }}
+          source={{ uri: auctionData?.sticker?.img }}
           style={styles.fotocirculo}
         />
       </LinearGradient>
 
       <Text style={styles.nombreJugador}>
-        {auctionData?.market?.sticker?.playerName}
+        {auctionData?.sticker?.playerName}
       </Text>
 
       <View style={{ width: "100%", height: 70, flexDirection: "row" }}>

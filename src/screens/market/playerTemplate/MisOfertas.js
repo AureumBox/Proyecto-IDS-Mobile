@@ -12,7 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import styles from './styles';
 import EditBid from "../modales/EditBid";
-import DirectBuy from "../modales/DirectBuy";
+import DirectBuy from "../modales/DirectBuyMyOffers";
 import MoneyIcon from "../../../../assets/app/moneyIcon.png";
 
 const { height, width } = Dimensions.get("window");

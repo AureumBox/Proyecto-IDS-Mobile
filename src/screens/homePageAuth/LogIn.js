@@ -53,7 +53,9 @@ export default function LogIn({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<ScrollView>
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+			>
 				<View style={styles.imageContainer}>
 					<Image style={styles.logoSt} source={logoImg} />
 				</View>

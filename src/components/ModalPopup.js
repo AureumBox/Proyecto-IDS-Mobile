@@ -45,7 +45,7 @@ export const ModalPopup = ({ visible, children }) => {
 
 const styles = StyleSheet.create({
 	modalContainer: {
-		width: '80%',
+		width: '90%',
 		backgroundColor: 'white',
 		borderRadius: 25,
 		elevation: 20,

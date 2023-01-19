@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.97,
     width: "90%",
-    backgroundColor: "#E2DCDC",
+    backgroundColor: "#E3E2E6",
     alignSelf: "center",
     justifyContent: "space-between",
 		borderRadius: 10
@@ -246,9 +246,9 @@ const styles = StyleSheet.create({
   containerHeader: {
     flex: 0.15,
     width: "100%",
-    backgroundColor: "#D5CED6",
+    backgroundColor: "#D7D3DA",
     borderRadius: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 10
   },
   containerButtons: {
     flexDirection: "row",
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   containerScore: {
     flex: 0.1,
     width: "100%",
-    backgroundColor: "#D5CED6",
+    backgroundColor: "#D7D3DA",
     borderRadius: 10,
     alignSelf: "center",
     justifyContent: "center",

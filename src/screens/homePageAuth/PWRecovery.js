@@ -19,7 +19,9 @@ const { width, height } = Dimensions.get('window');
 export default function PWRecovery({ navigation }) {
 	return (
 		<View style={styles.container}>
-			<ScrollView>
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+			>
 				<View style={styles.imageContainer}>
 					<Image style={styles.logoSt} source={logoImg} />
 				</View>

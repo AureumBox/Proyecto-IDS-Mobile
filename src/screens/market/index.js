@@ -3,10 +3,9 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	Dimensions,
 	TouchableOpacity
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { LinearGradient } from "expo-linear-gradient";
 import Container, { Toast } from "toastify-react-native";
@@ -20,9 +19,7 @@ import * as marketServices from "../../services/market.services";
 import * as albumServices from "../../services/inventory.services";
 import { ActivityIndicator } from "react-native-paper";
 
-const { height, width } = Dimensions.get("window");
-
-export default function Shop({ navigation }) {
+export default function Market() {
 	const [opciones, setOpciones] = useState(1);
 
 	const [loading, setLoading] = useState(1);

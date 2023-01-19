@@ -185,13 +185,6 @@ export default function Squad({ squadChange }) {
 
 			{/* Jugadores fantasy */}
 			<View style={{ flex: 1 }}>
-				<Spinner
-					visible={loading}
-					size='large'
-					color='#E7484D'
-					overlayColor='#FFFFFF50'
-				/>
-
 				<FlatList
 					data={bench}
 					keyExtractor={(_, index) => index.toString()}
@@ -199,6 +192,7 @@ export default function Squad({ squadChange }) {
 					onEndReached={() => {
 						if (page < paginate?.pages - 1) setPage(page + 1);
 					}}
+					showsVerticalScrollIndicator={false}
 					renderItem={({ item }) => {
 						return (
 							<TouchableOpacity
