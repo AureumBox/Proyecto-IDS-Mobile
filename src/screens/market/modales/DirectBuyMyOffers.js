@@ -38,7 +38,7 @@ export default function DirectBuy({
     setLoading(true);
     try {
       console.log("sad");
-      const data = await marketServices.updateBid(
+      console.log(
         token,
         currentEventId,
         auctionInfo?.market?.immediatePurchaseValue,
@@ -46,9 +46,16 @@ export default function DirectBuy({
         auctionInfo?.myLastBid?.id,
         true
       );
+      const data = await marketServices.updateBid(
+        token,
+        currentEventId,
+        auctionInfo?.market?.id,
+        0,
+        auctionInfo?.myLastBid?.id,
+        true
+      );
       dispatch(setMoney(money - auctionData?.market?.immediatePurchaseValue));
       alert(data.message);
-      triggerReload();
     } catch (error) {
       // Toast.error(error.message);
       alert(error.message);
