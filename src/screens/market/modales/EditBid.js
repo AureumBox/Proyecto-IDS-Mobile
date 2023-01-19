@@ -7,12 +7,13 @@ import {
   TouchableOpacity,
   TextInput
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 import { ModalPopup } from "../../../components/ModalPopup";
 import * as marketServices from "../../../services/market.services";
+import { setMoney } from "../../../state/authSlice";
 
 export default function EditBid({ auctionData = {}, setVisible, visible }) {
   const { token } = useSelector((state) => state.auth);
@@ -21,7 +22,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
   const [auctionInfo, setAuctionInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [bid, setBid] = useState(0);
-
+  const dispatch = useDispatch();
 
   const editBid = async () => {
     setLoading(true);
@@ -33,6 +34,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
         bid,
         auctionInfo?.myLastBid?.id
       );
+      dispatch(setMoney(money - bid));
       alert(data.message);
       setVisible(false);
     } catch (error) {
@@ -203,7 +205,7 @@ export default function EditBid({ auctionData = {}, setVisible, visible }) {
               <MaterialIcons name="attach-money" size={18} color="white" />
             </LinearGradient>
             <Text style={{ fontWeight: "600", marginLeft: 2 }}>
-              {money - auctionInfo?.highestBid?.value - bid}
+              {money  - bid}
             </Text>
           </View>
         </View>

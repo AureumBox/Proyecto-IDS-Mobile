@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { ModalPopup } from "../../../components/ModalPopup";
 import * as marketServices from "../../../services/market.services";
+import { setMoney } from "../../../state/authSlice";
 
 {
   /* <Ionicons name={"time-outline"} color={"black"} size={22} /> */
@@ -31,17 +32,21 @@ export default function DirectBuy({
   const { token } = useSelector((state) => state.auth);
   const { money } = useSelector((state) => state.auth);
   const { currentEventId } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const postBuy = async () => {
     setLoading(true);
     try {
-      const data = await marketServices.postBid(
+      console.log("sad");
+      const data = await marketServices.updateBid(
         token,
         currentEventId,
         auctionInfo?.market?.immediatePurchaseValue,
-        auctionData?.id,
+        auctionData?.market?.id,
+        auctionInfo?.myLastBid?.id,
         true
       );
+      dispatch(setMoney(money - auctionData?.market?.immediatePurchaseValue));
       alert(data.message);
       triggerReload();
     } catch (error) {
@@ -59,7 +64,7 @@ export default function DirectBuy({
       const data = await marketServices.fetchAuctionInfo(
         token,
         currentEventId,
-        auctionData.id
+        auctionData?.market?.id
       );
 
       setAuctionInfo(data.item);
@@ -197,9 +202,9 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     alignSelf: "center",
     position: "absolute",
-		borderWidth: 7,
-		borderColor: 'white',
-		zIndex: 999,
+    borderWidth: 7,
+    borderColor: "white",
+    zIndex: 999,
     marginTop: 15,
   },
   circuloDeg: {
@@ -211,11 +216,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   fotocirculo: {
-		width: '99%',
-		height: '99%',
+    width: "99%",
+    height: "99%",
     resizeMode: "contain",
     alignSelf: "center",
-		overflow: 'hidden'
+    overflow: "hidden",
   },
   subtexto: {
     fontSize: 11,

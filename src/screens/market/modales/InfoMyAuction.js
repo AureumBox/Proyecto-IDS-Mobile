@@ -176,7 +176,7 @@ export default function InfoMyAuction({
           >
             <MaterialIcons name="attach-money" size={18} color="white" />
           </LinearGradient>
-          <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.highestBid || "-"}</Text>
+          <Text style={{ fontWeight: "600", marginLeft: 2 }}>{auctionInfo?.highestBid?.value || "-"}</Text>
         </View>
       </View>
 

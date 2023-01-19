@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
   TextInput
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { ModalPopup } from "../../../components/ModalPopup";
 import * as marketServices from "../../../services/market.services";
+import { setMoney } from "../../../state/authSlice";
 
 const convertTime = (finishDate) => {
   const actual = new Date(Date.now());
@@ -39,17 +40,20 @@ export default function CreateBid({
   const [auctionInfo, setAuctionInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [bid, setBid] = useState(0);
+  const dispatch = useDispatch();
 
   const postBid = async () => {
     setLoading(true);
     try {
+      console.log(bid + auctionInfo?.highestBid?.value)
       const data = await marketServices.postBid(
         token,
         currentEventId,
-        bid + auctionInfo?.highestBid?.value,
+        bid + auctionData?.initialPurchaseValue,
         auctionData?.id,
         false
       );
+      dispatch(setMoney(money - bid - auctionData?.initialPurchaseValue ))
       alert(data.message);
       triggerReload();
     } catch (error) {
@@ -193,7 +197,7 @@ export default function CreateBid({
             <MaterialIcons name="attach-money" size={18} color="white" />
           </LinearGradient>
           <Text style={{ fontWeight: "600", marginLeft: 2 }}>
-            {bid ? money - bid - auctionData?.initialPurchaseValue : money}
+            {money - bid - auctionData?.initialPurchaseValue}
           </Text>
         </View>
       </View>

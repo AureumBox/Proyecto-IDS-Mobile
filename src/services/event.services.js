@@ -57,6 +57,8 @@ export const fetchEventInfo = async (token, eventId) => {
       },
     });
 
+    console.log(data)
+
     if (!data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
