@@ -30,8 +30,6 @@ export const fetchBench = async (
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
 
-    console.log(data)
-    
     return data;
   } catch (error) {
     if (error.response) {
@@ -133,7 +131,7 @@ export const fetchRanking = async (token, eventId, page = 0) => {
     if (!data.items || !data.success) {
       throw new Error("No se han recibido bien los datos del servidor :(");
     }
-    
+
     return data;
   } catch (error) {
     if (error.response) {
