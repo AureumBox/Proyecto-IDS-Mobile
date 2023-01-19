@@ -87,7 +87,7 @@ export default function CreateBid({
   }, [loadAuctionsInfo]);
 
   return (
-    <ModalPopup visible={visible}>
+    <ModalPopup visible={visible} special={false}>
       <LinearGradient colors={["#D13256", "#FE5F42"]} style={styles.fondoModal}>
         <TouchableOpacity>
           <Ionicons

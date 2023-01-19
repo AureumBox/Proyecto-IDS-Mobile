@@ -30,7 +30,7 @@ export default function ButtonAddAuction({ triggerReload }) {
 
 	return (
 		<>
-			<ModalPopup visible={visible}>
+			<ModalPopup visible={visible} special={true}>
 				<Bench setVisible={setVisible} triggerReload={triggerReload} />
 			</ModalPopup>
 

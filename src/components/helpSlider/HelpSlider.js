@@ -26,7 +26,7 @@ export default function HelpSlider({ isVisible, onClose, sliderContent }) {
 
 	const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 	return (
-		<ModalPopup visible={isVisible}>
+		<ModalPopup visible={isVisible} special={false}>
 			<TouchableOpacity onPress={onClose}>
 				<AntDesign name="closecircle" size={45} color="#E7484D" style={{ alignSelf: 'flex-end' }}/>
 			</TouchableOpacity>

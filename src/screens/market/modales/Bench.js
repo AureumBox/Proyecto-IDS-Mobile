@@ -201,9 +201,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: '80%',
 		alignSelf: 'center',
-		backgroundColor: '#EAEAEA',
-		borderColor: 'blue',
-		borderWidth: 2
+		backgroundColor: '#EAEAEA'
 	},
 	title: {
 		fontWeight: "bold",

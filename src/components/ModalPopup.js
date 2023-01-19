@@ -6,7 +6,7 @@ import {
 	StyleSheet
 } from 'react-native'
 
-export const ModalPopup = ({ visible, children }) => {
+export const ModalPopup = ({ visible, children, special }) => {
 	const [showModal, setShowModal] = useState(visible);
 	const scaleValue = useRef(new Animated.Value(0)).current;
 
@@ -35,7 +35,7 @@ export const ModalPopup = ({ visible, children }) => {
 	return (
 		<Modal transparent visible={showModal}>
 			<View style={styles.modalBackground}>
-				<Animated.View style={[styles.modalContainer, { transform: [{ scale: scaleValue }] }]}>
+				<Animated.View style={[{...styles.modalContainer, width: special ? '90%' : '80%'}, { transform: [{ scale: scaleValue }] }]}>
 					{children}
 				</Animated.View>
 			</View>
@@ -45,7 +45,6 @@ export const ModalPopup = ({ visible, children }) => {
 
 const styles = StyleSheet.create({
 	modalContainer: {
-		width: '90%',
 		backgroundColor: 'white',
 		borderRadius: 25,
 		elevation: 20,

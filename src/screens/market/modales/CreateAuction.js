@@ -52,7 +52,7 @@ export default function CreateAuction({
 	}; */
 
 	return (
-		<ModalPopup visible={visible}>
+		<ModalPopup visible={visible} special={false}>
 			<Spinner
 				visible={loading}
 				size="large"

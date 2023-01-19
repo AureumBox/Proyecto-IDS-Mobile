@@ -19,7 +19,7 @@ export default function PromotionPopup({
   ad
 }) {
   return (
-    <ModalPopup visible={visible}>
+    <ModalPopup visible={visible} special={false}>
       <View style={{ alignItems: "center" }}>
         <View style={styles.modalHeader} />
       </View>

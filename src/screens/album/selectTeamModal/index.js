@@ -32,7 +32,7 @@ export default function SelectTeamModal({ isVisible, onClose }) {
 	}
 
 	return (
-		<ModalPopup visible={isVisible}>
+		<ModalPopup visible={isVisible} special={false}>
 			<View style={{ paddingHorizontal: 20, height: '80%' }}>
 				<TouchableOpacity onPress={onClose} >
 					<Ionicons
